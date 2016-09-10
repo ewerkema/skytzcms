@@ -13,7 +13,8 @@ class ImportOldCms extends Migration
      */
     public function up()
     {
-        DB::unprepared(file_get_contents(config('skytz.old_cms')));
+        if (config('skytz.old_cms'))
+            DB::unprepared(file_get_contents(config('skytz.old_cms')));
     }
 
     /**

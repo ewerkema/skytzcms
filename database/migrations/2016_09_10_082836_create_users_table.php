@@ -25,7 +25,9 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-        $this->importUsers();
+
+        if (config('skytz.old_cms'))
+            $this->importUsers();
     }
 
     /**
@@ -55,16 +57,7 @@ class CreateUsersTable extends Migration
                 'password' => Hash::make('password')
             ]);
         });
-        $this->dropOldUsersTable();
-    }
-
-    /**
-     * Drop old users table.
-     *
-     * @return void
-     */
-    public function dropOldUsersTable()
-    {
         Schema::drop('skytz_admins');
     }
+
 }

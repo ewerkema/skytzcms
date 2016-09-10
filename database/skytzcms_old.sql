@@ -59,7 +59,7 @@ CREATE TABLE `skytz_albumimages` (
 --
 
 INSERT INTO `skytz_albumimages` (`id`, `serverpath`, `albumid`) VALUES
-(1, '/upload/uploads/images/56bba9a785b94.jpg', '1');
+(1, '/upload/uploads/images/579e11b3344e5.jpg', '1');
 
 -- --------------------------------------------------------
 
@@ -109,7 +109,7 @@ INSERT INTO `skytz_blocks` (`id`, `pageid`, `listorder`, `blockcontent`, `blockw
 (3, 1, 4, '', 'small-12', 1, 0, 0, 1, '1'),
 (5, 2, 0, '<h2>Koptekst van deze pagina</h2>\n\n<p>De teksten zijn een vorm van pseudo-Latijn: ze lijken op het eerste gezicht origineel Latijn te zijn, maar hebben in werkelijkheid volstrekt geen betekenis. De tekst staat vol met spelfouten en verbasteringen. Dat is ook de reden waarom de teksten gebruikt worden door drukkers en zetters: bij een leesbare tekst zou de lezer afgeleid worden door de inhoud, terwijl het alleen om de vormgeving gaat. Bovendien heeft het Lorem ipsum een redelijk normale afwisseling van de verschillende letters en korte en lange woorden, waardoor het beter bruikbaar is dan bijvoorbeeld Dit is een voorbeeldtekst.hvhgjbghvgh</p>\n', 'small-12', 4, 0, 0, 0, ''),
 (6, 1, 5, '', 'small-12', 1, 0, 0, 0, ''),
-(7, 6, 0, '<p>Hallo test pagina</p>\n\n<ul>\n	<li><a href="http://cms.skytz.nl/cms_login/hallo-test">Hallo test</a></li>\n	<li><a href="http://cms.skytz.nl/cms_login/indeling-bewerken1">Indeling bewerken1</a></li>\n	<li><a href="http://cms.skytz.nl/cms_login/index">Beginpagina t</a></li>\n	<li><a href="http://cms.skytz.nl/cms_login/submenu-s">Submenu&#39;s</a></li>\n</ul>\n\n<p><img alt="" src="http://cms.skytz.nl/upload/uploads/slider/56bba9a785b94.jpg" /></p>\n\n<p>&nbsp;</p>\n', 'small-12', 8, 0, 0, 0, ''),
+(7, 6, 0, '<p>Hallo test pagina</p>\n\n<ul>\n	<li><a href="http://cms.skytz.nl/cms_login/hallo-test">Hallo test</a></li>\n	<li><a href="http://cms.skytz.nl/cms_login/indeling-bewerken1">Indeling bewerken1</a></li>\n	<li><a href="http://cms.skytz.nl/cms_login/index">Beginpagina t</a></li>\n	<li><a href="http://cms.skytz.nl/cms_login/submenu-s">Submenu&#39;s</a></li>\n</ul>\n\n<p><img alt="" src="http://cms.skytz.nl/upload/uploads/slider/579e11b3344e5.jpg" /></p>\n\n<p>&nbsp;</p>\n', 'small-12', 8, 0, 0, 0, ''),
 (8, 6, 1, '', 'small-12', 8, 0, 0, 3, '1'),
 (9, 1, 1, '<p>bjguigiu</p>\n\n<p>&nbsp;</p>\n', 'small-12', 1, 0, 0, 0, ''),
 (12, 5, 0, '', 'small-12', 12, 0, 0, 0, ''),
@@ -127,6 +127,9 @@ CREATE TABLE `skytz_docs` (
   `uploaddate` text NOT NULL,
   `filesize` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `skytz_docs` (`id`, `docpath`, `uploaddate`, `filesize`) VALUES
+(1, '/upload/uploads/docs/57d432f386c4a.docx', '10-09-2016 - 18:21:07', '11,37 KB');
 
 -- --------------------------------------------------------
 
@@ -191,8 +194,8 @@ CREATE TABLE `skytz_images` (
 --
 
 INSERT INTO `skytz_images` (`id`, `imagepath`, `uploaddate`) VALUES
-(1, '/upload/uploads/images/56bba9a785b94.jpg', '10-02-2016 - 22:20:39'),
-(2, '/upload/uploads/images/56bba9ab6cf7d.jpg', '10-02-2016 - 22:20:43');
+(1, '/upload/uploads/images/579e11b3344e5.jpg', '10-02-2016 - 22:20:39'),
+(2, '/upload/uploads/images/579e042da93ab.png', '10-02-2016 - 22:20:43');
 
 -- --------------------------------------------------------
 
@@ -282,8 +285,8 @@ CREATE TABLE `skytz_slider` (
 --
 
 INSERT INTO `skytz_slider` (`id`, `imageid`, `imagepath`) VALUES
-(1, 2, '/upload/uploads/slider/56bba9ab6cf7d.jpg'),
-(2, 1, '/upload/uploads/slider/56bba9a785b94.jpg');
+(1, 2, '/upload/uploads/slider/579e042da93ab.jpg'),
+(2, 1, '/upload/uploads/slider/579e11b3344e5.jpg');
 
 -- --------------------------------------------------------
 

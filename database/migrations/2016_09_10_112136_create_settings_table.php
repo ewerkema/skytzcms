@@ -19,7 +19,9 @@ class CreateSettingsTable extends Migration
             $table->string('name');
             $table->string('value');
         });
-        $this->importSettings();
+
+        if (config('skytz.old_cms'))
+            $this->importSettings();
     }
 
     /**
@@ -52,16 +54,7 @@ class CreateSettingsTable extends Migration
                 'value' => $setting
             ]);
         }
-        $this->dropOldTable();
-    }
-
-    /**
-     * Drop old table.
-     *
-     * @return void
-     */
-    public function dropOldTable()
-    {
         Schema::drop('skytz_websettings');
     }
+
 }
