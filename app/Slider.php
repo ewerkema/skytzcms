@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Media extends Model
+class Slider extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,6 +12,14 @@ class Media extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'path', 'mime', 'extension'
+        'name',
     ];
+
+    /**
+     * Define relationships.
+     */
+    public function images()
+    {
+        return $this->hasMany('Media');
+    }
 }

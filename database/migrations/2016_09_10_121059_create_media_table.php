@@ -1,7 +1,7 @@
 <?php
 
-use App\Media;
-use Illuminate\Support\Facades\File;
+use App\Models\Media;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -18,9 +18,14 @@ class CreateMediaTable extends Migration
         Schema::create('media', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->text('description');
             $table->string('path')->unique();
             $table->string('mime');
             $table->string('extension');
+            $table->integer('album_id')->default(0);
+            $table->foreign('album_id')->references('id')->on('albums');
+            $table->integer('slider_id')->default(0);
+            $table->foreign('slider_id')->references('id')->on('sliders');
             $table->timestamps();
         });
 
@@ -49,7 +54,7 @@ class CreateMediaTable extends Migration
     {
         $images = DB::table('skytz_images')->get();
         $images->each(function($image) {
-            $this->createMediaWithOldFile($image->imagepath, config('skytz.upload_images'));
+            Media::createFromFile($image->imagepath, config('skytz.upload_images'));
         });
         Schema::drop('skytz_images');
     }
@@ -63,71 +68,8 @@ class CreateMediaTable extends Migration
     {
         $docs = DB::table('skytz_docs')->get();
         $docs->each(function($document) {
-            $this->createMediaWithOldFile($document->docpath, config('skytz.upload_docs'));
+            Media::createFromFile($document->docpath, config('skytz.upload_docs'));
         });
         Schema::drop('skytz_docs');
-    }
-
-    /**
-     * Import existing media from old table.
-     *
-     * @param $origin
-     * @param $destination
-     */
-    public function createMediaWithOldFile($origin, $destination)
-    {
-        $originPath = base_path($this->fixForwardSlash($origin));
-        $destinationPath = public_path($destination);
-
-        if (!File::exists($originPath)) {
-            echo "File doesn't exist at location \"$originPath\".\n";
-            return;
-        }
-
-        if ($newFile = $this->copyFile($originPath, $destinationPath)) {
-            $newFilePath = $destination . File::name($newFile) . '.' . File::extension($newFile);
-            Media::create([
-                'name' => File::name($newFile),
-                'path' => $newFilePath,
-                'mime' => File::mimeType($newFile),
-                'extension' => File::extension($newFile),
-            ]);
-        } else {
-            echo "Couldn't copy file to location \"$destinationPath\".\n";
-        }
-    }
-
-    /**
-     * Fix path by removing forward slash at the front.
-     *
-     * @return string
-     */
-    public function fixForwardSlash($path)
-    {
-        return ltrim($path, '/');
-    }
-
-    /**
-     * Copy file to directory, and make sure directory exists.
-     * Returns the new directory if the copy was successful.
-     *
-     * @param $path string
-     * @param $newDirectory string
-     * @return string
-     */
-    public function copyFile($path, $newDirectory)
-    {
-        $fileName = File::name($path).'.'.File::extension($path);
-        $newPath = $newDirectory.$fileName;
-
-        if (!File::isDirectory($newDirectory))
-            File::makeDirectory($newDirectory, 0775, true);
-
-        if (!File::copy($path, $newPath)) {
-            echo "Could not move file from \"$path\" to \"".$newPath."\".\n";
-            return false;
-        }
-
-        return $newPath;
     }
 }

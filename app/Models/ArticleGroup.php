@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,6 +20,6 @@ class ArticleGroup extends Model
      */
     public function articles()
     {
-        return $this->hasMany('App\Article');
+        return $this->hasMany('Article');
     }
 }

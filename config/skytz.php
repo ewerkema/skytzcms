@@ -15,7 +15,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Upload directory
+    | Upload directory images
     |--------------------------------------------------------------------------
     |
     | This value determines the upload directory to which images
@@ -26,7 +26,29 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Upload directory
+    | Upload directory album images
+    |--------------------------------------------------------------------------
+    |
+    | This value determines the upload directory to which images
+    | are uploaded to.
+    */
+
+    'upload_album_images' => env('SKYTZ_UPLOAD_ALBUM_IMAGES', 'images\albums\\'),
+
+    /*
+   |--------------------------------------------------------------------------
+   | Upload directory slider images
+   |--------------------------------------------------------------------------
+   |
+   | This value determines the upload directory to which images
+   | are uploaded to.
+   */
+
+    'upload_slider_images' => env('SKYTZ_UPLOAD_SLIDER_IMAGES', 'images\sliders\\'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Upload directory documents
     |--------------------------------------------------------------------------
     |
     | This value determines the upload directory to which documents

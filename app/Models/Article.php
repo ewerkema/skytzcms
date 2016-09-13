@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,8 +12,14 @@ class Article extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'summary', 'body', 'published'
+        'title', 'summary', 'body', 'published',
     ];
+
+    public function setArticleGroup($articleGroup)
+    {
+        $this->attributes['article_group_id'] = $articleGroup->id;
+        $this->save();
+    }
 
     /**
      * Define relationships.

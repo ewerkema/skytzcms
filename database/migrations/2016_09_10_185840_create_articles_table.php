@@ -1,7 +1,8 @@
 <?php
 
-use App\Article;
-use App\ArticleGroup;
+use App\Models\Article;
+use App\Models\ArticleGroup;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -18,12 +19,13 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('article_group_id');
+            $table->foreign('article_group_id')->references('id')->on('article_groups');
             $table->string('title');
             $table->text('summary');
             $table->text('body');
-            $table->integer('article_group_id');
-            $table->foreign('article_group_id')->references('id')->on('article_groups');
             $table->boolean('published')->default(true);
+            $table->softDeletes();
             $table->timestamps();
         });
 
@@ -52,14 +54,19 @@ class CreateArticlesTable extends Migration
         $articles->each(function($article) {
             $date = DateTime::createFromFormat('d-m-Y - H:i:s', $article->date);
 
-            $articleGroup = ArticleGroup::find($article->newsid);
+            try {
+                $articleGroup = ArticleGroup::findOrFail($article->newsid);
+            } catch (ModelNotFoundException $e) {
+                dd("Couldn't find article group with ID ".$article->newsid.": ".$e->getMessage());
+            }
+
             $article = Article::create([
                 'title' => $article->title,
                 'summary' => '',
                 'body' => $article->content,
             ]);
 
-            $article->article_group_id = $articleGroup->id;
+            $article->setArticleGroup($articleGroup);
             $article->setUpdatedAt($date->format('Y-m-d H:i:s'));
             $article->setCreatedAt($date->format('Y-m-d H:i:s'));
             $article->save();
