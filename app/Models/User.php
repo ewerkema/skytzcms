@@ -27,4 +27,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function getName()
+    {
+        return ucfirst($this->attributes['firstname'])." ".ucfirst($this->attributes['lastname']);
+    }
+
 }
