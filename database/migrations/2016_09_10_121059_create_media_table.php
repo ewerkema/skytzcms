@@ -34,6 +34,7 @@ class CreateMediaTable extends Migration
         if (config('skytz.old_cms')) {
             $this->importImages();
             $this->importDocuments();
+            
         }
     }
 
