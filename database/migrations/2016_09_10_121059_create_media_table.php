@@ -24,9 +24,9 @@ class CreateMediaTable extends Migration
             $table->string('path')->unique();
             $table->string('mime');
             $table->string('extension');
-            $table->integer('album_id')->default(0);
+            $table->integer('album_id')->unsigned()->default(0);
             $table->foreign('album_id')->references('id')->on('albums');
-            $table->integer('slider_id')->default(0);
+            $table->integer('slider_id')->unsigned()->default(0);
             $table->foreign('slider_id')->references('id')->on('sliders');
             $table->timestamps();
         });
@@ -34,7 +34,7 @@ class CreateMediaTable extends Migration
         if (config('skytz.old_cms')) {
             $this->importImages();
             $this->importDocuments();
-            
+
         }
     }
 

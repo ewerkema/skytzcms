@@ -17,8 +17,10 @@ class CreateFormFieldsTable extends Migration
     public function up()
     {
         Schema::create('form_fields', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('id');
-            $table->integer('form_id');
+            $table->integer('form_id')->unsigned();
             $table->foreign('form_id')->references('id')->on('forms');
             $table->string('type');
             $table->string('name');

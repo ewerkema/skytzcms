@@ -18,8 +18,10 @@ class CreateArticlesTable extends Migration
     public function up()
     {
         Schema::create('articles', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('id');
-            $table->integer('article_group_id');
+            $table->integer('article_group_id')->unsigned();
             $table->foreign('article_group_id')->references('id')->on('article_groups');
             $table->string('title');
             $table->text('summary');

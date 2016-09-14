@@ -16,6 +16,8 @@ class CreatePagesTable extends Migration
     public function up()
     {
         Schema::create('pages', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('id');
             $table->string('path');
             $table->string('title');
@@ -23,10 +25,10 @@ class CreatePagesTable extends Migration
             $table->text('meta_desc');
             $table->text('meta_keywords');
             $table->boolean('menu')->default(0);
-            $table->integer('parent_id')->default(0);
+            $table->integer('parent_id')->unsigned()->default(0);
             $table->foreign('parent_id')->references('id')->on('pages');
             $table->integer('order')->default(0);
-            $table->integer('header_image_id');
+            $table->integer('header_image_id')->unsigned();
             $table->foreign('header_image_id')->references('id')->on('media');
             $table->integer('pagehits');
             $table->softDeletes();
