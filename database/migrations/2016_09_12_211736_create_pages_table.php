@@ -24,7 +24,6 @@ class CreatePagesTable extends Migration
             $table->text('meta_keywords');
             $table->boolean('menu')->default(0);
             $table->integer('parent_id')->unsigned()->nullable();
-            $table->foreign('parent_id')->references('id')->on('pages');
             $table->integer('order')->default(0);
             $table->integer('header_image_id')->unsigned()->nullable();
             $table->foreign('header_image_id')->references('id')->on('media');
