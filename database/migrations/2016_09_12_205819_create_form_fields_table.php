@@ -56,13 +56,13 @@ class CreateFormFieldsTable extends Migration
                 dd("Couldn't find form with ID ".$formField->formid.": ".$e->getMessage());
             }
 
-            $formField = FormField::create([
+            FormField::create([
                 'type' => $formField->elementtype,
                 'name' => $formField->elementname,
                 'options' => $formField->elementoptions,
                 'required' => $formField->required,
+                'form_id' => $form->id,
             ]);
-            $formField->setForm($form);
         });
         Schema::drop('skytz_formelements');
     }

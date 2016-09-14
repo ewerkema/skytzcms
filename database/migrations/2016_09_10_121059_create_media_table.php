@@ -22,8 +22,8 @@ class CreateMediaTable extends Migration
             $table->string('path')->unique();
             $table->string('mime');
             $table->string('extension');
-            $table->integer('album_id')->unsigned();
-            $table->integer('slider_id')->unsigned();
+            $table->integer('album_id')->unsigned()->nullable();
+            $table->integer('slider_id')->unsigned()->nullable();
             $table->timestamps();
         });
 

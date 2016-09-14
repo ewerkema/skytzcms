@@ -64,9 +64,9 @@ class CreateArticlesTable extends Migration
                 'title' => $article->title,
                 'summary' => '',
                 'body' => $article->content,
+                'article_group_id' => $articleGroup->id,
             ]);
 
-            $article->setArticleGroup($articleGroup);
             $article->setUpdatedAt($date->format('Y-m-d H:i:s'));
             $article->setCreatedAt($date->format('Y-m-d H:i:s'));
             $article->save();

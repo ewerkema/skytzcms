@@ -9,14 +9,8 @@ class FormField extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'type', 'name', 'options', 'required', 'placeholder',
+        'type', 'name', 'options', 'required', 'placeholder', 'form_id',
     ];
-
-    public function setForm($form)
-    {
-        $this->attributes['form_id'] = $form->id;
-        $this->save();
-    }
 
     /**
      * Define relationships.
