@@ -16,18 +16,14 @@ class CreateMediaTable extends Migration
     public function up()
     {
         Schema::create('media', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-
             $table->increments('id');
             $table->string('name');
             $table->text('description');
             $table->string('path')->unique();
             $table->string('mime');
             $table->string('extension');
-            $table->integer('album_id')->unsigned()->default(0);
-            $table->foreign('album_id')->references('id')->on('albums');
-            $table->integer('slider_id')->unsigned()->default(0);
-            $table->foreign('slider_id')->references('id')->on('sliders');
+            $table->integer('album_id')->unsigned();
+            $table->integer('slider_id')->unsigned();
             $table->timestamps();
         });
 
