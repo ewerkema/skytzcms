@@ -20,8 +20,9 @@ class CreateSettingsTable extends Migration
             $table->string('value');
         });
 
-        if (config('skytz.old_cms'))
-            $this->importSettings();
+        ImportTable::reverseImport('skytz_websettings', function ($settings) {
+            $this->importSettings($settings);
+        });
     }
 
     /**
@@ -39,9 +40,8 @@ class CreateSettingsTable extends Migration
      *
      * @return void
      */
-    public function importSettings()
+    public function importSettings($settings)
     {
-        $settings = DB::table('skytz_websettings')->first();
         foreach ($settings as $name => $setting) {
             if ($name == 'id')
                 continue;
@@ -54,7 +54,6 @@ class CreateSettingsTable extends Migration
                 'value' => $setting
             ]);
         }
-        Schema::drop('skytz_websettings');
     }
 
 }

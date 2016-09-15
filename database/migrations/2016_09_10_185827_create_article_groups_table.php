@@ -21,8 +21,11 @@ class CreateArticleGroupsTable extends Migration
             $table->timestamps();
         });
 
-        if (config('skytz.old_cms'))
-            $this->importArticleGroups();
+        ImportTable::import('skytz_newssubjects', function ($articleGroup) {
+            ArticleGroup::create([
+                'title' => $articleGroup->title,
+            ]);
+        });
     }
 
     /**
@@ -33,21 +36,5 @@ class CreateArticleGroupsTable extends Migration
     public function down()
     {
         Schema::drop('article_groups');
-    }
-
-    /**
-     * Import article groups from old database.
-     *
-     * @return void
-     */
-    public function importArticleGroups()
-    {
-        $articleGroups = DB::table('skytz_newssubjects')->get();
-        $articleGroups->each(function ($articleGroup) {
-            ArticleGroup::create([
-               'title' => $articleGroup->title,
-            ]);
-        });
-        Schema::drop('skytz_newssubjects');
     }
 }

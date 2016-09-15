@@ -22,4 +22,5 @@ class ArticleGroup extends Model
     {
         return $this->hasMany('Article');
     }
+
 }

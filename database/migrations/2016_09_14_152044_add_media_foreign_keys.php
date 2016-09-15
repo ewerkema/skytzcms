@@ -27,7 +27,8 @@ class AddMediaForeignKeys extends Migration
     public function down()
     {
         Schema::table('media', function (Blueprint $table) {
-            $table->dropForeign(['slider_id', 'album_id']);
+            $table->dropForeign(['slider_id']);
+            $table->dropForeign(['album_id']);
         });
     }
 }

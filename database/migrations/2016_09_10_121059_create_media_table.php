@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Media;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -27,11 +26,14 @@ class CreateMediaTable extends Migration
             $table->timestamps();
         });
 
-        if (config('skytz.old_cms')) {
-            $this->importImages();
-            $this->importDocuments();
 
-        }
+        ImportTable::import('skytz_images', function ($image) {
+            Media::createFromFile($image->imagepath, config('skytz.upload_images'));
+        });
+
+        ImportTable::import('skytz_docs', function ($document) {
+            Media::createFromFile($document->docpath, config('skytz.upload_docs'));
+        });
     }
 
     /**
@@ -44,31 +46,4 @@ class CreateMediaTable extends Migration
         Schema::drop('media');
     }
 
-    /**
-     * Import existing images from old table.
-     *
-     * @return void
-     */
-    public function importImages()
-    {
-        $images = DB::table('skytz_images')->get();
-        $images->each(function($image) {
-            Media::createFromFile($image->imagepath, config('skytz.upload_images'));
-        });
-        Schema::drop('skytz_images');
-    }
-
-    /**
-     * Import existing documents from old table.
-     *
-     * @return void
-     */
-    public function importDocuments()
-    {
-        $docs = DB::table('skytz_docs')->get();
-        $docs->each(function($document) {
-            Media::createFromFile($document->docpath, config('skytz.upload_docs'));
-        });
-        Schema::drop('skytz_docs');
-    }
 }

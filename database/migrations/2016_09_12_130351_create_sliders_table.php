@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Media;
-use App\Slider;
+use App\Models\Slider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -21,8 +21,17 @@ class CreateSlidersTable extends Migration
             $table->timestamps();
         });
 
-        if (config('skytz.old_cms'))
-            $this->importSliderImages();
+        if (ImportTable::check()) {
+            $slider = Slider::create([
+                'name' => 'Main Slider'
+            ]);
+        }
+
+        ImportTable::import('skytz_slider', function ($image) use ($slider) {
+            $sliderImage = Media::createFromFile($image->imagepath, config('skytz.upload_slider_images'));
+            if ($sliderImage)
+                $sliderImage->setSlider($slider);
+        });
     }
 
     /**
@@ -33,27 +42,5 @@ class CreateSlidersTable extends Migration
     public function down()
     {
         Schema::drop('sliders');
-    }
-
-    /**
-     * Import existing images from old table.
-     *
-     * @return void
-     */
-    public function importSliderImages()
-    {
-        $images = DB::table('skytz_slider')->get();
-
-        $slider = Slider::create([
-            'name' => 'Main Slider'
-        ]);
-
-        $images->each(function($image) use ($slider) {
-            $sliderImage = Media::createFromFile($image->imagepath, config('skytz.upload_slider_images'));
-            if ($sliderImage)
-                $sliderImage->setSlider($slider);
-        });
-
-        Schema::drop('skytz_slider');
     }
 }

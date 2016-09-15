@@ -29,29 +29,7 @@ class CreateArticlesTable extends Migration
             $table->foreign('article_group_id')->references('id')->on('article_groups');
         });
 
-        if (config('skytz.old_cms'))
-            $this->importArticles();
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::drop('articles');
-    }
-
-    /**
-     * Import existing articles from old table.
-     *
-     * @return void
-     */
-    public function importArticles()
-    {
-        $articles = DB::table('skytz_newsitems')->get();
-        $articles->each(function($article) {
+        ImportTable::import('skytz_newsitems', function ($article) {
             $date = DateTime::createFromFormat('d-m-Y - H:i:s', $article->date);
 
             try {
@@ -71,6 +49,16 @@ class CreateArticlesTable extends Migration
             $article->setCreatedAt($date->format('Y-m-d H:i:s'));
             $article->save();
         });
-        Schema::drop('skytz_newsitems');
     }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('articles');
+    }
+
 }
