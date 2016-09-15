@@ -1,7 +1,7 @@
 <?php
 
-use App\Form;
-use App\FormField;
+use App\Models\Form;
+use App\Models\FormField;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
