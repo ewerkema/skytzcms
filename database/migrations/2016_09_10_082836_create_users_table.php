@@ -1,5 +1,6 @@
 <?php
 
+use App\Facades\ImportTable;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
@@ -27,8 +28,15 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
 
-        if (config('skytz.old_cms'))
-            $this->importUsers();
+        ImportTable::import('skytz_admins', function($user) {
+            User::create([
+                'firstname' => '',
+                'lastname' => '',
+                'email' => $user->email,
+                'username' => $user->username,
+                'password' => Hash::make('password')
+            ]);
+        });
     }
 
     /**
@@ -39,26 +47,6 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::drop('users');
-    }
-
-    /**
-     * Import existing users from old table.
-     *
-     * @return void
-     */
-    public function importUsers()
-    {
-        $users = DB::table('skytz_admins')->get();
-        $users->each(function($user) {
-            User::create([
-                'firstname' => '',
-                'lastname' => '',
-                'email' => $user->email,
-                'username' => $user->username,
-                'password' => Hash::make('password')
-            ]);
-        });
-        Schema::drop('skytz_admins');
     }
 
 }

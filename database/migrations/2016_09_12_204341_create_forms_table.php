@@ -23,8 +23,14 @@ class CreateFormsTable extends Migration
             $table->timestamps();
         });
 
-        if (config('skytz.old_cms'))
-            $this->importForms();
+        ImportTable::import('skytz_forms', function ($form) {
+            Form::create([
+                'name' => $form->formname,
+                'email' => $form->formemail,
+                'redirect' => $form->redirect,
+                'message' => $form->thankyou_message,
+            ]);
+        });
     }
 
     /**
@@ -35,24 +41,5 @@ class CreateFormsTable extends Migration
     public function down()
     {
         Schema::drop('forms');
-    }
-
-    /**
-     * Import existing forms from old table.
-     *
-     * @return void
-     */
-    public function importForms()
-    {
-        $forms = DB::table('skytz_forms')->get();
-        $forms->each(function ($form) {
-            Form::create([
-                'name' => $form->formname,
-                'email' => $form->formemail,
-                'redirect' => $form->redirect,
-                'message' => $form->thankyou_message,
-            ]);
-        });
-        Schema::drop('skytz_forms');
     }
 }

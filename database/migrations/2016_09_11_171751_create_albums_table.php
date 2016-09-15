@@ -24,10 +24,24 @@ class CreateAlbumsTable extends Migration
             $table->timestamps();
         });
 
-        if (config('skytz.old_cms')) {
-            $this->importAlbums();
-            $this->importAlbumImages();
-        }
+        ImportTable::import('skytz_albums', function ($album) {
+            Album::create([
+                'name' => $album->albumname,
+                'colorbox' => $album->album_colorbox,
+            ]);
+        });
+
+        ImportTable::import('skytz_albumimages', function ($image) {
+            $albumImage = Media::createFromFile($image->serverpath, config('skytz.upload_album_images'));
+            if ($albumImage) {
+                try {
+                    $album = Album::findOrFail($image->albumid);
+                } catch (ModelNotFoundException $e) {
+                    dd("Couldn't find album with ID ".$image->albumid.": ".$e->getMessage());
+                }
+                $albumImage->setAlbum($album);
+            }
+        });
     }
 
     /**
@@ -40,42 +54,4 @@ class CreateAlbumsTable extends Migration
         Schema::drop('albums');
     }
 
-    /**
-     * Import existing albums from old table.
-     *
-     * @return void
-     */
-    public function importAlbums()
-    {
-        $albums = DB::table('skytz_albums')->get();
-        $albums->each(function ($album) {
-            Album::create([
-                'name' => $album->albumname,
-                'colorbox' => $album->album_colorbox,
-            ]);
-        });
-        Schema::drop('skytz_albums');
-    }
-
-    /**
-     * Import existing images from old table.
-     *
-     * @return void
-     */
-    public function importAlbumImages()
-    {
-        $images = DB::table('skytz_albumimages')->get();
-        $images->each(function($image) {
-            $albumImage = Media::createFromFile($image->serverpath, config('skytz.upload_album_images'));
-            if ($albumImage) {
-                try {
-                    $album = Album::findOrFail($image->albumid);
-                } catch (ModelNotFoundException $e) {
-                    dd("Couldn't find album with ID ".$image->albumid.": ".$e->getMessage());
-                }
-                $albumImage->setAlbum($album);
-            }
-        });
-        Schema::drop('skytz_albumimages');
-    }
 }

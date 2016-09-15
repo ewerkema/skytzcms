@@ -27,29 +27,7 @@ class CreateFormFieldsTable extends Migration
             $table->foreign('form_id')->references('id')->on('forms');
         });
 
-        if (config('skytz.old_cms'))
-            $this->importFormFields();
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::drop('form_fields');
-    }
-
-    /**
-     * Import existing forms fields from old table.
-     *
-     * @return void
-     */
-    public function importFormFields()
-    {
-        $formFields = DB::table('skytz_formelements')->get();
-        $formFields->each(function($formField) {
+        ImportTable::import('skytz_formelements', function ($formField) {
             try {
                 $form = Form::findOrFail($formField->formid);
             } catch (ModelNotFoundException $e) {
@@ -64,6 +42,16 @@ class CreateFormFieldsTable extends Migration
                 'form_id' => $form->id,
             ]);
         });
-        Schema::drop('skytz_formelements');
     }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('form_fields');
+    }
+
 }

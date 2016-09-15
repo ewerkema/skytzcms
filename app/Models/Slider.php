@@ -22,4 +22,5 @@ class Slider extends Model
     {
         return $this->hasMany('Media');
     }
+
 }
