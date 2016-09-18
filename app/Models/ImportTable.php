@@ -24,15 +24,17 @@ class ImportTable extends Model
 
     public function reverseImport($table, $foreachFunc)
     {
-        $data = DB::table($table)->get();
-        $count = count($data);
+        if ($this->check()) {
+            $data = DB::table($table)->get();
+            $count = count($data);
 
-        if ($count == 1) {
-            $foreachFunc($data->first());
-        } else {
-            echo "Couldn't import table $table, because no rows or more than one row exists.";
+            if ($count == 1) {
+                $foreachFunc($data->first());
+            } else {
+                echo "Couldn't import table $table, because no rows or more than one row exists.";
+            }
+
+            Schema::drop($table);
         }
-
-        Schema::drop($table);
     }
 }
