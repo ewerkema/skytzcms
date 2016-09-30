@@ -11,3 +11,8 @@
 |
 */
 
+$factory->define(App\Models\Slider::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->words(3,true),
+    ];
+});

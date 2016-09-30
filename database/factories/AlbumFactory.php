@@ -11,3 +11,9 @@
 |
 */
 
+$factory->define(App\Models\Album::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->words(3,true),
+        'colorbox' => $faker->boolean,
+    ];
+});

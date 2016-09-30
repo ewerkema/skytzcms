@@ -21,6 +21,7 @@ class CreateSlidersTable extends Migration
             $table->timestamps();
         });
 
+        $slider = false;
         if (ImportTable::check()) {
             $slider = Slider::create([
                 'name' => 'Main Slider'
