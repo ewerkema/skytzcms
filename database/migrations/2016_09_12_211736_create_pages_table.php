@@ -17,7 +17,7 @@ class CreatePagesTable extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('path');
+            $table->string('slug');
             $table->string('title');
             $table->string('meta_title');
             $table->text('meta_desc');
@@ -34,7 +34,7 @@ class CreatePagesTable extends Migration
 
         ImportTable::import('skytz_pages', function ($page) {
             $newPage = Page::create([
-                'path' => $page->serverpath,
+                'slug' => $page->serverpath,
                 'title' => $page->pagetitle,
                 'meta_title' => $page->metatitle,
                 'meta_desc' => $page->metadescr,

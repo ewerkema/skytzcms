@@ -1,13 +1,13 @@
-@extends('layouts.app')
+@extends('templates.admin.app', ['template' => 'templates.admin.guest'])
 
 @section('content')
-<div class="container">
-    <div class="row">
+<div class="bootstrap-container">
+    <div class="bootstrap-row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ cms_url('/login') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
@@ -54,7 +54,7 @@
                                     Inloggen
                                 </button>
 
-                                <a class="btn btn-link" href="{{ url('/password/reset') }}">
+                                <a class="btn btn-link" href="{{ cms_url('/password/reset') }}">
                                     Wachtwoord vergeten?
                                 </a>
                             </div>

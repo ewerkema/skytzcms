@@ -8,20 +8,19 @@ use Illuminate\Support\Facades\File;
 class Media extends Model
 {
     protected $table = 'media';
+
     protected $fillable = [
         'name', 'description', 'path', 'mime', 'extension',
     ];
 
-    public function setSlider($slider)
+    public function slider()
     {
-        $this->attributes['slider_id'] = $slider->id;
-        $this->save();
+        return $this->belongsTo('App\Models\Slider');
     }
 
-    public function setAlbum($album)
+    public function album()
     {
-        $this->attributes['album_id'] = $album->id;
-        $this->save();
+        return $this->belongsTo('App\Models\Album');
     }
 
     /**

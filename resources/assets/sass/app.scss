@@ -1,9 +1,21 @@
 
 // Fonts
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+@import url(https://fonts.googleapis.com/css?family=Lato:100,300,400,600);
 
 // Variables
-@import "variables";
+@import "partials/variables";
+
+// Mixins
+@import "partials/mixins";
+
+// Admin design
+@import "admin/style";
+@import "admin/errors";
 
 // Bootstrap
+$icon-font-path: "fonts/bootstrap/";
+
+// Core variables and mixins
+
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";

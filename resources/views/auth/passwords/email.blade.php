@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('templates.admin.app', ['template' => 'templates.admin.guest'])
 
 <!-- Main Content -->
 @section('content')
-<div class="container">
-    <div class="row">
+<div class="bootstrap-container">
+    <div class="bootstrap-row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Wachtwoord herstellen</div>
@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/password/email') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ cms_url('/password/email') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">

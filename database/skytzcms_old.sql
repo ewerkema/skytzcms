@@ -40,7 +40,8 @@ CREATE TABLE `skytz_admins` (
 
 INSERT INTO `skytz_admins` (`id`, `username`, `password`, `email`, `last_login`) VALUES
 (1, 'admin', '89f7774c46993970e74b1ec886032f1a6df009c46760b3ac3e37dd2222844626', 'info@skytz.nl', '27-07-2016 - 10:41:22'),
-(2, 'dennis', '379ec8f2177206366a217554dc342cddeb2d90429d9cd886d251c09de941ec26', 'd.derks@skytz.nl', '11-02-2016 - 14:45:56');
+(2, 'dennis', '379ec8f2177206366a217554dc342cddeb2d90429d9cd886d251c09de941ec26', 'd.derks@skytz.nl', '11-02-2016 - 14:45:56'),
+(3, 'ewerkema', '89f7774c46993970e74b1ec886032f1a6df009c46760b3ac3e37dd2222844626', 'info@codecentral.nl', '27-07-2016 - 10:41:22');
 
 -- --------------------------------------------------------
 

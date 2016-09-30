@@ -6,33 +6,16 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class UserTest extends TestCase
 {
-    private $testAttributes = [
-        'firstname' => 'Martin',
-        'lastname' => 'Kok',
-        'username' => 'skytz',
-        'email' => 'info@skytz.nl',
-    ];
-
     /**
      * Test if adding users to database works.
      *
      * @return void
      */
-    public function testDatabase()
+    public function testUserDatabase()
     {
-        $users = factory(App\Models\User::class, 10)->make();
+        $users = factory(App\Models\User::class, 10)->create();
 
-        $this->assertTrue(count($users) == 10);
-    }
-
-    /**
-     * Test if attributes are added to the database.
-     */
-    public function testAttributes()
-    {
-        $user = factory(App\Models\User::class)->create($this->testAttributes);
-
-        $this->seeInDatabase('users', $this->testAttributes);
+        $this->assertTrue(count($users) == 10, 'Couldn\'t add users to database');
     }
 
     /**
@@ -40,7 +23,7 @@ class UserTest extends TestCase
      */
     public function testGetName()
     {
-        $user = factory(App\Models\User::class)->create($this->testAttributes);
+        $user = factory(App\Models\User::class)->make(['firstname' => 'Martin', 'lastname' => 'Kok']);
 
         $this->assertEquals($user->getName(), "Martin Kok");
     }

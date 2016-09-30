@@ -29,6 +29,8 @@ class User extends Authenticatable
 
     public function getName()
     {
+        if (empty($this->attributes['firstname']) && empty($this->attributes['lastname']))
+            return "Geen naam";
         return ucfirst($this->attributes['firstname'])." ".ucfirst($this->attributes['lastname']);
     }
 
