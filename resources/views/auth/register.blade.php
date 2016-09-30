@@ -1,13 +1,13 @@
-@extends('layouts.app')
+@extends('templates.admin.app', ['template' => 'templates.admin.guest'])
 
 @section('content')
-<div class="container">
-    <div class="row">
+<div class="bootstrap-container">
+    <div class="bootstrap-row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Registreren</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ cms_url('/register') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">

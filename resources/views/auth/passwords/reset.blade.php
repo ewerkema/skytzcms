@@ -1,14 +1,14 @@
-@extends('layouts.app')
+@extends('templates.admin.app', ['template' => 'templates.admin.guest'])
 
 @section('content')
-<div class="container">
-    <div class="row">
+<div class="bootstrap-container">
+    <div class="bootstrap-row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Wachtwoord herstellen</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/password/reset') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ cms_url('/password/reset') }}">
                         {{ csrf_field() }}
 
                         <input type="hidden" name="token" value="{{ $token }}">

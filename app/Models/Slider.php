@@ -20,7 +20,7 @@ class Slider extends Model
      */
     public function images()
     {
-        return $this->hasMany('Media');
+        return $this->hasMany('App\Models\Media');
     }
 
 }

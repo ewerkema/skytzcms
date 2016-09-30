@@ -30,8 +30,7 @@ class CreateSlidersTable extends Migration
 
         ImportTable::import('skytz_slider', function ($image) use ($slider) {
             $sliderImage = Media::createFromFile($image->imagepath, config('skytz.upload_slider_images'));
-            if ($sliderImage)
-                $sliderImage->setSlider($slider);
+            $slider->images()->save($sliderImage);
         });
     }
 

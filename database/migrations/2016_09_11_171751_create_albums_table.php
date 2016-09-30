@@ -34,12 +34,8 @@ class CreateAlbumsTable extends Migration
         ImportTable::import('skytz_albumimages', function ($image) {
             $albumImage = Media::createFromFile($image->serverpath, config('skytz.upload_album_images'));
             if ($albumImage) {
-                try {
-                    $album = Album::findOrFail($image->albumid);
-                } catch (ModelNotFoundException $e) {
-                    dd("Couldn't find album with ID ".$image->albumid.": ".$e->getMessage());
-                }
-                $albumImage->setAlbum($album);
+                $album = Album::find($image->albumid);
+                $album->images()->save($albumImage);
             }
         });
     }

@@ -2,6 +2,10 @@
 // Body
 $body-bg: #f5f8fa;
 
+// Dimensions
+$main-size: 30px;
+$small-size: $main-size / 2;
+
 // Borders
 $laravel-border-color: darken($body-bg, 10%);
 $list-group-border: $laravel-border-color;

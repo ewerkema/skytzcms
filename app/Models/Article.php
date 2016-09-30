@@ -20,7 +20,7 @@ class Article extends Model
      */
     public function articleGroup()
     {
-        return $this->belongsTo('App\ArticleGroup');
+        return $this->belongsTo('App\Models\ArticleGroup');
     }
 
     /**

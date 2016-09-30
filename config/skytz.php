@@ -15,6 +15,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Template
+    |--------------------------------------------------------------------------
+    |
+    | Enter here the name of the template. The files that are located within
+    | public/templates/{template}/ are loaded to the views that are located
+    | in resources/templates/{template}/.
+    */
+
+    'template' => env('SKYTZ_TEMPLATE', 'demosite'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Upload directory images
     |--------------------------------------------------------------------------
     |
