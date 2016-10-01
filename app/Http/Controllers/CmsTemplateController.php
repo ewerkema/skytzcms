@@ -6,18 +6,12 @@ use App\Models\Page;
 use App\Http\Requests;
 use Illuminate\Support\Facades\View;
 
-class CmsPageController extends Controller
+class CmsTemplateController extends Controller
 {
 
     public function __construct()
     {
         $this->middleware('auth');
-    }
-    
-    public function create()
-    {
-        $inputs = Input::all();
-        $page = Page::create(array());
     }
 
     public function show($slug = 'index')
@@ -27,7 +21,7 @@ class CmsPageController extends Controller
         if (!$page)
             abort(404);
 
-        return View::make('templates.admin.app')->with([
+        return View::make('templates.admin.main')->with([
             'page' => $page,
             'template' => 'templates.'.config('skytz.template').'.index'
         ]);

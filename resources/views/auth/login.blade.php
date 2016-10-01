@@ -1,4 +1,4 @@
-@extends('templates.admin.app', ['template' => 'templates.admin.guest'])
+@extends('templates.admin.main', ['template' => 'templates.admin.guest'])
 
 @section('content')
 <div class="bootstrap-container">

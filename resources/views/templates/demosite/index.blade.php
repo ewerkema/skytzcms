@@ -13,7 +13,7 @@
     <script src="{{ template_url('/js/vendor/modernizr.css') }}"></script>
 
     <!-- jQuery -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
     <!-- Main jQuery -->
     <script src="{{ template_url('/css/main.js') }}"></script>
@@ -25,19 +25,19 @@
     <!-- START BLOCK : AdminContents -->
     {{--{IncludeFiles}--}}
     <!-- START BLOCK : LoginScreen -->
-    <script language="javascript">
-        $(document).ready(function(){
-            $.colorbox({inline:true, href:"#admin_login", innerWidth:390, innerHeight:350, overlayClose: false, escKey: false, closeButton: false, open: true, opacity: "0.85"});
-            $('#cboxClose').remove();
-            $(".SkytzCreateSpace").remove();
-            $(".SkytzCms").remove();
-            $('#cboxOverlay').css('background-color', '#58ACE0');
-            $('body').bind('contextmenu', function(e) {
-                return false;
-            });
-            $('#SkytzConnectTo').val('{sitename}');
-        });
-    </script>
+    {{--<script language="javascript">--}}
+        {{--$(document).ready(function(){--}}
+            {{--$.colorbox({inline:true, href:"#admin_login", innerWidth:390, innerHeight:350, overlayClose: false, escKey: false, closeButton: false, open: true, opacity: "0.85"});--}}
+            {{--$('#cboxClose').remove();--}}
+            {{--$(".SkytzCreateSpace").remove();--}}
+            {{--$(".SkytzCms").remove();--}}
+            {{--$('#cboxOverlay').css('background-color', '#58ACE0');--}}
+            {{--$('body').bind('contextmenu', function(e) {--}}
+                {{--return false;--}}
+            {{--});--}}
+            {{--$('#SkytzConnectTo').val('{sitename}');--}}
+        {{--});--}}
+    {{--</script>--}}
     {{--<script type="text/javascript" src="/controller/jquery/jqueryLogin.js"></script>--}}
     <!-- END BLOCK : LoginScreen -->
     {{--{DragDropBlockFiles}--}}
@@ -61,7 +61,7 @@
 {{-- Skytz CMS Header --}}
 @yield('header_cms')
 
-<div class="SkytzCreateSpace"></div>
+
 <!-- SKYTZ CMS -->
 <!-- END BLOCK : ShowAdminOptions -->
 <div class="row">
@@ -134,21 +134,22 @@
                                 <div id="slider-control-nav"></div>
                             </div>
 
-                            <script type="text/javascript">
-                                $(document).ready(function() {
-                                    var slider = $('#slider').leanSlider({
-                                        directionNav: '#slider-direction-nav',
-                                        controlNav: '#slider-control-nav'
-                                    });
-                                });
-                            </script>
+                            {{--<script type="text/javascript">--}}
+                                {{--$(document).ready(function() {--}}
+                                    {{--var slider = $('#slider').leanSlider({--}}
+                                        {{--directionNav: '#slider-direction-nav',--}}
+                                        {{--controlNav: '#slider-control-nav'--}}
+                                    {{--});--}}
+                                {{--});--}}
+                            {{--</script>--}}
                             <div class="image"><img src="{{ template_url('/img/header.png') }}" alt=""></div>
+                            <div data-editable data-name="main-content">
+                                <h1>Skytz Demosite</h1>
 
-                            <h1>Skytz Demosite</h1>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis facilisis tortor non ligula euismod, quis euismod quam maximus. Nulla varius et ipsum vitae volutpat. Morbi cursus dolor in lorem semper viverra. Aenean euismod malesuada nisi, vitae placerat felis facilisis a. Mauris nec erat nec elit posuere condimentum eu vitae ex. Nullam urna ex, tempor vitae ultricies id, fermentum vitae dolor. Sed vehicula, dui et mattis blandit, lorem elit mattis lorem, a imperdiet lorem tellus nec est. In posuere nibh in ligula tincidunt pretium. Proin id fringilla neque. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse quis enim lacus. Sed ultricies neque a ultricies auctor. Integer eu risus vitae dolor elementum volutpat. Maecenas ut lorem sed quam tempus tempus. Etiam iaculis mi id luctus malesuada. Nunc dapibus lorem id ipsum egestas faucibus.</p>
 
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis facilisis tortor non ligula euismod, quis euismod quam maximus. Nulla varius et ipsum vitae volutpat. Morbi cursus dolor in lorem semper viverra. Aenean euismod malesuada nisi, vitae placerat felis facilisis a. Mauris nec erat nec elit posuere condimentum eu vitae ex. Nullam urna ex, tempor vitae ultricies id, fermentum vitae dolor. Sed vehicula, dui et mattis blandit, lorem elit mattis lorem, a imperdiet lorem tellus nec est. In posuere nibh in ligula tincidunt pretium. Proin id fringilla neque. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse quis enim lacus. Sed ultricies neque a ultricies auctor. Integer eu risus vitae dolor elementum volutpat. Maecenas ut lorem sed quam tempus tempus. Etiam iaculis mi id luctus malesuada. Nunc dapibus lorem id ipsum egestas faucibus.</p>
-
-                            <p>Nulla arcu magna, mattis nec enim non, scelerisque tincidunt turpis. In dictum nibh eget nulla lobortis, vel efficitur diam tristique. Curabitur ullamcorper, elit at suscipit dignissim, leo justo fringilla tortor, et blandit massa enim vel massa. Morbi a lobortis diam. Nunc egestas dui egestas, placerat nisi vel, suscipit urna. Curabitur eros eros, interdum eget dapibus id, lobortis eget nisi. Quisque mattis quam eu semper vulputate. Cras semper, dui at luctus luctus, justo orci egestas nisl, dapibus luctus eros est et magna. Duis luctus interdum enim, at rhoncus quam egestas sit amet. Nunc ut convallis velit, ut lobortis tortor. Ut rhoncus sapien et mi scelerisque, eget tempus lectus consectetur. Phasellus sagittis, erat sit amet suscipit faucibus, dui tortor elementum ipsum, a ullamcorper quam massa eu metus. Pellentesque blandit elit eget scelerisque tempus.</p>
+                                <p>Nulla arcu magna, mattis nec enim non, scelerisque tincidunt turpis. In dictum nibh eget nulla lobortis, vel efficitur diam tristique. Curabitur ullamcorper, elit at suscipit dignissim, leo justo fringilla tortor, et blandit massa enim vel massa. Morbi a lobortis diam. Nunc egestas dui egestas, placerat nisi vel, suscipit urna. Curabitur eros eros, interdum eget dapibus id, lobortis eget nisi. Quisque mattis quam eu semper vulputate. Cras semper, dui at luctus luctus, justo orci egestas nisl, dapibus luctus eros est et magna. Duis luctus interdum enim, at rhoncus quam egestas sit amet. Nunc ut convallis velit, ut lobortis tortor. Ut rhoncus sapien et mi scelerisque, eget tempus lectus consectetur. Phasellus sagittis, erat sit amet suscipit faucibus, dui tortor elementum ipsum, a ullamcorper quam massa eu metus. Pellentesque blandit elit eget scelerisque tempus.</p>
+                            </div>
                             <!-- END BLOCK : Slider -->
 
                             <!-- START BLOCK : NewsItems -->

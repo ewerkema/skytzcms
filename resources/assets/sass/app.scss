@@ -12,10 +12,8 @@
 // Admin design
 @import "admin/style";
 @import "admin/errors";
+@import "admin/editor";
 
 // Bootstrap
 $icon-font-path: "fonts/bootstrap/";
-
-// Core variables and mixins
-
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
