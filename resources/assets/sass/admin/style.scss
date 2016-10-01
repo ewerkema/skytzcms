@@ -4,7 +4,14 @@
     padding-top: 70px;
   }
 
+  .clear {
+    clear:both;
+  }
+
+  .nav-pills > li > a { font-size: 14px; }
+
   #cms {
+
     .full-height {
       height: 100vh;
     }
@@ -41,6 +48,10 @@
       letter-spacing: .1rem;
       text-decoration: none;
       text-transform: uppercase;
+    }
+
+    .navbar-toggle {
+      z-index:1000;
     }
 
      // Header
@@ -87,6 +98,20 @@
         }
       }
     }
+
+    // Responsive
+    .navbar-collapse {
+      width: 100%;
+      @media (min-width: $screen-sm-min) {
+        width: auto;
+      }
+      @media (min-width: $screen-md-min) {
+        width: auto;
+      }
+      @media (min-width: $screen-lg-min) {
+        width: auto;
+      }
+    }
   }
 
 
@@ -98,6 +123,7 @@
     margin-left: 16px;
     margin-right: 16px;
     padding: 20px 0px;
+    left: initial !important;
   }
   .dropdown-menu-large > li > ul {
     padding: 0;

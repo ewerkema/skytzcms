@@ -18,8 +18,10 @@ Route::group(['prefix' => 'cms'], function() {
         return View::make('auth.login');
     })->middleware('guest');
 
-    Route::get('/{slug}', array('as' => 'page.show', 'uses' => 'CmsPageController@show'));
+    Route::resource('pages', 'PageController');
+
+    Route::get('/{slug}', array('as' => 'page.show', 'uses' => 'CmsTemplateController@show'));
 });
 
-Route::get('/', array('as' => 'page.show', 'uses' => 'PageController@show'));
-Route::get('/{slug}', array('as' => 'page.show', 'uses' => 'PageController@show'));
+Route::get('/', array('as' => 'page.show', 'uses' => 'TemplateController@show'));
+Route::get('/{slug}', array('as' => 'page.show', 'uses' => 'TemplateController@show'));

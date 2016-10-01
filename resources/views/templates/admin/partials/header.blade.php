@@ -12,12 +12,12 @@
                 </button>
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ cms_url('/') }}">
+                <a class="navbar-brand hidden-xs" href="{{ cms_url('/') }}">
                     <img src="{{ url('images/skytz_logo.png') }}" alt="" class="img-responsive">
                     {{ config('app.name', 'Skytz CMS') }}
                 </a>
 
-                <div class="divider"></div>
+                <div class="divider hidden-xs"></div>
 
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
@@ -63,17 +63,17 @@
                             </ul>
 
                         </li>
-                        <li><a href="#"><span class="glyphicon glyphicon-plus"></span> Nieuwe pagina</a></li>
+                        <li class="hidden-xs"><a href="#"><span class="glyphicon glyphicon-plus"></span> Nieuwe pagina</a></li>
                     @endif
                 </ul>
             </div>
 
-            <div class="collapse navbar-collapse flex-center" id="app-navbar-collapse">
 
+            <div class="collapse flex-center hidden-xs">
                 <ul class="nav navbar-nav flex-center">
                     @if (!Auth::guest())
+                        <li><a href="#pagina-beheer" data-toggle="modal" data-target="#pagesModal"><span class="glyphicon glyphicon-cog"></span> Pagina instellingen</a></li>
                         <li><a href="#"><span class="glyphicon glyphicon-picture"></span> Media uploaden</a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Instellingen</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 <span class="glyphicon glyphicon-th-large"></span>
@@ -92,7 +92,7 @@
                 </ul>
             </div>
 
-            <div class="collapse navbar-collapse flex-right">
+            <div class="collapse navbar-collapse flex-right" id="app-navbar-collapse">
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
@@ -101,7 +101,19 @@
                         <li><a href="{{ cms_url('/register') }}">Registreren</a></li>
                     @else
                         <li><a href=""><span class="glyphicon glyphicon-globe"></span> Publiceer website</a></li>
-                        <li class="dropdown">
+                        <li><a href="#"><span class="glyphicon glyphicon-question-sign"></span> Help</a></li>
+                        <li class="visible-xs">
+                            <a href="{{ cms_url('/logout') }}"
+                               onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                                Uitloggen
+                            </a>
+
+                            <form id="logout-form" action="{{ cms_url('/logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                        </li>
+                        <li class="dropdown hidden-xs">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 <span class="glyphicon glyphicon-user"></span>
                                 {{ Auth::user()->getName() }} <span class="caret"></span>

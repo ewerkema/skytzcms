@@ -9,8 +9,9 @@
     <title>{{ config('app.name', 'Skytz CMS') }}</title>
 
     <!-- Styles -->
-    <link href="/css/app.css" rel="stylesheet">
+    <link href="{{ elixir('/css/app.css') }}" rel="stylesheet">
     <link href="/images/favicon.png" rel="shortcut icon" />
+    <link href="/contenttools/content-tools.min.css" type="text/css" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -22,11 +23,17 @@
 
 @section('header_cms')
     <div id="cms">
-        @include('templates.admin.header')
+        @include('templates.admin.partials.header')
     </div>
 @stop
 
 @section('bottom')
-    <!-- Scripts -->
-    <script src="/js/app.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script src="/contenttools/content-tools.min.js"></script>
+    <script src="/js/editor.js"></script>
+
+    {{-- Modals --}}
+    @if (isset($page))
+        @include('templates.admin.modals.page')
+    @endif
 @stop
