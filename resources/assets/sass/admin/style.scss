@@ -1,14 +1,20 @@
 
   body {
     height: 100vh;
-    padding-top: 70px;
+    padding:140px;
+    background-position-y: 140px;
+  }
+
+  .container-fluid {
+    position: relative;
   }
 
   .clear {
     clear:both;
   }
 
-  .nav-pills > li > a { font-size: 14px; }
+  .nav-pills > li > a, label, input { font-size: 14px; }
+  .nav li.active a { background: darken($dropdown-link-hover-bg, 20%); }
 
   #cms {
 

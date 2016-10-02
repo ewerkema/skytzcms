@@ -13,6 +13,9 @@ class TemplateController extends Controller
         $page = Page::whereSlug($slug)->first();
         if (!$page)
             abort(404);
-        return View::make('templates.'.config('skytz.template').'.index')->with('page', $page);
+        return View::make('templates.'.config('skytz.template').'.index')->with([
+            'page' => $page,
+            'menu' => Page::all()->where('menu', 1)
+        ]);
     }
 }

@@ -1,8 +1,11 @@
 /* Override ContentTools css */
 .ct-ignition {
-  z-index: 1;
-  top: 55px !important;
+  display: none;
 }
+
+body { overflow-y: scroll !important; padding-right: 0 !important;}
+
+#saveChanges, #revertChanges { display: none; }
 
 /* Center (default) */
 [data-editable] iframe,

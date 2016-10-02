@@ -16,11 +16,13 @@ require('laravel-elixir-vue');
 elixir(function(mix) {
     var bootstrapPath = 'node_modules/bootstrap-sass/assets';
     var contentToolsPath = 'node_modules/ContentTools';
+    var sweetAlertPath = 'node_modules/sweetalert2';
 
     mix.sass([
         'app.scss'
     ]).webpack('app.js')
     .copy(bootstrapPath + '/fonts/bootstrap/','public/css/fonts/bootstrap')
     .copy(bootstrapPath + '/javascripts/bootstrap.min.js', 'public/js')
-    .copy(contentToolsPath + '/build', 'public/contenttools/');
+    .copy(contentToolsPath + '/build', 'public/plugins/contenttools')
+    .copy(sweetAlertPath + '/dist', 'public/plugins/sweetalert2')
 });

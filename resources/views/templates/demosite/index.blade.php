@@ -10,7 +10,6 @@
 
     <link rel="stylesheet" href="{{ template_url('/css/foundation.css') }}" />
     <link rel="stylesheet" href="{{ template_url('/css/style.css') }}" />
-    <script src="{{ template_url('/js/vendor/modernizr.css') }}"></script>
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -79,7 +78,7 @@
 
                 <div class="small-12 medium-4 columns logo">
 
-                    <a href="/"><img src="{{ template_url('/img/logo.png') }}" alt="CMS demo"></a>
+                    <a href="{{ page_url("/") }}"><img src="{{ template_url('/img/logo.png') }}" alt="CMS demo"></a>
 
                 </div>
 
@@ -97,9 +96,9 @@
                 <div class="small-12 medium-12 large-8 columns menu">
 
                     <ul>
-                        <!-- START BLOCK : MenuItems -->
-                        <li><a href="{url}">{menuitem}</a>{submenu}</li>
-                        <!-- END BLOCK : MenuItems -->
+                        @foreach ($menu as $menupage)
+                            <li><a href="{{ page_url($menupage->slug) }}">{{ $menupage->title }}</a></li>
+                        @endforeach
                     </ul>
 
                 </div>
