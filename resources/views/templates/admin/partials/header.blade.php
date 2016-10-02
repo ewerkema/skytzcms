@@ -19,45 +19,37 @@
 
                 <div class="divider hidden-xs"></div>
 
-                <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     @if (!Auth::guest())
                         <li class="dropdown dropdown-large">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 <span class="glyphicon glyphicon-list"></span>
-                                Selecteer pagina (13) <span class="caret"></span>
+                                Selecteer pagina ({{ count($menu)+count($nonmenu) }}) <span class="caret"></span>
                             </a>
-
-                            <ul class="dropdown-menu dropdown-menu-large row">
-                                <li class="small-4 columns">
+                            <ul class="nav dropdown-menu dropdown-menu-large row">
+                                <li class="small-6 columns">
                                     <ul>
                                         <li class="dropdown-header">Pagina's in menu</li>
-                                        <li><a href="{{ cms_url('/home') }}">Home</a></li>
-                                        <li><a href="{{ cms_url('/home') }}">Over ons</a></li>
-                                        <li><a href="{{ cms_url('/home') }}">Assortiment</a></li>
-                                        <li><a href="{{ cms_url('/home') }}">Contact</a></li>
+                                        @foreach ($menu as $menupage)
+                                            <li class="{{ ($menupage->id == $page->id) ? "active" : "" }}"><a href="{{ page_url($menupage->slug) }}">{{ $menupage->title }}</a></li>
+                                        @endforeach
+
+                                        @if (empty($menu))
+                                            <li><a href="#">Geen pagina's gevonden.</a></li>
+                                        @endif
                                     </ul>
                                 </li>
-                                <li class="small-4 columns">
+                                <li class="small-6 columns">
                                     <ul>
                                         <li class="dropdown-header">Losse pagina's</li>
-                                        <li><a href="{{ cms_url('/home') }}">Disclaimer</a></li>
-                                        <li><a href="{{ cms_url('/home') }}">Algemene voorwaarden</a></li>
-                                        <li><a href="{{ cms_url('/home') }}">Assortiment</a></li>
-                                        <li><a href="{{ cms_url('/home') }}">Contact</a></li>
-                                        <li><a href="{{ cms_url('/home') }}">Test pagina</a></li>
-                                        <li><a href="{{ cms_url('/home') }}">Algemene voorwaarden</a></li>
-                                        <li><a href="{{ cms_url('/home') }}">Assortiment</a></li>
-                                        <li><a href="{{ cms_url('/home') }}">Contact</a></li>
-                                        <li><a href="{{ cms_url('/home') }}">Test pagina</a></li>
-                                    </ul>
-                                </li>
-                                <li class="small-4 columns">
-                                    <ul>
-                                        <li class="dropdown-header">Overig</li>
-                                        <li><a href="{{ cms_url('/home') }}">Disclaimer</a></li>
-                                        <li><a href="{{ cms_url('/home') }}">Algemene voorwaarden</a></li>
-                                        <li><a href="{{ cms_url('/home') }}">Assortiment</a></li>
+
+                                        @foreach ($nonmenu as $nonmenupage)
+                                            <li class="{{ ($nonmenupage->id == $page->id) ? "active" : "" }}"><a href="{{ page_url($nonmenupage->slug) }}">{{ $nonmenupage->title }}</a></li>
+                                        @endforeach
+
+                                        @if (empty($nonmenu))
+                                            <li><a href="#">Geen losse pagina's gevonden.</a></li>
+                                        @endif
                                     </ul>
                                 </li>
                             </ul>
@@ -68,11 +60,9 @@
                 </ul>
             </div>
 
-
-            <div class="collapse flex-center hidden-xs">
+            <div class="collapse flex-center">
                 <ul class="nav navbar-nav flex-center">
                     @if (!Auth::guest())
-                        <li><a href="#pagina-beheer" data-toggle="modal" data-target="#pagesModal"><span class="glyphicon glyphicon-cog"></span> Pagina instellingen</a></li>
                         <li><a href="#"><span class="glyphicon glyphicon-picture"></span> Media uploaden</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -81,11 +71,11 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ cms_url('/home') }}">Contact formulier</a></li>
-                                <li><a href="{{ cms_url('/home') }}">Foto album</a></li>
-                                <li><a href="{{ cms_url('/home') }}">Nieuws</a></li>
-                                <li><a href="{{ cms_url('/home') }}">Google Analytics (statistieken)</a></li>
-                                <li><a href="{{ cms_url('/home') }}">Slider</a></li>
+                                <li><a href="{{ cms_url('/index') }}">Contact formulier</a></li>
+                                <li><a href="{{ cms_url('/index') }}">Foto album</a></li>
+                                <li><a href="{{ cms_url('/index') }}">Nieuws</a></li>
+                                <li><a href="{{ cms_url('/index') }}">Google Analytics (statistieken)</a></li>
+                                <li><a href="{{ cms_url('/index') }}">Slider</a></li>
                             </ul>
                         </li>
                     @endif
@@ -120,8 +110,8 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ cms_url('/home') }}">Website instellingen</a></li>
-                                <li><a href="{{ cms_url('/home') }}">Account instellingen</a></li>
+                                <li><a href="{{ cms_url('/index') }}">Website instellingen</a></li>
+                                <li><a href="{{ cms_url('/index') }}">Account instellingen</a></li>
                                 <li>
                                     <a href="{{ cms_url('/logout') }}"
                                        onclick="event.preventDefault();
@@ -135,6 +125,22 @@
                                 </li>
                             </ul>
                         </li>
+                    @endif
+                </ul>
+            </div>
+        </div>
+        <div class="container-fluid" style="background-color: #ececec;">
+            <div class="navbar-header flex-left">
+
+                <ul class="nav navbar-nav">
+                    @if (!Auth::guest())
+                        <li id="changePage"><a href="#" onclick="changePage();"><span class="glyphicon glyphicon-pencil"></span> Pagina bewerken</a></li>
+                        <li id="saveChanges"><a href="#" onclick="saveChanges();"><span class="glyphicon glyphicon-ok"></span> Pagina opslaan</a></li>
+                        <li id="revertChanges"><a href="#" onclick="revertChanges();"><span class="glyphicon glyphicon-remove"></span> Wijzigingen annuleren</a></li>
+                        <li><div class="divider hidden-xs"></div></li>
+                        <li id="changePage"><a href="#" onclick="changePage();"><span class="glyphicon glyphicon-th"></span> Indeling bewerken</a></li>
+                        <li><div class="divider hidden-xs"></div></li>
+                        <li><a href="#pagina-beheer" data-toggle="modal" data-target="#pagesModal"><span class="glyphicon glyphicon-cog"></span> Pagina instellingen</a></li>
                     @endif
                 </ul>
             </div>

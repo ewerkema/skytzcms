@@ -23,6 +23,8 @@ class CmsTemplateController extends Controller
 
         return View::make('templates.admin.main')->with([
             'page' => $page,
+            'menu' => Page::all()->where('menu', 1),
+            'nonmenu' => Page::all()->where('menu', 0),
             'template' => 'templates.'.config('skytz.template').'.index'
         ]);
     }

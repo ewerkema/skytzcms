@@ -10,7 +10,7 @@
                     <form class="form-horizontal" role="form" method="POST" action="{{ cms_url('/register') }}">
                         {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
                             <label for="firstname" class="col-md-4 control-label">Voornaam</label>
 
                             <div class="col-md-6">
@@ -24,7 +24,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('lastname') ? ' has-error' : '' }}">
                             <label for="lastname" class="col-md-4 control-label">Achternaam</label>
 
                             <div class="col-md-6">

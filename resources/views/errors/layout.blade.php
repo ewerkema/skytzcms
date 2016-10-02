@@ -8,12 +8,6 @@
     <link href="/images/favicon.png" rel="shortcut icon" />
 @stop
 
-@section('header_cms')
-    <div id="cms">
-        @include('templates.admin.partials.header')
-    </div>
-@stop
-
 @section('content')
     <div class="error-container">
         <div class="error-content">
