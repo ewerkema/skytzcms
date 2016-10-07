@@ -1,4 +1,3 @@
-
 <div class="modal fade" tabindex="-1" role="dialog" id="pagesModal" aria-labelledby="pagesModal">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -68,34 +67,37 @@
 
     $(document).ready(function(){
         $('#pageForm').submit(function(){
-            var slug = ($('input[name=slug]').val()) ? $('input[name=slug]').val() : "index";
-            var message = $('.form-message');
-
             $.ajax({
-                url: '{{ cms_url('/pages/'.$page->id) }}',
+                url: '{{ cms_url('pages/'.$page->id) }}',
                 type: 'PATCH',
                 data: {
                     'title' : $('input[name=title]').val(),
-                    'slug' : slug,
+                    'slug' : ($('input[name=slug]').val()) ? $('input[name=slug]').val() : "index",
                     'meta_title' : $('input[name=meta_title]').val(),
                     'meta_desc' : $('textarea[name=meta_desc]').val(),
                     'menu' : ($('input[name=menu]').is(":checked")) ? 1 : 0,
                 },
-                success: function (data) {
-                    window.location.href = '{{ cms_url("/") }}/'+data.page['slug'];
+                success: function(data) {
+                    console.log(data);
+                    if (data['slug'] === undefined) {
+                        $('.form-message').addClass("alert-danger").html("Er is iets onverwachts gebeurd, probeer het later opnieuw.").show();
+                        return;
+                    }
+
+                    window.location.href = '{{ cms_url("/") }}/'+data['slug'];
                 },
                 error: function(data){
                     var errors = data.responseJSON;
                     var errorMessage = "";
 
                     if (errors === undefined)
-                        errorMessage += "Er ging iets fout, probeer het opnieuw.";
+                        errorMessage += "Er ging iets fout, we zullen er zo spoedig mogelijk naar kijken.";
 
                     for (var error in errors) {
                         errorMessage += errors[error]+"<br />";
                     }
 
-                    message.addClass("alert-danger").html(errorMessage).show();
+                    $('.form-message').addClass("alert-danger").html(errorMessage).show();
                 }
             });
 

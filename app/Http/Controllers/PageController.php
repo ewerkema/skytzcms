@@ -37,6 +37,10 @@ class PageController extends Controller
             'menu' => 'required|boolean',
         ], [], [
             'slug' => 'Pagina link (URL)',
+            'title' => 'Pagina naam',
+            'meta_title' => 'Pagina titel',
+            'meta_desc' => 'Pagina beschrijving',
+            'menu' => 'Weergeven in menu',
         ]);
     }
 
@@ -76,7 +80,7 @@ class PageController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -87,7 +91,7 @@ class PageController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -109,7 +113,7 @@ class PageController extends Controller
             session()->flash('flash_message', 'De pagina is succesvol aangepast');
             session()->flash('flash_title', 'Pagina aangepast');
 
-            return response()->json(['page' => $page], 200);
+            return response()->json($page, 200);
         }
     }
 
@@ -121,6 +125,6 @@ class PageController extends Controller
      */
     public function destroy($id)
     {
-        //
+
     }
 }

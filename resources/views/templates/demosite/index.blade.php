@@ -142,12 +142,23 @@
                                 {{--});--}}
                             {{--</script>--}}
                             <div class="image"><img src="{{ template_url('/img/header.png') }}" alt=""></div>
-                            <div data-editable data-name="main-content">
-                                <h1>Skytz Demosite</h1>
 
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis facilisis tortor non ligula euismod, quis euismod quam maximus. Nulla varius et ipsum vitae volutpat. Morbi cursus dolor in lorem semper viverra. Aenean euismod malesuada nisi, vitae placerat felis facilisis a. Mauris nec erat nec elit posuere condimentum eu vitae ex. Nullam urna ex, tempor vitae ultricies id, fermentum vitae dolor. Sed vehicula, dui et mattis blandit, lorem elit mattis lorem, a imperdiet lorem tellus nec est. In posuere nibh in ligula tincidunt pretium. Proin id fringilla neque. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse quis enim lacus. Sed ultricies neque a ultricies auctor. Integer eu risus vitae dolor elementum volutpat. Maecenas ut lorem sed quam tempus tempus. Etiam iaculis mi id luctus malesuada. Nunc dapibus lorem id ipsum egestas faucibus.</p>
-
-                                <p>Nulla arcu magna, mattis nec enim non, scelerisque tincidunt turpis. In dictum nibh eget nulla lobortis, vel efficitur diam tristique. Curabitur ullamcorper, elit at suscipit dignissim, leo justo fringilla tortor, et blandit massa enim vel massa. Morbi a lobortis diam. Nunc egestas dui egestas, placerat nisi vel, suscipit urna. Curabitur eros eros, interdum eget dapibus id, lobortis eget nisi. Quisque mattis quam eu semper vulputate. Cras semper, dui at luctus luctus, justo orci egestas nisl, dapibus luctus eros est et magna. Duis luctus interdum enim, at rhoncus quam egestas sit amet. Nunc ut convallis velit, ut lobortis tortor. Ut rhoncus sapien et mi scelerisque, eget tempus lectus consectetur. Phasellus sagittis, erat sit amet suscipit faucibus, dui tortor elementum ipsum, a ullamcorper quam massa eu metus. Pellentesque blandit elit eget scelerisque tempus.</p>
+                            <div class="grid-stack">
+                                <div class="grid-stack-item" data-gs-x="0" data-gs-y="0" data-gs-width="12" data-gs-height="1">
+                                    <div class="grid-stack-item-content" data-editable data-name="block1">
+                                        <h1>Skytz Demosite</h1>
+                                    </div>
+                                </div>
+                                <div class="grid-stack-item" data-gs-x="0" data-gs-y="1" data-gs-width="6" data-gs-height="4">
+                                    <div class="grid-stack-item-content" data-editable data-name="block2">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis facilisis tortor non ligula euismod, quis euismod quam maximus. Nulla varius et ipsum vitae volutpat. Morbi cursus dolor in lorem semper viverra. Aenean euismod malesuada nisi, vitae placerat felis facilisis a. Mauris nec erat nec elit posuere condimentum eu vitae ex. Nullam urna ex, tempor vitae ultricies id, fermentum vitae dolor. Sed vehicula, dui et mattis blandit, lorem elit mattis lorem, a imperdiet lorem tellus nec est. In posuere nibh in ligula tincidunt pretium. Proin id fringilla neque. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse quis enim lacus. Sed ultricies neque a ultricies auctor. Integer eu risus vitae dolor elementum volutpat. Maecenas ut lorem sed quam tempus tempus. Etiam iaculis mi id luctus malesuada. Nunc dapibus lorem id ipsum egestas faucibus.</p>
+                                    </div>
+                                </div>
+                                <div class="grid-stack-item" data-gs-x="6" data-gs-y="1" data-gs-width="6" data-gs-height="4">
+                                    <div class="grid-stack-item-content" data-editable data-name="block3">
+                                        <p>Nulla arcu magna, mattis nec enim non, scelerisque tincidunt turpis. In dictum nibh eget nulla lobortis, vel efficitur diam tristique. Curabitur ullamcorper, elit at suscipit dignissim, leo justo fringilla tortor, et blandit massa enim vel massa. Morbi a lobortis diam. Nunc egestas dui egestas, placerat nisi vel, suscipit urna. Curabitur eros eros, interdum eget dapibus id, lobortis eget nisi. Quisque mattis quam eu semper vulputate. Cras semper, dui at luctus luctus, justo orci egestas nisl, dapibus luctus eros est et magna. Duis luctus interdum enim, at rhoncus quam egestas sit amet. Nunc ut convallis velit, ut lobortis tortor. Ut rhoncus sapien et mi scelerisque, eget tempus lectus consectetur. Phasellus sagittis, erat sit amet suscipit faucibus, dui tortor elementum ipsum, a ullamcorper quam massa eu metus. Pellentesque blandit elit eget scelerisque tempus.</p>
+                                    </div>
+                                </div>
                             </div>
                             <!-- END BLOCK : Slider -->
 

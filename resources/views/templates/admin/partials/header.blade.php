@@ -31,7 +31,9 @@
                                     <ul>
                                         <li class="dropdown-header">Pagina's in menu</li>
                                         @foreach ($menu as $menupage)
-                                            <li class="{{ ($menupage->id == $page->id) ? "active" : "" }}"><a href="{{ page_url($menupage->slug) }}">{{ $menupage->title }}</a></li>
+                                            <li class="{{ (isset($page) && $menupage->id == $page->id) ? "active" : "" }}">
+                                                <a href="{{ page_url($menupage->slug) }}">{{ $menupage->title }}</a>
+                                            </li>
                                         @endforeach
 
                                         @if (empty($menu))
@@ -44,7 +46,9 @@
                                         <li class="dropdown-header">Losse pagina's</li>
 
                                         @foreach ($nonmenu as $nonmenupage)
-                                            <li class="{{ ($nonmenupage->id == $page->id) ? "active" : "" }}"><a href="{{ page_url($nonmenupage->slug) }}">{{ $nonmenupage->title }}</a></li>
+                                            <li class="{{ (isset($page) && $nonmenupage->id == $page->id) ? "active" : "" }}">
+                                                <a href="{{ page_url($nonmenupage->slug) }}">{{ $nonmenupage->title }}</a>
+                                            </li>
                                         @endforeach
 
                                         @if (empty($nonmenu))
@@ -138,7 +142,8 @@
                         <li id="saveChanges"><a href="#" onclick="saveChanges();"><span class="glyphicon glyphicon-ok"></span> Pagina opslaan</a></li>
                         <li id="revertChanges"><a href="#" onclick="revertChanges();"><span class="glyphicon glyphicon-remove"></span> Wijzigingen annuleren</a></li>
                         <li><div class="divider hidden-xs"></div></li>
-                        <li id="changePage"><a href="#" onclick="changePage();"><span class="glyphicon glyphicon-th"></span> Indeling bewerken</a></li>
+                        <li id="changePage"><a href="#" onclick="changeLayout();"><span class="glyphicon glyphicon-th"></span> Indeling bewerken</a></li>
+                        <li id="changePage"><a href="#" onclick="resizeBlocks();"><span class="glyphicon glyphicon-th"></span> Resize layout</a></li>
                         <li><div class="divider hidden-xs"></div></li>
                         <li><a href="#pagina-beheer" data-toggle="modal" data-target="#pagesModal"><span class="glyphicon glyphicon-cog"></span> Pagina instellingen</a></li>
                     @endif

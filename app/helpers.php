@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
     }
 
     function page_url($url) {
-        $admin = strpos(Route::getCurrentRoute()->getPath(), "cms/") !== false;
-        return ($admin) ? cms_url($url) : url($url);
+        return (is_cms()) ? cms_url($url) : url($url);
+    }
+
+    function is_cms() {
+        return strpos(Route::getCurrentRoute()->getPath(), "cms") !== false;
     }

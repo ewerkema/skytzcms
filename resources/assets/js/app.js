@@ -4,6 +4,11 @@
  * the application, or feel free to tweak this setup for your needs.
  */
 
+var _ = require('lodash');
+var Vue = require('vue');
+var bootstrap = require('bootstrap-sass');
+var contenttools = require('contenttools');
+
 Vue.component('example', require('./components/Example.vue'));
 
 const app = new Vue({

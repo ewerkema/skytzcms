@@ -1,5 +1,34 @@
 
-var editor
+var editor;
+var grid;
+
+function serializeWidgetMap(items) {
+    console.log(items);
+}
+
+$(function () {
+    var options = {
+        cellHeight: 80,
+        verticalMargin: 10,
+        animate: true,
+        float: true
+    };
+    $('.grid-stack').gridstack(options);
+    grid = $('.grid-stack').data('gridstack');
+    grid.disable();
+
+    $('.grid-stack').on('change', function(event, items) {
+        serializeWidgetMap(items);
+    });
+
+    $('.grid-stack-item-content').each(function() {
+        $(this).bind("DOMCharacterDataModified",function(){
+            console.log("DOM change");
+            $(this).parent().attr('data-gs-min-height', $(this)[0].scrollHeight);
+        });
+    });
+});
+
 window.addEventListener('load', function() {
     editor = ContentTools.EditorApp.get();
     editor.init('*[data-editable]', 'data-name');
@@ -41,8 +70,15 @@ function saveChanges() {
 
 
 function changePage() {
+    grid.disable();
     editor._ignition.edit();
     editor._ignition.unmount();
     $("#revertChanges, #saveChanges").show();
     $("#changePage").hide();
+}
+
+function changeLayout() {
+    editor._ignition.confirm();
+    editor._ignition.unmount();
+    grid.enable();
 }
