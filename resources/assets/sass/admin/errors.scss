@@ -2,11 +2,11 @@
 .error-container {
   text-align: center;
   vertical-align: middle;
-
-  .error-content {
-    text-align: center;
-    display: inline-block;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 
   .error-title {
     font-size: 72px;

@@ -13,7 +13,8 @@ body { background: url('../img/bg.png') repeat-x #e2e2e2; }
 .menu { margin-top: 40px; }
 .menu li {float: left; list-style: none; margin-right: 30px;}
 .menu a { font-size: 13px; color: #2864aa; }
-.menu a:hover { color: #000; }
+.menu li.active a { text-decoration: underline; }
+.menu a:hover { color: #000; text-decoration: none; }
 
 
 .menu li ul { display:none; }
@@ -27,6 +28,7 @@ body { background: url('../img/bg.png') repeat-x #e2e2e2; }
     background: #CACACA;
 }
 
+.header-image { margin-bottom: 30px; }
 
 .content { margin-top: 15px; }
 
@@ -45,6 +47,12 @@ border-radius: 5px; }
 
 .left { padding-right: 35px; }
 
+
+/* Text styles */
+ul, ol, dl { font-size: 13px; color: #4f575b; line-height: 22px; }
+table { width: 100%; margin-bottom: 20px; }
+tr td, tr th { padding: 8px;font-size: 13px; color: #4f575b; }
+tr th { font-weight: bold; }
 .tekst { padding-left: 20px; margin-bottom: 30px; }
 .tekst h1 { font-size: 16px; color: #2e77bc; font-weight: bold; margin-bottom: 25px; }
 .tekst h2 { color: #00224a; font-size: 13px; margin-bottom: 5px; font-weight: bold; }
@@ -92,11 +100,12 @@ box-shadow: inset 0 0 5px 3px #cadfe8;
 
 
 
-// Small screens
+/* Small screens */
 @media only screen { 
 
 	
-} /* Define mobile styles */
+}
+/* Define mobile styles */
 
 @media only screen and (max-width: 40em) {
 
@@ -174,7 +183,7 @@ box-shadow: inset 0 0 5px 3px #cadfe8;
 }
 /* max-width 640px, mobile-only styles, use when QAing mobile issues */
 
-// Medium screens
+/* Medium screens */
 @media only screen and (min-width: 40.01em) { 
 
 
@@ -189,7 +198,7 @@ box-shadow: inset 0 0 5px 3px #cadfe8;
 
 } /* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
 
-// Large screens
+/* Large screens */
 @media only screen and (min-width: 64.063em) {
 
 

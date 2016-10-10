@@ -37,6 +37,10 @@ class PageController extends Controller
             'menu' => 'required|boolean',
         ], [], [
             'slug' => 'Pagina link (URL)',
+            'title' => 'Pagina naam',
+            'meta_title' => 'Pagina titel',
+            'meta_desc' => 'Pagina beschrijving',
+            'menu' => 'Weergeven in menu',
         ]);
     }
 
@@ -76,7 +80,68 @@ class PageController extends Controller
      */
     public function show($id)
     {
-        //
+        $page = Page::find($id);
+        return response()->json($page);
+    }
+
+    /**
+     * Display the specified resources content.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function content($page)
+    {
+        $page = Page::find($page);
+        return response()->json($page->content);
+    }
+
+    /**
+     * Save the specified resources content.
+     *
+     * @param Request $request
+     * @param Page $page
+     * @return \Illuminate\Http\Response
+     */
+    public function saveContent(Request $request, Page $page)
+    {
+        if($request->ajax()) {
+            $input = $request->all();
+
+            if (!$page->update($input))
+                return response()->json(['message' => 'Updaten van de indeling is niet gelukt, neem aub contact met ons op.'], 500);
+
+            return response()->json($page, 200);
+        }
+    }
+
+    /**
+     * Save the updated blocks to the page.
+     *
+     * @param Request $request
+     * @param Page $page
+     * @return \Illuminate\Http\Response
+     */
+    public function updateBlocks(Request $request, Page $page)
+    {
+        if($request->ajax()) {
+            $input = $request->all();
+
+            if (!isset($input['blocks']))
+                return response()->json(['message' => 'Updaten van de inhoud is niet gelukt, neem aub contact met ons op.'], 500);
+
+            $updateContent = $page->content;
+            foreach ($input['blocks'] as $name => $block) {
+                $updateContent[$name]['content'] = $block;
+            }
+
+            $page->content = $updateContent;
+
+            if (!$page->save())
+                return response()->json(['message' => 'Updaten van de inhoud is niet gelukt, neem aub contact met ons op.'], 500);
+
+            return response()->json($page, 200);
+        }
     }
 
     /**
@@ -87,7 +152,7 @@ class PageController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -109,7 +174,7 @@ class PageController extends Controller
             session()->flash('flash_message', 'De pagina is succesvol aangepast');
             session()->flash('flash_title', 'Pagina aangepast');
 
-            return response()->json(['page' => $page], 200);
+            return response()->json($page, 200);
         }
     }
 
@@ -121,6 +186,7 @@ class PageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $page = Page::find($id);
+        $page->delete();
     }
 }

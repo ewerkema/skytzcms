@@ -13,16 +13,23 @@ require('laravel-elixir-vue');
  |
  */
 
+var paths = {
+    'public_css' : '/public/css/fonts/',
+    'public_plugins' : '/public/plugins/',
+    'bootstrap_fonts' : '/node_modules/bootstrap-sass/assets/fonts/bootstrap',
+    'contenttools' : '/node_modules/ContentTools/build',
+    'sweetalert2' : '/node_modules/sweetalert2/dist',
+    'gridstack' : '/node_modules/gridstack/dist',
+};
+
 elixir(function(mix) {
-    var bootstrapPath = 'node_modules/bootstrap-sass/assets';
-    var contentToolsPath = 'node_modules/ContentTools';
-    var sweetAlertPath = 'node_modules/sweetalert2';
 
     mix.sass([
         'app.scss'
     ]).webpack('app.js')
-    .copy(bootstrapPath + '/fonts/bootstrap/','public/css/fonts/bootstrap')
-    .copy(bootstrapPath + '/javascripts/bootstrap.min.js', 'public/js')
-    .copy(contentToolsPath + '/build', 'public/plugins/contenttools')
-    .copy(sweetAlertPath + '/dist', 'public/plugins/sweetalert2')
+        .copy(paths.bootstrap_fonts, paths.public_css+'bootstrap')
+        .copy(paths.contenttools, paths.public_plugins+'contenttools')
+        .copy(paths.gridstack, paths.public_plugins+'gridstack')
+        .copy(paths.sweetalert2, paths.public_plugins+'sweetalert2');
+
 });

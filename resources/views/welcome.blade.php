@@ -1,4 +1,4 @@
-@extends('templates.admin.main', ['template' => 'templates.admin.guest'])
+@extends('templates.admin.main', ['template' => 'templates.admin.empty'])
 
 @section('content')
     <div class="flex-center position-ref full-height">

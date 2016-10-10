@@ -3,9 +3,11 @@
   display: none;
 }
 
-body { overflow-y: scroll !important; padding-right: 0 !important;}
+.grid-stack>.grid-stack-item>.grid-stack-item-content { background: #f6f6f7; overflow: hidden !important; }
 
-#saveChanges, #revertChanges { display: none; }
+.tekst { position: relative; }
+
+#saveChanges, #revertChanges, #saveLayout { display: none; }
 
 /* Center (default) */
 [data-editable] iframe,
