@@ -57,8 +57,10 @@ class CreatePagesTable extends Migration
             }
         });
 
-        Schema::drop('skytz_blocks');
-        Schema::drop('skytz_strokes');
+        if (ImportTable::check()) {
+            Schema::drop('skytz_blocks');
+            Schema::drop('skytz_strokes');
+        }
     }
 
     /**
