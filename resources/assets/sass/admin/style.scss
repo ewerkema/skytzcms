@@ -17,6 +17,13 @@
   .nav li.active a { background: darken($dropdown-link-hover-bg, 20%); }
 
   #cms {
+    a {
+      transition: all 0.25s ease;
+    }
+
+    .navbar-background {
+      background: $navbar-bg;
+    }
 
     .full-height {
       height: 100vh;
@@ -81,6 +88,15 @@
         .flex-right {
           @include display-flex-child();
           justify-content: flex-end;
+        }
+      }
+
+      .publish a {
+        background: #fff;
+
+        &:hover {
+          background: $brand-success;
+          color: #fff;
         }
       }
 

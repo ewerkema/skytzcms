@@ -1,6 +1,6 @@
 <header>
     <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
+        <div class="container-fluid navbar-background">
             <div class="navbar-header flex-left">
 
                 <!-- Collapsed Hamburger -->
@@ -94,7 +94,7 @@
                         <li><a href="{{ cms_url('/login') }}">Inloggen</a></li>
                         <li><a href="{{ cms_url('/register') }}">Registreren</a></li>
                     @else
-                        <li><a href=""><span class="glyphicon glyphicon-globe"></span> Publiceer website</a></li>
+                        <li class="publish"><a href=""><span class="glyphicon glyphicon-globe"></span> Publiceer website</a></li>
                         <li><a href="#"><span class="glyphicon glyphicon-question-sign"></span> Help</a></li>
                         <li class="visible-xs">
                             <a href="{{ cms_url('/logout') }}"
@@ -133,17 +133,17 @@
                 </ul>
             </div>
         </div>
-        <div class="container-fluid" style="background-color: #ececec;">
-            <div class="navbar-header flex-left">
+        <div class="container-fluid">
+            <div class="navbar-header flex-center">
 
                 <ul class="nav navbar-nav">
                     @if (!Auth::guest())
                         <li id="changePage"><a href="#" onclick="changePage();"><span class="glyphicon glyphicon-pencil"></span> Pagina bewerken</a></li>
                         <li id="saveChanges"><a href="#" onclick="saveChanges();"><span class="glyphicon glyphicon-ok"></span> Pagina opslaan</a></li>
                         <li id="revertChanges"><a href="#" onclick="revertChanges();"><span class="glyphicon glyphicon-remove"></span> Wijzigingen annuleren</a></li>
-                        <li><div class="divider hidden-xs"></div></li>
-                        <li id="changePage"><a href="#" onclick="changeLayout();"><span class="glyphicon glyphicon-th"></span> Indeling bewerken</a></li>
-                        <li id="changePage"><a href="#" onclick="resizeBlocks();"><span class="glyphicon glyphicon-th"></span> Resize layout</a></li>
+                        <li id="hideLayout"><div class="divider hidden-xs"></div></li>
+                        <li id="changeLayout"><a href="#" onclick="changeLayout();"><span class="glyphicon glyphicon-th"></span> Indeling bewerken</a></li>
+                        <li id="saveLayout"><a href="#" onclick="saveLayout();"><span class="glyphicon glyphicon-ok"></span> Indeling opslaan</a></li>
                         <li><div class="divider hidden-xs"></div></li>
                         <li><a href="#pagina-beheer" data-toggle="modal" data-target="#pagesModal"><span class="glyphicon glyphicon-cog"></span> Pagina instellingen</a></li>
                     @endif

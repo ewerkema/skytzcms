@@ -31,10 +31,10 @@
 
 @section('bottom')
     <script src="/js/app.js"></script>
-    <script src="/plugins/sweetalert2/sweetalert2.js"></script>
-    <script src="/js/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
     <script type="text/javascript" src='/plugins/gridstack/gridstack.min.js'></script>
     <script src="/js/editor.js"></script>
+    <script src="/plugins/sweetalert2/sweetalert2.js"></script>
 
     {{-- Flash messages --}}
     <script type="text/javascript">

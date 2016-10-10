@@ -3,11 +3,11 @@
   display: none;
 }
 
-.grid-stack>.grid-stack-item.ui-draggable-handle>.grid-stack-item-content { background: #f6f6f7; }
+.grid-stack>.grid-stack-item>.grid-stack-item-content { background: #f6f6f7; overflow: hidden !important; }
 
 .tekst { position: relative; }
 
-#saveChanges, #revertChanges { display: none; }
+#saveChanges, #revertChanges, #saveLayout { display: none; }
 
 /* Center (default) */
 [data-editable] iframe,

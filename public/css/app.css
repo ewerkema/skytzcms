@@ -18,6 +18,13 @@ body {
 .nav li.active a {
   background: #c2c2c2; }
 
+#cms a {
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease; }
+
+#cms .navbar-background {
+  background: #ececec; }
+
 #cms .full-height {
   height: 100vh; }
 
@@ -88,6 +95,12 @@ body {
     float: none !important;
     -webkit-box-pack: end;
     justify-content: flex-end; }
+
+#cms header .publish a {
+  background: #fff; }
+  #cms header .publish a:hover {
+    background: #2ab27b;
+    color: #fff; }
 
 #cms header .dropdown .glyphicon {
   padding-right: 5px; }
@@ -198,13 +211,14 @@ body {
 .ct-ignition {
   display: none; }
 
-.grid-stack > .grid-stack-item.ui-draggable-handle > .grid-stack-item-content {
-  background: #f6f6f7; }
+.grid-stack > .grid-stack-item > .grid-stack-item-content {
+  background: #f6f6f7;
+  overflow: hidden !important; }
 
 .tekst {
   position: relative; }
 
-#saveChanges, #revertChanges {
+#saveChanges, #revertChanges, #saveLayout {
   display: none; }
 
 /* Center (default) */

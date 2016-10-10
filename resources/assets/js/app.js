@@ -12,5 +12,8 @@ var contenttools = require('contenttools');
 Vue.component('example', require('./components/Example.vue'));
 
 const app = new Vue({
-    el: 'body'
+    el: 'body',
+    data: {
+        message: "hallo"
+    }
 });

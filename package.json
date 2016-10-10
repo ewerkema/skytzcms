@@ -22,6 +22,8 @@
     "gridstack": "^0.2.6",
     "jquery-ui": "^1.12.1",
     "lodash": "^4.16.2",
+    "mustache": "^2.2.1",
+    "requirejs": "^2.3.2",
     "sweetalert2": "^5.2.0"
   }
 }
