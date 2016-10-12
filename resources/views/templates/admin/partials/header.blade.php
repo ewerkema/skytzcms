@@ -64,7 +64,7 @@
                 </ul>
             </div>
 
-            <div class="collapse flex-center">
+            <div class="flex-center">
                 <ul class="nav navbar-nav flex-center">
                     @if (!Auth::guest())
                         <li><a href="#"><span class="glyphicon glyphicon-picture"></span> Media uploaden</a></li>

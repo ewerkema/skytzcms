@@ -90,7 +90,7 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function content($page)
+    public function grid($page)
     {
         $page = Page::find($page);
         return response()->json($page->content);
@@ -103,16 +103,50 @@ class PageController extends Controller
      * @param Page $page
      * @return \Illuminate\Http\Response
      */
-    public function saveContent(Request $request, Page $page)
+    public function updateGrid(Request $request, Page $page)
     {
         if($request->ajax()) {
             $input = $request->all();
 
-            if (!$page->update($input))
+            if (!isset($input['content']))
                 return response()->json(['message' => 'Updaten van de indeling is niet gelukt, neem aub contact met ons op.'], 500);
 
-            return response()->json($page, 200);
+            $updateContent = $page->content;
+            foreach ($input['content'] as $name => $block) {
+                $key = array_search($name, array_column($updateContent, 'name'));
+
+                if ($key !== false) {
+                    $updateContent[$key]['x'] = $block['x'];
+                    $updateContent[$key]['y'] = $block['y'];
+                    $updateContent[$key]['width'] = $block['width'];
+                    $updateContent[$key]['height'] = $block['height'];
+                } else {
+                    $block['name'] = $name;
+                    $block['content'] = '';
+                    $block['module'] = '';
+                    $updateContent[] = $block;
+                }
+
+            }
+            $page->content = $updateContent;
+
+            if (!$page->save())
+                return response()->json(['message' => 'Updaten van de indeling is niet gelukt, neem aub contact met ons op.'], 500);
+
+            return response()->json(['message' => 'Pagina indeling succesvol opgeslagen!'], 200);
         }
+    }
+
+    /**
+     * Display the specified resources content.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function content($page)
+    {
+        $page = Page::find($page);
+        return response()->json($page->getContentFront());
     }
 
     /**
@@ -122,17 +156,25 @@ class PageController extends Controller
      * @param Page $page
      * @return \Illuminate\Http\Response
      */
-    public function updateBlocks(Request $request, Page $page)
+    public function updateContent(Request $request, Page $page)
     {
         if($request->ajax()) {
             $input = $request->all();
 
-            if (!isset($input['blocks']))
+            if (!isset($input['content']))
                 return response()->json(['message' => 'Updaten van de inhoud is niet gelukt, neem aub contact met ons op.'], 500);
 
             $updateContent = $page->content;
-            foreach ($input['blocks'] as $name => $block) {
-                $updateContent[$name]['content'] = $block;
+            foreach ($input['content'] as $name => $block) {
+                $key = array_search($name, array_column($updateContent, 'name'));
+                $updateContent[$key]['content'] = $block;
+                if (!isset($updateContent[$key]['x'])) {
+                    $updateContent[$key]['name'] = "block0";
+                    $updateContent[$key]['x'] = 0;
+                    $updateContent[$key]['y'] = 0;
+                    $updateContent[$key]['width'] = 12;
+                    $updateContent[$key]['height'] = 1;
+                }
             }
 
             $page->content = $updateContent;

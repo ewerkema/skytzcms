@@ -189,7 +189,6 @@
     <!-- END CONTAINER -->
 
 </div>
-
 <div class="bottom">
     <div class="row ">
         <div class="small-12 columns sitemap">

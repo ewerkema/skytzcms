@@ -6,11 +6,19 @@ body {
   padding-top: 140px;
   background-position-y: 140px; }
 
-.container-fluid {
-  position: relative; }
-
 .clear {
   clear: both; }
+
+.flex-center {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center; }
+
+.container-fluid {
+  position: relative; }
 
 .nav-pills > li > a, label, input {
   font-size: 14px; }
@@ -27,14 +35,6 @@ body {
 
 #cms .full-height {
   height: 100vh; }
-
-#cms .flex-center {
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  align-items: center; }
 
 #cms .position-ref {
   position: relative; }
@@ -214,6 +214,13 @@ body {
 .grid-stack > .grid-stack-item > .grid-stack-item-content {
   background: #f6f6f7;
   overflow: hidden !important; }
+
+.buttonContainer button {
+  background: #f6f6f7;
+  color: #3097D1; }
+  .buttonContainer button:hover {
+    background: #3097D1;
+    color: white; }
 
 .tekst {
   position: relative; }

@@ -99,9 +99,10 @@ class CreatePagesTable extends Migration
             $colWidth = intval(filter_var($block->blockwidth, FILTER_SANITIZE_NUMBER_INT));
             $colWidth = ($colWidth<0) ? -$colWidth : $colWidth;
 
-            $content['col'.$i] = array(
-                "offset" => $col,
-                "row" => $row,
+            $content[] = array(
+                "name" => "block".$i,
+                "x" => $col,
+                "y" => $row,
                 "width" => $colWidth*$rowWidth/12,
                 "height" => 1,
                 "content" => $block->blockcontent,
