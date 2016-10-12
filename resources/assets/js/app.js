@@ -11,6 +11,12 @@ var contenttools = require('contenttools');
 
 Vue.component('example', require('./components/Example.vue'));
 
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
 const app = new Vue({
     el: 'body',
     data: {

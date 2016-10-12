@@ -22,12 +22,6 @@ ButtonGroup.prototype.showSaveLayout = function() {
     $(this.saveLayout).show();
 };
 
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
-
 var editor;
 var editorButtons = new ButtonGroup('#changePage, #changeLayout, #hideLayout', '#revertChanges, #saveChanges', '#saveLayout');
 
@@ -38,31 +32,39 @@ window.addEventListener('load', function() {
     editor.revert = function() {
         this.revertToSnapshot(this.history.goTo(0), false);
         return true;
-    }
+    };
 
     editor.addEventListener('saved', function (ev) {
         // Save the changes ...
-        var blocks = ev.detail().regions;
+        var content = ev.detail().regions;
+        var newBlocks = Object.keys(content).length;
 
-        $.ajax({
-            url: '/cms/pages/'+page_id+'/blocks',
-            type: 'PATCH',
-            data: {
-                'blocks' : blocks
-            },
-            success: function (data) {
-                swal({
-                    title: 'Pagina opgeslagen',
-                    type: 'success',
-                    timer: 2000
-                });
-                console.log(data);
-            },
-            error: function (data) {
-                showError(data);
-                console.log(data);
-            }
-        });
+        if (newBlocks) {
+            $.ajax({
+                url: '/cms/pages/'+page_id+'/content',
+                type: 'PATCH',
+                data: {
+                    'content' : content
+                },
+                success: function (data) {
+                    swal({
+                        title: 'Pagina opgeslagen',
+                        type: 'success',
+                        timer: 2000
+                    });
+                },
+                error: function (data) {
+                    showError(data);
+                    console.log(data);
+                }
+            });
+        } else {
+            swal({
+                title: 'Geen wijzingen gemaakt',
+                type: 'info',
+                timer: 2000
+            });
+        }
     });
 });
 
@@ -74,88 +76,102 @@ var elements;
 function enableGridstack() {
     blockContent.addClass("grid-stack");
     blockContent.css("height", "");
-    elements = {};
+    elements = [];
 
-    $.get('/cms/pages/'+page_id+'/content', function(content) {
-        _.each(content, function (item, name) {
-            elements[name] = item;
-            addGridstackToElement(item, name);
-        });
-
-        var options = {
-            cellHeight: 80,
-            verticalMargin: 10,
-            animate: true,
-            float: true
-        };
-
-        $('.grid-stack').gridstack(options);
-        grid = $('.grid-stack').data('gridstack');
-        grid.enable();
+    blockContent.find(".row").each(function() {
+        var element = $(this);
+        var content = element.html();
+        element.replaceWith(content);
     });
-}
 
-function addGridstackToElement(item, name) {
-    var element = blockContent.find("[data-name='" + name + "']");
-
-    if (element !== undefined) {
+    blockContent.find('*[data-editable]').each(function() {
+        var element = $(this);
         var content = element.html();
         element.addClass("grid-stack-item");
         element.removeClass("medium-offset-0 medium-offset-1 medium-offset-2 medium-offset-3 medium-offset-4 medium-offset-5 medium-offset-6 medium-offset-7 medium-offset-8 medium-offset-9 medium-offset-10 medium-offset-11");
-        element.attr('data-gs-x', item.offset);
-        element.attr('data-gs-y', item.row);
-        element.attr('data-gs-width', item.width);
-        element.attr('data-gs-height', item.height);
         element.html("<div class='grid-stack-item-content'></div>");
         element.find(".grid-stack-item-content").html(content);
-    } else {
-        console.log("Couldn't find block with name : "+name);
-    }
+    });
+
+    var buttonContainer =  $('<div class="buttonContainer container flex-center"></div>');
+    buttonContainer.append('<button class="newBlock" onclick="addWidget()"><span class="glyphicon glyphicon-plus"></span> Nieuw blok toevoegen</button>');
+    buttonContainer.insertAfter(blockContent);
+
+
+    var options = {
+        cellHeight: 80,
+        verticalMargin: 10,
+        animate: true,
+        float: true
+    };
+
+    $('.grid-stack').gridstack(options);
+    grid = $('.grid-stack').data('gridstack');
+    grid.enable();
 }
 
-function disableGridstack(callback) {
-    grid.destroy(false);
+function addWidget() {
+    var name = "block" + (lastElementId() + 1);
+    var element = $('<div class="grid-stack-item" data-name="'+name+'" data-editable><div class="grid-stack-item-content"></div></div>');
+    var x = 0;
+    var y = lastRow() + 1;
+    var width = 12;
+    var height = 1;
+    grid.addWidget(element, x, y, width, height);
+}
+
+function lastRow() {
+    var maxRow = 0;
+    blockContent.find('*[data-editable]').each(function() {
+        maxRow = Math.max(maxRow, $(this).attr('data-gs-y'));
+    });
+
+    return maxRow;
+}
+
+function getNumberFromString (string) {
+    return parseInt(string.match(/(\d+)$/)[0], 10);
+}
+
+function lastElementId() {
+    var id = 0;
+    blockContent.find('*[data-editable]').each(function() {
+        var name = $(this).attr('data-name');
+        id = Math.max(id, getNumberFromString(name));
+    });
+    return id;
+}
+
+function saveGrid() {
     blockContent.removeClass("grid-stack");
     blockContent.css("height", "auto");
+    $('.buttonContainer').remove();
 
-    _.each(elements, function(item,name) {
-        var element = blockContent.find("[data-name='" + name + "']");
-        elements[name]['offset'] = element.attr('data-gs-x');
-        elements[name]['row'] = element.attr('data-gs-y');
-        elements[name]['width'] = element.attr('data-gs-width');
-        elements[name]['height'] = element.attr('data-gs-height');
-
-        removeGridstackFromElement(item,name);
+    var content = {};
+    blockContent.find('*[data-editable]').each(function() {
+        var element = $(this);
+        var name = element.attr('data-name');
+        content[name] = {};
+        content[name]['x'] = element.attr('data-gs-x');
+        content[name]['y'] = element.attr('data-gs-y');
+        content[name]['width'] = element.attr('data-gs-width');
+        content[name]['height'] = element.attr('data-gs-height');
     });
+
+    console.log(content);
+
+    grid.destroy(false);
 
     $.ajax({
-        url: '/cms/pages/'+page_id+'/content',
+        url: '/cms/pages/'+page_id+'/grid',
         type: 'PATCH',
         data: {
-            'content' : elements
+            'content' : content
         },
-        success: callback,
         error: function (data) {
             showError(data.message);
-            console.log(data);
         }
     });
-}
-
-function removeGridstackFromElement(item, name) {
-    var element = blockContent.find("[data-name='" + name + "']");
-
-    if (element !== undefined) {
-        var content = element.find(".grid-stack-item-content").html();
-        element.removeClass("grid-stack-item");
-        element.attr('data-gs-x', '');
-        element.attr('data-gs-y', '');
-        element.attr('data-gs-width', '');
-        element.attr('data-gs-height', '');
-        element.html(content);
-    } else {
-        console.log("Couldn't find block with name : "+name);
-    }
 }
 
 function revertChanges() {
@@ -194,9 +210,12 @@ function changeLayout() {
 }
 
 function saveLayout() {
-    disableGridstack(function() {
+    $.when(
+        saveGrid(),
+        reloadPageContent()
+    ).then(function() {
         editorButtons.showEdit();
-        loadPageContent();
+
         swal({
             title: 'Indeling opgeslagen',
             type: 'success',
@@ -206,7 +225,9 @@ function saveLayout() {
 }
 
 function showError(data) {
-    var response = $.parseJSON(data.responseText)
+    console.log(data);
+
+    var response = $.parseHTML(data.responseText);
     var message = (response.message != undefined) ? response.message : 'Er ging iets fout bij het opslaan!';
     swal(
         'Oops...',
