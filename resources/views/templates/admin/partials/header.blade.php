@@ -59,7 +59,7 @@
                             </ul>
 
                         </li>
-                        <li class="hidden-xs"><a href="#"><span class="glyphicon glyphicon-plus"></span> Nieuwe pagina</a></li>
+                        <li class="hidden-xs"><a href="#" data-toggle="modal" data-target="#newPageModal"><span class="glyphicon glyphicon-plus"></span> Nieuwe pagina</a></li>
                     @endif
                 </ul>
             </div>
@@ -67,7 +67,7 @@
             <div class="flex-center">
                 <ul class="nav navbar-nav flex-center">
                     @if (!Auth::guest())
-                        <li><a href="#"><span class="glyphicon glyphicon-picture"></span> Media uploaden</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#mediaModal"><span class="glyphicon glyphicon-picture"></span> Media uploaden</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 <span class="glyphicon glyphicon-th-large"></span>

@@ -211,16 +211,67 @@ body {
 .ct-ignition {
   display: none; }
 
-.grid-stack > .grid-stack-item > .grid-stack-item-content {
-  background: #f6f6f7;
-  overflow: hidden !important; }
-
 .buttonContainer button {
-  background: #f6f6f7;
+  background: #fafafa;
   color: #3097D1; }
   .buttonContainer button:hover {
     background: #3097D1;
     color: white; }
+
+.grid-stack-item-content {
+  cursor: move;
+  background: #fafafa;
+  overflow: hidden !important;
+  padding: 30px 40px 0;
+  border-radius: 3px; }
+  .grid-stack-item-content .resize-icon {
+    top: 25%;
+    height: 50%;
+    width: 6px;
+    position: absolute;
+    padding-top: 30px;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center; }
+    .grid-stack-item-content .resize-icon__left {
+      left: 8px; }
+    .grid-stack-item-content .resize-icon__right {
+      right: 8px; }
+    .grid-stack-item-content .resize-icon span.stripe {
+      height: 30px;
+      width: 1px;
+      margin-left: 2px;
+      background: #e8e8e8; }
+
+.grid-stack-menu {
+  width: 100%;
+  position: absolute;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  left: 0;
+  top: 0;
+  padding: 0 8px 0 10px;
+  height: 30px;
+  background: #e8e8e8; }
+  .grid-stack-menu h3 {
+    color: white;
+    height: 30px;
+    line-height: 30px;
+    margin: 0;
+    padding: 0; }
+  .grid-stack-menu .remove {
+    display: block;
+    z-index: 10000;
+    cursor: pointer;
+    margin-left: auto;
+    color: white;
+    -webkit-transition: color 0.5s ease;
+    transition: color 0.5s ease; }
+    .grid-stack-menu .remove:hover {
+      color: #999999; }
 
 .tekst {
   position: relative; }
@@ -284,6 +335,44 @@ body {
 .input-group-btn:first-child > .btn-group:not(:first-child) > .btn {
   border-bottom-left-radius: 0 !important;
   border-top-left-radius: 0 !important; }
+
+.Switch {
+  position: relative;
+  width: 50px;
+  height: 25px;
+  display: inline-block; }
+  .Switch input {
+    display: none; }
+  .Switch__slider {
+    cursor: pointer;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #ccc;
+    position: absolute;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 12.5px; }
+  .Switch__slider:before {
+    position: absolute;
+    content: "";
+    text-align: center;
+    height: 18.75px;
+    width: 18.75px;
+    left: 3.125px;
+    top: 3.125px;
+    border-radius: 9.375px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s; }
+  input:checked + .Switch__slider {
+    background-color: #3097D1; }
+  input:focus + .Switch__slider {
+    box-shadow: 0 0 1px #3097D1; }
+  input:checked + .Switch__slider:before {
+    -webkit-transform: translateX(25px);
+    transform: translateX(25px); }
 
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)

@@ -5,15 +5,14 @@
  * gridstack.js may be freely distributed under the MIT license.
  * @preserve
 */
-
 (function(factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['jquery', 'lodash', 'jquery-ui/ui/data', 'jquery-ui/ui/disable-selection', 'jquery-ui/ui/focusable',
-            'jquery-ui/ui/form', 'jquery-ui/ui/ie', 'jquery-ui/ui/keycode', 'jquery-ui/ui/labels', 'jquery-ui/ui/jquery-1-7',
-            'jquery-ui/ui/plugin', 'jquery-ui/ui/safe-active-element', 'jquery-ui/ui/safe-blur', 'jquery-ui/ui/scroll-parent',
-            'jquery-ui/ui/tabbable', 'jquery-ui/ui/unique-id', 'jquery-ui/ui/version', 'jquery-ui/ui/widget',
-            'jquery-ui/ui/widgets/mouse', 'jquery-ui/ui/widgets/draggable', 'jquery-ui/ui/widgets/droppable',
-            'jquery-ui/ui/widgets/resizable'], factory);
+        define(['jquery', 'lodash', 'jquery-ui/data', 'jquery-ui/disable-selection', 'jquery-ui/focusable',
+            'jquery-ui/form', 'jquery-ui/ie', 'jquery-ui/keycode', 'jquery-ui/labels', 'jquery-ui/jquery-1-7',
+            'jquery-ui/plugin', 'jquery-ui/safe-active-element', 'jquery-ui/safe-blur', 'jquery-ui/scroll-parent',
+            'jquery-ui/tabbable', 'jquery-ui/unique-id', 'jquery-ui/version', 'jquery-ui/widget',
+            'jquery-ui/widgets/mouse', 'jquery-ui/widgets/draggable', 'jquery-ui/widgets/droppable',
+            'jquery-ui/widgets/resizable'], factory);
     } else if (typeof exports !== 'undefined') {
         try { jQuery = require('jquery'); } catch (e) {}
         try { _ = require('lodash'); } catch (e) {}
@@ -1112,6 +1111,10 @@
                     $(el).data('gridstack').onResizeHandler();
                 });
                 o.find('.grid-stack-item').trigger('resizestop');
+            }
+
+            if (event.type === 'resizestop') {
+                o.trigger('resizedone');
             }
         };
 

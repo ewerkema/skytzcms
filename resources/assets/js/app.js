@@ -6,8 +6,9 @@
 
 var _ = require('lodash');
 var Vue = require('vue');
-var bootstrap = require('bootstrap-sass');
-var contenttools = require('contenttools');
+var Bootstrap = require('bootstrap-sass');
+var ContentTools = require('contenttools');
+var Awesomplete = require('awesomplete');
 
 Vue.component('example', require('./components/Example.vue'));
 

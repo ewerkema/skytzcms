@@ -51,6 +51,14 @@ class Page extends Model
 
         return $content;
     }
+
+    /**
+     * @return array
+     */
+    public function getEditorLink()
+    {
+        return array($this->attributes['title'].' ('.$this->attributes['slug'].')', $this->attributes['slug']);
+    }
     
     /**
      * Define relationships.
