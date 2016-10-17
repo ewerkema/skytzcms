@@ -21,14 +21,14 @@ class CreatePagesTable extends Migration
             $table->string('title');
             $table->text('content');
             $table->string('meta_title');
-            $table->text('meta_desc');
-            $table->text('meta_keywords');
+            $table->text('meta_desc')->nullable();
+            $table->text('meta_keywords')->nullable();
             $table->boolean('menu')->default(0);
             $table->integer('parent_id')->unsigned()->nullable();
             $table->integer('order')->default(0);
             $table->integer('header_image_id')->unsigned()->nullable();
             $table->foreign('header_image_id')->references('id')->on('media');
-            $table->integer('pagehits');
+            $table->integer('pagehits')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -104,7 +104,7 @@ class CreatePagesTable extends Migration
                 "x" => $col,
                 "y" => $row,
                 "width" => $colWidth*$rowWidth/12,
-                "height" => 1,
+                "height" => 2,
                 "content" => $block->blockcontent,
                 "module" => $block->module_id
             );

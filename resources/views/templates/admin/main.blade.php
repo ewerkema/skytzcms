@@ -13,6 +13,7 @@
     <link href="/images/favicon.png" rel="shortcut icon" />
     <link href="/plugins/contenttools/content-tools.min.css" type="text/css" rel="stylesheet">
     <link href="/plugins/sweetalert2/sweetalert2.css" type="text/css" rel="stylesheet">
+    <link href="/plugins/awesomplete/awesomplete.css" type="text/css" rel="stylesheet">
 
     <!-- Scripts -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/gridstack.js/0.2.6/gridstack.min.css" />
@@ -32,7 +33,7 @@
 @section('bottom')
     <script src="/js/app.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src='/plugins/gridstack/gridstack.min.js'></script>
+    <script type="text/javascript" src='/plugins/gridstack/gridstack.js'></script>
     <script src="/js/editor.js"></script>
     <script src="/plugins/sweetalert2/sweetalert2.js"></script>
 
@@ -59,6 +60,9 @@
 
     {{-- Modals --}}
     @if (!Auth::guest())
+        @include('templates.admin.modals.media')
+        @include('templates.admin.modals.newpage')
+
         @if (isset($page))
             @include('templates.admin.modals.page')
         @endif

@@ -15,6 +15,9 @@
 @import "admin/editor";
 @import "admin/reset-form";
 
+// Admin components
+@import "admin/components/switch";
+
 // Bootstrap
 $icon-font-path: "fonts/bootstrap/";
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";

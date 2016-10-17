@@ -52,13 +52,7 @@ class PageController extends Controller
      */
     public function create(array $data)
     {
-        return Page::create([
-            'slug' => $data['slug'],
-            'title' => $data['title'],
-            'meta_title' => $data['meta_title'],
-            'meta_desc' => $data['meta_desc'],
-            'menu' => $data['menu'],
-        ]);
+        //
     }
 
     /**
@@ -69,7 +63,18 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->ajax()) {
+            $input = $request->all();
+            $this->validator($input)->validate();
 
+            $input['content'] = array();
+            $page = Page::create($input);
+
+            session()->flash('flash_message', 'De pagina is succesvol aangemaakt');
+            session()->flash('flash_title', 'Pagina aangemaakt');
+
+            return response()->json($page, 200);
+        }
     }
 
     /**
@@ -111,22 +116,13 @@ class PageController extends Controller
             if (!isset($input['content']))
                 return response()->json(['message' => 'Updaten van de indeling is niet gelukt, neem aub contact met ons op.'], 500);
 
-            $updateContent = $page->content;
+            $updateContent = array();
             foreach ($input['content'] as $name => $block) {
-                $key = array_search($name, array_column($updateContent, 'name'));
+                $key = array_search($name, array_column($page->content, 'name'));
 
-                if ($key !== false) {
-                    $updateContent[$key]['x'] = $block['x'];
-                    $updateContent[$key]['y'] = $block['y'];
-                    $updateContent[$key]['width'] = $block['width'];
-                    $updateContent[$key]['height'] = $block['height'];
-                } else {
-                    $block['name'] = $name;
-                    $block['content'] = '';
-                    $block['module'] = '';
-                    $updateContent[] = $block;
-                }
-
+                $block['name'] = $name;
+                $block['content'] = ($key !== false) ? $page->content[$key]['content'] : "";
+                $updateContent[] = $block;
             }
             $page->content = $updateContent;
 

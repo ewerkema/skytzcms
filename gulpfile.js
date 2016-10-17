@@ -14,12 +14,13 @@ require('laravel-elixir-vue');
  */
 
 var paths = {
-    'public_css' : '/public/css/fonts/',
-    'public_plugins' : '/public/plugins/',
-    'bootstrap_fonts' : '/node_modules/bootstrap-sass/assets/fonts/bootstrap',
-    'contenttools' : '/node_modules/ContentTools/build',
-    'sweetalert2' : '/node_modules/sweetalert2/dist',
-    'gridstack' : '/node_modules/gridstack/dist',
+    'public_css' : 'public/css/fonts/',
+    'public_plugins' : 'public/plugins/',
+    'bootstrap_fonts' : 'node_modules/bootstrap-sass/assets/fonts/bootstrap',
+    'contenttools' : 'node_modules/ContentTools/build',
+    'sweetalert2' : 'node_modules/sweetalert2/dist',
+    'gridstack' : 'node_modules/gridstack/dist',
+    'awesomplete' : ['node_modules/awesomplete/awesomplete.js','node_modules/awesomplete/awesomplete.css'],
 };
 
 elixir(function(mix) {
@@ -30,6 +31,7 @@ elixir(function(mix) {
         .copy(paths.bootstrap_fonts, paths.public_css+'bootstrap')
         .copy(paths.contenttools, paths.public_plugins+'contenttools')
         .copy(paths.gridstack, paths.public_plugins+'gridstack')
-        .copy(paths.sweetalert2, paths.public_plugins+'sweetalert2');
+        .copy(paths.sweetalert2, paths.public_plugins+'sweetalert2')
+        .copy(paths.awesomplete, paths.public_plugins+'awesomplete');
 
 });

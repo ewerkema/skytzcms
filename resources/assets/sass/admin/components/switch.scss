@@ -1,0 +1,52 @@
+$switch-height: 25px;
+$switch-inner-block: $switch-height * 0.75;
+$switch-width: $switch-height * 2;
+
+.Switch {
+  position: relative;
+  width: $switch-width;
+  height: $switch-height;
+  display: inline-block;
+
+  input {
+    display: none;
+  }
+
+  &__slider {
+    cursor: pointer;
+    left: 0; right: 0; top: 0; bottom: 0;
+    background-color: #ccc;
+    position: absolute;
+    -webkit-transition: .4s;
+    transition: .4s;
+    @include rounded($switch-height/2);
+  }
+
+  &__slider:before {
+    position: absolute;
+    content: "";
+    text-align: center;
+    height: $switch-inner-block;
+    width: $switch-inner-block;
+    left: ($switch-height - $switch-inner-block) / 2;
+    top: ($switch-height - $switch-inner-block) / 2;
+    @include rounded($switch-inner-block/2);
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  input:checked + &__slider {
+    background-color: $brand-primary;
+  }
+
+  input:focus + &__slider {
+    box-shadow: 0 0 1px $brand-primary;
+  }
+
+  input:checked + &__slider:before {
+    -webkit-transform: translateX($switch-height);
+    -ms-transform: translateX($switch-height);
+    transform: translateX($switch-height);
+  }
+}

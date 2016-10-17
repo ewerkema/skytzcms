@@ -3,17 +3,84 @@
   display: none;
 }
 
-.grid-stack>.grid-stack-item>.grid-stack-item-content { background: $editor-item-bg; overflow: hidden !important; }
+.grid-stack>.grid-stack-item>.grid-stack-item-content {  }
 
 .buttonContainer button {
   background: $editor-item-bg;
   color: $brand-primary;
+
   &:hover {
     background: $brand-primary;
     color: lighten($brand-primary, 50%);
   }
 }
 
+.grid-stack-item-content {
+  cursor: move;
+  background: $editor-item-bg;
+  overflow: hidden !important;
+  padding: $editor-menu-height $editor-padding 0;
+  //@include box-shadow(5px,5px,5px,darken(#fff,15%));
+  @include rounded(3px);
+
+  .resize-icon {
+    top: 25%;
+    height: 50%;
+    width: 6px;
+    position: absolute;
+    padding-top: $editor-menu-height;
+    display: flex;
+    align-items: center;
+
+    &__left {
+      left: $editor-icon-distance;
+    }
+
+    &__right {
+      right: $editor-icon-distance;
+    }
+
+    span.stripe {
+      height: 30px;
+      width: 1px;
+      margin-left: 2px;
+      background: $editor-menu-bg;
+    }
+  }
+}
+
+.grid-stack-menu {
+  width: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  left: 0;
+  top: 0;
+  padding: 0 $editor-icon-distance 0 $editor-padding/4;
+  height: $editor-menu-height;
+  background: $editor-menu-bg;
+
+  h3 {
+    color: $editor-menu-text-color;
+    height: $editor-menu-height;
+    line-height: $editor-menu-height;
+    margin: 0;
+    padding: 0;
+  }
+
+  .remove {
+    display: block;
+    z-index: 10000;
+    cursor: pointer;
+    margin-left: auto;
+    color: $editor-menu-text-color;
+    transition: color 0.5s ease;
+
+    &:hover {
+      color: darken($editor-menu-text-color, 40%);
+    }
+  }
+}
 
 .tekst { position: relative; }
 

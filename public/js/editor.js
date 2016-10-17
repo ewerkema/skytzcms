@@ -29,6 +29,7 @@ window.addEventListener('load', function() {
     editor = ContentTools.EditorApp.get();
     editor.init('*[data-editable]', 'data-name');
     editor._ignition.unmount();
+    addPagesToEditor(ContentTools);
     editor.revert = function() {
         this.revertToSnapshot(this.history.goTo(0), false);
         return true;
@@ -40,23 +41,16 @@ window.addEventListener('load', function() {
         var newBlocks = Object.keys(content).length;
 
         if (newBlocks) {
-            $.ajax({
-                url: '/cms/pages/'+page_id+'/content',
-                type: 'PATCH',
-                data: {
-                    'content' : content
-                },
-                success: function (data) {
-                    swal({
-                        title: 'Pagina opgeslagen',
-                        type: 'success',
-                        timer: 2000
-                    });
-                },
-                error: function (data) {
-                    showError(data);
-                    console.log(data);
-                }
+            $.when(
+                saveContent(content)
+            ).then(function() {
+                editorButtons.showEdit();
+
+                swal({
+                    title: 'Pagina opgeslagen',
+                    type: 'success',
+                    timer: 2000
+                });
             });
         } else {
             swal({
@@ -67,6 +61,20 @@ window.addEventListener('load', function() {
         }
     });
 });
+
+function saveContent(content) {
+    $.ajax({
+        url: '/cms/pages/'+page_id+'/content',
+        type: 'PATCH',
+        data: {
+            'content' : content
+        },
+        error: function (data) {
+            showError(data);
+            console.log(data);
+        }
+    });
+}
 
 var grid;
 var blockContent = $(".page-content");
@@ -86,11 +94,9 @@ function enableGridstack() {
 
     blockContent.find('*[data-editable]').each(function() {
         var element = $(this);
-        var content = element.html();
         element.addClass("grid-stack-item");
-        element.removeClass("medium-offset-0 medium-offset-1 medium-offset-2 medium-offset-3 medium-offset-4 medium-offset-5 medium-offset-6 medium-offset-7 medium-offset-8 medium-offset-9 medium-offset-10 medium-offset-11");
-        element.html("<div class='grid-stack-item-content'></div>");
-        element.find(".grid-stack-item-content").html(content);
+        element.removeOffsets();
+        element.moveDownIn('grid-stack-item-content').addGridstackMenu();
     });
 
     var buttonContainer =  $('<div class="buttonContainer container flex-center"></div>');
@@ -102,31 +108,90 @@ function enableGridstack() {
         cellHeight: 80,
         verticalMargin: 10,
         animate: true,
-        float: true
+        float: true,
+        resizable: {
+            autoHide: false,
+            handles: 'e,w'
+        }
     };
 
     $('.grid-stack').gridstack(options);
     grid = $('.grid-stack').data('gridstack');
     grid.enable();
+
+    $('.grid-stack').on('resizedone', function(event) {
+        var element = $(event.target);
+        var width = element.attr('data-gs-width');
+        element.find('.grid-stack-title').html(textWidth(width));
+
+    });
 }
+
+function textWidth (width) {
+    switch (parseInt(width)) {
+        case 2: return "1/6";
+        case 3: return "1/4";
+        case 4: return "1/3";
+        case 6: return "1/2";
+        case 8: return "2/3";
+        case 9: return "3/4";
+        case 10: return "5/6";
+        case 12: return "1/1";
+        default: return width+"/12";
+    }
+}
+
+$.fn.moveDownIn = function(classname) {
+    var content = this.html();
+    this.html("<div class='"+classname+"'></div>");
+    return this.children("."+classname).html(content);
+};
+
+$.fn.removeOffsets = function() {
+    for (var i = 1; i < 12; i++) {
+        this.removeClass("lg-offset-"+i)
+            .removeClass("md-offset-"+i)
+            .removeClass("sm-offset-"+i)
+            .removeClass("xs-offset-"+i);
+    }
+};
+
+$.fn.addGridstackMenu = function() {
+    var width = this.parent(".grid-stack-item").attr('data-gs-width');
+    width = (width == undefined) ? 12 : width;
+    this.append("<div class='grid-stack-menu'><h3 class='grid-stack-title'>"+textWidth(width)+"</h3><div class='remove'><span class='glyphicon glyphicon-remove'></span></div></div>")
+        .append("<div class='resize-icon resize-icon__left'><span class='stripe'></span><span class='stripe'></span></div>")
+        .append("<div class='resize-icon resize-icon__right'><span class='stripe'></span><span class='stripe'></span></div>");
+
+    this.on('click', '.remove', function (e) {
+        e.preventDefault();
+        var el = this.closest('.grid-stack-item');
+        swal({
+            title: "Blok verwijderen?",
+            text: "Je kan deze wijzingen niet meer herstellen.",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Ja, verwijder dit blok",
+        }).then(function(){
+            grid.removeWidget(el);
+        });
+    })
+};
 
 function addWidget() {
     var name = "block" + (lastElementId() + 1);
-    var element = $('<div class="grid-stack-item" data-name="'+name+'" data-editable><div class="grid-stack-item-content"></div></div>');
+    var element = $('<div class="grid-stack-item" data-name="'+name+'" data-module="0" data-editable><div class="grid-stack-item-content"></div></div>');
+    element.find(".grid-stack-item-content").addGridstackMenu();
     var x = 0;
-    var y = lastRow() + 1;
+    var y = getEditorHeight();
     var width = 12;
-    var height = 1;
+    var height = 2;
     grid.addWidget(element, x, y, width, height);
 }
 
-function lastRow() {
-    var maxRow = 0;
-    blockContent.find('*[data-editable]').each(function() {
-        maxRow = Math.max(maxRow, $(this).attr('data-gs-y'));
-    });
-
-    return maxRow;
+function getEditorHeight() {
+    return blockContent.attr('data-gs-current-height');
 }
 
 function getNumberFromString (string) {
@@ -152,13 +217,12 @@ function saveGrid() {
         var element = $(this);
         var name = element.attr('data-name');
         content[name] = {};
+        content[name]['module'] = (element.attr('data-module') != "") ? element.attr('data-module') : 0;
         content[name]['x'] = element.attr('data-gs-x');
         content[name]['y'] = element.attr('data-gs-y');
         content[name]['width'] = element.attr('data-gs-width');
         content[name]['height'] = element.attr('data-gs-height');
     });
-
-    console.log(content);
 
     grid.destroy(false);
 
@@ -235,3 +299,71 @@ function showError(data) {
         'error'
     )
 }
+
+// Define out custom image tool
+var CustomImageTool = (function(_super) {
+    $.extend(CustomImageTool, _super);
+
+    function CustomImageTool() {
+        return CustomImageTool.__super__.constructor.apply(this, arguments);
+    }
+
+    // Register the tool with ContentTools (in this case we overwrite the
+    // default image tool).
+    ContentTools.ToolShelf.stow(CustomImageTool, 'image');
+
+    // Set the label and icon we'll use
+    CustomImageTool.label = 'Image';
+    CustomImageTool.icon = 'image';
+
+    CustomImageTool.canApply = function(element, selection) {
+        // So long as there's an image defined we can always insert an image
+        return true;
+    };
+
+    CustomImageTool.apply = function(element, selection, callback) {
+
+        // First define a function that we can send the custom media manager
+        // when an image is ready to insert.
+        function _insertImage(url, width, height) {
+            // Once the user has selected an image insert it
+
+            // Create the image element
+            var image = new ContentEdit.Image({src: url});
+
+            // Insert the image
+            var insertAt = CustomImageTool._insertAt(element);
+            insertAt[0].parent().attach(image, insertAt[1]);
+
+            // Set the image as having focus
+            image.focus();
+
+            // Call the given tool callback
+            return callback(true);
+        }
+
+        // Make the new function accessible to your iframe
+        window.parent.CustomMediaManager = {_insertImage: _insertImage};
+
+        // Hand off to your custom media manager
+        //
+        // This bit you'll need to figure out for yourself or provide more
+        // details about how your media manager works, for example in
+        // KCFinder here we open a new window and point it at the KCFinder
+        // browse.php script. In your case you may be looking to insert an
+        // iframe element and/or set the src for that iframe.
+        //
+        // When the user uploads/selects an image in your media manager you
+        // are ready to call the `_insertImage` function defined above. The
+        // function is accessed against the iframe parent using:
+        //
+        //     window.parent.CustomMediaManager._insertImage(url, width, height);
+        //
+        
+        console.log("OPEN MODAL");
+
+    };
+
+    return CustomImageTool;
+
+})(ContentTools.Tool);
