@@ -104,7 +104,7 @@ class CreatePagesTable extends Migration
                 "x" => $col,
                 "y" => $row,
                 "width" => $colWidth*$rowWidth/12,
-                "height" => 2,
+                "height" => 1,
                 "content" => $block->blockcontent,
                 "module" => $block->module_id
             );
