@@ -105,10 +105,10 @@ function enableGridstack() {
 
 
     var options = {
-        cellHeight: 80,
+        cellHeight: 200,
         verticalMargin: 10,
         animate: true,
-        float: true,
+        float: false,
         resizable: {
             autoHide: false,
             handles: 'e,w'
@@ -186,7 +186,7 @@ function addWidget() {
     var x = 0;
     var y = getEditorHeight();
     var width = 12;
-    var height = 2;
+    var height = 1;
     grid.addWidget(element, x, y, width, height);
 }
 

@@ -24,8 +24,7 @@
 
             $.get('/cms/pages/{{ $page->id }}/content', function(content) {
                 if (content.length == 0) {
-                    content.html('<div class="block" data-name="block0" data-gs-x="0" data-gs-y="0" data-gs-width="12" data-gs-height="2" data-module="0" data-editable></div>');
-                    console.log("Test");
+                    blockContent.html('<div class="block" data-name="block0" data-gs-x="0" data-gs-y="0" data-gs-width="12" data-gs-height="2" data-module="0" data-editable></div>');
                 }
 
                 _.each(content, function(row) {
