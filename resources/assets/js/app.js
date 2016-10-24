@@ -11,6 +11,7 @@ var ContentTools = require('contenttools');
 var Awesomplete = require('awesomplete');
 
 Vue.component('example', require('./components/Example.vue'));
+Vue.component('modal', require('./components/Modal.vue'));
 
 $.ajaxSetup({
     headers: {

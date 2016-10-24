@@ -1,1 +1,1 @@
-@extends('errors.layout', ['title' => 'Pagina niet gevonden.'])
+@extends('errors.error', ['title' => 'Pagina niet gevonden.'])

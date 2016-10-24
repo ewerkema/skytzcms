@@ -1,1 +1,1 @@
-@extends('errors.layout', ['title', 'Tijdelijk offline.'])
+@extends('errors.error', ['title', 'Tijdelijk offline.'])

@@ -18,6 +18,7 @@ class CreateSettingsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('value');
+            $table->timestamps();
         });
 
         ImportTable::reverseImport('skytz_websettings', function ($settings) {
@@ -51,7 +52,7 @@ class CreateSettingsTable extends Migration
 
             Setting::create([
                 'name' => $name,
-                'value' => $setting
+                'value' => $setting,
             ]);
         }
     }

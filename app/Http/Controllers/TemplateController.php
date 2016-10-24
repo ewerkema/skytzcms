@@ -15,6 +15,9 @@ class TemplateController extends Controller
             abort(404);
         return View::make('templates.'.config('skytz.template').'.index')->with([
             'page' => $page,
+            'pages' => Page::all()->map(function($page) {
+                return $page->getEditorLink();
+            }),
             'menu' => Page::all()->where('menu', 1)
         ]);
     }

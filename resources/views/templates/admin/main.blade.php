@@ -31,37 +31,40 @@
 @stop
 
 @section('bottom')
-    <script src="/js/app.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src='/plugins/gridstack/gridstack.js'></script>
-    <script src="/js/editor.js"></script>
-    <script src="/plugins/sweetalert2/sweetalert2.js"></script>
-
-    {{-- Flash messages --}}
-    <script type="text/javascript">
-
-        @if (Session::has('flash_message'))
-            swal({
-                title: "{{ Session::has('flash_title') ? session('flash_title') : "Success!" }}",
-                text: "{{ session('flash_message') }}",
-                type: "success",
-                timer: 2000
-            });
-        @endif
-
-        @if (Session::has('flash_error'))
-            swal({
-                title: "{{ Session::has('flash_title') ? session('flash_title') : "Success!" }}",
-                text: "{{ session('flash_error') }}",
-                type: "error"
-            });
-        @endif
-    </script>
-
-    {{-- Modals --}}
     @if (!Auth::guest())
+        <script src="/js/app.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+        <script type="text/javascript" src='/plugins/gridstack/gridstack.js'></script>
+        <script src="/js/editor.js"></script>
+        <script src="/js/request.js"></script>
+        <script src="/plugins/sweetalert2/sweetalert2.js"></script>
+
+        {{-- Flash messages --}}
+        <script type="text/javascript">
+
+            @if (Session::has('flash_message'))
+                swal({
+                    title: "{{ Session::has('flash_title') ? session('flash_title') : "Success!" }}",
+                    text: "{{ session('flash_message') }}",
+                    type: "success",
+                    timer: 2000
+                });
+            @endif
+
+            @if (Session::has('flash_error'))
+                swal({
+                    title: "{{ Session::has('flash_title') ? session('flash_title') : "Success!" }}",
+                    text: "{{ session('flash_error') }}",
+                    type: "error"
+                });
+            @endif
+        </script>
+
+        {{-- Modals --}}
         @include('templates.admin.modals.media')
         @include('templates.admin.modals.newpage')
+        @include('templates.admin.modals.account')
+        @include('templates.admin.modals.website', ['settings' => Setting::all()->keyBy('name')])
 
         @if (isset($page))
             @include('templates.admin.modals.page')

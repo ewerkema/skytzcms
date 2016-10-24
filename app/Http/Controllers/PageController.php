@@ -63,18 +63,17 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->ajax()) {
-            $input = $request->all();
-            $this->validator($input)->validate();
+        $input = $request->all();
+        $this->validator($input)->validate();
 
-            $input['content'] = array();
-            $page = Page::create($input);
+        $input['content'] = array();
+        $input['published_content'] = array();
+        $page = Page::create($input);
 
-            session()->flash('flash_message', 'De pagina is succesvol aangemaakt');
-            session()->flash('flash_title', 'Pagina aangemaakt');
+        session()->flash('flash_message', 'De pagina is succesvol aangemaakt');
+        session()->flash('flash_title', 'Pagina aangemaakt');
 
-            return response()->json($page, 200);
-        }
+        return response()->json($page, 200);
     }
 
     /**
@@ -110,31 +109,30 @@ class PageController extends Controller
      */
     public function updateGrid(Request $request, Page $page)
     {
-        if($request->ajax()) {
-            $input = $request->all();
+        $input = $request->all();
 
-            if (!isset($input['content']))
-                return response()->json(['message' => 'Updaten van de indeling is niet gelukt, neem aub contact met ons op.'], 500);
+        if (!isset($input['content']))
+            return response()->json(['message' => 'Updaten van de indeling is niet gelukt, neem aub contact met ons op.'], 500);
 
-            $updateContent = array();
-            foreach ($input['content'] as $name => $block) {
-                $key = array_search($name, array_column($page->content, 'name'));
+        $updateContent = array();
+        foreach ($input['content'] as $name => $block) {
+            $key = array_search($name, array_column($page->content, 'name'));
 
-                $block['name'] = $name;
-                $block['content'] = ($key !== false) ? $page->content[$key]['content'] : "";
-                $updateContent[] = $block;
-            }
-            $page->content = $updateContent;
-
-            if (!$page->save())
-                return response()->json(['message' => 'Updaten van de indeling is niet gelukt, neem aub contact met ons op.'], 500);
-
-            return response()->json(['message' => 'Pagina indeling succesvol opgeslagen!'], 200);
+            $block['name'] = $name;
+            $block['content'] = ($key !== false) ? $page->content[$key]['content'] : "";
+            $updateContent[] = $block;
         }
+        $page->content = $updateContent;
+
+        if (!$page->save())
+            return response()->json(['message' => 'Updaten van de indeling is niet gelukt, neem aub contact met ons op.'], 500);
+
+        return response()->json(['message' => 'Pagina indeling succesvol opgeslagen!'], 200);
+
     }
 
     /**
-     * Display the specified resources content.
+     * Display the specified resources backend content.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -142,7 +140,7 @@ class PageController extends Controller
     public function content($page)
     {
         $page = Page::find($page);
-        return response()->json($page->getContentFront());
+        return response()->json($page->getContent());
     }
 
     /**
@@ -154,32 +152,30 @@ class PageController extends Controller
      */
     public function updateContent(Request $request, Page $page)
     {
-        if($request->ajax()) {
-            $input = $request->all();
+        $input = $request->all();
 
-            if (!isset($input['content']))
-                return response()->json(['message' => 'Updaten van de inhoud is niet gelukt, neem aub contact met ons op.'], 500);
+        if (!isset($input['content']))
+            return response()->json(['message' => 'Updaten van de inhoud is niet gelukt, neem aub contact met ons op.'], 500);
 
-            $updateContent = $page->content;
-            foreach ($input['content'] as $name => $block) {
-                $key = array_search($name, array_column($updateContent, 'name'));
-                $updateContent[$key]['content'] = $block;
-                if (!isset($updateContent[$key]['x'])) {
-                    $updateContent[$key]['name'] = "block0";
-                    $updateContent[$key]['x'] = 0;
-                    $updateContent[$key]['y'] = 0;
-                    $updateContent[$key]['width'] = 12;
-                    $updateContent[$key]['height'] = 1;
-                }
+        $updateContent = $page->content;
+        foreach ($input['content'] as $name => $block) {
+            $key = array_search($name, array_column($updateContent, 'name'));
+            $updateContent[$key]['content'] = $block;
+            if (!isset($updateContent[$key]['x'])) {
+                $updateContent[$key]['name'] = "block0";
+                $updateContent[$key]['x'] = 0;
+                $updateContent[$key]['y'] = 0;
+                $updateContent[$key]['width'] = 12;
+                $updateContent[$key]['height'] = 1;
             }
-
-            $page->content = $updateContent;
-
-            if (!$page->save())
-                return response()->json(['message' => 'Updaten van de inhoud is niet gelukt, neem aub contact met ons op.'], 500);
-
-            return response()->json($page, 200);
         }
+
+        $page->content = $updateContent;
+
+        if (!$page->save())
+            return response()->json(['message' => 'Updaten van de inhoud is niet gelukt, neem aub contact met ons op.'], 500);
+
+        return response()->json($page, 200);
     }
 
     /**
@@ -202,18 +198,34 @@ class PageController extends Controller
      */
     public function update(Request $request, Page $page)
     {
-        if($request->ajax()) {
-            $input = $request->all();
-            $this->validator($input, $page->id)->validate();
+        $input = $request->all();
+        $this->validator($input, $page->id)->validate();
 
-            if (!$page->update($input))
-                return response()->json(['message' => 'Updaten van de pagina is niet gelukt.'], 500);
+        if (!$page->update($input))
+            return response()->json(['message' => 'Updaten van de pagina is niet gelukt.'], 500);
 
-            session()->flash('flash_message', 'De pagina is succesvol aangepast');
-            session()->flash('flash_title', 'Pagina aangepast');
+        session()->flash('flash_message', 'De pagina is succesvol aangepast');
+        session()->flash('flash_title', 'Pagina aangepast');
 
-            return response()->json($page, 200);
+        return response()->json($page);
+
+    }
+
+    /**
+     * Publish all pages.
+     *
+     * @return Response
+     */
+    public function publish()
+    {
+        $pages = Page::all();
+        foreach ($pages as $page) {
+            $page->published_content = $page->content;
+            $page->save();
         }
+
+        return response()->json(['message' => 'Alle pagina\'s zijn gepubliceerd.']);
+
     }
 
     /**

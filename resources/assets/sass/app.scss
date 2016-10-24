@@ -14,10 +14,11 @@
 @import "admin/errors";
 @import "admin/editor";
 @import "admin/reset-form";
+@import "admin/modal";
 
 // Admin components
 @import "admin/components/switch";
 
 // Bootstrap
 $icon-font-path: "fonts/bootstrap/";
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "bootstrap/bootstrap";

@@ -367,3 +367,7 @@ var CustomImageTool = (function(_super) {
     return CustomImageTool;
 
 })(ContentTools.Tool);
+
+$('.modal').on('shown.bs.modal', function() {
+    $(this).find('[autofocus]').focus();
+});
