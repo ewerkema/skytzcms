@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Page;
+use App\Models\Setting;
 use App\Http\Requests;
 use Illuminate\Support\Facades\View;
 use DB;

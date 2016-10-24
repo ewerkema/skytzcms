@@ -71,14 +71,13 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 <span class="glyphicon glyphicon-th-large"></span>
-                                Mijn modules (3) <span class="caret"></span>
+                                Mijn modules (4) <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ cms_url('/index') }}">Contact formulier</a></li>
                                 <li><a href="{{ cms_url('/index') }}">Foto album</a></li>
                                 <li><a href="{{ cms_url('/index') }}">Nieuws</a></li>
-                                <li><a href="{{ cms_url('/index') }}">Google Analytics (statistieken)</a></li>
                                 <li><a href="{{ cms_url('/index') }}">Slider</a></li>
                             </ul>
                         </li>
@@ -94,12 +93,13 @@
                         <li><a href="{{ cms_url('/login') }}">Inloggen</a></li>
                         <li><a href="{{ cms_url('/register') }}">Registreren</a></li>
                     @else
-                        <li class="publish"><a href=""><span class="glyphicon glyphicon-globe"></span> Publiceer website</a></li>
+                        <li class="publish"><a href="#" onclick="publishWebsite()"><span class="glyphicon glyphicon-globe"></span> Publiceer website</a></li>
                         <li><a href="#"><span class="glyphicon glyphicon-question-sign"></span> Help</a></li>
                         <li class="visible-xs">
                             <a href="{{ cms_url('/logout') }}"
                                onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
+                               document.getElementById('logout-form').submit();"
+                            >
                                 Uitloggen
                             </a>
 
@@ -110,16 +110,17 @@
                         <li class="dropdown hidden-xs">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 <span class="glyphicon glyphicon-user"></span>
-                                {{ Auth::user()->getName() }} <span class="caret"></span>
+                                <span id="userName">{{ Auth::user()->getName() }}</span> <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ cms_url('/index') }}">Website instellingen</a></li>
-                                <li><a href="{{ cms_url('/index') }}">Account instellingen</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#websiteModal">Website instellingen</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#accountModal">Account instellingen</a></li>
                                 <li>
                                     <a href="{{ cms_url('/logout') }}"
                                        onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
+                                       document.getElementById('logout-form').submit();"
+                                    >
                                         Uitloggen
                                     </a>
 
@@ -145,7 +146,7 @@
                         <li id="changeLayout"><a href="#" onclick="changeLayout();"><span class="glyphicon glyphicon-th"></span> Indeling bewerken</a></li>
                         <li id="saveLayout"><a href="#" onclick="saveLayout();"><span class="glyphicon glyphicon-ok"></span> Indeling opslaan</a></li>
                         <li><div class="divider hidden-xs"></div></li>
-                        <li><a href="#pagina-beheer" data-toggle="modal" data-target="#pagesModal"><span class="glyphicon glyphicon-cog"></span> Pagina instellingen</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#pageModal"><span class="glyphicon glyphicon-cog"></span> Pagina instellingen</a></li>
                     @endif
                 </ul>
             </div>

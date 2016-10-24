@@ -192,7 +192,7 @@
 <div class="bottom">
     <div class="row ">
         <div class="small-12 columns sitemap">
-            <p>Copyright 2014 <a href="/">Skytz.nl</a>  |  Uw eigen website gemakkelijk beheren</p>
+            <p>Copyright 2016 - {{ date('Y') }} <a href="/">Skytz.nl</a>  |  Uw eigen website gemakkelijk beheren</p>
         </div>
     </div>
 </div>

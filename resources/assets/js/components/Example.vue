@@ -18,6 +18,11 @@
     export default {
         ready() {
             console.log('Component ready.')
+        },
+        data() {
+            return {
+                "message": "Hallo"
+            };
         }
     }
 </script>

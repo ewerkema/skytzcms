@@ -10,23 +10,56 @@ class Page extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'slug', 'title', 'content', 'meta_title', 'meta_desc', 'meta_keywords', 'menu', 'parent_id', 'order', 'header_image_id', 'pagehits',
+        'slug', 'title', 'content', 'published_content', 'meta_title', 'meta_desc', 'meta_keywords', 'menu', 'parent_id', 'order', 'header_image_id', 'pagehits',
     ];
 
     protected $dates = ['deleted_at'];
 
     protected $casts = [
         'content' => 'array',
+        'published_content' => 'array',
     ];
 
     /**
-     * Function to return the frontend representation of the content.
+     * Function to return the content from json array.
      *
      * @return array
      */
-    public function getContentFront()
+    public function getContent()
     {
-        $blocks = json_decode($this->attributes['content'], true);
+        return $this->generateContentFromJson($this->attributes['content']);
+    }
+
+    public function getPublishedContent()
+    {
+        return $this->generateContentFromJson($this->attributes['published_content']);
+    }
+
+    /**
+     * @return array
+     */
+    public function getEditorLink()
+    {
+        return array($this->attributes['title'].' ('.$this->attributes['slug'].')', $this->attributes['slug']);
+    }
+    
+    /**
+     * Define relationships.
+     */
+    public function header()
+    {
+        return $this->hasOne('Media');
+    }
+
+    /**
+     * Function to return the content from json array.
+     *
+     * @param array $contentArray
+     * @return array
+     */
+    public function generateContentFromJson($contentArray)
+    {
+        $blocks = json_decode($contentArray, true);
 
         usort($blocks, function ($a, $b) {
             return 12*($a['y'] - $b['y']) + ($a['x'] - $b['x']);
@@ -50,21 +83,5 @@ class Page extends Model
         }
 
         return $content;
-    }
-
-    /**
-     * @return array
-     */
-    public function getEditorLink()
-    {
-        return array($this->attributes['title'].' ('.$this->attributes['slug'].')', $this->attributes['slug']);
-    }
-    
-    /**
-     * Define relationships.
-     */
-    public function header()
-    {
-        return $this->hasOne('Media');
     }
 }

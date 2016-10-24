@@ -22,7 +22,12 @@ Route::group(['prefix' => 'cms'], function() {
     Route::get('pages/{page}/content', array('as' => 'pages.content', 'uses' => 'PageController@content'));
     Route::patch('pages/{page}/grid', array('as' => 'pages.updategrid', 'uses' => 'PageController@updateGrid'));
     Route::patch('pages/{page}/content', array('as' => 'pages.updatecontent', 'uses' => 'PageController@updateContent'));
+    Route::post('pages/publish', array('as' => 'pages.publish', 'uses' => 'PageController@publish'));
     Route::resource('pages', 'PageController');
+
+    Route::resource('users', 'UserController');
+    Route::patch('settings', 'SettingController@update');
+    Route::resource('media', 'MediaController');
 
     Route::get('/{slug}', array('as' => 'page.show', 'uses' => 'CmsTemplateController@show'));
 });

@@ -20,6 +20,7 @@ class CreatePagesTable extends Migration
             $table->string('slug');
             $table->string('title');
             $table->text('content');
+            $table->text('published_content');
             $table->string('meta_title');
             $table->text('meta_desc')->nullable();
             $table->text('meta_keywords')->nullable();
@@ -46,7 +47,9 @@ class CreatePagesTable extends Migration
                 'pagehits' => $page->pagehits,
             ]);
 
-            $newPage->content = $this->importContentFromBlocks($page);
+            $importedContent = $this->importContentFromBlocks($page);
+            $newPage->content = $importedContent;
+            $newPage->published_content = $importedContent;
             $newPage->save();
 
             $date = DateTime::createFromFormat('d-m-Y - H:i:s', $page->created);
