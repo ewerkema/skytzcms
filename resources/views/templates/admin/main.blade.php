@@ -35,9 +35,13 @@
         <script src="/js/app.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
         <script type="text/javascript" src='/plugins/gridstack/gridstack.js'></script>
+
         <script src="/js/editor.js"></script>
         <script src="/js/request.js"></script>
         <script src="/plugins/sweetalert2/sweetalert2.js"></script>
+        
+        {{-- new added --}}
+        <script type="text/javascript" src="/js/plupload.full.min.js"></script>
 
         {{-- Flash messages --}}
         <script type="text/javascript">
@@ -62,6 +66,7 @@
 
         {{-- Modals --}}
         @include('templates.admin.modals.media')
+        @include('templates.admin.modals.add_media')
         @include('templates.admin.modals.newpage')
         @include('templates.admin.modals.account')
         @include('templates.admin.modals.website', ['settings' => Setting::all()->keyBy('name')])

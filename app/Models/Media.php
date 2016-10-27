@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
+use Event;
+use Image;
+use Input;
 
 class Media extends Model
 {
@@ -87,4 +90,57 @@ class Media extends Model
 
         return $newPath;
     }
+
+
+     public function setNameAttribute($file) {
+
+        $source_path = upload_tmp_path($file);
+        $image_resolution=list($width, $height) = getimagesize($source_path);
+         
+        if ($file && file_exists($source_path)) 
+        {
+           if(File::extension($file)!='docx' && File::extension($file)!='pdf' && File::extension($file)!='doc'){  
+                
+                    upload_move($file,'');
+                
+                    if($image_resolution[0]>1024)   
+                    {
+                        Image::make($source_path)->resize(1024, 576)->save($source_path);
+                    }
+                        upload_move($file,'','large');
+
+                        Image::make($source_path)->resize(150, 150)->save($source_path);
+                        upload_move($file,'','thumbnail');
+            }
+            else{
+                upload_move($file,'');
+            }
+            @unlink($source_path);
+            $this->deleteFile();
+        }
+        $this->attributes['name'] = $file;
+        if ($file == '') 
+        {
+            $this->deleteFile();
+            $this->attributes['name'] = "";
+
+        }
+    }
+    public function photo_url($type='original') 
+    {
+        if (!empty($this->name))
+            return upload_url($this->name,'',$type);
+        elseif (!empty($this->name) && file_exists(tmp_path($this->photo)))
+            return tmp_url($this->name);
+        else
+            return asset('img/advertising.jpg');
+    }
+    public function deleteFile() 
+    {
+        upload_delete($this->name,'images',array('original','thumbnail','large'));
+    }
+
 }
+Event::listen('eloquent.deleting:Photo', function($model) {
+    $model->deleteFile();
+});

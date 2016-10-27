@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Response;
 use App\Http\Requests;
-
+use App\Models\Media;
+use Input;
+use File;
 class MediaController extends Controller
 {
     /**
@@ -15,7 +17,8 @@ class MediaController extends Controller
      */
     public function index()
     {
-        //
+        
+
     }
 
     /**
@@ -36,7 +39,34 @@ class MediaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $name = Input::get('name');
+
+        
+        foreach($name as $filename)
+        {
+            
+            
+            $media = new Media;
+            $media->name=$filename;
+            $media->description='';
+            if(File::extension($filename)!='docx' && File::extension($filename)!='pdf' && File::extension($filename)!='doc')
+            {
+                $media->path='images/'.$filename;
+                $media->extension=File::extension($filename);
+            }
+            else
+            {
+                $media->path='docs/'.$filename;
+                $media->extension=File::extension($filename);
+            }
+            $media->mime='';
+            
+            
+            $media->save();
+        }
+
+        return Response::json(['status'=>'success','msg'=>'Uploaded successfully']);
+
     }
 
     /**
@@ -79,8 +109,21 @@ class MediaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy()
     {
-        //
+    
+    }
+
+    public function getMedia()
+    {
+        $rows = Media::paginate(8);
+        return view('templates.admin.partials.medialist',compact('rows'));
+    }
+
+    public function deleteMedia()
+    {
+        $media=Media::find(Input::get('id'));
+        $media->delete();
+        return Response::json(['status'=>'success','msg'=>'Deleted successfully']); 
     }
 }

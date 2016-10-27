@@ -19,7 +19,7 @@ class CmsTemplateController extends Controller
     public function show($slug = 'index')
     {
         $page = Page::whereSlug($slug)->first();
-
+        
         if (!$page)
             abort(404);
 
