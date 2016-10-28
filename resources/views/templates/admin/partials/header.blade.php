@@ -75,7 +75,7 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ cms_url('/index') }}">Contact formulier</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#moduleContactModal">Contact formulier</a></li>
                                 <li><a href="{{ cms_url('/index') }}">Foto album</a></li>
                                 <li><a href="{{ cms_url('/index') }}">Nieuws</a></li>
                                 <li><a href="{{ cms_url('/index') }}">Slider</a></li>

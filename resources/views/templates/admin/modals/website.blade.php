@@ -114,7 +114,6 @@
         request.addField('recordgoogle', 'checkbox', false);
 
         request.onSubmit(function(data) {
-            console.log(data);
             $('#websiteModal').modal('toggle');
             swal({
                 title: 'Success!',

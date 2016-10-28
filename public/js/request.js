@@ -38,6 +38,13 @@ Request.prototype.addFields = function(names) {
     });
 };
 
+Request.prototype.addCheckboxes = function (names) {
+    var _this = this;
+    names.forEach(function(name) {
+        _this.addField(name, 'checkbox');
+    });
+};
+
 Request.prototype.addOptionalFields = function(names) {
     var _this = this;
     names.forEach(function(name) {

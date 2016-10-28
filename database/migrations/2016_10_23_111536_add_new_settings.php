@@ -11,6 +11,11 @@ class AddNewSettings extends Migration
         'youtube_page' => '',
         'googleplus_page' => '',
         'contact_email' => 'info@domein.nl',
+        'contact_name_visible' => true,
+        'contact_subject_visible' => true,
+        'contact_telephone_visible' => true,
+        'contact_message_visible' => true,
+        'contact_success_message' => "Bedankt voor het versturen van het bericht.",
     );
 
     /**
