@@ -20,7 +20,7 @@ class ArticleGroup extends Model
      */
     public function articles()
     {
-        return $this->hasMany('Article');
+        return $this->hasMany('App\Models\Article', 'article_group_id');
     }
 
 }

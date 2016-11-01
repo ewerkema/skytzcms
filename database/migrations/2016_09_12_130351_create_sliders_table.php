@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Media;
 use App\Models\Slider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -21,17 +20,11 @@ class CreateSlidersTable extends Migration
             $table->timestamps();
         });
 
-        $slider = false;
         if (ImportTable::check()) {
-            $slider = Slider::create([
+            Slider::create([
                 'name' => 'Main Slider'
             ]);
         }
-
-        ImportTable::import('skytz_slider', function ($image) use ($slider) {
-            $sliderImage = Media::createFromFile($image->imagepath, config('skytz.upload_slider_images'));
-            $slider->images()->save($sliderImage);
-        });
     }
 
     /**

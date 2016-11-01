@@ -1,6 +1,6 @@
 html, body { margin: 0; }
 
-body { background: url('../img/bg.png') repeat-x #e2e2e2; }
+body { background: url('../img/bg.png') repeat-x #f5f8fa; }
 
 .row { max-width: 980px; }
 
@@ -59,6 +59,7 @@ tr th { font-weight: bold; }
 .tekst h3 { color: #00224a; font-size: 14px; margin-bottom:10px; font-weight: bold; }
 .tekst p { font-size: 13px; color: #4f575b; line-height: 22px; }
 .tekst p.intro { font-weight: bold; }
+.tekst iframe { clear: both; margin: 0 auto; display: block; max-width: 100%; }
 .icons { float: right; }
 .adtekst { float: left; padding-right: 20px; }
 

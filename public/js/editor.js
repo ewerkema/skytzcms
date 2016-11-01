@@ -51,7 +51,7 @@ window.addEventListener('load', function() {
                     type: 'success',
                     timer: 2000
                 });
-            });
+            }).done();
         } else {
             swal({
                 title: 'Geen wijzingen gemaakt',
@@ -175,7 +175,7 @@ $.fn.addGridstackMenu = function() {
             confirmButtonText: "Ja, verwijder dit blok",
         }).then(function(){
             grid.removeWidget(el);
-        });
+        }).done();
     })
 };
 
@@ -250,7 +250,7 @@ function revertChanges() {
         editor._ignition.cancel();
         editor._ignition.unmount();
         editorButtons.showEdit();
-    });
+    }).done();
 }
 
 function saveChanges() {
@@ -285,7 +285,7 @@ function saveLayout() {
             type: 'success',
             timer: 2000
         });
-    });
+    }).done();
 }
 
 function showError(data) {

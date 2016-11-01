@@ -30,14 +30,6 @@ class CreateAlbumsTable extends Migration
                 'colorbox' => $album->album_colorbox,
             ]);
         });
-
-        ImportTable::import('skytz_albumimages', function ($image) {
-            $albumImage = Media::createFromFile($image->serverpath, config('skytz.upload_album_images'));
-            if ($albumImage) {
-                $album = Album::find($image->albumid);
-                $album->images()->save($albumImage);
-            }
-        });
     }
 
     /**

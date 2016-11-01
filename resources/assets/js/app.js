@@ -4,14 +4,18 @@
  * the application, or feel free to tweak this setup for your needs.
  */
 
-var _ = require('lodash');
 var Vue = require('vue');
-var Bootstrap = require('bootstrap-sass');
-var ContentTools = require('contenttools');
-var Awesomplete = require('awesomplete');
+
+const moment = require('moment');
+require('moment/locale/nl');
+
+Vue.use(require('vue-moment'), {
+    moment
+});
 
 Vue.component('example', require('./components/Example.vue'));
-Vue.component('modal', require('./components/Modal.vue'));
+Vue.component('list-articles', require('./components/ListArticles.vue'));
+Vue.component('list-albums', require('./components/ListAlbums.vue'));
 
 $.ajaxSetup({
     headers: {
@@ -19,9 +23,10 @@ $.ajaxSetup({
     }
 });
 
+Vue.filter('chunk', function (value, size) {
+    return _.chunk(value, size);
+});
+
 const app = new Vue({
-    el: 'body',
-    data: {
-        message: "hallo"
-    }
+    el: 'body'
 });

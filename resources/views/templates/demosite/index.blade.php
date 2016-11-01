@@ -197,12 +197,11 @@
     </div>
 </div>
 
+@yield('bottom')
+
 <script src="{{ template_url('/js/foundation.min.js') }}"></script>
 <script>
     $(document).foundation();
 </script>
-
-@yield('bottom')
-
 </body>
 </html>
