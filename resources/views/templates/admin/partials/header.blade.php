@@ -79,7 +79,7 @@
                                 <li><a href="#" data-toggle="modal" data-target="#moduleContactModal">Contact formulier</a></li>
                                 <li><a href="#" data-toggle="modal" data-target="#moduleAlbumsModal">Foto albums</a></li>
                                 <li><a href="#" data-toggle="modal" data-target="#moduleArticlesModal">Nieuws</a></li>
-                                <li><a href="#">Sliders</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#moduleSlidersModal">Sliders</a></li>
                             </ul>
                         </li>
                     @endif

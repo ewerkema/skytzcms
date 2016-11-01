@@ -16,6 +16,7 @@ Vue.use(require('vue-moment'), {
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('list-articles', require('./components/ListArticles.vue'));
 Vue.component('list-albums', require('./components/ListAlbums.vue'));
+Vue.component('list-sliders', require('./components/ListSliders.vue'));
 
 $.ajaxSetup({
     headers: {

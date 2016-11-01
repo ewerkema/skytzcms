@@ -229,6 +229,7 @@ return [
         'Schema' => Illuminate\Support\Facades\Schema::class,
         'Setting' => App\Facades\Setting::class,
         'Session' => Illuminate\Support\Facades\Session::class,
+        'Slider' => App\Facades\Slider::class,
         'Storage' => Illuminate\Support\Facades\Storage::class,
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
