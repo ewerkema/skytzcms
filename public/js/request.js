@@ -6,6 +6,10 @@ function Request(url){
     this.fields = [];
 }
 
+Request.prototype.addToUrl = function (id) {
+    this.url += '/'+id;
+}
+
 Request.prototype.setType = function(type) {
     this.type = type;
 };
@@ -15,7 +19,7 @@ Request.prototype.setForm = function(form) {
 };
 
 Request.prototype.getType = function() {
-    console.log(this.type);
+    return this.type;
 };
 
 Request.prototype.findInForm = function (name) {
@@ -38,10 +42,23 @@ Request.prototype.addFields = function(names) {
     });
 };
 
+Request.prototype.addCheckboxes = function (names) {
+    var _this = this;
+    names.forEach(function(name) {
+        _this.addField(name, 'checkbox');
+    });
+};
+
 Request.prototype.addOptionalFields = function(names) {
     var _this = this;
     names.forEach(function(name) {
         _this.addField(name, "text", "", true);
+    });
+};
+
+Request.prototype.setFields = function (data) {
+    this.fields.forEach(function (name, field) {
+        console.log(name+" "+field);
     });
 };
 
@@ -105,6 +122,7 @@ Request.prototype.onSubmit = function (callback) {
 Request.prototype.send = function (callback) {
     var data = this.processFields();
 
+    var _this = this;
     $.ajax({
         url: this.url,
         type: this.type,
@@ -113,7 +131,7 @@ Request.prototype.send = function (callback) {
             callback(successData);
         },
         error: function (errorData) {
-            this.showError(errorData)
+            _this.showError(errorData)
         }
     });
 };

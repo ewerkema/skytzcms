@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Article extends Model
 {
+    use SoftDeletes;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -13,6 +16,15 @@ class Article extends Model
      */
     protected $fillable = [
         'title', 'summary', 'body', 'published', 'article_group_id',
+    ];
+
+    /**
+     * Attributes that are casted to another type.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'article_group_id' => 'integer',
     ];
 
     /**

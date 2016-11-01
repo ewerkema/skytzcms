@@ -13,18 +13,19 @@ class Media extends Model
         'name', 'description', 'path', 'mime', 'extension',
     ];
 
-    public function slider()
+    public function sliders()
     {
-        return $this->belongsTo('App\Models\Slider');
+        return $this->belongsToMany('App\Models\Slider');
     }
 
-    public function album()
+    public function albums()
     {
-        return $this->belongsTo('App\Models\Album');
+        return $this->belongsToMany('App\Models\Album');
     }
 
     /**
-     * Import existing media from old table.
+     * Import existing media from old table by copying the file from
+     * $origin to $destination.
      *
      * @param $origin
      * @param $destination

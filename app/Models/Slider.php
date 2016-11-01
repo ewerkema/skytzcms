@@ -18,9 +18,9 @@ class Slider extends Model
     /**
      * Define relationships.
      */
-    public function images()
+    public function media()
     {
-        return $this->hasMany('App\Models\Media');
+        return $this->belongsToMany('App\Models\Media');
     }
 
 }

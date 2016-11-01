@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Media;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 
 class MediaController extends Controller
@@ -15,17 +15,7 @@ class MediaController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return Media::all();
     }
 
     /**

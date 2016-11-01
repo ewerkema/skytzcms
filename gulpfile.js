@@ -27,9 +27,6 @@ elixir(function(mix) {
     mix.sass([
         'app.scss'
     ]).webpack('app.js')
-        .copy(paths.bootstrap_fonts, paths.public_css+'bootstrap')
-        .copy(paths.contenttools, paths.public_plugins+'contenttools')
-        .copy(paths.sweetalert2, paths.public_plugins+'sweetalert2')
-        .copy(paths.awesomplete, paths.public_plugins+'awesomplete');
+    .webpack('libraries.js');
 
 });

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Album extends Model
 {
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass ass\ignable.
      *
      * @var array
      */
@@ -18,8 +18,8 @@ class Album extends Model
     /**
      * Define relationships.
      */
-    public function images()
+    public function media()
     {
-        return $this->hasMany('App\Models\Media');
+        return $this->belongsToMany('App\Models\Media');
     }
 }

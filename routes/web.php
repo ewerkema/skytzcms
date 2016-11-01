@@ -28,6 +28,12 @@ Route::group(['prefix' => 'cms'], function() {
     Route::resource('users', 'UserController');
     Route::patch('settings', 'SettingController@update');
     Route::resource('media', 'MediaController');
+    Route::resource('articleGroups', 'ArticleGroupController');
+    Route::resource('articles', 'ArticleController');
+    Route::resource('albums', 'AlbumController');
+    Route::resource('albums.media', 'AlbumMediaController');
+    Route::resource('sliders', 'SliderController');
+    Route::resource('sliders.media', 'SliderMediaController');
 
     Route::get('/{slug}', array('as' => 'page.show', 'uses' => 'CmsTemplateController@show'));
 });

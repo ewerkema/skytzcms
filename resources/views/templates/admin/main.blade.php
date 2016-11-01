@@ -14,6 +14,7 @@
     <link href="/plugins/contenttools/content-tools.min.css" type="text/css" rel="stylesheet">
     <link href="/plugins/sweetalert2/sweetalert2.css" type="text/css" rel="stylesheet">
     <link href="/plugins/awesomplete/awesomplete.css" type="text/css" rel="stylesheet">
+    <link href="/plugins/summernote/summernote.css" rel="stylesheet">
 
     <!-- Scripts -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/gridstack.js/0.2.6/gridstack.min.css" />
@@ -32,12 +33,30 @@
 
 @section('bottom')
     @if (!Auth::guest())
-        <script src="/js/app.js"></script>
+
+        {{-- Javascript --}}
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+        <script src="/js/libraries.js"></script>
         <script type="text/javascript" src='/plugins/gridstack/gridstack.js'></script>
         <script src="/js/editor.js"></script>
         <script src="/js/request.js"></script>
         <script src="/plugins/sweetalert2/sweetalert2.js"></script>
+        <script src="/plugins/summernote/summernote.min.js"></script>
+        <script src="/plugins/summernote/lang/summernote-nl-NL.js"></script>
+
+        {{-- Modals --}}
+        @include('templates.admin.modals.media')
+        @include('templates.admin.modals.newpage')
+        @include('templates.admin.modals.module_contact', ['settings' => Setting::all()->keyBy('name')])
+        @include('templates.admin.modals.module_articles')
+        @include('templates.admin.modals.module_albums')
+        @include('templates.admin.modals.module_sliders')
+        @include('templates.admin.modals.account')
+        @include('templates.admin.modals.website', ['settings' => Setting::all()->keyBy('name')])
+
+        @if (isset($page))
+            @include('templates.admin.modals.page')
+        @endif
 
         {{-- Flash messages --}}
         <script type="text/javascript">
@@ -59,15 +78,6 @@
                 });
             @endif
         </script>
-
-        {{-- Modals --}}
-        @include('templates.admin.modals.media')
-        @include('templates.admin.modals.newpage')
-        @include('templates.admin.modals.account')
-        @include('templates.admin.modals.website', ['settings' => Setting::all()->keyBy('name')])
-
-        @if (isset($page))
-            @include('templates.admin.modals.page')
-        @endif
+        <script src="/js/app.js"></script>
     @endif
 @stop

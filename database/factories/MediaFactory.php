@@ -17,12 +17,6 @@ $factory->define(App\Models\Media::class, function (Faker\Generator $faker) {
         'description' => $faker->sentence(20, true),
         'path' => $faker->word."/".$faker->word.".".$faker->fileExtension,
         'mime' => $faker->mimeType,
-        'extension' => $faker->fileExtension,
-        'album_id' => function () {
-            return factory(App\Models\Album::class)->create()->id;
-        },
-        'slider_id' => function() {
-            return factory(App\Models\Slider::class)->create()->id;
-        }
+        'extension' => $faker->fileExtension
     ];
 });

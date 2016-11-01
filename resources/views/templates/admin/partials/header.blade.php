@@ -67,6 +67,7 @@
             <div class="flex-center">
                 <ul class="nav navbar-nav flex-center">
                     @if (!Auth::guest())
+                        <li><a href="#" data-toggle="modal" data-target="#"><span class="glyphicon glyphicon-sort"></span> Menu indelen</a></li>
                         <li><a href="#" data-toggle="modal" data-target="#mediaModal"><span class="glyphicon glyphicon-picture"></span> Media uploaden</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -75,10 +76,10 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ cms_url('/index') }}">Contact formulier</a></li>
-                                <li><a href="{{ cms_url('/index') }}">Foto album</a></li>
-                                <li><a href="{{ cms_url('/index') }}">Nieuws</a></li>
-                                <li><a href="{{ cms_url('/index') }}">Slider</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#moduleContactModal">Contact formulier</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#moduleAlbumsModal">Foto albums</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#moduleArticlesModal">Nieuws</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#moduleSlidersModal">Sliders</a></li>
                             </ul>
                         </li>
                     @endif
