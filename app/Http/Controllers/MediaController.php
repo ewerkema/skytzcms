@@ -17,8 +17,8 @@ class MediaController extends Controller
      */
     public function index()
     {
-        
-
+        $rows = Media::paginate(8);
+        return view('templates.admin.partials.medialist', compact('rows'));
     }
 
     /**
@@ -41,32 +41,24 @@ class MediaController extends Controller
     {
         $name = Input::get('name');
 
-        
-        foreach($name as $filename)
-        {
-            
-            
+        foreach($name as $filename) {
             $media = new Media;
-            $media->name=$filename;
-            $media->description='';
-            if(File::extension($filename)!='docx' && File::extension($filename)!='pdf' && File::extension($filename)!='doc')
-            {
-                $media->path='images/'.$filename;
-                $media->extension=File::extension($filename);
+            $media->name = $filename;
+            $media->description = '';
+
+            if(File::extension($filename)!='docx' && File::extension($filename)!='pdf' && File::extension($filename)!='doc') {
+                $media->path = 'images/'.$filename;
+                $media->extension = File::extension($filename);
+            } else {
+                $media->path = 'docs/'.$filename;
+                $media->extension = File::extension($filename);
             }
-            else
-            {
-                $media->path='docs/'.$filename;
-                $media->extension=File::extension($filename);
-            }
-            $media->mime='';
-            
+            $media->mime = '';
             
             $media->save();
         }
 
-        return Response::json(['status'=>'success','msg'=>'Uploaded successfully']);
-
+        return Response::json(['status'=>'success','msg'=>'Afbeeldingen toegevoegd!']);
     }
 
     /**
@@ -109,21 +101,10 @@ class MediaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy()
+    public function destroy($id)
     {
-    
-    }
-
-    public function getMedia()
-    {
-        $rows = Media::paginate(8);
-        return view('templates.admin.partials.medialist',compact('rows'));
-    }
-
-    public function deleteMedia()
-    {
-        $media=Media::find(Input::get('id'));
+        $media = Media::find($id);
         $media->delete();
-        return Response::json(['status'=>'success','msg'=>'Deleted successfully']); 
+        return Response::json(['status' => 'success', 'msg' => 'Afbeelding verwijderd!']);
     }
 }

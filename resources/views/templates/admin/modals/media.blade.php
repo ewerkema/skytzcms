@@ -12,7 +12,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
-                <button type="submit"   data-toggle="modal" data-target="#uploadMediaModal" form="mediaForm" class="btn btn-success">Upload new image</button>
+                <button type="submit" data-toggle="modal" data-target="#uploadMediaModal" form="mediaForm" class="btn btn-success">Nieuwe media uploaden</button>
             </div>
         </div>
         <div id='spinner' class="modal-overlay"></div>
@@ -25,10 +25,11 @@
 
     $(document).ready(function(){
         $('#spinner').hide();
+
         function getMedia(){
-            $('#medialist').load('/cms/get-media', function( response, status, xhr ) {
+            $('#medialist').load('/cms/media', function( response, status, xhr ) {
                 if ( status == "error" ) {
-                    var msg = "Sorry but there was an error: ";
+                    var msg = "Er ging iets fout bij het ophalen van de media: ";
                     $('#medialist').html( msg + xhr.status + " " + xhr.statusText );
                 }
             });

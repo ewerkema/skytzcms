@@ -16,28 +16,11 @@
         </div>
     </div>
 @empty
-    <p class='flex-center'>No records found</p>
+    <p class='flex-center'>Geen resultaten gevonden.</p>
 @endforelse
 <div class="clear"></div>
 
 <nav class="flex-center" aria-label="Media navigation">
-    {{-- <ul class="bootstrap-pagination">
-        <li class="disabled">
-            <a href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
-        <li class="active"><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li>
-            <a href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
-    </ul> --}}
     <div class="media-pagination">
         {{ $rows->links() }}
     </div>
@@ -52,53 +35,41 @@
         });
 
         function getMedia(page){
-            $.ajax({
-                url: '/cms/get-media/?page='+ page
-            }).done(function(data){
+            $.get('/cms/media?page='+page, function (data) {
                 $('.bootstrap-row').html(data);
-            })
+                $('#spinner').hide();
+            });
         }
         $('.remove-media').click(function(e){
             e.preventDefault();
-            var del_id=$(this).data('id');
-            var url='/cms/media/delete';
+            var del_id = $(this).data('id');
+            var url = '/cms/media/'+del_id;
+
             swal({
-              title: 'Are you sure?',
-              text: "You won't be able to revert this!",
-              type: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Yes, delete it!'
+                title: 'Weet je het zeker?',
+                text: "Deze wijzigingen kunnen niet meer ongedaan worden!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: 'Ja, verwijder dit bestand!'
             }).then(function() {
                 $.ajax({
-                type: "POST",
-                url: url,
-                data:{'id':del_id},
-                success: function( data ) {
-                    if(data.status == 'success')
-                    {
-                        $('#spinner').hide();
-                        $.ajax({
-                            url: '/cms/get-media/?page='+ 1
-                        }).done(function(data){
+                    type: "DELETE",
+                    url: url,
+                    success: function( data ) {
+                        if(data.status == 'success') {
                             $('#spinner').hide();
-                            $('.bootstrap-row').html(data);
-                        });  
+                            getMedia(1);
+                        }
                     }
-                }
+                });
+                swal(
+                    'Verwijderd!',
+                    'Het bestand is verwijderd.',
+                    'success'
+                );
             });
-              swal(
-                'Deleted!',
-                'Your file has been deleted.',
-                'success'
-              )
-            });
-            
-
-            
         });
-
     });
 
 </script>

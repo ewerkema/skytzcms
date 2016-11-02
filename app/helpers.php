@@ -33,71 +33,65 @@ use Illuminate\Support\Facades\Route;
     }
     
     function upload_path($file, $model, $variation=false, $relative=null) {
-      
-      $use_aws = is_null($relative)? Config::get('aws.use',false) : $relative;
-      
-      if(File::extension($file)!='docx' && File::extension($file)!='pdf' && File::extension($file)!='doc')
-      {
-        $folder = "/images". ( empty($variation) || $variation =='original' ? "" : "/{$variation}" ); 
-       }
-      else
-      {
-      $folder = "/docs". ( empty($variation) || $variation =='original' ? "" : "/{$variation}" ); 
-      }
 
+        $use_aws = is_null($relative) ? Config::get('aws.use',false) : $relative;
 
-
-      if (!$use_aws && !is_array($variation) && !file_exists(public_path().$folder)) {
-          umask(0);
-          @mkdir(public_path().$folder, 0777, true);
+        if(File::extension($file)!='docx' && File::extension($file)!='pdf' && File::extension($file)!='doc') {
+            $folder = "/images". ( empty($variation) || $variation =='original' ? "" : "/{$variation}" );
+        } else {
+            $folder = "/docs". ( empty($variation) || $variation =='original' ? "" : "/{$variation}" );
         }
-      $target_path = ($use_aws? "" : public_path()). "$folder/$file";
-      return $target_path;
+
+        if (!$use_aws && !is_array($variation) && !file_exists(public_path().$folder)) {
+            umask(0);
+            @mkdir(public_path().$folder, 0777, true);
+        }
+        $target_path = ($use_aws? "" : public_path()). "$folder/$file";
+
+        return $target_path;
     }
 
     function upload_url($file, $model, $variation=false)  {
-      $use_aws = Config::get('aws.use',false);
-        if(File::extension($file)!='docx' && File::extension($file)!='pdf' && File::extension($file)!='doc')
-          {
-            $folder = "/images/". ( empty($variation) || $variation =='original' ? $model : "{$model}{$variation}" ); 
-           }
-          else
-          {
-          $folder = "/docs"; 
-          }
+        $use_aws = Config::get('aws.use',false);
+
+        if (File::extension($file)!='docx' && File::extension($file)!='pdf' && File::extension($file)!='doc') {
+            $folder = "/images/". ( empty($variation) || $variation =='original' ? $model : "{$model}{$variation}" );
+        } else {
+            $folder = "/docs";
+        }
 
 
-      if(!empty($file)) {
-        if($use_aws)
-          return Config::get('aws.host')."$folder/$file";
-        else
-          return asset("$folder/$file");
-      } 
-      return false;
+        if (!empty($file)) {
+            if($use_aws)
+                return Config::get('aws.host')."$folder/$file";
+            else
+                return asset("$folder/$file");
+        }
+        return false;
     }
     
-    function upload_move($file,$model,$target_file,$variation=false) {
-      $use_aws = Config::get('aws.use',false);
-      $source = upload_tmp_path($file);
-      $target = upload_path($target_file,$model,$variation);
-      if($use_aws) {    
-        AWS::get('s3')->putObject(array(
+    function upload_move($file, $model, $target_file, $variation = false) {
+        $use_aws = Config::get('aws.use',false);
+        $source = upload_tmp_path($file);
+        $target = upload_path($target_file, $model, $variation);
+        if ($use_aws) {
+            AWS::get('s3')->putObject(array(
                 'Bucket'     => Config::get('aws.bucket'),
                 'Key'        => $target,
                 'SourceFile' => $source,
                 'ACL'    => 'public-read'
             ));
-      } else {
-         copy($source, $target);
-      }
+        } else {
+            copy($source, $target);
+        }
     }
 
-    function upload_delete($file,$model,$variations=false) {
-      if(empty($file)) return false;;
-      if(is_array($variations)) {
-        foreach($variations as $variation){
-            $local_path = upload_path($file,$model,$variation,false);
-            @unlink($local_path);
-        } 
-      }
+    function upload_delete ($file, $model, $variations = false) {
+        if(empty($file)) return false;
+        if(is_array($variations)) {
+            foreach($variations as $variation){
+                $local_path = upload_path($file, $model, $variation, false);
+                @unlink($local_path);
+            }
+        }
     }
