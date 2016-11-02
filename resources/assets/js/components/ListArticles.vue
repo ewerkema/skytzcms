@@ -179,7 +179,7 @@
             },
 
             submitForm: function () {
-                var request = new Request('articles');
+                var request = new Request('/cms/articles');
                 request.setForm('#articleForm');
                 request.setType('POST');
 
@@ -236,7 +236,7 @@
 
                 var _this = this;
                 $.ajax({
-                    url: 'articleGroups',
+                    url: '/cms/articleGroups',
                     type: 'POST',
                     data: { title: value },
                     success: function(data) {
@@ -289,7 +289,7 @@
             doRemoveArticle: function (articleId) {
                 var _this = this;
                 $.ajax({
-                    url: 'articles/'+articleId,
+                    url: '/cms/articles/'+articleId,
                     type: 'DELETE',
                     success: function(result) {
                         _this.articles.$remove(_.find(_this.articles, ['id', articleId]));
@@ -300,7 +300,7 @@
             doRemoveArticleGroup: function (articleGroupId) {
                 var _this = this;
                 $.ajax({
-                    url: 'articleGroups/'+articleGroupId,
+                    url: '/cms/articleGroups/'+articleGroupId,
                     type: 'DELETE',
                     success: function(result) {
                         _this.articleGroups.$remove(_.find(_this.articleGroups, ['id', articleGroupId]));
@@ -315,14 +315,14 @@
 
             loadArticles: function() {
                 var _this = this;
-                $.get('articles', function (data) {
+                $.get('/cms/articles', function (data) {
                     _this.articles = data;
                 });
             },
 
             loadArticleGroups: function() {
                 var _this = this;
-                $.get('articleGroups', function (data) {
+                $.get('/cms/articleGroups', function (data) {
                     if (data.length != 0) {
                         _this.articleGroups = data;
                         _this.selectedArticleGroup = _.head(data).id;

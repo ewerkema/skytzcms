@@ -14,4 +14,15 @@ class Setting extends Model
     protected $fillable = [
         'name', 'value',
     ];
+
+    /**
+     * Custom getter for only the key value pairs
+     *
+     * @param string $name
+     * @return mixed
+     */
+    public function get($name)
+    {
+        return $this->where('name', $name)->first()->value;
+    }
 }

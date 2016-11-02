@@ -36,7 +36,9 @@ Route::group(['prefix' => 'cms'], function() {
     Route::resource('sliders.media', 'SliderMediaController');
 
     Route::get('/{slug}', array('as' => 'page.show', 'uses' => 'CmsTemplateController@show'));
+    Route::get('/{slug}/{childSlug}', array('as' => 'page.show', 'uses' => 'CmsTemplateController@show'));
 });
 
 Route::get('/', array('as' => 'page.show', 'uses' => 'TemplateController@show'));
 Route::get('/{slug}', array('as' => 'page.show', 'uses' => 'TemplateController@show'));
+Route::get('/{slug}/{childSlug}', array('as' => 'page.show', 'uses' => 'TemplateController@show'));

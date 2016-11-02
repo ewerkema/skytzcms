@@ -54,7 +54,7 @@
         @include('templates.admin.modals.account')
         @include('templates.admin.modals.website', ['settings' => Setting::all()->keyBy('name')])
 
-        @if (isset($page))
+        @if (isset($currentPage))
             @include('templates.admin.modals.page')
         @endif
 

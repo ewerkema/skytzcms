@@ -185,7 +185,7 @@
             submitForm: function () {
                 var _this = this;
                 $.ajax({
-                    url: 'sliders/'+this.selectedSlider.id+'/media',
+                    url: '/cms/sliders/'+this.selectedSlider.id+'/media',
                     type: 'POST',
                     data: {
                         media: _this.selectedImages
@@ -211,7 +211,7 @@
 
                 var _this = this;
                 $.ajax({
-                    url: 'sliders',
+                    url: '/cms/sliders',
                     type: 'POST',
                     data: {
                         name: value,
@@ -256,7 +256,7 @@
             removeImage: function (slider, image) {
                 var _this = this;
                 $.ajax({
-                    url: 'sliders/'+slider.id+'/media/'+image.id,
+                    url: '/cms/sliders/'+slider.id+'/media/'+image.id,
                     type: 'DELETE',
                     success: function (result) {
                         _this.selectedSlider.media.$remove(image);
@@ -267,7 +267,7 @@
             doRemoveSlider: function (slider) {
                 var _this = this;
                 $.ajax({
-                    url: 'sliders/'+slider.id,
+                    url: '/cms/sliders/'+slider.id,
                     type: 'DELETE',
                     success: function(result) {
                         _this.sliders.$remove(slider);
@@ -281,7 +281,7 @@
 
             loadSliders: function() {
                 var _this = this;
-                $.get('sliders', function (data) {
+                $.get('/cms/sliders', function (data) {
                     if (data.length != 0) {
                         _this.sliders = data;
                         _this.selectedSlider = _.head(data);
@@ -291,7 +291,7 @@
 
             loadImages: function() {
                 var _this = this;
-                $.get('media', function (data) {
+                $.get('/cms/media', function (data) {
                      _this.images = _this.filterImages(data);
                 });
             },

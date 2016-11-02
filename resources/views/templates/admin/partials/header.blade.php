@@ -24,19 +24,29 @@
                         <li class="dropdown dropdown-large">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 <span class="glyphicon glyphicon-list"></span>
-                                Selecteer pagina ({{ count($menu)+count($nonmenu) }}) <span class="caret"></span>
+                                Selecteer pagina ({{ count(Page::all()) }}) <span class="caret"></span>
                             </a>
                             <ul class="nav dropdown-menu dropdown-menu-large row">
                                 <li class="small-6 columns">
                                     <ul>
                                         <li class="dropdown-header">Pagina's in menu</li>
-                                        @foreach ($menu as $menupage)
-                                            <li class="{{ (isset($page) && $menupage->id == $page->id) ? "active" : "" }}">
-                                                <a href="{{ page_url($menupage->slug) }}">{{ $menupage->title }}</a>
+                                        @foreach (Page::getMenuWithSubpages() as $page)
+
+                                            <li class="{{ (isset($currentPage) && $page->id == $currentPage->id) ? "active" : "" }}">
+                                                <a href="{{ page_url($page->getSlug()) }}">{{ $page->title }}</a>
                                             </li>
+
+                                            @if (isset($page->subpages))
+                                                @foreach ($page->subpages as $subpage)
+                                                    <li class="{{ (isset($currentPage) && $subpage->id == $currentPage->id) ? "active" : "" }}">
+                                                        <a href="{{ page_url($subpage->getSlug()) }}">{{ $page->title }} > {{ $subpage->title }}</a>
+                                                    </li>
+                                                @endforeach
+                                            @endif
+
                                         @endforeach
 
-                                        @if (empty($menu))
+                                        @if (empty(Page::getMenuWithSubpages()))
                                             <li><a href="#">Geen pagina's gevonden.</a></li>
                                         @endif
                                     </ul>
@@ -45,13 +55,13 @@
                                     <ul>
                                         <li class="dropdown-header">Losse pagina's</li>
 
-                                        @foreach ($nonmenu as $nonmenupage)
-                                            <li class="{{ (isset($page) && $nonmenupage->id == $page->id) ? "active" : "" }}">
-                                                <a href="{{ page_url($nonmenupage->slug) }}">{{ $nonmenupage->title }}</a>
+                                        @foreach (Page::getNonMenu() as $page)
+                                            <li class="{{ (isset($currentPage) && $page->id == $currentPage->id) ? "active" : "" }}">
+                                                <a href="{{ page_url($page->getSlug()) }}">{{ $page->title }}</a>
                                             </li>
                                         @endforeach
 
-                                        @if (empty($nonmenu))
+                                        @if (empty(Page::getNonMenu()))
                                             <li><a href="#">Geen losse pagina's gevonden.</a></li>
                                         @endif
                                     </ul>
