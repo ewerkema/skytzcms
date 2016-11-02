@@ -18,6 +18,7 @@ class Page extends Model
     protected $casts = [
         'content' => 'array',
         'published_content' => 'array',
+        'parent_id' => 'int|null',
     ];
 
     /**
@@ -54,6 +55,16 @@ class Page extends Model
     }
 
     /**
+     * Check for empty input parent page and cast to NULL if true.
+     *
+     * @param $value
+     */
+    public function setParentIdAttribute($value)
+    {
+        $this->attributes['parent_id'] = (empty($value) || !$value) ? NULL : $value;
+    }
+
+    /**
      * Get slug of the current page.
      *
      */
@@ -73,6 +84,16 @@ class Page extends Model
     public function getMenuWithSubpages()
     {
         return $this->with('subpages')->get()->where('menu', 1)->where('parent_id', NULL);
+    }
+
+    /**
+     * Get list of menu items without subpages
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getMenuWithoutSubpages()
+    {
+        return $this->all()->where('menu', 1)->where('parent_id', NULL);
     }
 
     /**

@@ -27,31 +27,28 @@
                                 Selecteer pagina ({{ count(Page::all()) }}) <span class="caret"></span>
                             </a>
                             <ul class="nav dropdown-menu dropdown-menu-large row">
-                                <li class="small-6 columns">
-                                    <ul>
-                                        <li class="dropdown-header">Pagina's in menu</li>
-                                        @foreach (Page::getMenuWithSubpages() as $page)
-
-                                            <li class="{{ (isset($currentPage) && $page->id == $currentPage->id) ? "active" : "" }}">
-                                                <a href="{{ page_url($page->getSlug()) }}">{{ $page->title }}</a>
-                                            </li>
-
-                                            @if (isset($page->subpages))
-                                                @foreach ($page->subpages as $subpage)
-                                                    <li class="{{ (isset($currentPage) && $subpage->id == $currentPage->id) ? "active" : "" }}">
-                                                        <a href="{{ page_url($subpage->getSlug()) }}">{{ $page->title }} > {{ $subpage->title }}</a>
-                                                    </li>
-                                                @endforeach
-                                            @endif
-
-                                        @endforeach
-
-                                        @if (empty(Page::getMenuWithSubpages()))
-                                            <li><a href="#">Geen pagina's gevonden.</a></li>
-                                        @endif
-                                    </ul>
-                                </li>
-                                <li class="small-6 columns">
+                                @php ($chunk = (Page::getMenu()->count() > 10) ? 10 : 5)
+                                @foreach (Page::getMenu()->sortBy('title')->chunk($chunk) as $pageChunk)
+                                    <li class="small-4 columns">
+                                        <ul>
+                                            <li class="dropdown-header">Pagina's in menu</li>
+                                            @foreach ($pageChunk as $page)
+                                                <li class="{{ (isset($currentPage) && $page->id == $currentPage->id) ? "active" : "" }}">
+                                                    <a href="{{ page_url($page->getSlug()) }}">{{ (($page->parent()->first()) ? $page->parent()->first()->title . ' > ' : '' ).$page->title }}</a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </li>
+                                @endforeach
+                                @if (empty(Page::getMenuWithSubpages()))
+                                    <li class="small-6 columns">
+                                        <ul>
+                                            <li class="dropdown-header">Pagina's in menu</li>
+                                            <li>Geen pagina's gevonden.</li>
+                                        </ul>
+                                    </li>
+                                @endif
+                                <li class="small-4 columns">
                                     <ul>
                                         <li class="dropdown-header">Losse pagina's</li>
 
@@ -61,8 +58,8 @@
                                             </li>
                                         @endforeach
 
-                                        @if (empty(Page::getNonMenu()))
-                                            <li><a href="#">Geen losse pagina's gevonden.</a></li>
+                                        @if (!Page::getNonMenu()->count())
+                                            <li>Geen losse pagina's gevonden.</li>
                                         @endif
                                     </ul>
                                 </li>

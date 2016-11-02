@@ -38,7 +38,7 @@
                 </div>
             </div>
             <p v-if="!hasImages(selectedAlbum)">Er zijn geen afbeeldingen gevonden.</p>
-            <button class="btn btn-success right" v-on:click="addImages = true">Nieuwe afbeeldingen toevoegen</button>
+            <button class="btn btn-success right" v-on:click="addImages = true">Afbeeldingen toevoegen</button>
             <button class="btn btn-danger right" v-on:click="removeAlbum(selectedAlbum)">Verwijder dit album</button>
         </div>
     </div>

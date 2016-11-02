@@ -48,7 +48,20 @@
                 </label>
             </div>
         </div>
+        <div class="form-group">
+            <label for="parent_id" class="col-md-3 control-label">Weergeven in submenu van</label>
 
+            <div class="col-md-8">
+                <select class="form-control" id="parent_id" name="parent_id">
+                    <option value="" selected>Geen submenu</option>
+                    @foreach (Page::getMenuWithoutSubpages() as $page)
+                        <option value="{{ $page->id }}">
+                            {{ $page->title }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
     </form>
 @overwrite
 
@@ -62,16 +75,34 @@
         request.setType('POST');
         request.setForm('#newPageForm');
 
-        request.addFields(['title', 'meta_title', 'meta_desc']);
+        request.addFields(['title', 'meta_title', 'meta_desc', 'parent_id']);
         request.addField('slug', 'text', 'index');
         request.addField('menu', 'checkbox');
 
         request.onSubmit(function(data) {
-            if (data['slug'] === undefined) {
-                this.form.find('.form-message').addClass("alert-danger").html("Er is iets onverwachts gebeurd, probeer het later opnieuw.").show();
+            if (data['redirectTo'] === undefined) {
+                request.getForm().find('.form-message').addClass("alert-danger").html("Er is iets onverwachts gebeurd, probeer het later opnieuw.").show();
+                return;
             }
 
-            window.location.href = '{{ cms_url("/") }}/'+data['slug'];
+            window.location.href = '{{ cms_url("/") }}/'+data['redirectTo'];
         });
+
+        var subpageSelect = $('[name=parent_id]');
+        var visibleInMenu = $('[name=menu]');
+
+        subpageSelect.change(function() {
+            var value = $(this).val();
+
+            if (value)
+                visibleInMenu.prop('checked', true);
+        });
+
+        visibleInMenu.change(function() {
+            var checked = $(this).is(":checked");
+
+            if (!checked)
+                subpageSelect.val(subpageSelect.find('option:first').val());
+        })
     </script>
 @overwrite

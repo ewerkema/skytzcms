@@ -35,12 +35,14 @@ class PageController extends Controller
             'meta_title' => 'required|max:255',
             'meta_desc' => 'max:255',
             'menu' => 'required|boolean',
+            'parent_id' => 'exists:pages,id',
         ], [], [
             'slug' => 'Pagina link (URL)',
             'title' => 'Pagina naam',
             'meta_title' => 'Pagina titel',
             'meta_desc' => 'Pagina beschrijving',
             'menu' => 'Weergeven in menu',
+            'parent_id' => 'Pagina voor het submenu',
         ]);
     }
 
@@ -73,7 +75,7 @@ class PageController extends Controller
         session()->flash('flash_message', 'De pagina is succesvol aangemaakt');
         session()->flash('flash_title', 'Pagina aangemaakt');
 
-        return response()->json($page, 200);
+        return response()->json(['page' => $page, 'redirectTo' => $page->getSlug()], 200);
     }
 
     /**
@@ -179,17 +181,6 @@ class PageController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  Request $request
@@ -207,7 +198,7 @@ class PageController extends Controller
         session()->flash('flash_message', 'De pagina is succesvol aangepast');
         session()->flash('flash_title', 'Pagina aangepast');
 
-        return response()->json($page);
+        return response()->json(['page' => $page, 'redirectTo' => $page->getSlug()]);
 
     }
 

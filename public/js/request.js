@@ -18,6 +18,10 @@ Request.prototype.setForm = function(form) {
     this.form = $(form);
 };
 
+Request.prototype.getForm = function() {
+    return this.form;
+};
+
 Request.prototype.getType = function() {
     return this.type;
 };
