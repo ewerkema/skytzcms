@@ -23,7 +23,7 @@
                     <div class="clear"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
+                    <button type="button" class="btn btn-default close-modal"  data-dismiss="modal">Sluiten</button>
                     {{-- {!!Former::button('Save')->disabled(true)->class('btn btn-success')!!} --}}
                     {!!Former::submit('Save')->disabled(true)->class('btn btn-success')!!}
                 </div> 
@@ -46,7 +46,7 @@
                 max_file_size : '25mb',
                 mime_types: [
                 {title : "Image file", extensions : "jpg,jpeg,gif,png"},
-                {title : "Document file", extensions : "pdf,docx,doc"}
+                {title : "Document file", extensions : "PDF,docx,doc"}
                 ]
             },
             // Flash settings
@@ -62,7 +62,12 @@
 
                 FilesAdded: function(up, files) {
                      plupload.each(files, function(file) {
-                         file.name = file.id + '.'+file.name.split(".").pop();
+                         // file.name = file.id + '.'+file.name.split(".").pop();
+                          var data = file.name.split(".");
+                          var name = data[0].replace(/[^A-Z0-9]+/ig, "-");
+
+                          var ext = data[1];
+                          file.name = name.slice(0, -1)+'.'+ext;
                      });
                      if(files.length > 0)
                      {
@@ -90,8 +95,24 @@
                     
                     $('#' + file.id + ' a.remove').first().click(function(e) {
                         e.preventDefault();
-                        up.removeFile(file);
-                        $('#' + file.id).remove();
+                        swal({
+                          title: 'Are you sure?',
+                          text: "You won't be able to revert this!",
+                          type: 'warning',
+                          showCancelButton: true,
+                          confirmButtonColor: '#3085d6',
+                          cancelButtonColor: '#d33',
+                          confirmButtonText: 'Yes, delete it!'
+                        }).then(function() {
+                          up.removeFile(file);
+                          $('#' + file.id).remove();
+                          swal(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                          )
+                        });
+                        
                         if(uploader.files.length == 0)
                         {
                            $('input[type="submit"]').prop('disabled', true); 
@@ -127,6 +148,11 @@
                         $('#filelist').html('');
                         $('#uploadMediaModal').modal('hide');
                         $('#spinner').show();
+                        swal(
+                          'Uploaded Successfully!',
+                          '',
+                          'success'
+                        );
                         $.ajax({
                             url: '/cms/get-media/?page='+ 1
                         }).done(function(data){
@@ -138,10 +164,13 @@
             });
 
         });
-        $('#close-modal').click(function(){
-            $('#filelist').html('');
-            $('#uploadMediaModal').modal('hide');
-        });
+
+        $('#uploadMediaModal').on('hidden.bs.modal', function () {
+          $('#filelist').html('');
+           $.each(uploader.files, function(i, file) {
+                uploader.removeFile(file);
+           });
+        });      
         
     });
 </script>

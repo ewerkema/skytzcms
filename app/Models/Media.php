@@ -93,32 +93,41 @@ class Media extends Model
 
 
      public function setNameAttribute($file) {
-
+        
         $source_path = upload_tmp_path($file);
+        $target_path = upload_path($file,'','original');
         $image_resolution=list($width, $height) = getimagesize($source_path);
-         
+        if (file_exists($target_path))
+        {
+            $tmp_name=explode('.',$file);
+            $target_file =$tmp_name[0] .uniqid().'.'.$tmp_name[1];
+        }
+        else
+        {
+            $target_file = $file;
+        } 
         if ($file && file_exists($source_path)) 
         {
            if(File::extension($file)!='docx' && File::extension($file)!='pdf' && File::extension($file)!='doc'){  
                 
-                    upload_move($file,'');
+                    upload_move($file,'',$target_file);
                 
                     if($image_resolution[0]>1024)   
                     {
                         Image::make($source_path)->resize(1024, 576)->save($source_path);
                     }
-                        upload_move($file,'','large');
+                        upload_move($file,'',$target_file,'large');
 
-                        Image::make($source_path)->resize(150, 150)->save($source_path);
-                        upload_move($file,'','thumbnail');
+                        Image::make($source_path)->fit(150, 150)->save($source_path);
+                        upload_move($file,'',$target_file,'thumbnail');
             }
             else{
-                upload_move($file,'');
+                upload_move($file,'',$target_file);
             }
-            @unlink($source_path);
-            $this->deleteFile();
+            // @unlink($source_path);
+            // $this->deleteFile();
         }
-        $this->attributes['name'] = $file;
+        $this->attributes['name'] = $target_file;
         if ($file == '') 
         {
             $this->deleteFile();
@@ -126,6 +135,8 @@ class Media extends Model
 
         }
     }
+    
+
     public function photo_url($type='original') 
     {
         if (!empty($this->name))

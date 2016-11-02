@@ -31,18 +31,18 @@ use Illuminate\Support\Facades\Route;
     function upload_tmp_url($file) {
       return asset("tmp/$file");
     }
-
+    
     function upload_path($file, $model, $variation=false, $relative=null) {
       
       $use_aws = is_null($relative)? Config::get('aws.use',false) : $relative;
       
       if(File::extension($file)!='docx' && File::extension($file)!='pdf' && File::extension($file)!='doc')
       {
-        $folder = "/images/". ( empty($variation) || $variation =='original' ? $model : "{$model}{$variation}" ); 
+        $folder = "/images". ( empty($variation) || $variation =='original' ? "" : "/{$variation}" ); 
        }
       else
       {
-      $folder = "/docs/". ( empty($variation) || $variation =='original' ? $model : "{$model}{$variation}" ); 
+      $folder = "/docs". ( empty($variation) || $variation =='original' ? "" : "/{$variation}" ); 
       }
 
 
@@ -76,10 +76,10 @@ use Illuminate\Support\Facades\Route;
       return false;
     }
     
-    function upload_move($file,$model,$variation=false) {
+    function upload_move($file,$model,$target_file,$variation=false) {
       $use_aws = Config::get('aws.use',false);
       $source = upload_tmp_path($file);
-      $target = upload_path($file,$model,$variation);
+      $target = upload_path($target_file,$model,$variation);
       if($use_aws) {    
         AWS::get('s3')->putObject(array(
                 'Bucket'     => Config::get('aws.bucket'),
