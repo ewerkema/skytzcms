@@ -142,6 +142,14 @@ class Media extends Model
         }
 
         $this->attributes['name'] = $target_file;
+        if (File::extension($file)!='docx' && File::extension($file)!='pdf' && File::extension($file)!='doc') {
+            $this->path = 'images/'.$target_file;
+        }
+        else
+        {
+            $this->path = 'docs/'.$target_file;
+        }
+
 
         if ($file == '') {
             $this->deleteFile();

@@ -45,14 +45,7 @@ class MediaController extends Controller
             $media = new Media;
             $media->name = $filename;
             $media->description = '';
-
-            if(File::extension($filename)!='docx' && File::extension($filename)!='pdf' && File::extension($filename)!='doc') {
-                $media->path = 'images/'.$filename;
-                $media->extension = File::extension($filename);
-            } else {
-                $media->path = 'docs/'.$filename;
-                $media->extension = File::extension($filename);
-            }
+            $media->extension = File::extension($filename);
             $media->mime = '';
             
             $media->save();
