@@ -1,6 +1,11 @@
 body.swal2-in {
   overflow-y: hidden; }
 
+body.swal2-iosfix {
+  position: fixed;
+  left: 0;
+  right: 0; }
+
 .swal2-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -16,12 +21,12 @@ body.swal2-in {
   padding: 10px;
   background-color: transparent;
   z-index: 1060; }
-  .swal2-container:not(.in) {
+  .swal2-container:not(.swal2-in) {
     pointer-events: none; }
-  .swal2-container.fade {
+  .swal2-container.swal2-fade {
     -webkit-transition: background-color .1s;
     transition: background-color .1s; }
-  .swal2-container.in {
+  .swal2-container.swal2-in {
     background-color: rgba(0, 0, 0, 0.4); }
 
 .swal2-modal {
@@ -37,7 +42,7 @@ body.swal2-in {
   position: relative; }
   .swal2-modal:focus {
     outline: none; }
-  .swal2-modal.loading {
+  .swal2-modal.swal2-loading {
     overflow-y: hidden; }
   .swal2-modal h2 {
     color: #595959;
@@ -54,7 +59,7 @@ body.swal2-in {
     height: 10px;
     color: transparent;
     border: 0; }
-  .swal2-modal .styled {
+  .swal2-modal .swal2-styled {
     border: 0;
     border-radius: 3px;
     box-shadow: none;
@@ -64,10 +69,10 @@ body.swal2-in {
     font-weight: 500;
     margin: 0 5px;
     padding: 10px 32px; }
-    .swal2-modal .styled:not(.loading)[disabled] {
+    .swal2-modal .swal2-styled:not(.swal2-loading)[disabled] {
       opacity: .4;
       cursor: no-drop; }
-    .swal2-modal .styled.loading {
+    .swal2-modal .swal2-styled.swal2-loading {
       box-sizing: border-box;
       border: 4px solid transparent;
       border-color: transparent;
@@ -81,8 +86,12 @@ body.swal2-in {
       cursor: default;
       border-radius: 100%;
       -webkit-animation: rotate-loading 1.5s linear 0s infinite normal;
-              animation: rotate-loading 1.5s linear 0s infinite normal; }
-  .swal2-modal :not(.styled).loading::after {
+              animation: rotate-loading 1.5s linear 0s infinite normal;
+      -webkit-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none; }
+  .swal2-modal :not(.swal2-styled).swal2-loading::after {
     display: inline-block;
     content: '';
     margin-left: 5px;
@@ -145,9 +154,9 @@ body.swal2-in {
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06);
     -webkit-transition: border-color box-shadow .3s;
     transition: border-color box-shadow .3s; }
-    .swal2-modal .swal2-input.error,
-    .swal2-modal .swal2-file.error,
-    .swal2-modal .swal2-textarea.error {
+    .swal2-modal .swal2-input.swal2-inputerror,
+    .swal2-modal .swal2-file.swal2-inputerror,
+    .swal2-modal .swal2-textarea.swal2-inputerror {
       border-color: #f06e57; }
     .swal2-modal .swal2-input:focus,
     .swal2-modal .swal2-file:focus,
@@ -480,17 +489,17 @@ body.swal2-in {
             transform: scale(0.5);
     opacity: 0; } }
 
-.show-swal2 {
+.swal2-show {
   -webkit-animation: showSweetAlert 0.3s;
           animation: showSweetAlert 0.3s; }
-  .show-swal2.no-animation {
+  .swal2-show.swal2-noanimation {
     -webkit-animation: none;
             animation: none; }
 
-.hide-swal2 {
+.swal2-hide {
   -webkit-animation: hideSweetAlert 0.15s forwards;
           animation: hideSweetAlert 0.15s forwards; }
-  .hide-swal2.no-animation {
+  .swal2-hide.swal2-noanimation {
     -webkit-animation: none;
             animation: none; }
 

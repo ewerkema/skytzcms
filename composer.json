@@ -10,7 +10,9 @@
         "paragonie/random_compat": "~1.4",
         "codeception/codeception": "*",
         "laravelcollective/html": "5.*",
-        "barryvdh/laravel-ide-helper": "^2.2"
+        "barryvdh/laravel-ide-helper": "^2.2",
+	    "anahkiasen/former": "^4.0",
+        "intervention/image": "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

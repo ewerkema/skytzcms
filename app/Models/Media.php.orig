@@ -16,7 +16,14 @@ class Media extends Model
         'name', 'description', 'path', 'mime', 'extension',
     ];
 
+<<<<<<< HEAD
     public function sliders()
+=======
+    /**
+     * Define relations.
+     */
+    public function slider()
+>>>>>>> media-upload
     {
         return $this->belongsToMany('App\Models\Slider');
     }
