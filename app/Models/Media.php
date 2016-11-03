@@ -111,8 +111,9 @@ class Media extends Model
         $image_resolution=list($width, $height) = getimagesize($source_path);
 
         if (file_exists($target_path)) {
-            $tmp_name = explode('.',$file);
-            $target_file = $tmp_name[0] .uniqid().'.'.$tmp_name[1];
+            $filename = substr($file, 0, strrpos($file, '.'));
+            $extension = substr($file, strrpos($file, '.') + 1);
+            $target_file = $filename.uniqid().'.'.$extension;
         } else {
             $target_file = $file;
         }
@@ -128,7 +129,10 @@ class Media extends Model
                 }
                 upload_move($file,'',$target_file,'large');
 
-                Image::make($source_path)->fit(150, 150)->save($source_path);
+                if($image_resolution[0] > 150)
+                {
+                    Image::make($source_path)->fit(150, 150)->save($source_path);
+                }
                 upload_move($file,'',$target_file,'thumbnail');
             } else{
                 upload_move($file,'',$target_file);
@@ -172,6 +176,6 @@ class Media extends Model
 }
 
 
-Event::listen('eloquent.deleting:Photo', function($model) {
+Event::listen('eloquent.deleting:Media', function($model) {
     $model->deleteFile();
 });

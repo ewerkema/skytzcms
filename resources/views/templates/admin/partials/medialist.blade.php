@@ -1,7 +1,7 @@
  @forelse($rows as $key => $r)
     <div class="col-xs-6 col-md-3">
         <div class="media-image-gallery">
-            <a href="#" class="thumbnail">
+            <a href="#" class="thumbnail" title="{{ $r->name }}">
             @if($r->extension!='docx' && $r->extension!='pdf' && $r->extension!='doc')
                 <img src="{{$r->photo_url('thumbnail')}}">
                 <p>{{$r->name}}</p>

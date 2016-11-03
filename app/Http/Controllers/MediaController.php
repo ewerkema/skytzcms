@@ -104,6 +104,10 @@ class MediaController extends Controller
     public function destroy($id)
     {
         $media = Media::find($id);
+        @unlink(public_path().'/images/'.$media->name);
+        @unlink(public_path().'/images/large/'.$media->name);
+        @unlink(public_path().'/images/thumbnail/'.$media->name);
+        @unlink(public_path().'/docs/'.$media->name);
         $media->delete();
         return Response::json(['status' => 'success', 'msg' => 'Afbeelding verwijderd!']);
     }

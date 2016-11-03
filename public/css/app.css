@@ -345,9 +345,14 @@ body {
     display: block; }
     #mediaModal .media-image-gallery .thumbnail {
       display: inline-block;
-      position: relative; }
+      position: relative;
+      width: 100%;
+      padding: 10px;
+      height: 250px;
+      overflow: hidden; }
       #mediaModal .media-image-gallery .thumbnail img {
-        margin-bottom: 10px; }
+        margin-bottom: 10px;
+        width: 100%; }
       #mediaModal .media-image-gallery .thumbnail p {
         text-align: center;
         font-size: 14px;
@@ -355,7 +360,7 @@ body {
         word-break: break-all; }
     #mediaModal .media-image-gallery .trash {
       position: absolute;
-      top: 6px;
+      top: 12px;
       right: 27px;
       display: block; }
       #mediaModal .media-image-gallery .trash a {
@@ -372,7 +377,9 @@ body {
     background-color: #f5f8fa;
     border: 1px solid #ddd;
     padding: 10px;
-    margin-bottom: 20px; }
+    margin-bottom: 20px;
+    height: 250px;
+    overflow: hidden; }
     #uploadMediaModal .media-image-gallery .thumbnail {
       position: relative;
       height: 170px;

@@ -64,11 +64,15 @@
                 FilesAdded: function(up, files) {
                      plupload.each(files, function(file) {
                          // file.name = file.id + '.'+file.name.split(".").pop();
-                          var data = file.name.split(".");
-                          var name = data[0].replace(/[^A-Z0-9]+/ig, "-");
+                          var result = file.name.replace(/\.([^.]+)$/, ':$1').split(':');
+                          var name = result[0].replace(/[^A-Z0-9]+/ig, "");
 
-                          var ext = data[1];
-                          file.name = name.slice(0, -1)+'.'+ext;
+                          //var name = result[0].replace(/\s/g,'_');
+                          //var name = result[0].replace(/\(([^()]*+|(?R))*\)\s*/,'_');
+
+                          var ext = result[1];
+                          file.name = name+'.'+ext;
+
                      });
 
                      if(files.length > 0) {

@@ -9,8 +9,13 @@
         .thumbnail{
             display: inline-block;
             position: relative;
+            width: 100%;
+            padding: 10px;
+            height: 250px;
+            overflow: hidden;
             img{
                 margin-bottom: 10px;
+                width: 100%;
             }
             p{
                 text-align: center;
@@ -21,7 +26,7 @@
         }
         .trash{
             position: absolute;
-            top: 6px;
+            top: 12px;
             right: 27px;
             display: block;
             a{
@@ -42,6 +47,8 @@
         border: 1px solid #ddd;
         padding: 10px;
         margin-bottom: 20px;
+        height: 250px;
+        overflow: hidden;
         .thumbnail{
             position: relative;
             height: 170px;
