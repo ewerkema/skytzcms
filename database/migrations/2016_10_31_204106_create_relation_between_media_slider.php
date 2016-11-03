@@ -26,10 +26,16 @@ class CreateRelationBetweenMediaSlider extends Migration
         ImportTable::import('skytz_slider', function ($image) {
             $slider = Slider::all()->first();
 
-            $sliderImage = Media::createFromFile($image->imagepath, config('skytz.upload_slider_images'));
+            $existingMedia = Media::where('path', $image->imagepath);
+            
+            if ($existingMedia) {
+                $slider->media()->save($existingMedia);
+            } else {
+                $sliderImage = Media::createFromFile($image->imagepath, config('skytz.upload_slider_images'));
 
-            if ($sliderImage != null)
-                $slider->media()->save($sliderImage);
+                if ($sliderImage != null)
+                    $slider->media()->save($sliderImage);
+            }
         });
     }
 
