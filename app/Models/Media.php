@@ -106,7 +106,6 @@ class Media extends Model
 
         $source_path = upload_tmp_path($file);
         $target_path = upload_path($file,'','original');
-        $image_resolution=list($width, $height) = getimagesize($source_path);
 
         if (file_exists($target_path)) {
             $filename = substr($file, 0, strrpos($file, '.'));
@@ -117,34 +116,30 @@ class Media extends Model
         }
 
         if ($file && file_exists($source_path)) {
+            $image_resolution = list($width, $height) = getimagesize($source_path);
             if (File::extension($file)!='docx' && File::extension($file)!='pdf' && File::extension($file)!='doc') {
 
                 upload_move($file,'',$target_file);
 
-                if($image_resolution[0] > 1024)
-                {
+                if($image_resolution[0] > 1024) {
                     Image::make($source_path)->resize(1024, 576)->save($source_path);
                 }
                 upload_move($file,'',$target_file,'large');
 
-                if($image_resolution[0] > 150)
-                {
+                if($image_resolution[0] > 150) {
                     Image::make($source_path)->fit(150, 150)->save($source_path);
                 }
                 upload_move($file,'',$target_file,'thumbnail');
             } else{
                 upload_move($file,'',$target_file);
             }
-            // @unlink($source_path);
-            // $this->deleteFile();
         }
 
         $this->attributes['name'] = $target_file;
+
         if (File::extension($file)!='docx' && File::extension($file)!='pdf' && File::extension($file)!='doc') {
             $this->path = 'images/'.$target_file;
-        }
-        else
-        {
+        } else {
             $this->path = 'docs/'.$target_file;
         }
 
