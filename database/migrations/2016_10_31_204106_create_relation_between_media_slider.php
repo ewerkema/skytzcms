@@ -26,8 +26,8 @@ class CreateRelationBetweenMediaSlider extends Migration
         ImportTable::import('skytz_slider', function ($image) {
             $slider = Slider::all()->first();
 
-            $existingMedia = Media::where('path', $image->imagepath);
-            
+            $existingMedia = Media::where('path', $image->imagepath)->get();
+
             if ($existingMedia) {
                 $slider->media()->save($existingMedia);
             } else {

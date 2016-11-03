@@ -24,7 +24,7 @@ class CreateRelationBetweenAlbumMedia extends Migration
         });
 
         ImportTable::import('skytz_albumimages', function ($image) {
-            $existingMedia = Media::where('path', $image->serverpath);
+            $existingMedia = Media::where('path', $image->serverpath)->get();
             $album = Album::find($image->albumid);
 
             if ($existingMedia) {
