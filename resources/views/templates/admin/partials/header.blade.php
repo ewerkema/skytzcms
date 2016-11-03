@@ -28,7 +28,7 @@
                             </a>
                             <ul class="nav dropdown-menu dropdown-menu-large row">
                                 @php ($chunk = (Page::getMenu()->count() > 10) ? 10 : 5)
-                                @foreach (Page::getMenu()->sortBy('title')->chunk($chunk) as $pageChunk)
+                                @foreach (Page::getMenu()->chunk($chunk) as $pageChunk)
                                     <li class="small-4 columns">
                                         <ul>
                                             <li class="dropdown-header">Pagina's in menu</li>
@@ -74,7 +74,7 @@
             <div class="flex-center">
                 <ul class="nav navbar-nav flex-center">
                     @if (!Auth::guest())
-                        <li><a href="#" data-toggle="modal" data-target="#"><span class="glyphicon glyphicon-sort"></span> Menu indelen</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#sortMenuModal"><span class="glyphicon glyphicon-sort"></span> Menu indelen</a></li>
                         <li><a href="#" data-toggle="modal" data-target="#mediaModal"><span class="glyphicon glyphicon-picture"></span> Media uploaden</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -83,10 +83,10 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#" data-toggle="modal" data-target="#moduleContactModal">Contact formulier</a></li>
-                                <li><a href="#" data-toggle="modal" data-target="#moduleAlbumsModal">Foto albums</a></li>
-                                <li><a href="#" data-toggle="modal" data-target="#moduleArticlesModal">Nieuws</a></li>
-                                <li><a href="#" data-toggle="modal" data-target="#moduleSlidersModal">Sliders</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#moduleContactModal">Module Formulieren</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#moduleAlbumsModal">Module Foto albums</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#moduleArticlesModal">Module Nieuws</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#moduleSlidersModal">Module Sliders</a></li>
                             </ul>
                         </li>
                     @endif

@@ -47,6 +47,24 @@ class PageController extends Controller
     }
 
     /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array $data
+     * @param int $id
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validatorOrder(array $data, $id = 0)
+    {
+        return Validator::make($data, [
+            'order' => 'integer',
+            'parent_id' => 'exists:pages,id',
+        ], [], [
+            'order' => 'Volgorde voor de pagina',
+            'parent_id' => 'Pagina voor het submenu',
+        ]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @param  array  $data
@@ -61,7 +79,7 @@ class PageController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -94,7 +112,7 @@ class PageController extends Controller
      * Display the specified resources content.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function grid($page)
     {
@@ -107,7 +125,7 @@ class PageController extends Controller
      *
      * @param Request $request
      * @param Page $page
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function updateGrid(Request $request, Page $page)
     {
@@ -137,7 +155,7 @@ class PageController extends Controller
      * Display the specified resources backend content.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function content($page)
     {
@@ -150,7 +168,7 @@ class PageController extends Controller
      *
      * @param Request $request
      * @param Page $page
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function updateContent(Request $request, Page $page)
     {
@@ -181,11 +199,41 @@ class PageController extends Controller
     }
 
     /**
+     * Update the the order and parent id in storage.
+     *
+     * @param  Request $request
+     * @param  Page $page
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateOrder(Request $request)
+    {
+        $input = $request->all();
+
+        foreach ($input['pages'] as $order => $data) {
+            if (isset($data['id'])) {
+                $page = Page::find($data['id']);
+
+                $page->order = $order;
+                $page->parent_id = $data['parent_id'];
+
+                if (!$page->save())
+                    return response()->json(['message' => 'Updaten van de pagina volgorde is niet gelukt.'], 500);
+            }
+        }
+
+        session()->flash('flash_message', 'De volgorde van de pagina\'s is succesvol aangepast');
+        session()->flash('flash_title', 'Volgorde aangepast');
+
+        return response()->json(['success' => 'Updaten van de volgorde is gelukt.']);
+
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  Request $request
      * @param  Page $page
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Page $page)
     {
@@ -205,7 +253,7 @@ class PageController extends Controller
     /**
      * Publish all pages.
      *
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function publish()
     {

@@ -15,6 +15,6 @@ class Form extends Model
      */
     public function fields()
     {
-        return $this->hasMany('FormField');
+        return $this->hasMany('App\Models\FormField');
     }
 }

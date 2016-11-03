@@ -19,6 +19,7 @@ class Page extends Model
         'content' => 'array',
         'published_content' => 'array',
         'parent_id' => 'int|null',
+        'order' => 'int',
     ];
 
     /**
@@ -46,7 +47,7 @@ class Page extends Model
 
     public function subpages()
     {
-        return $this->hasMany('App\Models\Page', 'parent_id');
+        return $this->hasMany('App\Models\Page', 'parent_id')->orderBy('order');
     }
 
     public function parent()
@@ -83,7 +84,7 @@ class Page extends Model
      */
     public function getMenuWithSubpages()
     {
-        return $this->with('subpages')->get()->where('menu', 1)->where('parent_id', NULL);
+        return $this->with('subpages')->get()->where('menu', 1)->where('parent_id', NULL)->sortBy('order');
     }
 
     /**
@@ -93,7 +94,7 @@ class Page extends Model
      */
     public function getMenuWithoutSubpages()
     {
-        return $this->all()->where('menu', 1)->where('parent_id', NULL);
+        return $this->all()->where('menu', 1)->where('parent_id', NULL)->sortBy('order');
     }
 
     /**
@@ -103,7 +104,7 @@ class Page extends Model
      */
     public function getMenu()
     {
-        return $this->all()->where('menu', 1);
+        return $this->all()->where('menu', 1)->sortBy('order');
     }
 
     /**
@@ -113,7 +114,7 @@ class Page extends Model
      */
     public function getNonMenu()
     {
-        return $this->all()->where('menu', 0);
+        return $this->all()->where('menu', 0)->sortBy('title');
     }
 
     /**

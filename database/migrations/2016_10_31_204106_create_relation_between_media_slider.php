@@ -27,7 +27,9 @@ class CreateRelationBetweenMediaSlider extends Migration
             $slider = Slider::all()->first();
 
             $sliderImage = Media::createFromFile($image->imagepath, config('skytz.upload_slider_images'));
-            $slider->media()->save($sliderImage);
+
+            if ($sliderImage != null)
+                $slider->media()->save($sliderImage);
         });
     }
 

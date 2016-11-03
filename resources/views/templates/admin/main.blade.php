@@ -43,6 +43,7 @@
         <script src="/plugins/sweetalert2/sweetalert2.js"></script>
         <script src="/plugins/summernote/summernote.min.js"></script>
         <script src="/plugins/summernote/lang/summernote-nl-NL.js"></script>
+        <script src="/plugins/nestedSortable/jquery.nestedSortable.js"></script>
 
         {{-- Modals --}}
         @include('templates.admin.modals.media')
@@ -52,6 +53,7 @@
         @include('templates.admin.modals.module_albums')
         @include('templates.admin.modals.module_sliders')
         @include('templates.admin.modals.account')
+        @include('templates.admin.modals.sortMenu')
         @include('templates.admin.modals.website', ['settings' => Setting::all()->keyBy('name')])
 
         @if (isset($currentPage))

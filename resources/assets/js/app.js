@@ -10,13 +10,14 @@ const moment = require('moment');
 require('moment/locale/nl');
 
 Vue.use(require('vue-moment'), {
-    moment
+    moment: moment
 });
 
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('list-articles', require('./components/ListArticles.vue'));
 Vue.component('list-albums', require('./components/ListAlbums.vue'));
 Vue.component('list-sliders', require('./components/ListSliders.vue'));
+Vue.component('list-forms', require('./components/ListForms.vue'));
 
 $.ajaxSetup({
     headers: {

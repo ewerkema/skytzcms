@@ -6,6 +6,35 @@ body {
   padding-top: 140px;
   background-position-y: 140px; }
 
+.placeholder {
+  outline: 1px dashed #4183C4;
+  border: 0; }
+
+.mjs-nestedSortable-error {
+  background: #fbe3e4;
+  border-color: transparent; }
+
+ul.sortable {
+  list-style-type: none; }
+  ul.sortable ul {
+    list-style-type: none; }
+  ul.sortable li {
+    border-radius: 5px;
+    border: 1px solid #d3e0e9;
+    margin-bottom: 5px;
+    padding: 5px; }
+    ul.sortable li:hover {
+      cursor: move; }
+    ul.sortable li div {
+      padding: 5px 10px;
+      position: relative; }
+  ul.sortable .remove {
+    position: absolute;
+    right: 0;
+    line-height: 32px;
+    padding: 0 15px;
+    cursor: pointer; }
+
 .clear {
   clear: both; }
 

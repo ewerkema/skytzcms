@@ -19,7 +19,7 @@ var paths = {
     'bootstrap_fonts' : 'node_modules/bootstrap-sass/assets/fonts/bootstrap',
     'contenttools' : 'node_modules/ContentTools/build',
     'sweetalert2' : 'node_modules/sweetalert2/dist',
-    'awesomplete' : ['node_modules/awesomplete/awesomplete.js','node_modules/awesomplete/awesomplete.css'],
+    'awesomplete' : ['node_modules/awesomplete/awesomplete.js','node_modules/awesomplete/awesomplete.css']
 };
 
 elixir(function(mix) {

@@ -22,6 +22,7 @@ Route::group(['prefix' => 'cms'], function() {
     Route::get('pages/{page}/content', array('as' => 'pages.content', 'uses' => 'PageController@content'));
     Route::patch('pages/{page}/grid', array('as' => 'pages.updategrid', 'uses' => 'PageController@updateGrid'));
     Route::patch('pages/{page}/content', array('as' => 'pages.updatecontent', 'uses' => 'PageController@updateContent'));
+    Route::patch('pages/order', array('as' => 'pages.updateorder', 'uses' => 'PageController@updateOrder'));
     Route::post('pages/publish', array('as' => 'pages.publish', 'uses' => 'PageController@publish'));
     Route::resource('pages', 'PageController');
 
@@ -34,6 +35,8 @@ Route::group(['prefix' => 'cms'], function() {
     Route::resource('albums.media', 'AlbumMediaController');
     Route::resource('sliders', 'SliderController');
     Route::resource('sliders.media', 'SliderMediaController');
+    Route::resource('forms', 'FormController');
+    Route::resource('formFields', 'FormFieldController');
 
     Route::get('/{slug}', array('as' => 'page.show', 'uses' => 'CmsTemplateController@show'));
     Route::get('/{slug}/{childSlug}', array('as' => 'page.show', 'uses' => 'CmsTemplateController@show'));

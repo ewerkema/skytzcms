@@ -39,6 +39,10 @@ Request.prototype.addField = function(name, type = "text", defaultVal = "", opti
     this.fields[name] = field;
 };
 
+Request.prototype.addValue = function(name, data) {
+    this.addField(name, "value", data);
+};
+
 Request.prototype.addFields = function(names) {
     var _this = this;
     names.forEach(function(name) {
@@ -75,6 +79,9 @@ Request.prototype.processFields = function() {
             case "checkbox":
                 data[name] = (this.findInForm(name).is(":checked")) ? 1 : 0;
                 break;
+            case "value":
+                data[name] = el.default;
+                break;
             default:
                 data[name] = (this.findInForm(name).val()) ? this.findInForm(name).val() : el.default;
                 break;
@@ -108,7 +115,7 @@ Request.prototype.onSubmit = function (callback) {
     this.form.submit(function(e){
         e.preventDefault();
         var data = _this.processFields();
-
+        console.log(data);
         $.ajax({
             url: _this.url,
             type: _this.type,
