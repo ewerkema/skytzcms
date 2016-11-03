@@ -3,7 +3,6 @@
 /public/docs
 /public/images
 /public/tmp
-/storage
 /vendor
 /.idea
 Homestead.json
