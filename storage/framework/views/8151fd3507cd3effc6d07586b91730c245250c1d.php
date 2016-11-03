@@ -69,7 +69,7 @@
                      plupload.each(files, function(file) {
                          // file.name = file.id + '.'+file.name.split(".").pop();
                           var result = file.name.replace(/\.([^.]+)$/, ':$1').split(':');
-                          var name = result[0].replace(/[^A-Z0-9]+/ig, "");
+                          var name = result[0].replace(/[^A-Z0-9-]+/ig, "_");
 
                           //var name = result[0].replace(/\s/g,'_');
                           //var name = result[0].replace(/\(([^()]*+|(?R))*\)\s*/,'_');
