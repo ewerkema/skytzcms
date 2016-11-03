@@ -2374,3 +2374,9 @@ Stack trace:
 [2016-11-03 14:29:18] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider' not found' in C:\wamp64\www\skytz\cmsnew\vendor\laravel\framework\src\Illuminate\Foundation\ProviderRepository.php:146
 Stack trace:
 #0 {main}  
+[2016-11-03 18:52:03] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function subpages() on null' in C:\wamp64\www\skytz\cmsnew\app\Http\Controllers\TemplateController.php:14
+Stack trace:
+#0 {main}  
+[2016-11-03 18:57:12] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function subpages() on null' in C:\wamp64\www\skytz\cmsnew\app\Http\Controllers\CmsTemplateController.php:22
+Stack trace:
+#0 {main}  

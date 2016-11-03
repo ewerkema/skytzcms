@@ -24,16 +24,11 @@ class CreateRelationBetweenAlbumMedia extends Migration
         });
 
         ImportTable::import('skytz_albumimages', function ($image) {
-            $existingMedia = Media::where('path', $image->serverpath)->get();
             $album = Album::find($image->albumid);
 
-            if ($existingMedia) {
-                $album->media()->save($existingMedia);
-            } else {
-                $albumImage = Media::createFromFile($image->serverpath, config('skytz.upload_album_images'));
-                if ($albumImage) {
-                    $album->media()->save($albumImage);
-                }
+            $albumImage = Media::createFromFile($image->serverpath, config('skytz.upload_album_images'));
+            if ($albumImage) {
+                $album->media()->save($albumImage);
             }
         });
     }

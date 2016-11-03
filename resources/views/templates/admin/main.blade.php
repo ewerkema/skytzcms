@@ -48,6 +48,7 @@
 
         {{-- Modals --}}
         @include('templates.admin.modals.media')
+        @include('templates.admin.modals.select_media')
         @include('templates.admin.modals.add_media')
         @include('templates.admin.modals.newpage')
         @include('templates.admin.modals.module_contact', ['settings' => Setting::all()->keyBy('name')])

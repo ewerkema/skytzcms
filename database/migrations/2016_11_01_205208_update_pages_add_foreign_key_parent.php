@@ -26,7 +26,7 @@ class UpdatePagesAddForeignKeyParent extends Migration
     public function down()
     {
         Schema::table('pages', function ($table) {
-            $table->dropForeign('parent_id');
+            $table->dropForeign('pages_parent_id_foreign');
         });
     }
 }

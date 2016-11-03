@@ -322,18 +322,19 @@ var CustomImageTool = (function(_super) {
     };
 
     CustomImageTool.apply = function(element, selection, callback) {
-
         // First define a function that we can send the custom media manager
         // when an image is ready to insert.
         function _insertImage(url, width, height) {
             // Once the user has selected an image insert it
+            $('#selectMediaModal').modal('toggle');
 
             // Create the image element
-            var image = new ContentEdit.Image({src: url});
+            var image = new ContentEdit.Image({src: url, width: width, height: height});
 
             // Insert the image
             var insertAt = CustomImageTool._insertAt(element);
             insertAt[0].parent().attach(image, insertAt[1]);
+            console.log(image);
 
             // Set the image as having focus
             image.focus();
@@ -359,9 +360,7 @@ var CustomImageTool = (function(_super) {
         //
         //     window.parent.CustomMediaManager._insertImage(url, width, height);
         //
-        
-        console.log("OPEN MODAL");
-
+        $('#selectMediaModal').modal('toggle');
     };
 
     return CustomImageTool;

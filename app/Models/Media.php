@@ -44,17 +44,22 @@ class Media extends Model
             return;
         }
 
-        if ($newFile = Media::copyFile($originPath, $destinationPath)) {
-            $newFilePath = $destination . File::name($newFile) . '.' . File::extension($newFile);
-            return Media::create([
-                'name' => File::name($newFile),
-                'path' => $newFilePath,
-                'mime' => File::mimeType($newFile),
-                'extension' => File::extension($newFile),
-            ]);
+        if (File::exists($destinationPath)) {
+            return Media::where('name', '=', File::name($destinationPath))->first();
         } else {
-            echo "Couldn't copy file to location \"$destinationPath\".\n";
+            if ($newFile = Media::copyFile($originPath, $destinationPath)) {
+                $newFilePath = $destination . File::name($newFile) . '.' . File::extension($newFile);
+                return Media::create([
+                    'name' => File::name($newFile),
+                    'path' => $newFilePath,
+                    'mime' => File::mimeType($newFile),
+                    'extension' => File::extension($newFile),
+                ]);
+            } else {
+                echo "Couldn't copy file to location \"$destinationPath\".\n";
+            }
         }
+
     }
 
     /**
