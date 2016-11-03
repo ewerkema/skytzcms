@@ -5,6 +5,47 @@
     background-position-y: 140px;
   }
 
+  .placeholder {
+    outline: 1px dashed #4183C4;
+    border: 0;
+  }
+
+  .mjs-nestedSortable-error {
+    background: #fbe3e4;
+    border-color: transparent;
+  }
+
+  ul.sortable {
+    list-style-type: none;
+
+    ul {
+      list-style-type: none;
+    }
+
+    li {
+      border-radius: 5px;
+      border: 1px solid $navbar-default-border;
+      margin-bottom: 5px;
+      padding: 5px;
+
+      &:hover {
+        cursor: move;
+      }
+
+      div {
+        padding: 5px 10px;
+        position: relative;
+      }
+    }
+
+    .remove {
+      position: absolute; right: 0;
+      line-height: 32px;
+      padding: 0 15px;
+      cursor: pointer;
+    }
+  }
+
   .clear {
     clear:both;
   }

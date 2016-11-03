@@ -35,12 +35,32 @@ class PageController extends Controller
             'meta_title' => 'required|max:255',
             'meta_desc' => 'max:255',
             'menu' => 'required|boolean',
+            'parent_id' => 'exists:pages,id',
         ], [], [
             'slug' => 'Pagina link (URL)',
             'title' => 'Pagina naam',
             'meta_title' => 'Pagina titel',
             'meta_desc' => 'Pagina beschrijving',
             'menu' => 'Weergeven in menu',
+            'parent_id' => 'Pagina voor het submenu',
+        ]);
+    }
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array $data
+     * @param int $id
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validatorOrder(array $data, $id = 0)
+    {
+        return Validator::make($data, [
+            'order' => 'integer',
+            'parent_id' => 'exists:pages,id',
+        ], [], [
+            'order' => 'Volgorde voor de pagina',
+            'parent_id' => 'Pagina voor het submenu',
         ]);
     }
 
@@ -59,7 +79,7 @@ class PageController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -73,7 +93,7 @@ class PageController extends Controller
         session()->flash('flash_message', 'De pagina is succesvol aangemaakt');
         session()->flash('flash_title', 'Pagina aangemaakt');
 
-        return response()->json($page, 200);
+        return response()->json(['page' => $page, 'redirectTo' => $page->getSlug()], 200);
     }
 
     /**
@@ -92,7 +112,7 @@ class PageController extends Controller
      * Display the specified resources content.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function grid($page)
     {
@@ -105,7 +125,7 @@ class PageController extends Controller
      *
      * @param Request $request
      * @param Page $page
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function updateGrid(Request $request, Page $page)
     {
@@ -135,7 +155,7 @@ class PageController extends Controller
      * Display the specified resources backend content.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function content($page)
     {
@@ -148,7 +168,7 @@ class PageController extends Controller
      *
      * @param Request $request
      * @param Page $page
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function updateContent(Request $request, Page $page)
     {
@@ -179,13 +199,32 @@ class PageController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Update the the order and parent id in storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Request $request
+     * @param  Page $page
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function edit($id)
+    public function updateOrder(Request $request)
     {
+        $input = $request->all();
+
+        foreach ($input['pages'] as $order => $data) {
+            if (isset($data['id'])) {
+                $page = Page::find($data['id']);
+
+                $page->order = $order;
+                $page->parent_id = $data['parent_id'];
+
+                if (!$page->save())
+                    return response()->json(['message' => 'Updaten van de pagina volgorde is niet gelukt.'], 500);
+            }
+        }
+
+        session()->flash('flash_message', 'De volgorde van de pagina\'s is succesvol aangepast');
+        session()->flash('flash_title', 'Volgorde aangepast');
+
+        return response()->json(['success' => 'Updaten van de volgorde is gelukt.']);
 
     }
 
@@ -194,7 +233,7 @@ class PageController extends Controller
      *
      * @param  Request $request
      * @param  Page $page
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Page $page)
     {
@@ -207,14 +246,14 @@ class PageController extends Controller
         session()->flash('flash_message', 'De pagina is succesvol aangepast');
         session()->flash('flash_title', 'Pagina aangepast');
 
-        return response()->json($page);
+        return response()->json(['page' => $page, 'redirectTo' => $page->getSlug()]);
 
     }
 
     /**
      * Publish all pages.
      *
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function publish()
     {

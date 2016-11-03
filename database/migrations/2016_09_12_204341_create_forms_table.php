@@ -18,8 +18,8 @@ class CreateFormsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email');
-            $table->string('redirect');
-            $table->text('message');
+            $table->string('redirect')->nullable();
+            $table->text('message')->default('');
             $table->timestamps();
         });
 

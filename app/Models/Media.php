@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
+use Event;
+use Image;
+use Input;
 
 class Media extends Model
 {
@@ -88,4 +91,97 @@ class Media extends Model
 
         return $newPath;
     }
+
+    /**
+     * Set the name attribute and check if the file already exists.
+     * If the file already exists, add a unique identifier to the name.
+     *
+     * If the file is an image, also save the large (1024px wide) and
+     * thumbnail version (150px wide) versio of the image.
+     *
+     * @param $file
+     */
+    public function setNameAttribute($file)
+    {
+
+        $source_path = upload_tmp_path($file);
+        $target_path = upload_path($file,'','original');
+        $image_resolution=list($width, $height) = getimagesize($source_path);
+
+        if (file_exists($target_path)) {
+            $filename = substr($file, 0, strrpos($file, '.'));
+            $extension = substr($file, strrpos($file, '.') + 1);
+            $target_file = $filename.uniqid().'.'.$extension;
+        } else {
+            $target_file = $file;
+        }
+
+        if ($file && file_exists($source_path)) {
+            if (File::extension($file)!='docx' && File::extension($file)!='pdf' && File::extension($file)!='doc') {
+
+                upload_move($file,'',$target_file);
+
+                if($image_resolution[0] > 1024)
+                {
+                    Image::make($source_path)->resize(1024, 576)->save($source_path);
+                }
+                upload_move($file,'',$target_file,'large');
+
+                if($image_resolution[0] > 150)
+                {
+                    Image::make($source_path)->fit(150, 150)->save($source_path);
+                }
+                upload_move($file,'',$target_file,'thumbnail');
+            } else{
+                upload_move($file,'',$target_file);
+            }
+            // @unlink($source_path);
+            // $this->deleteFile();
+        }
+
+        $this->attributes['name'] = $target_file;
+        if (File::extension($file)!='docx' && File::extension($file)!='pdf' && File::extension($file)!='doc') {
+            $this->path = 'images/'.$target_file;
+        }
+        else
+        {
+            $this->path = 'docs/'.$target_file;
+        }
+
+
+        if ($file == '') {
+            $this->deleteFile();
+            $this->attributes['name'] = "";
+        }
+    }
+
+    /**
+     * Returns the photo url.
+     *
+     * @param string $type
+     * @return bool|string
+     */
+    public function photo_url($type='original')
+    {
+        if (!empty($this->name))
+            return upload_url($this->name,'',$type);
+        elseif (!empty($this->name) && file_exists(tmp_path($this->photo)))
+            return tmp_url($this->name);
+        else
+            return asset('img/advertising.jpg');
+    }
+
+    /**
+     * Delete the media file from storage.
+     */
+    public function deleteFile()
+    {
+        upload_delete($this->name, 'images', array('original','thumbnail','large'));
+    }
+
 }
+
+
+Event::listen('eloquent.deleting:Media', function($model) {
+    $model->deleteFile();
+});

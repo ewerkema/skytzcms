@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Media;
 use Illuminate\Http\Request;
+use Response;
 use App\Http\Requests;
-
+use App\Models\Media;
+use Input;
+use File;
 class MediaController extends Controller
 {
     /**
@@ -15,18 +17,33 @@ class MediaController extends Controller
      */
     public function index()
     {
-        return Media::all();
+	if (!isset($_GET['page']))
+		return Media::all();
+        $rows = Media::paginate(8);
+        return view('templates.admin.partials.medialist', compact('rows'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        //
+        $name = Input::get('name');
+
+        foreach($name as $filename) {
+            $media = new Media;
+            $media->name = $filename;
+            $media->description = '';
+            $media->extension = File::extension($filename);
+            $media->mime = '';
+            
+            $media->save();
+        }
+
+        return Response::json(['status'=>'success','msg'=>'Afbeeldingen toegevoegd!']);
     }
 
     /**
@@ -67,10 +84,16 @@ class MediaController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
-        //
+        $media = Media::find($id);
+        @unlink(public_path().'/images/'.$media->name);
+        @unlink(public_path().'/images/large/'.$media->name);
+        @unlink(public_path().'/images/thumbnail/'.$media->name);
+        @unlink(public_path().'/docs/'.$media->name);
+        $media->delete();
+        return Response::json(['status' => 'success', 'msg' => 'Afbeelding verwijderd!']);
     }
 }

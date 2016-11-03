@@ -1,10 +1,10 @@
 
-<div class="page-content" data-page="{{ $page->id }}">
-    @if (sizeof($page->content) == 0)
+<div class="page-content" data-page="{{ $currentPage->id }}">
+    @if (sizeof($currentPage->content) == 0)
         <div class="block" data-name="block0" data-name="block0" data-gs-x="0" data-gs-y="0" data-gs-width="12" data-gs-height="2" data-module="0" data-editable></div>
     @endif
 
-    @foreach ($page->getContent() as $row)
+    @foreach ($currentPage->getContent() as $row)
         <div class="row">
             @foreach ($row as $block)
                 <div class="block columns medium-{{ $block['width'] }} medium-offset-{{ $block['offset'] }}" data-name="{{ $block['name'] }}" data-gs-x="{{ $block['x'] }}" data-gs-y="{{ $block['y'] }}" data-gs-width="{{ $block['width'] }}" data-gs-height="{{ $block['height'] }}" data-module="{{ isset($block['module']) ? $block['module'] : 0 }}" data-editable>
@@ -45,7 +45,7 @@
             var blockContent = $('.page-content');
             blockContent.html("");
 
-            $.get('/cms/pages/{{ $page->id }}/content', function(content) {
+            $.get('/cms/pages/{{ $currentPage->id }}/content', function(content) {
                 if (content.length == 0) {
                     blockContent.html('<div class="block" data-name="block0" data-gs-x="0" data-gs-y="0" data-gs-width="12" data-gs-height="2" data-module="0" data-editable></div>');
                 }
@@ -73,7 +73,7 @@
                 // Add the auto-complete to the link input (we provide a static list but most likely you'd
                 // have the auto-complete call the server for a list).
                 new Awesomplete(this._domInput, {
-                    list: {!! $pages !!}
+                    list: {!! Page::getEditorLinks() !!}
                 });
             };
         }

@@ -12,8 +12,10 @@ body { background: url('../img/bg.png') repeat-x #f5f8fa; }
 
 .menu { margin-top: 40px; }
 .menu li {float: left; list-style: none; margin-right: 30px;}
-.menu a { font-size: 13px; color: #2864aa; }
+.menu ul.dropdown li { margin-right: 0px; }
+.menu a { font-size: 13px; color: #2864aa; display: block; }
 .menu li.active a { text-decoration: underline; }
+.menu li.active ul.dropdown a { text-decoration: none; }
 .menu a:hover { color: #000; text-decoration: none; }
 
 

@@ -21,8 +21,8 @@ class CreateFormFieldsTable extends Migration
             $table->integer('form_id')->unsigned();
             $table->string('type');
             $table->string('name');
-            $table->text('placeholder');
-            $table->text('options');
+            $table->text('placeholder')->nullable();
+            $table->text('options')->nullable();
             $table->boolean('required');
             $table->foreign('form_id')->references('id')->on('forms');
         });

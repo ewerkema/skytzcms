@@ -38,7 +38,7 @@
                 </div>
             </div>
             <p v-if="!hasImages(selectedAlbum)">Er zijn geen afbeeldingen gevonden.</p>
-            <button class="btn btn-success right" v-on:click="addImages = true">Nieuwe afbeeldingen toevoegen</button>
+            <button class="btn btn-success right" v-on:click="addImages = true">Afbeeldingen toevoegen</button>
             <button class="btn btn-danger right" v-on:click="removeAlbum(selectedAlbum)">Verwijder dit album</button>
         </div>
     </div>
@@ -185,7 +185,7 @@
             submitForm: function () {
                 var _this = this;
                 $.ajax({
-                    url: 'albums/'+this.selectedAlbum.id+'/media',
+                    url: '/cms/albums/'+this.selectedAlbum.id+'/media',
                     type: 'POST',
                     data: {
                         media: _this.selectedImages
@@ -211,7 +211,7 @@
 
                 var _this = this;
                 $.ajax({
-                    url: 'albums',
+                    url: '/cms/albums',
                     type: 'POST',
                     data: {
                         name: value,
@@ -256,7 +256,7 @@
             removeImage: function (album, image) {
                 var _this = this;
                 $.ajax({
-                    url: 'albums/'+album.id+'/media/'+image.id,
+                    url: '/cms/albums/'+album.id+'/media/'+image.id,
                     type: 'DELETE',
                     success: function (result) {
                         _this.selectedAlbum.media.$remove(image);
@@ -267,7 +267,7 @@
             doRemoveAlbum: function (album) {
                 var _this = this;
                 $.ajax({
-                    url: 'albums/'+album.id,
+                    url: '/cms/albums/'+album.id,
                     type: 'DELETE',
                     success: function(result) {
                         _this.albums.$remove(album);
@@ -281,7 +281,7 @@
 
             loadAlbums: function() {
                 var _this = this;
-                $.get('albums', function (data) {
+                $.get('/cms/albums', function (data) {
                     if (data.length != 0) {
                         _this.albums = data;
                         _this.selectedAlbum = _.head(data);
@@ -291,7 +291,7 @@
 
             loadImages: function() {
                 var _this = this;
-                $.get('media', function (data) {
+                $.get('/cms/media', function (data) {
                      _this.images = _this.filterImages(data);
                 });
             },

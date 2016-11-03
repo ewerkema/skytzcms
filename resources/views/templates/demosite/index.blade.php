@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>{{ $page->meta_title }}</title>
+    <title>{{ $currentPage->meta_title }}</title>
 
     <link rel="stylesheet" href="{{ template_url('/css/foundation.css') }}" />
     <link rel="stylesheet" href="{{ template_url('/css/style.css') }}" />
@@ -42,88 +42,53 @@
     {{--{DragDropBlockFiles}--}}
     {{--{CkEditor}--}}
     <!-- END BLOCK : AdminContents -->
-    <!-- START BLOCK : GoogleAnalytics -->
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-        ga('create', '{tracking-id}', '{server}');
-        ga('send', 'pageview');
-
-    </script>
-    <!-- END BLOCK : GoogleAnalytics -->
+    @include('templates.admin.partials.analytics')
 </head>
 <body>
 
 {{-- Skytz CMS Header --}}
 @yield('header_cms')
 
-
-<!-- SKYTZ CMS -->
-<!-- END BLOCK : ShowAdminOptions -->
 <div class="row">
-
-    <!-- START CONTAINER -->
     <div class="container">
-
-
-        <!-- START HEADER -->
         <div class="header">
-
-
             <div class="row">
-
 
                 <div class="small-12 medium-4 columns logo">
-
                     <a href="{{ page_url("/") }}"><img src="{{ template_url('/img/logo.png') }}" alt="CMS demo"></a>
-
                 </div>
-
 
                 <div id="hamburger">
-
                     <img src="{{ template_url('/img/hamburger.png') }}" alt="Menu" />
-
                     <h2>Menu</h2>
-
                 </div>
 
-
-
-                <div class="small-12 medium-12 large-8 columns menu">
-
+                <nav class="small-12 medium-12 large-8 columns menu">
                     <ul>
-                        @foreach ($menu as $menupage)
-                            <li class="{{ (isset($page) && $menupage->id == $page->id) ? "active" : "" }}">
-                                <a href="{{ page_url($menupage->slug) }}">{{ $menupage->title }}</a>
-                            </li>
+                        @foreach (Page::getMenuWithSubpages() as $page)
+                            <li class="{{ (isset($currentPage) && $page->id == $currentPage->id) ? "active" : "" }} {{ (isset($page->subpages)) ? "has-dropdown" : "" }}">
+
+                                <a href="{{ page_url($page->getSlug()) }}">{{ $page->title }}</a>
+
+                                @if (isset($page->subpages))
+                                    <ul class="dropdown">
+                                        @foreach ($page->subpages as $subpage)
+                                            <li class="{{ (isset($currentPage) && $subpage->id == $currentPage->id) ? "active" : "" }}">
+                                                <a href="{{ page_url($subpage->getSlug()) }}">{{ $subpage->title }}</a>
+                                            </li>
+                                        @endforeach
+                                     </ul>
+                                @endif
+                             </li>
                         @endforeach
                     </ul>
-
-                </div>
-
-
+                </nav>
             </div>
-
-
         </div>
-        <!-- END HEADER -->
-
-
-        <!-- START CONTENT -->
         <div class="content">
-
             <div class="row">
-
-                <!-- START LEFT SIDE -->
                 <div class="small-12 medium-12 large-12 columns left">
-
                     <div class="row">
-
-                        <!-- START TEKST -->
                         <div class="tekst">
 
                             <!-- START BLOCK : Slider -->
@@ -167,32 +132,22 @@
                                 {{--<!-- END BLOCK : Blocks -->--}}
                             {{--</div>--}}
                             <!-- END BLOCK : StrokeList -->
-
-
                         </div>
-                        <!-- END TEKST -->
-
                     </div>
-
                 </div>
-                <!-- END LEFT SIDE -->
-
             </div>
-
-
         </div>
-        <!-- END CONTENT -->
-
-
-
     </div>
-    <!-- END CONTAINER -->
 
 </div>
 <div class="bottom">
     <div class="row ">
         <div class="small-12 columns sitemap">
-            <p>Copyright 2016 - {{ date('Y') }} <a href="/">Skytz.nl</a>  |  Uw eigen website gemakkelijk beheren</p>
+            @if (!empty(Setting::get('footerblock')))
+                <p>{{ Setting::get('footerblock') }}</p>
+            @else
+                <p>Copyright 2016 - {{ date('Y') }} <a href="/">Skytz.nl</a>  |  Uw eigen website gemakkelijk beheren</p>
+            @endif
         </div>
     </div>
 </div>

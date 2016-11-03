@@ -18,6 +18,8 @@ class Page extends Model
     protected $casts = [
         'content' => 'array',
         'published_content' => 'array',
+        'parent_id' => 'int|null',
+        'order' => 'int',
     ];
 
     /**
@@ -36,19 +38,105 @@ class Page extends Model
     }
 
     /**
+     * Define relationships.
+     */
+    public function header()
+    {
+        return $this->hasOne('App\Models\Media');
+    }
+
+    public function subpages()
+    {
+        return $this->hasMany('App\Models\Page', 'parent_id')->orderBy('order');
+    }
+
+    public function parent()
+    {
+        return $this->hasOne('App\Models\Page', 'id', 'parent_id');
+    }
+
+    /**
+     * Check for empty input parent page and cast to NULL if true.
+     *
+     * @param $value
+     */
+    public function setParentIdAttribute($value)
+    {
+        $this->attributes['parent_id'] = (empty($value) || !$value) ? NULL : $value;
+    }
+
+    /**
+     * Get slug of the current page.
+     *
+     */
+    public function getSlug()
+    {
+        if ($parent = $this->parent()->first())
+            return $parent->slug . '/' . $this->attributes['slug'];
+
+        return $this->attributes['slug'];
+    }
+
+    /**
+     * Get list of menu items with subpages
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getMenuWithSubpages()
+    {
+        return $this->with('subpages')->get()->where('menu', 1)->where('parent_id', NULL)->sortBy('order');
+    }
+
+    /**
+     * Get list of menu items without subpages
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getMenuWithoutSubpages()
+    {
+        return $this->all()->where('menu', 1)->where('parent_id', NULL)->sortBy('order');
+    }
+
+    /**
+     * Get list of menu pages.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getMenu()
+    {
+        return $this->all()->where('menu', 1)->sortBy('order');
+    }
+
+    /**
+     * Get list of non menu pages.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getNonMenu()
+    {
+        return $this->all()->where('menu', 0)->sortBy('title');
+    }
+
+    /**
+     * Get the page together with the slug for display in the editor.
+     *
      * @return array
      */
     public function getEditorLink()
     {
         return array($this->attributes['title'].' ('.$this->attributes['slug'].')', $this->attributes['slug']);
     }
-    
+
     /**
-     * Define relationships.
+     * Get editor links for all pages
+     *
+     * @return \Illuminate\Support\Collection
      */
-    public function header()
+    public function getEditorLinks()
     {
-        return $this->hasOne('Media');
+        return $this->all()->map(function($page) {
+            return $page->getEditorLink();
+        });
     }
 
     /**

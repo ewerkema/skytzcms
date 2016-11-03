@@ -24,35 +24,42 @@
                         <li class="dropdown dropdown-large">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 <span class="glyphicon glyphicon-list"></span>
-                                Selecteer pagina ({{ count($menu)+count($nonmenu) }}) <span class="caret"></span>
+                                Selecteer pagina ({{ count(Page::all()) }}) <span class="caret"></span>
                             </a>
                             <ul class="nav dropdown-menu dropdown-menu-large row">
-                                <li class="small-6 columns">
-                                    <ul>
-                                        <li class="dropdown-header">Pagina's in menu</li>
-                                        @foreach ($menu as $menupage)
-                                            <li class="{{ (isset($page) && $menupage->id == $page->id) ? "active" : "" }}">
-                                                <a href="{{ page_url($menupage->slug) }}">{{ $menupage->title }}</a>
-                                            </li>
-                                        @endforeach
-
-                                        @if (empty($menu))
-                                            <li><a href="#">Geen pagina's gevonden.</a></li>
-                                        @endif
-                                    </ul>
-                                </li>
-                                <li class="small-6 columns">
+                                @php ($chunk = (Page::getMenu()->count() > 10) ? 10 : 5)
+                                @foreach (Page::getMenu()->chunk($chunk) as $pageChunk)
+                                    <li class="small-4 columns">
+                                        <ul>
+                                            <li class="dropdown-header">Pagina's in menu</li>
+                                            @foreach ($pageChunk as $page)
+                                                <li class="{{ (isset($currentPage) && $page->id == $currentPage->id) ? "active" : "" }}">
+                                                    <a href="{{ page_url($page->getSlug()) }}">{{ (($page->parent()->first()) ? $page->parent()->first()->title . ' > ' : '' ).$page->title }}</a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </li>
+                                @endforeach
+                                @if (empty(Page::getMenuWithSubpages()))
+                                    <li class="small-6 columns">
+                                        <ul>
+                                            <li class="dropdown-header">Pagina's in menu</li>
+                                            <li>Geen pagina's gevonden.</li>
+                                        </ul>
+                                    </li>
+                                @endif
+                                <li class="small-4 columns">
                                     <ul>
                                         <li class="dropdown-header">Losse pagina's</li>
 
-                                        @foreach ($nonmenu as $nonmenupage)
-                                            <li class="{{ (isset($page) && $nonmenupage->id == $page->id) ? "active" : "" }}">
-                                                <a href="{{ page_url($nonmenupage->slug) }}">{{ $nonmenupage->title }}</a>
+                                        @foreach (Page::getNonMenu() as $page)
+                                            <li class="{{ (isset($currentPage) && $page->id == $currentPage->id) ? "active" : "" }}">
+                                                <a href="{{ page_url($page->getSlug()) }}">{{ $page->title }}</a>
                                             </li>
                                         @endforeach
 
-                                        @if (empty($nonmenu))
-                                            <li><a href="#">Geen losse pagina's gevonden.</a></li>
+                                        @if (!Page::getNonMenu()->count())
+                                            <li>Geen losse pagina's gevonden.</li>
                                         @endif
                                     </ul>
                                 </li>
@@ -67,7 +74,7 @@
             <div class="flex-center">
                 <ul class="nav navbar-nav flex-center">
                     @if (!Auth::guest())
-                        <li><a href="#" data-toggle="modal" data-target="#"><span class="glyphicon glyphicon-sort"></span> Menu indelen</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#sortMenuModal"><span class="glyphicon glyphicon-sort"></span> Menu indelen</a></li>
                         <li><a href="#" data-toggle="modal" data-target="#mediaModal"><span class="glyphicon glyphicon-picture"></span> Media uploaden</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -76,10 +83,10 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#" data-toggle="modal" data-target="#moduleContactModal">Contact formulier</a></li>
-                                <li><a href="#" data-toggle="modal" data-target="#moduleAlbumsModal">Foto albums</a></li>
-                                <li><a href="#" data-toggle="modal" data-target="#moduleArticlesModal">Nieuws</a></li>
-                                <li><a href="#" data-toggle="modal" data-target="#moduleSlidersModal">Sliders</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#moduleContactModal">Module Formulieren</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#moduleAlbumsModal">Module Foto albums</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#moduleArticlesModal">Module Nieuws</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#moduleSlidersModal">Module Sliders</a></li>
                             </ul>
                         </li>
                     @endif

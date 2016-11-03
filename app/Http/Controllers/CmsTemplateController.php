@@ -16,20 +16,19 @@ class CmsTemplateController extends Controller
         $this->middleware('auth');
     }
 
-    public function show($slug = 'index')
+    public function show($slug = 'index', $childSlug = false)
     {
-        $page = Page::whereSlug($slug)->first();
+        if ($childSlug) {
+            $page = Page::whereSlug($slug)->first()->subpages()->whereSlug($childSlug)->first();
+        } else {
+            $page = Page::whereSlug($slug)->where('parent_id', NULL)->first();
+        }
 
         if (!$page)
             abort(404);
 
         return View::make('templates.admin.main')->with([
-            'page' => $page,
-            'pages' => Page::all()->map(function($page) {
-                return $page->getEditorLink();
-            }),
-            'menu' => Page::all()->where('menu', 1),
-            'nonmenu' => Page::all()->where('menu', 0),
+            'currentPage' => $page,
             'template' => 'templates.'.config('skytz.template').'.index'
         ]);
     }

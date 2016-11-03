@@ -43,18 +43,22 @@
         <script src="/plugins/sweetalert2/sweetalert2.js"></script>
         <script src="/plugins/summernote/summernote.min.js"></script>
         <script src="/plugins/summernote/lang/summernote-nl-NL.js"></script>
+        <script src="/plugins/nestedSortable/jquery.nestedSortable.js"></script>
+	<script type="text/javascript" src="/js/plupload.full.min.js"></script>
 
         {{-- Modals --}}
         @include('templates.admin.modals.media')
+        @include('templates.admin.modals.add_media')
         @include('templates.admin.modals.newpage')
         @include('templates.admin.modals.module_contact', ['settings' => Setting::all()->keyBy('name')])
         @include('templates.admin.modals.module_articles')
         @include('templates.admin.modals.module_albums')
         @include('templates.admin.modals.module_sliders')
         @include('templates.admin.modals.account')
+        @include('templates.admin.modals.sortMenu')
         @include('templates.admin.modals.website', ['settings' => Setting::all()->keyBy('name')])
 
-        @if (isset($page))
+        @if (isset($currentPage))
             @include('templates.admin.modals.page')
         @endif
 

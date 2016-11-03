@@ -1,6 +1,6 @@
-<div class="page-content" data-page="{{ $page->id }}">
+<div class="page-content" data-page="{{ $currentPage->id }}">
 
-    @foreach ($page->getPublishedContent() as $row)
+    @foreach ($currentPage->getPublishedContent() as $row)
         <div class="row">
             @foreach ($row as $block)
                 <div class="block columns medium-{{ $block['width'] }} medium-offset-{{ $block['offset'] }}">

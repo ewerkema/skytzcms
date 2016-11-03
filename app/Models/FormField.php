@@ -12,11 +12,15 @@ class FormField extends Model
         'type', 'name', 'options', 'required', 'placeholder', 'form_id',
     ];
 
+    protected $casts = [
+        'options' => 'array'
+    ];
+
     /**
      * Define relationships.
      */
     public function form()
     {
-        return $this->belongsTo('Form');
+        return $this->belongsTo('App\Models\Form');
     }
 }
