@@ -1,4 +1,4 @@
-<div class="modal <?php echo e(isset($animation) ? $animation : 'fade'); ?>" tabindex="-1" role="dialog" id="<?php echo e($target); ?>" aria-labelledby="<?php echo e($target); ?>">
+<div class="modal <?php echo e(isset($animation) ? $animation : 'fade'); ?>" data-backdrop="<?php echo e(isset($backdrop) ? $backdrop : ''); ?>" tabindex="-1" role="dialog" id="<?php echo e($target); ?>" aria-labelledby="<?php echo e($target); ?>">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">

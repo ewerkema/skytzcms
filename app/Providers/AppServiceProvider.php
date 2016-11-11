@@ -6,8 +6,10 @@ use App\Models\ImportTable;
 use App\Models\Article;
 use App\Models\ArticleGroup;
 use App\Models\Media;
+use App\Models\Module;
 use App\Models\Setting;
 use App\Models\Page;
+use App\Models\Slider;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 
@@ -20,7 +22,9 @@ class AppServiceProvider extends ServiceProvider
         'ArticleGroup' => ArticleGroup::class,
         'Media' => Media::class,
         'Page' => Page::class,
-        'Setting' => Setting::class
+        'Setting' => Setting::class,
+        'Slider' => Slider::class,
+        'Module' => Module::class,
     );
 
     /**

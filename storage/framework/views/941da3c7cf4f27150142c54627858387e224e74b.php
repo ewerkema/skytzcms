@@ -7,7 +7,7 @@
     <?php $__currentLoopData = $currentPage->getContent(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
         <div class="row">
             <?php $__currentLoopData = $row; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $block): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
-                <div class="block columns medium-<?php echo e($block['width']); ?> medium-offset-<?php echo e($block['offset']); ?>" data-name="<?php echo e($block['name']); ?>" data-gs-x="<?php echo e($block['x']); ?>" data-gs-y="<?php echo e($block['y']); ?>" data-gs-width="<?php echo e($block['width']); ?>" data-gs-height="<?php echo e($block['height']); ?>" data-module="<?php echo e(isset($block['module']) ? $block['module'] : 0); ?>" data-editable>
+                <div class="block columns medium-<?php echo e($block['width']); ?> medium-offset-<?php echo e($block['offset']); ?>" data-name="<?php echo e($block['name']); ?>" data-gs-x="<?php echo e($block['x']); ?>" data-gs-y="<?php echo e($block['y']); ?>" data-gs-width="<?php echo e($block['width']); ?>" data-gs-height="<?php echo e($block['height']); ?>" data-module="<?php echo e(isset($block['module']) ? $block['module'] : 0); ?>" data-module-id="<?php echo e(isset($block['module_id']) ? $block['module_id'] : 0); ?>" data-editable>
                     <?php echo $block['content']; ?>
 
                 </div>
@@ -56,7 +56,8 @@
                     _.each(row, function (item) {
                         var newRow = (item['first']) ? "clear" : "";
                         var module = (item['module'] === undefined) ? 0 : item['module'];
-                        var element = '<div class="block columns medium-'+item['width']+' medium-offset-'+item['offset']+' '+newRow+'" data-name="'+item['name']+'" data-gs-x="'+item['x']+'" data-gs-y="'+item['y']+'" data-gs-width="'+item['width']+'" data-gs-height="'+item['height']+'" data-module="'+item['module']+'" data-editable>'+item['content']+'</div>';
+                        var module_id = (item['module_id'] === undefined) ? 0 : item['module_id'];
+                        var element = '<div class="block columns medium-'+item['width']+' medium-offset-'+item['offset']+' '+newRow+'" data-name="'+item['name']+'" data-gs-x="'+item['x']+'" data-gs-y="'+item['y']+'" data-gs-width="'+item['width']+'" data-gs-height="'+item['height']+'" data-module="'+module+'" data-module-id="'+module_id+'" data-editable>'+item['content']+'</div>';
 
                         elements.append(element);
                     });

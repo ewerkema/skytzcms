@@ -155,7 +155,7 @@
                         );
                         $.get('/cms/media?page=1',function(data){
                             $('#spinner').hide();
-                            $('.bootstrap-row').html(data);
+                            $('#mediaModal .bootstrap-row').html(data);
                         });  
                     }
                 }

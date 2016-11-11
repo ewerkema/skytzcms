@@ -7,7 +7,7 @@
     @foreach ($currentPage->getContent() as $row)
         <div class="row">
             @foreach ($row as $block)
-                <div class="block columns medium-{{ $block['width'] }} medium-offset-{{ $block['offset'] }}" data-name="{{ $block['name'] }}" data-gs-x="{{ $block['x'] }}" data-gs-y="{{ $block['y'] }}" data-gs-width="{{ $block['width'] }}" data-gs-height="{{ $block['height'] }}" data-module="{{ isset($block['module']) ? $block['module'] : 0 }}" data-editable>
+                <div class="block columns medium-{{ $block['width'] }} medium-offset-{{ $block['offset'] }}" data-name="{{ $block['name'] }}" data-gs-x="{{ $block['x'] }}" data-gs-y="{{ $block['y'] }}" data-gs-width="{{ $block['width'] }}" data-gs-height="{{ $block['height'] }}" data-module="{{ isset($block['module']) ? $block['module'] : 0 }}" data-module-id="{{ isset($block['module_id']) ? $block['module_id'] : 0 }}" data-editable>
                     {!! $block['content'] !!}
                 </div>
             @endforeach
@@ -55,7 +55,8 @@
                     _.each(row, function (item) {
                         var newRow = (item['first']) ? "clear" : "";
                         var module = (item['module'] === undefined) ? 0 : item['module'];
-                        var element = '<div class="block columns medium-'+item['width']+' medium-offset-'+item['offset']+' '+newRow+'" data-name="'+item['name']+'" data-gs-x="'+item['x']+'" data-gs-y="'+item['y']+'" data-gs-width="'+item['width']+'" data-gs-height="'+item['height']+'" data-module="'+item['module']+'" data-editable>'+item['content']+'</div>';
+                        var module_id = (item['module_id'] === undefined) ? 0 : item['module_id'];
+                        var element = '<div class="block columns medium-'+item['width']+' medium-offset-'+item['offset']+' '+newRow+'" data-name="'+item['name']+'" data-gs-x="'+item['x']+'" data-gs-y="'+item['y']+'" data-gs-width="'+item['width']+'" data-gs-height="'+item['height']+'" data-module="'+module+'" data-module-id="'+module_id+'" data-editable>'+item['content']+'</div>';
 
                         elements.append(element);
                     });

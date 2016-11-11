@@ -220,6 +220,8 @@ return [
         'Lang' => Illuminate\Support\Facades\Lang::class,
         'Log' => Illuminate\Support\Facades\Log::class,
         'Mail' => Illuminate\Support\Facades\Mail::class,
+        'Media' => App\Facades\Media::class,
+        'Module' => App\Facades\Module::class,
         'Notification' => Illuminate\Support\Facades\Notification::class,
         'Page' => App\Facades\Page::class,
         'Password' => Illuminate\Support\Facades\Password::class,

@@ -101,6 +101,7 @@ function enableGridstack() {
 
     var buttonContainer =  $('<div class="buttonContainer container flex-center"></div>');
     buttonContainer.append('<button class="newBlock" onclick="addWidget()"><span class="glyphicon glyphicon-plus"></span> Nieuw blok toevoegen</button>');
+    buttonContainer.append('<button class="newBlock" data-toggle="modal" data-target="#selectModuleModal"><span class="glyphicon glyphicon-plus"></span> Nieuwe module toevoegen</button>');
     buttonContainer.insertAfter(blockContent);
 
 
@@ -181,7 +182,18 @@ $.fn.addGridstackMenu = function() {
 
 function addWidget() {
     var name = "block" + (lastElementId() + 1);
-    var element = $('<div class="grid-stack-item" data-name="'+name+'" data-module="0" data-editable><div class="grid-stack-item-content"></div></div>');
+    var element = $('<div class="grid-stack-item" data-name="'+name+'" data-module="0" data-module-id="0" data-editable><div class="grid-stack-item-content"></div></div>');
+    element.find(".grid-stack-item-content").addGridstackMenu();
+    var x = 0;
+    var y = getEditorHeight();
+    var width = 12;
+    var height = 1;
+    grid.addWidget(element, x, y, width, height);
+}
+
+function addModule (moduleType, moduleTypeName, moduleId, moduleName) {
+    var name = "block" + (lastElementId() + 1);
+    var element = $('<div class="grid-stack-item" data-name="'+name+'" data-module="'+moduleType+'" data-module-id="'+moduleId+'" data-editable><div class="grid-stack-item-content"><h1>Module '+moduleTypeName+'</h1> <h2>'+moduleName+'</h2></div></div>');
     element.find(".grid-stack-item-content").addGridstackMenu();
     var x = 0;
     var y = getEditorHeight();
@@ -218,6 +230,7 @@ function saveGrid() {
         var name = element.attr('data-name');
         content[name] = {};
         content[name]['module'] = (element.attr('data-module') != "") ? element.attr('data-module') : 0;
+        content[name]['module_id'] = (element.attr('data-module-id') != "") ? element.attr('data-module-id') : 0;
         content[name]['x'] = element.attr('data-gs-x');
         content[name]['y'] = element.attr('data-gs-y');
         content[name]['width'] = element.attr('data-gs-width');
@@ -254,6 +267,8 @@ function revertChanges() {
 }
 
 function saveChanges() {
+    if (window.parent.CustomMediaManager != undefined)
+        window.parent.CustomMediaManager.active = false;
     editor._ignition.confirm();
     editor._ignition.unmount();
     editorButtons.showEdit();
@@ -267,10 +282,18 @@ function changePage() {
 }
 
 function changeLayout() {
-    enableGridstack();
-    editor._ignition.confirm();
-    editor._ignition.unmount();
-    editorButtons.showSaveLayout();
+    if (editor == undefined) {
+        swal({
+            title: "Pagina nog niet geladen.",
+            text: "Pagina is nog niet volledig geladen, probeer het nog een keer.",
+            type: "warning"
+        }).done();
+    } else {
+        enableGridstack();
+        editor._ignition.confirm();
+        editor._ignition.unmount();
+        editorButtons.showSaveLayout();
+    }
 }
 
 function saveLayout() {
@@ -281,7 +304,7 @@ function saveLayout() {
         editorButtons.showEdit();
 
         swal({
-            title: 'Indeling opgeslagen',
+            title: 'Blokken opgeslagen',
             type: 'success',
             timer: 2000
         });
@@ -322,28 +345,30 @@ var CustomImageTool = (function(_super) {
     };
 
     CustomImageTool.apply = function(element, selection, callback) {
-
         // First define a function that we can send the custom media manager
         // when an image is ready to insert.
         function _insertImage(url, width, height) {
             // Once the user has selected an image insert it
 
             // Create the image element
-            var image = new ContentEdit.Image({src: url});
+            var image = new ContentEdit.Image({src: url, width: width, height: height});
 
             // Insert the image
             var insertAt = CustomImageTool._insertAt(element);
             insertAt[0].parent().attach(image, insertAt[1]);
+            console.log(image);
 
             // Set the image as having focus
             image.focus();
+
+            window.parent.CustomMediaManager.active = false;
 
             // Call the given tool callback
             return callback(true);
         }
 
         // Make the new function accessible to your iframe
-        window.parent.CustomMediaManager = {_insertImage: _insertImage};
+        window.parent.CustomMediaManager = {_insertImage: _insertImage, active: true};
 
         // Hand off to your custom media manager
         //
@@ -359,9 +384,7 @@ var CustomImageTool = (function(_super) {
         //
         //     window.parent.CustomMediaManager._insertImage(url, width, height);
         //
-        
-        console.log("OPEN MODAL");
-
+        $('#selectMediaModal').modal('toggle');
     };
 
     return CustomImageTool;

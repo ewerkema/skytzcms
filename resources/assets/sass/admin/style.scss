@@ -66,6 +66,19 @@
   #cms {
     a {
       transition: all 0.25s ease;
+
+      &:hover {
+        background: darken($navbar-bg, 10%);
+      }
+
+      &.highlight {
+        background: darken($navbar-bg, 10%);
+
+        &:hover {
+          background: darken($navbar-bg, 20%);
+        }
+      }
+
     }
 
     .navbar-background {
@@ -102,6 +115,15 @@
       letter-spacing: .1rem;
       text-decoration: none;
       text-transform: uppercase;
+    }
+
+    .navbar-default .navbar-nav > li > a {
+      color: #152e45;
+    }
+
+    .navbar-wide > li > a {
+      padding-left: $small-size*2;
+      padding-right: $small-size*2;
     }
 
     .navbar-toggle {
@@ -153,7 +175,6 @@
         }
 
         .divider {
-          margin: 0 $small-size;
           border-right: 1px solid $navbar-default-border;
           float: left;
           height: 50px;

@@ -79,14 +79,13 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 <span class="glyphicon glyphicon-th-large"></span>
-                                Mijn modules (4) <span class="caret"></span>
+                                Mijn modules ({{ Module::where('active', 1)->count() }}) <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#" data-toggle="modal" data-target="#moduleContactModal">Module Formulieren</a></li>
-                                <li><a href="#" data-toggle="modal" data-target="#moduleAlbumsModal">Module Foto albums</a></li>
-                                <li><a href="#" data-toggle="modal" data-target="#moduleArticlesModal">Module Nieuws</a></li>
-                                <li><a href="#" data-toggle="modal" data-target="#moduleSlidersModal">Module Sliders</a></li>
+                                @foreach (Module::where('active', 1)->get() as $module)
+                                    <li><a href="#" data-toggle="modal" data-target="#module{{ ucfirst($module->template) }}Modal">Module {{ $module->name }}</a></li>
+                                @endforeach
                             </ul>
                         </li>
                     @endif
@@ -102,7 +101,7 @@
                         <li><a href="{{ cms_url('/register') }}">Registreren</a></li>
                     @else
                         <li class="publish"><a href="#" onclick="publishWebsite()"><span class="glyphicon glyphicon-globe"></span> Publiceer website</a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-question-sign"></span> Help</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-question-sign"></span></a></li>
                         <li class="visible-xs">
                             <a href="{{ cms_url('/logout') }}"
                                onclick="event.preventDefault();
@@ -116,7 +115,7 @@
                             </form>
                         </li>
                         <li class="dropdown hidden-xs">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <a href="#" class="dropdown-toggle highlight" data-toggle="dropdown" role="button" aria-expanded="false">
                                 <span class="glyphicon glyphicon-user"></span>
                                 <span id="userName">{{ Auth::user()->getName() }}</span> <span class="caret"></span>
                             </a>
@@ -145,14 +144,14 @@
         <div class="container-fluid">
             <div class="navbar-header flex-center">
 
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav navbar-wide flex-center">
                     @if (!Auth::guest())
                         <li id="changePage"><a href="#" onclick="changePage();"><span class="glyphicon glyphicon-pencil"></span> Pagina bewerken</a></li>
                         <li id="saveChanges"><a href="#" onclick="saveChanges();"><span class="glyphicon glyphicon-ok"></span> Pagina opslaan</a></li>
                         <li id="revertChanges"><a href="#" onclick="revertChanges();"><span class="glyphicon glyphicon-remove"></span> Wijzigingen annuleren</a></li>
                         <li id="hideLayout"><div class="divider hidden-xs"></div></li>
-                        <li id="changeLayout"><a href="#" onclick="changeLayout();"><span class="glyphicon glyphicon-th"></span> Indeling bewerken</a></li>
-                        <li id="saveLayout"><a href="#" onclick="saveLayout();"><span class="glyphicon glyphicon-ok"></span> Indeling opslaan</a></li>
+                        <li id="changeLayout"><a href="#" onclick="changeLayout();"><span class="glyphicon glyphicon-th"></span> Blokken bewerken</a></li>
+                        <li id="saveLayout"><a href="#" onclick="saveLayout();"><span class="glyphicon glyphicon-ok"></span> Blokken opslaan</a></li>
                         <li><div class="divider hidden-xs"></div></li>
                         <li><a href="#" data-toggle="modal" data-target="#pageModal"><span class="glyphicon glyphicon-cog"></span> Pagina instellingen</a></li>
                     @endif
