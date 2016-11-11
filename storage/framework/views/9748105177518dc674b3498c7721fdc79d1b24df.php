@@ -45,16 +45,17 @@
 
         
         <?php echo $__env->make('templates.admin.modals.media', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-        <?php echo $__env->make('templates.admin.modals.select_media', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-        <?php echo $__env->make('templates.admin.modals.add_media', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         <?php echo $__env->make('templates.admin.modals.newpage', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-        <?php echo $__env->make('templates.admin.modals.module_contact', ['settings' => Setting::all()->keyBy('name')], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+        <?php echo $__env->make('templates.admin.modals.module_forms', ['settings' => Setting::all()->keyBy('name')], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         <?php echo $__env->make('templates.admin.modals.module_articles', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         <?php echo $__env->make('templates.admin.modals.module_albums', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         <?php echo $__env->make('templates.admin.modals.module_sliders', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         <?php echo $__env->make('templates.admin.modals.account', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         <?php echo $__env->make('templates.admin.modals.sortMenu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         <?php echo $__env->make('templates.admin.modals.website', ['settings' => Setting::all()->keyBy('name')], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+        <?php echo $__env->make('templates.admin.modals.add_media', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+        <?php echo $__env->make('templates.admin.modals.select_media', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+        <?php echo $__env->make('templates.admin.modals.select_module', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
         <?php if(isset($currentPage)): ?>
             <?php echo $__env->make('templates.admin.modals.page', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

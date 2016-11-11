@@ -1,4 +1,4 @@
-(function() {
+nt(function() {
   var FSM, exports;
 
   FSM = {};

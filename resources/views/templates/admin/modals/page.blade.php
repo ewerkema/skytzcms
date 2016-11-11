@@ -20,7 +20,7 @@
 
         <div class="col-md-8">
             <div class="input-group">
-                <span class="input-group-addon" id="page-url">{{ url("/ ") }}</span>
+                <span class="input-group-addon" id="page-url">{{ str_replace($currentPage->slug, "", url($currentPage->getSlug())) }}</span>
                 {!! Form::text('slug', ($currentPage->slug=="index") ? "" : $currentPage->slug, array('class'=>'form-control', 'autofocus', 'aria-describedby' => 'page-url')) !!}
             </div>
         </div>
@@ -29,14 +29,14 @@
         {!! Form::label('meta_title', 'Pagina titel', ['class' => 'col-md-3 control-label']) !!}
 
         <div class="col-md-8">
-            {!! Form::text('meta_title', $currentPage->meta_title,array('class'=>'form-control', 'placeholder' => 'Pagina titel', 'required', 'autofocus')) !!}
+            {!! Form::text('meta_title', $currentPage->meta_title, array('class'=>'form-control', 'placeholder' => 'Pagina titel', 'required', 'autofocus')) !!}
         </div>
     </div>
     <div class="form-group">
         {!! Form::label('meta_desc', 'Pagina beschrijving', ['class' => 'col-md-3 control-label']) !!}
 
         <div class="col-md-8">
-            {!! Form::textarea('meta_desc',$currentPage->meta_desc,array('class'=>'form-control','placeholder' => 'Pagina beschrijving', 'autofocus')) !!}
+            {!! Form::textarea('meta_desc',$currentPage->meta_desc, array('class'=>'form-control','placeholder' => 'Pagina beschrijving', 'autofocus')) !!}
         </div>
     </div>
     <div class="form-group">
@@ -92,11 +92,13 @@
 
         var subpageSelect = $('[name=parent_id]');
         var visibleInMenu = $('[name=menu]');
+
         subpageSelect.change(function() {
             var value = $(this).val();
 
-            if (value)
+            if (value) {
                 visibleInMenu.prop('checked', true);
+            }
         });
 
         visibleInMenu.change(function() {

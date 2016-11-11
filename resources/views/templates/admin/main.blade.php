@@ -48,16 +48,17 @@
 
         {{-- Modals --}}
         @include('templates.admin.modals.media')
-        @include('templates.admin.modals.select_media')
-        @include('templates.admin.modals.add_media')
         @include('templates.admin.modals.newpage')
-        @include('templates.admin.modals.module_contact', ['settings' => Setting::all()->keyBy('name')])
+        @include('templates.admin.modals.module_forms', ['settings' => Setting::all()->keyBy('name')])
         @include('templates.admin.modals.module_articles')
         @include('templates.admin.modals.module_albums')
         @include('templates.admin.modals.module_sliders')
         @include('templates.admin.modals.account')
         @include('templates.admin.modals.sortMenu')
         @include('templates.admin.modals.website', ['settings' => Setting::all()->keyBy('name')])
+        @include('templates.admin.modals.add_media')
+        @include('templates.admin.modals.select_media')
+        @include('templates.admin.modals.select_module')
 
         @if (isset($currentPage))
             @include('templates.admin.modals.page')

@@ -1,0 +1,115 @@
+<template>
+    <div class="selectModule" class="col-md-12">
+        <div class="sidebar col-md-4">
+            <ul class="list-group">
+                <a href="#" class="list-group-item"
+                   v-for="module in modules"
+                   :class="{ active: (module.id == selectedModule.id) }"
+                   v-on:click="selectedModule = module"
+                >
+                    {{ module.name }}
+                </a>
+            </ul>
+        </div>
+        <div class="col-md-8" v-if="selectedModule">
+            <table class="table">
+                <tr>
+                    <th>#</th>
+                    <th>Naam</th>
+                    <th>Aanmaak datum</th>
+                    <th></th>
+                </tr>
+                <tr v-for="(i, module) in selectedModules">
+                    <td>{{ i+1 }}</td>
+                    <td>{{ isset(module.name) ? module.name : module.title }}</td>
+                    <td>{{ module.created_at | moment "dddd, D MMMM YYYY" | capitalize }}</td>
+                    <td>
+                        <a href="#" v-on:click="selectModule(module)">
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </a>
+                    </td>
+                </tr>
+                <tr v-if="!selectedModules.length">
+                    <td colspan="4">Er zijn geen modules gevonden.</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="clear"></div>
+</template>
+<style>
+
+</style>
+<script>
+    export default {
+        data(){
+            return {
+                selectedModule: false,
+                modules: [],
+                selectedModules: []
+            };
+        },
+
+        created() {
+            this.loadFromDatabase();
+        },
+
+        watch: {
+            selectedModule: function (value) {
+                this.loadModuleOptions(value);
+            }
+        },
+
+        methods: {
+
+            loadFromDatabase: function() {
+                this.loadModules();
+            },
+
+            selectModule: function(module) {
+                var name = this.isset(module.name) ? module.name : module.title;
+                addModule(this.selectedModule.id, this.selectedModule.name, module.id, name);
+                $('#selectModuleModal').modal('toggle');
+            },
+
+            loadModules: function() {
+                var _this = this;
+                $.get('/cms/modules', function (data) {
+                     _this.modules = data;
+                     _this.selectedModule = _.head(data);
+                });
+            },
+
+            loadModuleOptions: function (module) {
+                var _this = this;
+                $.get('/cms/'+_.camelCase(module.table), function (data) {
+                    _this.selectedModules = data;
+                });
+            },
+
+            isset: function () {
+                var a = arguments,
+                    l = a.length,
+                    i = 0,
+                    undef;
+
+                if (l === 0) {
+                    throw new Error('Empty isset');
+                }
+
+                while (i !== l) {
+                    if (a[i] === undefined || a[i] === null) {
+                        return false;
+                    }
+                    i++;
+                }
+                return true;
+            }
+
+        },
+
+        computed: {
+
+        }
+    }
+</script>

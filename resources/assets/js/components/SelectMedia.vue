@@ -12,7 +12,7 @@
         </div>
         <p v-if="images.length == 0">Er zijn geen afbeeldingen gevonden.</p>
     </div>
-    <button type="button" class="btn btn-success right" @click="sendContentTools()" :disabled="!selectedImage">Geselecteerde afbeelding invoegen</button>
+    <button type="button" class="btn btn-success right" @click="sendImage()" :disabled="!selectedImage">Geselecteerde afbeelding gebruiken</button>
     <div class="clear"></div>
 </template>
 <style>
@@ -49,11 +49,16 @@
                 this.loadImages();
             },
 
-            sendContentTools: function() {
+            sendImage: function() {
                 var image = document.getElementById('select_image_'+this.selectedImage.id);
-                console.log('Width:'+image.naturalWidth+' height:'+image.naturalHeight)
-                window.parent.CustomMediaManager._insertImage(this.imagePath(this.selectedImage.path), image.naturalWidth, image.naturalHeight);
+                if (window.parent.CustomMediaManager !== undefined && window.parent.CustomMediaManager.active)
+                    window.parent.CustomMediaManager._insertImage(this.imagePath(this.selectedImage.path), image.naturalWidth, image.naturalHeight);
+
+                $('.selected_media_id').val(this.selectedImage.id).trigger('change');
+                $('.selected_media_name').val(this.selectedImage.name);
+
                 this.selectedImage = false;
+                $('#selectMediaModal').modal('toggle');
             },
 
             loadImages: function() {

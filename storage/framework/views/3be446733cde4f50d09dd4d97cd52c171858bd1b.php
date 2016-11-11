@@ -7,7 +7,7 @@
         <li role="presentation" class="active"><a href="#mainTab" aria-controls="mainTab" role="tab" data-toggle="tab">Algemeen</a></li>
         <li role="presentation"><a href="#analyticsTab" aria-controls="analyticsTab" role="tab" data-toggle="tab">Google Analytics</a></li>
         <li role="presentation"><a href="#socialTab" aria-controls="socialTab" role="tab" data-toggle="tab">Social Media</a></li>
-        <li role="presentation"><a href="#otherTab" aria-controls="otherTab" role="tab" data-toggle="tab">Overig</a></li>
+        <li role="presentation"><a href="#headerTab" aria-controls="headerTab" role="tab" data-toggle="tab">Header</a></li>
     </ul>
 
     <!-- Tab panes -->
@@ -87,8 +87,32 @@
                     </div>
                 </div>
             </div>
-            <div role="tabpanel" class="tab-pane" id="otherTab">
+            <div role="tabpanel" class="tab-pane" id="headerTab">
+                <p>Voeg een afbeelding <strong>of</strong> slider toe aan alle pagina's. Als een pagina een eigen header heeft ingesteld, wordt deze gebruikt.</p>
+                <div class="form-group">
+                    <label for="header_image" class="col-md-3 control-label">Header afbeelding</label>
 
+                    <div class="col-md-8 input-group input-pointer" onclick="selectMedia()">
+                        <input type="hidden" name="header_image" value="<?php echo e($settings['header_image']->value); ?>" class="form-control selected_media_id" />
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-picture"></span></div>
+                        <input type="text" name="header_image_name" value="<?php echo e(($settings['header_image']->value) ? Media::find($settings['header_image']->value)->name : ""); ?>" class="form-control selected_media_name" placeholder="Header afbeelding" autofocus disabled />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="header_slider" class="col-md-3 control-label">Slider</label>
+
+                    <div class="col-md-8">
+                        <select class="form-control" id="header_slider" name="header_slider">
+                            <option value="0" <?php echo e((!$settings['header_slider']->value) ? "selected" : ""); ?>>Geen slider</option>
+                            <?php $__currentLoopData = Slider::all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $slider): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                                <option value="<?php echo e($slider->id); ?>" <?php echo e(($settings['header_slider']->value == $slider->id) ? "selected" : ""); ?>>
+                                    <?php echo e($slider->name); ?>
+
+                                </option>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
     </form>
@@ -100,6 +124,10 @@
 
 <?php $__env->startSection('javascript'); ?>
     <script type="text/javascript">
+        function selectMedia() {
+            $('#selectMediaModal').modal('toggle');
+        }
+
         $('#websiteTabs a').click(function (e) {
             e.preventDefault();
             $(this).tab('show');
@@ -109,7 +137,7 @@
         request.setType('PATCH');
         request.setForm('#websiteForm');
 
-        request.addFields(['meta_title', 'meta_descr', 'footerblock', 'googleanalytics', 'googleanalytics', 'facebook_page', 'twitter_page', 'youtube_page', 'googleplus_page']);
+        request.addFields(['meta_title', 'meta_descr', 'footerblock', 'googleanalytics', 'googleanalytics', 'facebook_page', 'twitter_page', 'youtube_page', 'googleplus_page', 'header_slider', 'header_image']);
         request.addField('recordgoogle', 'checkbox', false);
 
         request.onSubmit(function(data) {
@@ -121,6 +149,26 @@
                 timer: 2000
             });
         });
+
+        var sliderSelect = $('[name=header_slider]');
+        var imageInput = $('[name=header_image]');
+        var imageInputName = $('[name=header_image_name]');
+
+        sliderSelect.change(function() {
+            var value = $(this).val();
+
+            if (value) {
+                imageInput.val(0);
+                imageInputName.val("");
+            }
+        });
+
+        imageInput.change(function() {
+            var value = $(this).val();
+
+            if (value)
+                sliderSelect.val(sliderSelect.find('option:first').val());
+        })
     </script>
 <?php $__env->stopSection(true); ?>
 <?php echo $__env->make('templates.admin.modals.modal', ['target'=>'websiteModal'], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

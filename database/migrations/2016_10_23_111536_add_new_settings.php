@@ -16,6 +16,8 @@ class AddNewSettings extends Migration
         'contact_telephone_visible' => true,
         'contact_message_visible' => true,
         'contact_success_message' => "Bedankt voor het versturen van het bericht.",
+        'header_image' => false,
+        'header_slider' => false
     );
 
     /**

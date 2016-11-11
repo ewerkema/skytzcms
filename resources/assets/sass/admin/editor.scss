@@ -8,6 +8,7 @@
 .buttonContainer button {
   background: $editor-item-bg;
   color: $brand-primary;
+  margin-right: 15px;
 
   &:hover {
     background: $brand-primary;

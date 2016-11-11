@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" value="<?php echo e($currentPage->meta_desc); ?>">
 
     <title><?php echo e($currentPage->meta_title); ?></title>
 
@@ -19,6 +20,10 @@
 
     <!-- Larevel -->
     <?php echo $__env->yieldContent('head'); ?>
+
+    <!-- Custom packages -->
+    <script src="<?php echo e(template_url('/js/lean-slider/lean-slider.js')); ?>"></script>
+    <link rel="stylesheet" href="<?php echo e(template_url('/css/lean-slider/lean-slider.css')); ?>" type="text/css" />
 
     <!-- END BLOCK : HeaderContents -->
     <!-- START BLOCK : AdminContents -->
@@ -42,6 +47,7 @@
     
     
     <!-- END BLOCK : AdminContents -->
+
     <?php echo $__env->make('templates.admin.partials.analytics', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 </head>
 <body>
@@ -63,26 +69,7 @@
                     <h2>Menu</h2>
                 </div>
 
-                <nav class="small-12 medium-12 large-8 columns menu">
-                    <ul>
-                        <?php $__currentLoopData = Page::getMenuWithSubpages(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $page): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
-                            <li class="<?php echo e((isset($currentPage) && $page->id == $currentPage->id) ? "active" : ""); ?> <?php echo e((isset($page->subpages)) ? "has-dropdown" : ""); ?>">
-
-                                <a href="<?php echo e(page_url($page->getSlug())); ?>"><?php echo e($page->title); ?></a>
-
-                                <?php if(isset($page->subpages)): ?>
-                                    <ul class="dropdown">
-                                        <?php $__currentLoopData = $page->subpages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $subpage): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
-                                            <li class="<?php echo e((isset($currentPage) && $subpage->id == $currentPage->id) ? "active" : ""); ?>">
-                                                <a href="<?php echo e(page_url($subpage->getSlug())); ?>"><?php echo e($subpage->title); ?></a>
-                                            </li>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
-                                     </ul>
-                                <?php endif; ?>
-                             </li>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
-                    </ul>
-                </nav>
+                <?php echo $__env->make('templates.admin.partials.menu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
             </div>
         </div>
         <div class="content">

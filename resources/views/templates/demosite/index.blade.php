@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" value="{{ $currentPage->meta_desc }}">
 
     <title>{{ $currentPage->meta_title }}</title>
 
@@ -19,6 +20,10 @@
 
     <!-- Larevel -->
     @yield('head')
+
+    <!-- Custom packages -->
+    <script src="{{ template_url('/js/lean-slider/lean-slider.js') }}"></script>
+    <link rel="stylesheet" href="{{ template_url('/css/lean-slider/lean-slider.css') }}" type="text/css" />
 
     <!-- END BLOCK : HeaderContents -->
     <!-- START BLOCK : AdminContents -->
@@ -42,6 +47,7 @@
     {{--{DragDropBlockFiles}--}}
     {{--{CkEditor}--}}
     <!-- END BLOCK : AdminContents -->
+
     @include('templates.admin.partials.analytics')
 </head>
 <body>
@@ -63,26 +69,7 @@
                     <h2>Menu</h2>
                 </div>
 
-                <nav class="small-12 medium-12 large-8 columns menu">
-                    <ul>
-                        @foreach (Page::getMenuWithSubpages() as $page)
-                            <li class="{{ (isset($currentPage) && $page->id == $currentPage->id) ? "active" : "" }} {{ (isset($page->subpages)) ? "has-dropdown" : "" }}">
-
-                                <a href="{{ page_url($page->getSlug()) }}">{{ $page->title }}</a>
-
-                                @if (isset($page->subpages))
-                                    <ul class="dropdown">
-                                        @foreach ($page->subpages as $subpage)
-                                            <li class="{{ (isset($currentPage) && $subpage->id == $currentPage->id) ? "active" : "" }}">
-                                                <a href="{{ page_url($subpage->getSlug()) }}">{{ $subpage->title }}</a>
-                                            </li>
-                                        @endforeach
-                                     </ul>
-                                @endif
-                             </li>
-                        @endforeach
-                    </ul>
-                </nav>
+                @include('templates.admin.partials.menu')
             </div>
         </div>
         <div class="content">

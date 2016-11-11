@@ -2,6 +2,16 @@
   padding: 30px 0;
 }
 
+.modal {
+    .input-group-addon {
+        border-radius: 4px 0 0 4px !important;
+    }
+
+    .input-pointer:hover > input {
+        cursor: pointer !important;
+    }
+}
+
 #mediaModal {
     overflow-y: auto;
     .media-image-gallery{

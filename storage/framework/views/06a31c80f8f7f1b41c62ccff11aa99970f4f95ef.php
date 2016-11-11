@@ -22,7 +22,7 @@
 
         <div class="col-md-8">
             <div class="input-group">
-                <span class="input-group-addon" id="page-url"><?php echo e(url("/ ")); ?></span>
+                <span class="input-group-addon" id="page-url"><?php echo e(str_replace($currentPage->slug, "", url($currentPage->getSlug()))); ?></span>
                 <?php echo Form::text('slug', ($currentPage->slug=="index") ? "" : $currentPage->slug, array('class'=>'form-control', 'autofocus', 'aria-describedby' => 'page-url')); ?>
 
             </div>
@@ -33,7 +33,7 @@
 
 
         <div class="col-md-8">
-            <?php echo Form::text('meta_title', $currentPage->meta_title,array('class'=>'form-control', 'placeholder' => 'Pagina titel', 'required', 'autofocus')); ?>
+            <?php echo Form::text('meta_title', $currentPage->meta_title, array('class'=>'form-control', 'placeholder' => 'Pagina titel', 'required', 'autofocus')); ?>
 
         </div>
     </div>
@@ -42,7 +42,7 @@
 
 
         <div class="col-md-8">
-            <?php echo Form::textarea('meta_desc',$currentPage->meta_desc,array('class'=>'form-control','placeholder' => 'Pagina beschrijving', 'autofocus')); ?>
+            <?php echo Form::textarea('meta_desc',$currentPage->meta_desc, array('class'=>'form-control','placeholder' => 'Pagina beschrijving', 'autofocus')); ?>
 
         </div>
     </div>
@@ -103,11 +103,13 @@
 
         var subpageSelect = $('[name=parent_id]');
         var visibleInMenu = $('[name=menu]');
+
         subpageSelect.change(function() {
             var value = $(this).val();
 
-            if (value)
+            if (value) {
                 visibleInMenu.prop('checked', true);
+            }
         });
 
         visibleInMenu.change(function() {
