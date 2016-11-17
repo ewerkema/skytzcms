@@ -198,6 +198,7 @@ return [
 
     'aliases' => [
 
+        'Album' => App\Facades\Album::class,
         'App' => Illuminate\Support\Facades\App::class,
         'Article' => App\Facades\Article::class,
         'ArticleGroup' => App\Facades\ArticleGroup::class,
@@ -208,6 +209,7 @@ return [
         'Config' => Illuminate\Support\Facades\Config::class,
         'Cookie' => Illuminate\Support\Facades\Cookie::class,
         'Crypt' => Illuminate\Support\Facades\Crypt::class,
+        'CustomForm' => App\Facades\CustomForm::class,
         'DB' => Illuminate\Support\Facades\DB::class,
         'Eloquent' => Illuminate\Database\Eloquent\Model::class,
         'Event' => Illuminate\Support\Facades\Event::class,

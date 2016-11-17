@@ -102,7 +102,7 @@
                         <li><a href="<?php echo e(cms_url('/register')); ?>">Registreren</a></li>
                     <?php else: ?>
                         <li class="publish"><a href="#" onclick="publishWebsite()"><span class="glyphicon glyphicon-globe"></span> Publiceer website</a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-question-sign"></span></a></li>
+                        <li><a href="#" onclick="showHelp()"><span class="glyphicon glyphicon-question-sign"></span></a></li>
                         <li class="visible-xs">
                             <a href="<?php echo e(cms_url('/logout')); ?>"
                                onclick="event.preventDefault();

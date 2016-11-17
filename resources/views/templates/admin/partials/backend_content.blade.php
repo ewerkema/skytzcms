@@ -7,9 +7,15 @@
     @foreach ($currentPage->getContent() as $row)
         <div class="row">
             @foreach ($row as $block)
-                <div class="block columns medium-{{ $block['width'] }} medium-offset-{{ $block['offset'] }}" data-name="{{ $block['name'] }}" data-gs-x="{{ $block['x'] }}" data-gs-y="{{ $block['y'] }}" data-gs-width="{{ $block['width'] }}" data-gs-height="{{ $block['height'] }}" data-module="{{ isset($block['module']) ? $block['module'] : 0 }}" data-module-id="{{ isset($block['module_id']) ? $block['module_id'] : 0 }}" data-editable>
-                    {!! $block['content'] !!}
-                </div>
+                @if ($block['module'])
+                    <div class="block columns medium-{{ $block['width'] }} medium-offset-{{ $block['offset'] }}" data-name="{{ $block['name'] }}" data-gs-x="{{ $block['x'] }}" data-gs-y="{{ $block['y'] }}" data-gs-width="{{ $block['width'] }}" data-gs-height="{{ $block['height'] }}" data-module="{{ $block['module'] }}" data-module-id="{{ $block['module_id'] }}" data-noneditable>
+                        @include('templates.admin.modules.'.Module::find($block['module'])->template, ['id' => $block['module_id']])
+                    </div>
+                @else
+                    <div class="block columns medium-{{ $block['width'] }} medium-offset-{{ $block['offset'] }}" data-name="{{ $block['name'] }}" data-gs-x="{{ $block['x'] }}" data-gs-y="{{ $block['y'] }}" data-gs-width="{{ $block['width'] }}" data-gs-height="{{ $block['height'] }}" data-module="{{ isset($block['module']) ? $block['module'] : 0 }}" data-module-id="{{ isset($block['module_id']) ? $block['module_id'] : 0 }}" data-editable>
+                        {!! $block['content'] !!}
+                    </div>
+                @endif
             @endforeach
         </div>
     @endforeach
@@ -56,7 +62,8 @@
                         var newRow = (item['first']) ? "clear" : "";
                         var module = (item['module'] === undefined) ? 0 : item['module'];
                         var module_id = (item['module_id'] === undefined) ? 0 : item['module_id'];
-                        var element = '<div class="block columns medium-'+item['width']+' medium-offset-'+item['offset']+' '+newRow+'" data-name="'+item['name']+'" data-gs-x="'+item['x']+'" data-gs-y="'+item['y']+'" data-gs-width="'+item['width']+'" data-gs-height="'+item['height']+'" data-module="'+module+'" data-module-id="'+module_id+'" data-editable>'+item['content']+'</div>';
+                        var editable = (module) ? "data-editable" : "data-noneditable";
+                        var element = '<div class="block columns medium-'+item['width']+' medium-offset-'+item['offset']+' '+newRow+'" data-name="'+item['name']+'" data-gs-x="'+item['x']+'" data-gs-y="'+item['y']+'" data-gs-width="'+item['width']+'" data-gs-height="'+item['height']+'" data-module="'+module+'" data-module-id="'+module_id+'" '+editable+'>'+item['content']+'</div>';
 
                         elements.append(element);
                     });

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\CustomFormMail;
 use App\Models\Form;
 use Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Mail;
 use Validator;
 use Input;
 
@@ -53,6 +55,9 @@ class FormController extends Controller
 
         if (!isset($input['email']))
             $input['email'] = Auth::user()->email;
+
+        if (!isset($input['message']))
+            $input['message'] = 'Bedankt voor het invullen van dit formulier!';
 
         $form = Form::create($input);
 
@@ -103,5 +108,55 @@ class FormController extends Controller
         $form->delete();
 
         return response()->json(['message' => 'Formulier is succesvol verwijderd']);
+    }
+
+    /**
+     * Send the specified form and generate the validator for the fields.
+     *
+     * @param Form $form
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function send(Form $form)
+    {
+        $fields = $form->fields()->get();
+        $input = Input::all();
+
+        $validator = $this->buildValidator($input, $fields);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withInput($input)
+                ->withErrors($validator);
+        }
+
+        Mail::to($form->email)->send(new CustomFormMail($form, $fields, $input));
+
+        return redirect()->back()->with(['message' => $form->message]);
+    }
+
+    /**
+     * Build validator for the custom form.
+     *
+     * @param $input
+     * @param $fields
+     * @return \Illuminate\Validation\Validator
+     */
+    public function buildValidator($input, $fields)
+    {
+        $validators = array();
+        $names = array();
+        foreach ($fields as $field) {
+            $validator = array();
+            if ($field->required)
+                $validator[] = "required";
+            if ($field->type == "email")
+                $validator[] = "email";
+            if ($field->type == "number")
+                $validator[] = "numeric";
+
+            $validators[$field->formName()] = implode("|", $validator);
+            $names[$field->formName()] = $field->name;
+        }
+
+        return  Validator::make($input, $validators, [], $names);
     }
 }

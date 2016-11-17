@@ -93,10 +93,15 @@
                 <div class="form-group">
                     <label for="header_image" class="col-md-3 control-label">Header afbeelding</label>
 
-                    <div class="col-md-8 input-group input-pointer" onclick="selectMedia()">
-                        <input type="hidden" name="header_image" value="{{ $settings['header_image']->value }}" class="form-control selected_media_id" />
-                        <div class="input-group-addon"><span class="glyphicon glyphicon-picture"></span></div>
-                        <input type="text" name="header_image_name" value="{{ ($settings['header_image']->value) ? Media::find($settings['header_image']->value)->name : "" }}" class="form-control selected_media_name" placeholder="Header afbeelding" autofocus disabled />
+                    <div class="col-md-8">
+                        <div class="input-group input-pointer">
+                            <input type="hidden" name="header_image" value="{{ $settings['header_image']->value }}" class="form-control selected_media_id" />
+                            <span class="input-group-addon" id="media-picture" onclick="selectMedia()"><span class="glyphicon glyphicon-picture"></span></span>
+                            <input type="text" name="header_image_name" onclick="selectMedia()" value="{{ ($settings['header_image']->value) ? Media::find($settings['header_image']->value)->name : "" }}" class="form-control selected_media_name" placeholder="Header afbeelding" autofocus />
+                            <div class="input-group-btn">
+                                <button class="btn btn-default removeMedia" type="button"><span class="glyphicon glyphicon-remove"></span></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -127,6 +132,12 @@
         function selectMedia() {
             $('#selectMediaModal').modal('toggle');
         }
+
+        $('.removeMedia').click(function() {
+            $(this).closest('.input-group').find('[name=header_image_id]').val(0);
+            $(this).closest('.input-group').find('[name=header_image_name]').val("");
+            console.log($(this).closest('.input-group').find('[name=header_image_id]'));
+        });
 
         $('#websiteTabs a').click(function (e) {
             e.preventDefault();

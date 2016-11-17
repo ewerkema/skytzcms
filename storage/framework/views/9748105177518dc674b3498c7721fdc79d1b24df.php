@@ -7,6 +7,12 @@
 
     <!-- Styles -->
     <link href="<?php echo e(elixir('/css/app.css')); ?>" rel="stylesheet">
+    <script>
+        function overrideFavicon() {
+            $("link[rel*='icon']").remove();
+        }
+        overrideFavicon();
+    </script>
     <link href="/images/favicon.png" rel="shortcut icon" />
     <link href="/plugins/contenttools/content-tools.min.css" type="text/css" rel="stylesheet">
     <link href="/plugins/sweetalert2/sweetalert2.css" type="text/css" rel="stylesheet">
@@ -44,6 +50,10 @@
 	<script type="text/javascript" src="/js/plupload.full.min.js"></script>
 
         
+        <?php if(isset($currentPage)): ?>
+            <?php echo $__env->make('templates.admin.modals.page', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+        <?php endif; ?>
+
         <?php echo $__env->make('templates.admin.modals.media', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         <?php echo $__env->make('templates.admin.modals.newpage', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         <?php echo $__env->make('templates.admin.modals.module_forms', ['settings' => Setting::all()->keyBy('name')], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
@@ -57,9 +67,6 @@
         <?php echo $__env->make('templates.admin.modals.select_media', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         <?php echo $__env->make('templates.admin.modals.select_module', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
-        <?php if(isset($currentPage)): ?>
-            <?php echo $__env->make('templates.admin.modals.page', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-        <?php endif; ?>
 
         
         <script type="text/javascript">

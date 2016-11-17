@@ -17,6 +17,16 @@ class FormField extends Model
     ];
 
     /**
+     * Returns the name attribute for form fields.
+     *
+     * @return string
+     */
+    public function formName()
+    {
+        return "form".$this->attributes['form_id']."-".camel_case($this->attributes['name']);
+    }
+
+    /**
      * Define relationships.
      */
     public function form()

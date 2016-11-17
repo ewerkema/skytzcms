@@ -43,7 +43,7 @@ class MediaController extends Controller
             $media->save();
         }
 
-        return Response::json(['status'=>'success','msg'=>'Afbeeldingen toegevoegd!']);
+        return Response::json(['status'=>'success','msg'=>'Media toegevoegd!']);
     }
 
     /**
@@ -94,6 +94,6 @@ class MediaController extends Controller
         @unlink(public_path().'/images/thumbnail/'.$media->name);
         @unlink(public_path().'/docs/'.$media->name);
         $media->delete();
-        return Response::json(['status' => 'success', 'msg' => 'Afbeelding verwijderd!']);
+        return Response::json(['status' => 'success', 'msg' => 'Media verwijderd!']);
     }
 }

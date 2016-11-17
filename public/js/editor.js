@@ -27,7 +27,7 @@ var editorButtons = new ButtonGroup('#changePage, #changeLayout, #hideLayout', '
 
 window.addEventListener('load', function() {
     editor = ContentTools.EditorApp.get();
-    editor.init('*[data-editable]', 'data-name');
+    editor.init('*[data-editable], *[data-noneditable]', 'data-name');
     editor._ignition.unmount();
     addPagesToEditor(ContentTools);
     editor.revert = function() {
@@ -92,7 +92,7 @@ function enableGridstack() {
         element.replaceWith(content);
     });
 
-    blockContent.find('*[data-editable]').each(function() {
+    blockContent.find('*[data-editable], *[data-noneditable]').each(function() {
         var element = $(this);
         element.addClass("grid-stack-item");
         element.removeOffsets();
@@ -212,7 +212,7 @@ function getNumberFromString (string) {
 
 function lastElementId() {
     var id = 0;
-    blockContent.find('*[data-editable]').each(function() {
+    blockContent.find('*[data-editable], *[data-noneditable]').each(function() {
         var name = $(this).attr('data-name');
         id = Math.max(id, getNumberFromString(name));
     });
@@ -220,12 +220,12 @@ function lastElementId() {
 }
 
 function saveGrid() {
-    blockContent.removeClass("grid-stack");
-    blockContent.css("height", "auto");
-    $('.buttonContainer').remove();
+    // blockContent.removeClass("grid-stack");
+    // blockContent.css("height", "auto");
+    // $('.buttonContainer').remove();
 
     var content = {};
-    blockContent.find('*[data-editable]').each(function() {
+    blockContent.find('*[data-editable], *[data-noneditable]').each(function() {
         var element = $(this);
         var name = element.attr('data-name');
         content[name] = {};
@@ -237,7 +237,7 @@ function saveGrid() {
         content[name]['height'] = element.attr('data-gs-height');
     });
 
-    grid.destroy(false);
+    // grid.destroy(false);
 
     $.ajax({
         url: '/cms/pages/'+page_id+'/grid',
@@ -299,7 +299,7 @@ function changeLayout() {
 function saveLayout() {
     $.when(
         saveGrid(),
-        reloadPageContent()
+        location.reload()
     ).then(function() {
         editorButtons.showEdit();
 
@@ -356,7 +356,6 @@ var CustomImageTool = (function(_super) {
             // Insert the image
             var insertAt = CustomImageTool._insertAt(element);
             insertAt[0].parent().attach(image, insertAt[1]);
-            console.log(image);
 
             // Set the image as having focus
             image.focus();
@@ -394,3 +393,11 @@ var CustomImageTool = (function(_super) {
 $('.modal').on('shown.bs.modal', function() {
     $(this).find('[autofocus]').focus();
 });
+
+function showHelp() {
+    swal({
+        title: 'Nog niet geimplementeerd',
+        text: "Deze functie zal in een toekomstige update toegevoegd worden. Heb je problemen/bugs/tips? Neem dan contact op met info@skytz.nl!",
+        type: 'info'
+    });
+}
