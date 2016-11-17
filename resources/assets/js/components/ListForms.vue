@@ -213,10 +213,10 @@
                 newForm: false,
                 newFormError: false,
                 types: {
-                    'input': 'Simpel veld',
+                    'text': 'Simpel veld',
                     'textarea' : 'Groot tekst veld',
                     'email' : 'E-mail veld',
-                    'number' : 'Nummer veld',
+                    'number' : 'Getal veld',
                     'checkbox' : 'Checkbox veld',
                     'radio' : 'Keuzerondje (radio button)',
                     'select' : 'Dropdown veld',

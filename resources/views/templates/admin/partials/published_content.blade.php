@@ -3,9 +3,15 @@
     @foreach ($currentPage->getPublishedContent() as $row)
         <div class="row">
             @foreach ($row as $block)
-                <div class="block columns medium-{{ $block['width'] }} medium-offset-{{ $block['offset'] }}">
-                    {!! $block['content'] !!}
-                </div>
+                @if ($block['module'])
+                    <div class="block columns medium-{{ $block['width'] }} medium-offset-{{ $block['offset'] }}">
+                        @include('templates.admin.modules.'.Module::find($block['module'])->template, ['id' => $block['module_id']])
+                    </div>
+                @else
+                    <div class="block columns medium-{{ $block['width'] }} medium-offset-{{ $block['offset'] }}">
+                        {!! $block['content'] !!}
+                    </div>
+                @endif
             @endforeach
         </div>
     @endforeach

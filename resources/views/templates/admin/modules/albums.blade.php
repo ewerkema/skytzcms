@@ -1,7 +1,10 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: enric
- * Date: 9-11-2016
- * Time: 15:37
- */
+<div class="news-wrapper">
+    <div id="news-{{ $id }}" class="portlet">
+        <h1>Album: {{ Album::find($id)->name }}</h1>
+        @foreach (Album::find($id)->media()->get() as $image)
+            <a href="{{ $image->photo_url('original') }}" target="_blank" class="group1">
+                <img src="{{ $image->photo_url('thumbnail') }}" alt="{{ $image->description }}">
+            </a>
+        @endforeach
+    </div>
+</div>

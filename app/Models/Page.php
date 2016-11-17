@@ -42,7 +42,7 @@ class Page extends Model
      */
     public function header()
     {
-        return $this->hasOne('App\Models\Media');
+        return $this->belongsTo('App\Models\Media', 'header_image_id');
     }
 
     public function subpages()

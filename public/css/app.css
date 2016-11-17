@@ -296,6 +296,9 @@ p {
       margin-left: 2px;
       background: #e8e8e8; }
 
+form select {
+  height: 40px; }
+
 .grid-stack-menu {
   width: 100%;
   position: absolute;

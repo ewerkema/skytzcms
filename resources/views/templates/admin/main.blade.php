@@ -10,6 +10,12 @@
 
     <!-- Styles -->
     <link href="{{ elixir('/css/app.css') }}" rel="stylesheet">
+    <script>
+        function overrideFavicon() {
+            $("link[rel*='icon']").remove();
+        }
+        overrideFavicon();
+    </script>
     <link href="/images/favicon.png" rel="shortcut icon" />
     <link href="/plugins/contenttools/content-tools.min.css" type="text/css" rel="stylesheet">
     <link href="/plugins/sweetalert2/sweetalert2.css" type="text/css" rel="stylesheet">
@@ -47,6 +53,10 @@
 	<script type="text/javascript" src="/js/plupload.full.min.js"></script>
 
         {{-- Modals --}}
+        @if (isset($currentPage))
+            @include('templates.admin.modals.page')
+        @endif
+
         @include('templates.admin.modals.media')
         @include('templates.admin.modals.newpage')
         @include('templates.admin.modals.module_forms', ['settings' => Setting::all()->keyBy('name')])
@@ -60,9 +70,6 @@
         @include('templates.admin.modals.select_media')
         @include('templates.admin.modals.select_module')
 
-        @if (isset($currentPage))
-            @include('templates.admin.modals.page')
-        @endif
 
         {{-- Flash messages --}}
         <script type="text/javascript">

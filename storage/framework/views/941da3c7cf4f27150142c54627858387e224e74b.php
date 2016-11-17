@@ -7,10 +7,16 @@
     <?php $__currentLoopData = $currentPage->getContent(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
         <div class="row">
             <?php $__currentLoopData = $row; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $block): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
-                <div class="block columns medium-<?php echo e($block['width']); ?> medium-offset-<?php echo e($block['offset']); ?>" data-name="<?php echo e($block['name']); ?>" data-gs-x="<?php echo e($block['x']); ?>" data-gs-y="<?php echo e($block['y']); ?>" data-gs-width="<?php echo e($block['width']); ?>" data-gs-height="<?php echo e($block['height']); ?>" data-module="<?php echo e(isset($block['module']) ? $block['module'] : 0); ?>" data-module-id="<?php echo e(isset($block['module_id']) ? $block['module_id'] : 0); ?>" data-editable>
-                    <?php echo $block['content']; ?>
+                <?php if($block['module']): ?>
+                    <div class="block columns medium-<?php echo e($block['width']); ?> medium-offset-<?php echo e($block['offset']); ?>" data-name="<?php echo e($block['name']); ?>" data-gs-x="<?php echo e($block['x']); ?>" data-gs-y="<?php echo e($block['y']); ?>" data-gs-width="<?php echo e($block['width']); ?>" data-gs-height="<?php echo e($block['height']); ?>" data-module="<?php echo e($block['module']); ?>" data-module-id="<?php echo e($block['module_id']); ?>" data-noneditable>
+                        <?php echo $__env->make('templates.admin.modules.'.Module::find($block['module'])->template, ['id' => $block['module_id']], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                    </div>
+                <?php else: ?>
+                    <div class="block columns medium-<?php echo e($block['width']); ?> medium-offset-<?php echo e($block['offset']); ?>" data-name="<?php echo e($block['name']); ?>" data-gs-x="<?php echo e($block['x']); ?>" data-gs-y="<?php echo e($block['y']); ?>" data-gs-width="<?php echo e($block['width']); ?>" data-gs-height="<?php echo e($block['height']); ?>" data-module="<?php echo e(isset($block['module']) ? $block['module'] : 0); ?>" data-module-id="<?php echo e(isset($block['module_id']) ? $block['module_id'] : 0); ?>" data-editable>
+                        <?php echo $block['content']; ?>
 
-                </div>
+                    </div>
+                <?php endif; ?>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
         </div>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
@@ -57,7 +63,8 @@
                         var newRow = (item['first']) ? "clear" : "";
                         var module = (item['module'] === undefined) ? 0 : item['module'];
                         var module_id = (item['module_id'] === undefined) ? 0 : item['module_id'];
-                        var element = '<div class="block columns medium-'+item['width']+' medium-offset-'+item['offset']+' '+newRow+'" data-name="'+item['name']+'" data-gs-x="'+item['x']+'" data-gs-y="'+item['y']+'" data-gs-width="'+item['width']+'" data-gs-height="'+item['height']+'" data-module="'+module+'" data-module-id="'+module_id+'" data-editable>'+item['content']+'</div>';
+                        var editable = (module) ? "data-editable" : "data-noneditable";
+                        var element = '<div class="block columns medium-'+item['width']+' medium-offset-'+item['offset']+' '+newRow+'" data-name="'+item['name']+'" data-gs-x="'+item['x']+'" data-gs-y="'+item['y']+'" data-gs-width="'+item['width']+'" data-gs-height="'+item['height']+'" data-module="'+module+'" data-module-id="'+module_id+'" '+editable+'>'+item['content']+'</div>';
 
                         elements.append(element);
                     });
