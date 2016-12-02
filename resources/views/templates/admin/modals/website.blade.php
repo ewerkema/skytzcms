@@ -17,20 +17,20 @@
     <form action="#" class="form-horizontal" id="websiteForm">
         <div class="tab-content" id="websiteTabs">
             <div role="tabpanel" class="tab-pane active" id="mainTab">
-                <div class="form-group">
-                    <label for="title" class="col-md-3 control-label">Website naam</label>
+                {{--<div class="form-group">--}}
+                    {{--<label for="title" class="col-md-3 control-label">Website naam</label>--}}
 
-                    <div class="col-md-8">
-                        <input type="text" name="meta_title" value="{{ $settings['meta_title']->value }}" class="form-control" placeholder="Website naam" autofocus />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="title" class="col-md-3 control-label">Website beschrijving</label>
+                    {{--<div class="col-md-8">--}}
+                        {{--<input type="text" name="meta_title" value="{{ $settings['meta_title']->value }}" class="form-control" placeholder="Website naam" autofocus />--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                {{--<div class="form-group">--}}
+                    {{--<label for="title" class="col-md-3 control-label">Website beschrijving</label>--}}
 
-                    <div class="col-md-8">
-                        <textarea type="text" name="meta_descr" class="form-control" placeholder="Webiste beschrijving" autofocus>{{ $settings['meta_descr']->value }}</textarea>
-                    </div>
-                </div>
+                    {{--<div class="col-md-8">--}}
+                        {{--<textarea type="text" name="meta_descr" class="form-control" placeholder="Webiste beschrijving" autofocus>{{ $settings['meta_descr']->value }}</textarea>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
                 <div class="form-group">
                     <label for="title" class="col-md-3 control-label">Footer tekst</label>
 
@@ -148,7 +148,7 @@
         request.setType('PATCH');
         request.setForm('#websiteForm');
 
-        request.addFields(['meta_title', 'meta_descr', 'footerblock', 'googleanalytics', 'googleanalytics', 'facebook_page', 'twitter_page', 'youtube_page', 'googleplus_page', 'header_slider', 'header_image']);
+        request.addFields(['footerblock', 'googleanalytics', 'facebook_page', 'twitter_page', 'youtube_page', 'googleplus_page', 'header_slider', 'header_image']);
         request.addField('recordgoogle', 'checkbox', false);
 
         request.onSubmit(function(data) {

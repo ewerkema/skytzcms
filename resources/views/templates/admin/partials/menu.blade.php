@@ -1,11 +1,11 @@
 <nav class="small-12 medium-12 large-8 columns menu">
     <ul>
         @foreach (Page::getMenuWithSubpages() as $page)
-            <li class="{{ (isset($currentPage) && $page->id == $currentPage->id) ? "active" : "" }} {{ (isset($page->subpages)) ? "has-dropdown" : "" }}">
+            <li class="{{ (isset($currentPage) && $page->id == $currentPage->id) ? "active" : "" }}{{ ($page->subpages->count()) ? " has-dropdown" : "" }}">
 
                 <a href="{{ page_url($page->getSlug()) }}">{{ $page->title }}</a>
 
-                @if (isset($page->subpages))
+                @if ($page->subpages->count())
                     <ul class="dropdown">
                         @foreach ($page->subpages as $subpage)
                             <li class="{{ (isset($currentPage) && $subpage->id == $currentPage->id) ? "active" : "" }}">

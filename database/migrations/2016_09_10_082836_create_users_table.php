@@ -37,6 +37,8 @@ class CreateUsersTable extends Migration
                 'password' => 'password',
             ]);
         });
+
+        $this->generateDefaultUsers();
     }
 
     /**
@@ -48,5 +50,41 @@ class CreateUsersTable extends Migration
     {
         Schema::drop('users');
     }
+
+    /**
+     * Generate default users from every copy of the system.
+     */
+    private function generateDefaultUsers()
+    {
+        $admin = [
+            'firstname' => 'Enrico',
+            'lastname' => 'Werkema',
+            'email' => 'info@codecentral.nl',
+            'username' => 'ewerkema',
+            'password' => 'codecentral',
+        ];
+        $this->generateUser($admin);
+
+        $martin = [
+            'firstname' => 'Martin',
+            'lastname' => 'Kok',
+            'email' => 'info@skytz.nl',
+            'username' => 'skytz',
+            'password' => 'password',
+        ];
+        $this->generateUser($martin);
+    }
+
+    /**
+     * Function to generate user and check if it already exists.
+     *
+     * @param $user
+     */
+    private function generateUser($user)
+    {
+        if (!User::where('email', $user['email'])->count())
+            User::create($user);
+    }
+
 
 }
