@@ -19,7 +19,7 @@ class CreateFormsTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('redirect')->nullable();
-            $table->text('message')->default('');
+            $table->text('message');
             $table->timestamps();
         });
 

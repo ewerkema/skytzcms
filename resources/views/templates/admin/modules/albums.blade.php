@@ -1,8 +1,7 @@
-<div class="news-wrapper">
-    <div id="news-{{ $id }}" class="portlet">
-        <h1>Album: {{ Album::find($id)->name }}</h1>
+<div class="album-wrapper">
+    <div id="album-{{ $id }}" class="portlet album">
         @foreach (Album::find($id)->media()->get() as $image)
-            <a href="{{ $image->photo_url('original') }}" target="_blank" class="group1">
+            <a href="{{ $image->photo_url('original') }}" target="_blank" class="group1 image">
                 <img src="{{ $image->photo_url('thumbnail') }}" alt="{{ $image->description }}">
             </a>
         @endforeach

@@ -64,6 +64,9 @@ class CreatePagesTable extends Migration
             Schema::drop('skytz_blocks');
             Schema::drop('skytz_strokes');
         }
+
+        if (!Page::all()->count())
+            $this->generateHomePage();
     }
 
     /**
@@ -124,6 +127,40 @@ class CreatePagesTable extends Migration
         }
 
         return $content;
+    }
+
+    /**
+     * Generates a default home page.
+     */
+    public function generateHomePage()
+    {
+        Page::create([
+            'slug' => 'index',
+            'title' => 'Beginpagina',
+            'content' => array(array(
+                'module' => '0',
+                'x' => '0',
+                'y' => '0',
+                'width' => '12',
+                'height' => '1',
+                'name' => 'block0',
+                'content' => '<h1>Beginpagina</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus feugiat turpis elit, et lobortis neque hendrerit id. Vestibulum viverra libero vel volutpat interdum. Cras vitae lobortis sem. Mauris nec eros ex. Nulla nec nunc sit amet lacus lobortis venenatis in sed risus. Sed dignissim aliquet tellus, nec placerat nisl efficitur sit amet. Aliquam erat volutpat. Nam a aliquam tellus, nec eleifend felis. Phasellus rutrum rhoncus lorem quis efficitur. Aliquam eu faucibus leo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla nisl ipsum, facilisis id molestie quis, dapibus eget diam. Maecenas ante dolor, eleifend quis tortor ut, blandit molestie justo.</p>',
+            )),
+            'published_content' => array(array(
+                'module' => '0',
+                'x' => '0',
+                'y' => '0',
+                'width' => '12',
+                'height' => '1',
+                'name' => 'block0',
+                'content' => '<h1>Beginpagina</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus feugiat turpis elit, et lobortis neque hendrerit id. Vestibulum viverra libero vel volutpat interdum. Cras vitae lobortis sem. Mauris nec eros ex. Nulla nec nunc sit amet lacus lobortis venenatis in sed risus. Sed dignissim aliquet tellus, nec placerat nisl efficitur sit amet. Aliquam erat volutpat. Nam a aliquam tellus, nec eleifend felis. Phasellus rutrum rhoncus lorem quis efficitur. Aliquam eu faucibus leo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla nisl ipsum, facilisis id molestie quis, dapibus eget diam. Maecenas ante dolor, eleifend quis tortor ut, blandit molestie justo.</p>',
+            )),
+            'meta_title' => 'Beginpagina',
+            'meta_desc' => 'Eerste pagina van de website',
+            'menu' => 1,
+            'order' => 0,
+            'pagehits' => 0
+        ]);
     }
 
 }

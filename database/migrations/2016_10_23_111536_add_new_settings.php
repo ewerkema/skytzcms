@@ -8,6 +8,8 @@ use Illuminate\Database\Migrations\Migration;
 class AddNewSettings extends Migration
 {
     private $newSettings = array(
+        'facebook_page' => '',
+        'twitter_page' => '',
         'youtube_page' => '',
         'googleplus_page' => '',
         'contact_email' => 'info@domein.nl',
@@ -17,7 +19,10 @@ class AddNewSettings extends Migration
         'contact_message_visible' => true,
         'contact_success_message' => "Bedankt voor het versturen van het bericht.",
         'header_image' => false,
-        'header_slider' => false
+        'header_slider' => false,
+        'googleanalytics' => '',
+        'recordgoogle' => 0,
+        'footerblock' => '',
     );
 
     /**

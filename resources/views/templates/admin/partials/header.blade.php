@@ -13,7 +13,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand hidden-xs" href="{{ cms_url('/') }}">
-                    <img src="{{ url('images/skytz_logo.png') }}" alt="" class="img-responsive">
+                    <img src="{{ url('/css/images/skytz_logo.png') }}" alt="" class="img-responsive">
                     {{ config('app.name', 'Skytz CMS') }}
                 </a>
 
@@ -48,7 +48,7 @@
                                         </ul>
                                     </li>
                                 @endif
-                                <li class="small-4 columns">
+                                <li class="small-{{ (Page::getMenu()->count() <= 10) ? 8 : 4 }} columns">
                                     <ul>
                                         <li class="dropdown-header">Losse pagina's</li>
 

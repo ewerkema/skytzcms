@@ -38,14 +38,15 @@ class Media extends Model
     {
         $originPath = base_path(Media::fixForwardSlash($origin));
         $destinationPath = public_path($destination);
+        $fileName = File::name($origin).'.'.File::extension($origin);
 
         if (!File::exists($originPath)) {
             echo "File doesn't exist at location \"$originPath\".\n";
             return;
         }
 
-        if (File::exists($destinationPath)) {
-            return Media::where('name', '=', File::name($destinationPath))->first();
+        if (File::exists($destinationPath.$fileName)) {
+            return Media::where('name', '=', File::name($destinationPath.$fileName))->first();
         } else {
             if ($newFile = Media::copyFile($originPath, $destinationPath)) {
                 $newFilePath = $destination . File::name($newFile) . '.' . File::extension($newFile);
