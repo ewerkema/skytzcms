@@ -34,6 +34,9 @@ class CreateFormFieldsTable extends Migration
                 dd("Couldn't find form with ID ".$formField->formid.": ".$e->getMessage());
             }
 
+            if ($formField->elementtype == "Input")
+                $formField->elementtype = "Text";
+
             FormField::create([
                 'type' => $formField->elementtype,
                 'name' => $formField->elementname,

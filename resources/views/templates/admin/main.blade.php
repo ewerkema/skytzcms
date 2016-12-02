@@ -16,7 +16,7 @@
         }
         overrideFavicon();
     </script>
-    <link href="/images/favicon.png" rel="shortcut icon" />
+    <link href="/css/images/favicon.png" rel="shortcut icon" />
     <link href="/plugins/contenttools/content-tools.min.css" type="text/css" rel="stylesheet">
     <link href="/plugins/sweetalert2/sweetalert2.css" type="text/css" rel="stylesheet">
     <link href="/plugins/awesomplete/awesomplete.css" type="text/css" rel="stylesheet">

@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" value="{{ $currentPage->meta_desc }}">
-        <link href="/images/favicon2.png" rel="shortcut icon" />
+        <link href="{{ template_url('/img/favicon.png') }}" rel="shortcut icon" />
 
         <title>{{ $currentPage->meta_title }}</title>
 
@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="{{ template_url('/css/style.css') }}" />
 
         <!-- jQuery -->
-        <script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 
         <!-- Main jQuery -->
         <script src="{{ template_url('/css/main.js') }}"></script>

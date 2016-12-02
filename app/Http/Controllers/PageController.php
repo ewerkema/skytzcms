@@ -86,6 +86,9 @@ class PageController extends Controller
         $input = $request->all();
         $this->validator($input)->validate();
 
+        if (!$input['header_image_id'])
+            $input['header_image_id'] = NULL;
+
         $input['content'] = array();
         $input['published_content'] = array();
         $page = Page::create($input);

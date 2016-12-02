@@ -538,7 +538,7 @@ form select {
   height: 100%;
   left: 0;
   top: 0;
-  background: rgba(0, 0, 0, 0.5) url(/images/loader.gif) no-repeat center center;
+  background: rgba(0, 0, 0, 0.5) url(images/loader.gif) no-repeat center center;
   background-size: 50px 50px; }
 
 .modal select {
