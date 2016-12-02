@@ -25,7 +25,7 @@
                     <td>{{ module.created_at | moment "dddd, D MMMM YYYY" | capitalize }}</td>
                     <td>
                         <a href="#" v-on:click="selectModule(module)">
-                            <span class="glyphicon glyphicon-ok"></span>
+                            <span class="glyphicon glyphicon-plus"></span>
                         </a>
                     </td>
                 </tr>

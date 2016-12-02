@@ -192,7 +192,7 @@
                     },
                     success: function (data) {
                         _this.addImages = false;
-                        _this.loadFromDatabase();
+                        _this.loadAlbums(_this.selectedAlbum.id);
                     }
                 });
             },
@@ -276,15 +276,15 @@
             },
 
             loadFromDatabase: function() {
-                this.loadAlbums();
+                this.loadAlbums(0);
             },
 
-            loadAlbums: function() {
+            loadAlbums: function(selectedAlbumId) {
                 var _this = this;
                 $.get('/cms/albums', function (data) {
                     if (data.length != 0) {
                         _this.albums = data;
-                        _this.selectedAlbum = _.head(data);
+                        _this.selectedAlbum = selectedAlbumId ? _.find(data, ['id', selectedAlbumId]) : _.head(data);
                     }
                 });
             },
