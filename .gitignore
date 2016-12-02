@@ -1,7 +1,4 @@
 /node_modules
-/public/docs
-/public/images
-/public/tmp
 /vendor
 /.idea
 Homestead.json
