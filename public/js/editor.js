@@ -298,8 +298,7 @@ function changeLayout() {
 
 function saveLayout() {
     $.when(
-        saveGrid(),
-        location.reload()
+        saveGrid()
     ).then(function() {
         editorButtons.showEdit();
 
@@ -308,6 +307,8 @@ function saveLayout() {
             type: 'success',
             timer: 2000
         });
+
+        location.reload()
     }).done();
 }
 
