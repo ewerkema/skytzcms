@@ -75,7 +75,8 @@
                 <ul class="nav navbar-nav flex-center">
                     @if (!Auth::guest())
                         <li><a href="#" data-toggle="modal" data-target="#sortMenuModal"><span class="glyphicon glyphicon-sort"></span> Menu indelen</a></li>
-                        <li><a href="#" data-toggle="modal" data-target="#mediaModal"><span class="glyphicon glyphicon-picture"></span> Media uploaden</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#uploadMediaModal"><span class="glyphicon glyphicon-upload"></span> Media uploaden</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#mediaModal"><span class="glyphicon glyphicon-picture"></span> Media overzicht</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 <span class="glyphicon glyphicon-th-large"></span>
@@ -152,6 +153,7 @@
                         <li id="hideLayout"><div class="divider hidden-xs"></div></li>
                         <li id="changeLayout"><a href="#" onclick="changeLayout();"><span class="glyphicon glyphicon-th"></span> Blokken bewerken</a></li>
                         <li id="saveLayout"><a href="#" onclick="saveLayout();"><span class="glyphicon glyphicon-ok"></span> Blokken opslaan</a></li>
+                        <li id="saveLayout"><a href="#" onclick="cancelLayout();"><span class="glyphicon glyphicon-remove"></span> Wijzigingen annuleren</a></li>
                         <li><div class="divider hidden-xs"></div></li>
                         <li><a href="#" data-toggle="modal" data-target="#pageModal"><span class="glyphicon glyphicon-cog"></span> Pagina instellingen</a></li>
                     @endif

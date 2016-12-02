@@ -23,11 +23,11 @@ ButtonGroup.prototype.showSaveLayout = function() {
 };
 
 var editor;
-var editorButtons = new ButtonGroup('#changePage, #changeLayout, #hideLayout', '#revertChanges, #saveChanges', '#saveLayout');
+var editorButtons = new ButtonGroup('#changePage, #changeLayout, #hideLayout', '#revertChanges, #saveChanges', '#cancelLayout, #saveLayout');
 
 window.addEventListener('load', function() {
     editor = ContentTools.EditorApp.get();
-    editor.init('*[data-editable], *[data-noneditable]', 'data-name');
+    editor.init('*[data-editable]', 'data-name');
     editor._ignition.unmount();
     addPagesToEditor(ContentTools);
     editor.revert = function() {
@@ -128,6 +128,10 @@ function enableGridstack() {
     });
 }
 
+function removeLayoutElements() {
+    $('.buttonContainer').remove();
+}
+
 function textWidth (width) {
     switch (parseInt(width)) {
         case 2: return "1/6";
@@ -220,9 +224,9 @@ function lastElementId() {
 }
 
 function saveGrid() {
-    // blockContent.removeClass("grid-stack");
-    // blockContent.css("height", "auto");
-    // $('.buttonContainer').remove();
+    blockContent.removeClass("grid-stack");
+    blockContent.css("height", "auto");
+    $('.buttonContainer').remove();
 
     var content = {};
     blockContent.find('*[data-editable], *[data-noneditable]').each(function() {
@@ -237,7 +241,7 @@ function saveGrid() {
         content[name]['height'] = element.attr('data-gs-height');
     });
 
-    // grid.destroy(false);
+    grid.destroy(false);
 
     $.ajax({
         url: '/cms/pages/'+page_id+'/grid',
@@ -309,6 +313,22 @@ function saveLayout() {
         });
 
         location.reload()
+    }).done();
+}
+
+function cancelLayout() {
+    swal({
+        title: "Wijzigingen annuleren?",
+        text: "Je kan deze wijzingen niet meer herstellen.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Ja, verwijder de wijzingen",
+    }).then(function(){
+        location.reload();
+        // removeLayoutElements();
+        // reloadPageContent();
+        // editorButtons.showEdit();
     }).done();
 }
 
