@@ -19,6 +19,7 @@ class Page extends Model
         'content' => 'array',
         'published_content' => 'array',
         'parent_id' => 'int|null',
+        'header_image_id' => 'int|null',
         'order' => 'int',
     ];
 

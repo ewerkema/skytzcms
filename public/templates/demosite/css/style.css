@@ -82,6 +82,8 @@ border-radius: 5px;
 box-shadow: inset 0 0 5px 3px #cadfe8;
 }
 
+.slider { height: 300px; }
+
 form input[type=text], form input[type=number], form input[type=email] { height: 39px; padding-right: 1em; padding-left: 1em; width: 100%; font-size: 13px; }
 form textarea { padding: 1em; font: 13.33px Arial; min-height: 100px; }
 .form-group span.inline { font-size: 14px; line-height: 51px; margin-right: 15px; }

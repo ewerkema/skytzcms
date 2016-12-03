@@ -22,6 +22,11 @@
     <link href="/plugins/awesomplete/awesomplete.css" type="text/css" rel="stylesheet">
     <link href="/plugins/summernote/summernote.css" rel="stylesheet">
 
+    <script src="/plugins/lean-slider/lean-slider.js"></script>
+    <link rel="stylesheet" href="/plugins/lean-slider/lean-slider.css" type="text/css" />
+    <script src="/plugins/colorbox/jquery.colorbox.js"></script>
+    <link rel="stylesheet" href="/plugins/colorbox/colorbox.css" />
+
     <!-- Scripts -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/gridstack.js/0.2.6/gridstack.min.css" />
     <script>
@@ -50,7 +55,7 @@
         <script src="/plugins/summernote/summernote.min.js"></script>
         <script src="/plugins/summernote/lang/summernote-nl-NL.js"></script>
         <script src="/plugins/nestedSortable/jquery.nestedSortable.js"></script>
-	<script type="text/javascript" src="/js/plupload.full.min.js"></script>
+	    <script type="text/javascript" src="/js/plupload.full.min.js"></script>
 
         {{-- Modals --}}
         @if (isset($currentPage))
@@ -92,5 +97,13 @@
             @endif
         </script>
         <script src="/js/app.js"></script>
+
+        <script>
+            $(document).ready(function(){
+                //Examples of how to assign the ColorBox event to elements
+                $(".group1").colorbox({rel:'group1', maxWidth:'50%', fixed: true});
+
+            });
+        </script>
     @endif
 @stop

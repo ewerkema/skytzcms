@@ -1,7 +1,6 @@
 <!doctype html>
 <html class="no-js" lang="en">
     <head>
-        <!-- START BLOCK : HeaderContents -->
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,12 +20,6 @@
 
         <!-- Larevel -->
         @yield('head')
-
-        <!-- Custom packages -->
-        <script src="{{ template_url('/js/lean-slider/lean-slider.js') }}"></script>
-        <link rel="stylesheet" href="{{ template_url('/css/lean-slider/lean-slider.css') }}" type="text/css" />
-        <script src="{{ template_url('/js/colorbox/jquery.colorbox.js') }}"></script>
-        <link rel="stylesheet" href="{{ template_url('/css/colorbox/colorbox.css') }}" />
 
         @include('templates.admin.partials.analytics')
     </head>
@@ -76,12 +69,6 @@
         <script src="{{ template_url('/js/foundation.min.js') }}"></script>
         <script>
             $(document).foundation();
-
-            $(document).ready(function(){
-                //Examples of how to assign the ColorBox event to elements
-                $(".group1").colorbox({rel:'group1', maxWidth:'50%', fixed: true});
-
-            });
         </script>
     </body>
 </html>
