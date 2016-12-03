@@ -7,7 +7,7 @@
                  :class="{selected: image.id == selectedImage.id }"
             >
                 <img :src="imagePath(image.path)" id="select_image_{{ image.id }}" />
-                <span class="glyphicon glyphicon-plus add"></span>
+                <span class="glyphicon glyphicon-ok add"></span>
             </div>
         </div>
         <p v-if="images.length == 0">Er zijn geen afbeeldingen gevonden.</p>

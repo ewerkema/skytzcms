@@ -9,7 +9,7 @@
             <hr>
         </div>
     @else
-        <div id="news-{{ $id }}">
+        <div id="news-{{ $id }}" class="news">
             <h1>Nieuws: {{ ArticleGroup::find($id)->title }}</h1>
             @foreach (ArticleGroup::find($id)->articles()->get() as $article)
                 <div class="portlet">
