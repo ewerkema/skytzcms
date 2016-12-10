@@ -55,9 +55,7 @@ border-radius: 5px; }
 
 /* Text styles */
 ul, ol, dl { font-size: 13px; color: #4f575b; line-height: 22px; }
-table { width: 100%; margin-bottom: 20px; }
-tr td, tr th { padding: 8px;font-size: 13px; color: #4f575b; }
-tr th { font-weight: bold; }
+tr td, tr th { font-size: 13px; color: #4f575b; }
 .tekst { padding-left: 20px; margin-bottom: 30px; }
 .tekst h1 { font-size: 16px; color: #2e77bc; font-weight: bold; margin-bottom: 25px; }
 .tekst h2 { color: #00224a; font-size: 13px; margin-bottom: 5px; font-weight: bold; }
@@ -110,8 +108,6 @@ form textarea { padding: 1em; font: 13.33px Arial; min-height: 100px; }
 .footer { text-align: center; }
 .footer p { color: #4f575b; font-size: 12px; }
 .footer a { color: #4f575b; }
-
-
 
 /* Small screens */
 @media only screen { 
