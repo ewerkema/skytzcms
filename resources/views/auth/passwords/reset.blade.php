@@ -1,7 +1,7 @@
 @extends('templates.admin.main', ['template' => 'templates.admin.empty'])
 
 @section('content')
-<div class="bootstrap-container">
+<div class="bootstrap-container bootstrap-format">
     <div class="bootstrap-row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">

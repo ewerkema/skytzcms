@@ -1,5 +1,6 @@
 table { width: 100%; margin-bottom: 20px; }
-table th, table td {
+table thead tr th, table thead tr td,
+table tbody tr td {
     font-size: 12px;
     padding: 8px;
 }

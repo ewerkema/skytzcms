@@ -1451,6 +1451,19 @@ form select {
 *:after {
   box-sizing: border-box; }
 
+html {
+  font-size: 10px;
+  -webkit-tap-highlight-color: transparent; }
+
+body {
+  line-height: 1.6;
+  color: #636b6f;
+  background-color: #f5f8fa; }
+
+.bootstrap-format, #cms {
+  font-family: "Raleway", sans-serif;
+  font-size: 14px; }
+
 input,
 button,
 select,
@@ -1458,6 +1471,16 @@ textarea {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit; }
+
+a {
+  color: #3097D1;
+  text-decoration: none; }
+  a:hover, a:focus {
+    color: #216a94;
+    text-decoration: underline; }
+  a:focus {
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px; }
 
 figure {
   margin: 0; }
@@ -1588,6 +1611,9 @@ h5, .h5 {
 
 h6, .h6 {
   font-size: 12px; }
+
+p {
+  margin: 0 0 11px; }
 
 .lead {
   margin-bottom: 22px;
