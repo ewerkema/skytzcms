@@ -48,7 +48,7 @@
                                         </ul>
                                     </li>
                                 @endif
-                                <li class="small-{{ (Page::getMenu()->count() <= 10) ? 8 : 4 }} columns">
+                                <li class="small-{{ (Page::getMenu()->count() <= 5) ? 8 : 4 }} columns">
                                     <ul>
                                         <li class="dropdown-header">Losse pagina's</li>
 

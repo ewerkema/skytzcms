@@ -96,7 +96,7 @@ Request.prototype.processFields = function() {
 };
 
 Request.prototype.showError = function(data) {
-    var errors = data.responseJSON;
+    var errors = JSON.parse(data.responseText);
     var errorMessage = "";
 
     if (errors === undefined)

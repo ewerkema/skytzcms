@@ -10,10 +10,12 @@
         <title>{{ $currentPage->meta_title }}</title>
 
         <link rel="stylesheet" href="{{ template_url('/css/foundation.css') }}" />
+        <link rel="stylesheet" href="{{ template_url('/css/base.css') }}" />
         <link rel="stylesheet" href="{{ template_url('/css/style.css') }}" />
 
         <!-- jQuery -->
         <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        @include('templates.admin.partials.plugins')
 
         <!-- Main jQuery -->
         <script src="{{ template_url('/css/main.js') }}"></script>
@@ -69,6 +71,10 @@
         <script src="{{ template_url('/js/foundation.min.js') }}"></script>
         <script>
             $(document).foundation();
+
+            $(document).ready(function(){
+                $(".group1").colorbox({rel:'group1', maxWidth:'50%', fixed: true});
+            });
         </script>
     </body>
 </html>

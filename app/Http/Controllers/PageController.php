@@ -10,15 +10,6 @@ use Input;
 
 class PageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Get a validator for an incoming registration request.
@@ -62,17 +53,6 @@ class PageController extends Controller
             'order' => 'Volgorde voor de pagina',
             'parent_id' => 'Pagina voor het submenu',
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @param  array  $data
-     * @return Page
-     */
-    public function create(array $data)
-    {
-        //
     }
 
     /**
@@ -190,6 +170,8 @@ class PageController extends Controller
                 $updateContent[$key]['y'] = 0;
                 $updateContent[$key]['width'] = 12;
                 $updateContent[$key]['height'] = 1;
+                $updateContent[$key]['module'] = 0;
+                $updateContent[$key]['module_id'] = 0;
             }
         }
 
@@ -277,11 +259,17 @@ class PageController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
         $page = Page::find($id);
         $page->delete();
+
+        session()->flash('flash_title', 'Pagina verwijderd');
+        session()->flash('flash_message', "De pagina '$page->title' is succesvol verwijderd.");
+
+        $firstPage = Page::first();
+        return response()->json(['redirectTo' => cms_url($firstPage->slug)]);
     }
 }

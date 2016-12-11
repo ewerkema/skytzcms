@@ -10,6 +10,10 @@
     border: 0;
   }
 
+  .form-control.no-border-radius {
+    border-radius: 0 !important;
+  }
+
   .mjs-nestedSortable-error {
     background: #fbe3e4;
     border-color: transparent;

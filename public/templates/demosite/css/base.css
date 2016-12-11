@@ -1,0 +1,46 @@
+table { width: 100%; margin-bottom: 20px; }
+table thead tr th, table thead tr td,
+table tbody tr td {
+    font-size: 12px;
+    padding: 8px;
+}
+tr th { font-weight: bold; }
+
+pre {
+    display: block;
+    padding: 10.5px;
+    margin: 0 0 11px;
+    font-size: 13px;
+    line-height: 1.6;
+    word-break: break-all;
+    word-wrap: break-word;
+    color: #333333;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+img {
+    clear: both;
+    display: block;
+    margin: 0 auto;
+}
+
+img.align-right {
+    float: right;
+    padding-left: 15px;
+    padding-bottom: 15px;
+}
+
+img.align-left {
+    float: left;
+    padding-right: 15px;
+    padding-bottom: 15px;
+}
+
+.album { display: flex; flex-wrap: wrap; }
+.album .image { flex: 1 1 auto; width: 25%; }
+
+@media only screen and (max-width: 40em) {
+    .album .image { width: 50%; }
+}

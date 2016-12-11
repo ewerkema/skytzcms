@@ -9,7 +9,7 @@
         <li role="presentation" class="active"><a href="#mainTab" aria-controls="mainTab" role="tab" data-toggle="tab">Algemeen</a></li>
         <li role="presentation"><a href="#analyticsTab" aria-controls="analyticsTab" role="tab" data-toggle="tab">Google Analytics</a></li>
         <li role="presentation"><a href="#socialTab" aria-controls="socialTab" role="tab" data-toggle="tab">Social Media</a></li>
-        <li role="presentation"><a href="#headerTab" aria-controls="headerTab" role="tab" data-toggle="tab">Header</a></li>
+        <li role="presentation"><a href="#websiteHeaderTab" aria-controls="websiteHeaderTab" role="tab" data-toggle="tab">Header</a></li>
     </ul>
 
     <!-- Tab panes -->
@@ -88,7 +88,7 @@
                     </div>
                 </div>
             </div>
-            <div role="tabpanel" class="tab-pane" id="headerTab">
+            <div role="tabpanel" class="tab-pane" id="websiteHeaderTab">
                 <p>Voeg een afbeelding <strong>of</strong> slider toe aan alle pagina's. Als een pagina een eigen header heeft ingesteld, wordt deze gebruikt.</p>
                 <div class="form-group">
                     <label for="header_image" class="col-md-3 control-label">Header afbeelding</label>

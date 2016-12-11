@@ -25,11 +25,14 @@ html {
 }
 
 body {
-  font-family: $font-family-base;
-  font-size: $font-size-base;
   line-height: $line-height-base;
   color: $text-color;
   background-color: $body-bg;
+}
+
+.bootstrap-format,#cms {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
 }
 
 // Reset fonts for relevant elements
