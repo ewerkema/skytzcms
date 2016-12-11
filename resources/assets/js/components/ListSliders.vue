@@ -192,7 +192,7 @@
                     },
                     success: function (data) {
                         _this.addImages = false;
-                        _this.loadFromDatabase();
+                        _this.loadSliders(_this.selectedSlider.id);
                     }
                 });
             },
@@ -276,15 +276,15 @@
             },
 
             loadFromDatabase: function() {
-                this.loadSliders();
+                this.loadSliders(0);
             },
 
-            loadSliders: function() {
+            loadSliders: function(selectedSliderId) {
                 var _this = this;
                 $.get('/cms/sliders', function (data) {
                     if (data.length != 0) {
                         _this.sliders = data;
-                        _this.selectedSlider = _.head(data);
+                        _this.selectedSlider = (selectedSliderId) ? _.find(data, ['id', selectedSliderId]) : _.head(data);
                     }
                 });
             },
