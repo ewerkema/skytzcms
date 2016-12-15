@@ -112,7 +112,8 @@ class CreatePagesTable extends Migration
                 "width" => $colWidth*$rowWidth/12,
                 "height" => 1,
                 "content" => $block->blockcontent,
-                "module" => $block->module_id
+                "module" => $block->module,
+                "module_id" => $block->module_id
             );
 
             $changeRow = floor (($col + $colWidth) / 12);
