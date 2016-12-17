@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Response;
 use App\Http\Requests;
@@ -17,8 +18,8 @@ class MediaController extends Controller
      */
     public function index()
     {
-	if (!isset($_GET['page']))
-		return Media::all();
+        if (!isset($_GET['page']))
+            return Media::all();
         $rows = Media::paginate(8);
         return view('templates.admin.partials.medialist', compact('rows'));
     }
@@ -47,40 +48,6 @@ class MediaController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -89,11 +56,56 @@ class MediaController extends Controller
     public function destroy($id)
     {
         $media = Media::find($id);
+
+        $this->checkGlobalHeader($media);
+        $this->removePageHeaders($media);
+        $media->albums()->detach();
+        $media->sliders()->detach();
+        $this->removeMedia($media);
+
+        $media->delete();
+
+        return Response::json(['status' => 'success', 'msg' => 'Media verwijderd!']);
+    }
+
+    /**
+     * Remove global header reference is existing.
+     *
+     * @param $media
+     */
+    public function checkGlobalHeader($media)
+    {
+        $setting = Setting::where('name', 'header_image')->first();
+
+        if ($setting->value == $media->id) {
+            $setting->value = 0;
+            $setting->save();
+        }
+    }
+
+    /**
+     * Remove page references to media.
+     *
+     * @param $media
+     */
+    public function removePageHeaders($media)
+    {
+        $media->pages()->getResults()->each(function ($page) {
+            $page->header()->dissociate();
+            $page->save();
+        });
+    }
+
+    /**
+     * Remove media from storage.
+     *
+     * @param $media
+     */
+    public function removeMedia($media)
+    {
         @unlink(public_path().'/images/'.$media->name);
         @unlink(public_path().'/images/large/'.$media->name);
         @unlink(public_path().'/images/thumbnail/'.$media->name);
         @unlink(public_path().'/docs/'.$media->name);
-        $media->delete();
-        return Response::json(['status' => 'success', 'msg' => 'Media verwijderd!']);
     }
 }

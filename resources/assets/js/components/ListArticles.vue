@@ -27,7 +27,7 @@
                 </a>
             </ul>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8" v-if="selectedArticleGroup">
             <table class="table">
                 <tr>
                     <th>#</th>
@@ -55,6 +55,9 @@
 
             <button class="btn btn-success right" v-on:click="createArticle()">Nieuw artikel</button>
             <button class="btn btn-danger right" v-on:click="removeArticleGroup(selectedArticleGroup)">Verwijder nieuwsgroep</button>
+        </div>
+        <div class="col-md-8" v-else>
+            <p>Er is geen nieuwsgroep geselecteerd.</p>
         </div>
     </div>
     <div class="editForm" v-if="selectedArticle">
@@ -282,7 +285,6 @@
                     confirmButtonText: "Ja, verwijder deze nieuwsgroep",
                 }).then(function(){
                     _this.doRemoveArticleGroup(articleGroupId);
-                    _this.selectedArticleGroup = _.head(_this.articleGroups).id;
                 }).done();
             },
 
@@ -310,6 +312,7 @@
                     },
                     success: function(result) {
                         _this.articleGroups.$remove(_.find(_this.articleGroups, ['id', articleGroupId]));
+                        _this.selectedArticleGroup = _.head(_this.articleGroups) ? _.head(_this.articleGroups).id : false;
                     }
                 });
             },

@@ -41,6 +41,9 @@
             <button class="btn btn-success right" v-on:click="addImages = true">Afbeeldingen toevoegen</button>
             <button class="btn btn-danger right" v-on:click="removeAlbum(selectedAlbum)">Verwijder dit album</button>
         </div>
+        <div class="col-md-8" v-else>
+            <p>Er is geen album geselecteerd.</p>
+        </div>
     </div>
     <div class="editForm" v-if="addImages">
         <form action="#" class="form-horizontal" id="AlbumForm" v-on:submit.prevent>
@@ -249,7 +252,6 @@
                     confirmButtonText: "Ja, verwijder dit album",
                 }).then(function(){
                     _this.doRemoveAlbum(album);
-                    _this.selectedAlbum = _.head(_this.albums);
                 }).done();
             },
 
@@ -277,6 +279,7 @@
                     },
                     success: function(result) {
                         _this.albums.$remove(album);
+                        _this.selectedAlbum = _.head(_this.albums);
                     }
                 });
             },

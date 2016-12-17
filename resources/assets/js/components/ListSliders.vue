@@ -41,6 +41,9 @@
             <button class="btn btn-success right" v-on:click="addImages = true">Afbeeldingen toevoegen</button>
             <button class="btn btn-danger right" v-on:click="removeSlider(selectedSlider)">Verwijder deze slider</button>
         </div>
+        <div class="col-md-8" v-else>
+            <p>Er is geen slider geselecteerd.</p>
+        </div>
     </div>
     <div class="editForm" v-if="addImages">
         <form action="#" class="form-horizontal" id="SliderForm" v-on:submit.prevent>
@@ -249,7 +252,6 @@
                     confirmButtonText: "Ja, verwijder dit slider",
                 }).then(function(){
                     _this.doRemoveSlider(slider);
-                    _this.selectedSlider = _.head(_this.sliders);
                 }).done();
             },
 
@@ -277,6 +279,7 @@
                     },
                     success: function(result) {
                         _this.sliders.$remove(slider);
+                        _this.selectedSlider = _.head(_this.sliders);
                     }
                 });
             },
