@@ -257,7 +257,10 @@
                 var _this = this;
                 $.ajax({
                     url: '/cms/albums/'+album.id+'/media/'+image.id,
-                    type: 'DELETE',
+                    type: 'POST',
+                    data: {
+                        _method: 'DELETE'
+                    },
                     success: function (result) {
                         _this.selectedAlbum.media.$remove(image);
                     }
@@ -268,7 +271,10 @@
                 var _this = this;
                 $.ajax({
                     url: '/cms/albums/'+album.id,
-                    type: 'DELETE',
+                    type: 'POST',
+                    data: {
+                        _method: 'DELETE'
+                    },
                     success: function(result) {
                         _this.albums.$remove(album);
                     }

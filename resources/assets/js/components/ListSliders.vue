@@ -257,7 +257,10 @@
                 var _this = this;
                 $.ajax({
                     url: '/cms/sliders/'+slider.id+'/media/'+image.id,
-                    type: 'DELETE',
+                    type: 'POST',
+                    data: {
+                        _method: 'DELETE'
+                    },
                     success: function (result) {
                         _this.selectedSlider.media.$remove(image);
                     }
@@ -268,7 +271,10 @@
                 var _this = this;
                 $.ajax({
                     url: '/cms/sliders/'+slider.id,
-                    type: 'DELETE',
+                    type: 'POST',
+                    data: {
+                        _method: 'DELETE'
+                    },
                     success: function(result) {
                         _this.sliders.$remove(slider);
                     }

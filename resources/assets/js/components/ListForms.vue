@@ -424,7 +424,10 @@
                 var _this = this;
                 $.ajax({
                     url: '/cms/formFields/'+formFieldId,
-                    type: 'DELETE',
+                    type: 'POST',
+                    data: {
+                        _method: 'DELETE'
+                    },
                     success: function(result) {
                         _this.formFields.$remove(_.find(_this.formFields, ['id', formFieldId]));
                     }
@@ -435,7 +438,10 @@
                 var _this = this;
                 $.ajax({
                     url: '/cms/forms/'+formId,
-                    type: 'DELETE',
+                    type: 'POST',
+                    data: {
+                        _method: 'DELETE'
+                    },
                     success: function(result) {
                         _this.forms.$remove(_.find(_this.forms, ['id', formId]));
                     }

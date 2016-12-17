@@ -70,6 +70,7 @@
         request.addOptionalFields(['password', 'password_confirmation']);
 
         request.onSubmit(function(data) {
+            console.log(data);
             $('#accountModal').modal('toggle');
             swal({
                 title: 'Success!',

@@ -68,6 +68,23 @@ ul.sortable {
     #cms a.highlight:hover {
       background: #b9b9b9; }
 
+#cms .table {
+  width: 100%; }
+
+#cms .table td, #cms .table th {
+  font-size: 12px;
+  padding: 10px; }
+
+#cms textarea, #cms .panel-body {
+  font-size: 14px;
+  padding: 6px 12px; }
+
+#cms .list-group-item {
+  font-size: 12px; }
+
+#cms .nav-tabs > li > a {
+  font-size: 14px; }
+
 #cms .navbar-background {
   background: #ececec; }
 
@@ -373,7 +390,6 @@ form select {
   line-height: 1.6 !important;
   color: #555555 !important;
   background-color: #fff !important;
-  background-image: none;
   border: 1px solid #ccd0d2 !important;
   border-radius: 4px !important; }
 

@@ -290,7 +290,10 @@
                 var _this = this;
                 $.ajax({
                     url: '/cms/articles/'+articleId,
-                    type: 'DELETE',
+                    type: 'POST',
+                    data: {
+                        _method: 'DELETE'
+                    },
                     success: function(result) {
                         _this.articles.$remove(_.find(_this.articles, ['id', articleId]));
                     }
@@ -301,7 +304,10 @@
                 var _this = this;
                 $.ajax({
                     url: '/cms/articleGroups/'+articleGroupId,
-                    type: 'DELETE',
+                    type: 'POST',
+                    data: {
+                        _method: 'DELETE'
+                    },
                     success: function(result) {
                         _this.articleGroups.$remove(_.find(_this.articleGroups, ['id', articleGroupId]));
                     }

@@ -8,7 +8,6 @@
   line-height: $line-height-base !important;
   color: $input-color !important;
   background-color: $input-bg !important;
-  background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
   border: 1px solid $input-border !important;
   border-radius: $input-border-radius !important; // Note: This has no effect on <select>s in some browsers, due to the limited stylability of <select>s in CSS.
 }

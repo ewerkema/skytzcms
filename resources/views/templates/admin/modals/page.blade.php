@@ -9,13 +9,13 @@
 
     <div class="alert form-message" role="alert" style="display: none;"></div>
     <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#mainTab" aria-controls="mainTab" role="tab" data-toggle="tab">Algemeen</a></li>
+        <li role="presentation" class="active"><a href="#mainPageTab" aria-controls="mainPageTab" role="tab" data-toggle="tab">Algemeen</a></li>
         <li role="presentation"><a href="#headerTab" aria-controls="headerTab" role="tab" data-toggle="tab">Header</a></li>
         <li role="presentation"><a href="#seoTab" aria-controls="seoTab" role="tab" data-toggle="tab">SEO</a></li>
     </ul>
 
     <div class="tab-content" id="pageTabs">
-        <div role="tabpanel" class="tab-pane active" id="mainTab">
+        <div role="tabpanel" class="tab-pane active" id="mainPageTab">
             <div class="form-group">
                 {!! Form::label('title', 'Pagina naam', ['class' => 'col-md-3 control-label']) !!}
 
@@ -154,7 +154,10 @@
             }).then(function(){
                 $.ajax({
                     url: '{{ cms_url('pages/'.$currentPage->id) }}',
-                    type: 'DELETE',
+                    type: 'POST',
+                    data: {
+                        _method: 'DELETE'
+                    },
                     success: function(data) {
                         if (data['redirectTo'] === undefined) {
                             request.getForm().find('.form-message').addClass("alert-danger").html("Er is iets onverwachts gebeurd, probeer het later opnieuw.").show();

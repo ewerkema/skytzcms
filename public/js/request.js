@@ -92,6 +92,10 @@ Request.prototype.processFields = function() {
                 delete data[name];
         }
     }
+
+    if (this.type != 'POST' || this.type != 'GET')
+        data['_method'] = this.type;
+
     return data;
 };
 
@@ -115,10 +119,9 @@ Request.prototype.onSubmit = function (callback) {
     this.form.submit(function(e){
         e.preventDefault();
         var data = _this.processFields();
-        console.log(data);
         $.ajax({
             url: _this.url,
-            type: _this.type,
+            type: (_this.type == 'GET') ? 'GET' : 'POST',
             data: data,
             success: function (successData) {
                 callback(successData);
@@ -136,7 +139,7 @@ Request.prototype.send = function (callback) {
     var _this = this;
     $.ajax({
         url: this.url,
-        type: this.type,
+        type: (_this.type == 'GET') ? 'GET' : 'POST',
         data: data,
         success: function (successData) {
             callback(successData);
