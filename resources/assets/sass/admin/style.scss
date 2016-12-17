@@ -67,24 +67,7 @@
   .nav-pills > li > a, label, input { font-size: 14px; }
   .nav li.active a { background: darken($dropdown-link-hover-bg, 20%); }
 
-  #cms {
-    a {
-      transition: all 0.25s ease;
-
-      &:hover {
-        background: darken($navbar-bg, 10%);
-      }
-
-      &.highlight {
-        background: darken($navbar-bg, 10%);
-
-        &:hover {
-          background: darken($navbar-bg, 20%);
-        }
-      }
-
-    }
-
+  .modal {
     .table {
       width: 100%;
     }
@@ -105,6 +88,25 @@
 
     .nav-tabs > li > a {
       font-size: 14px;
+    }
+  }
+
+  #cms {
+    a {
+      transition: all 0.25s ease;
+
+      &:hover {
+        background: darken($navbar-bg, 10%);
+      }
+
+      &.highlight {
+        background: darken($navbar-bg, 10%);
+
+        &:hover {
+          background: darken($navbar-bg, 20%);
+        }
+      }
+
     }
 
     .navbar-background {

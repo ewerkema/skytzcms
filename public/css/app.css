@@ -58,6 +58,23 @@ ul.sortable {
 .nav li.active a {
   background: #c2c2c2; }
 
+.modal .table {
+  width: 100%; }
+
+.modal .table td, .modal .table th {
+  font-size: 12px;
+  padding: 10px; }
+
+.modal textarea, .modal .panel-body {
+  font-size: 14px;
+  padding: 6px 12px; }
+
+.modal .list-group-item {
+  font-size: 12px; }
+
+.modal .nav-tabs > li > a {
+  font-size: 14px; }
+
 #cms a {
   -webkit-transition: all 0.25s ease;
   transition: all 0.25s ease; }
@@ -67,23 +84,6 @@ ul.sortable {
     background: lightgray; }
     #cms a.highlight:hover {
       background: #b9b9b9; }
-
-#cms .table {
-  width: 100%; }
-
-#cms .table td, #cms .table th {
-  font-size: 12px;
-  padding: 10px; }
-
-#cms textarea, #cms .panel-body {
-  font-size: 14px;
-  padding: 6px 12px; }
-
-#cms .list-group-item {
-  font-size: 12px; }
-
-#cms .nav-tabs > li > a {
-  font-size: 14px; }
 
 #cms .navbar-background {
   background: #ececec; }
