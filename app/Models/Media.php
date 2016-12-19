@@ -26,9 +26,9 @@ class Media extends Model
         return $this->belongsToMany('App\Models\Album');
     }
 
-    public function pageHeader()
+    public function pages()
     {
-        return $this->belongsTo('App\Models\Page', 'header_image_id');
+        return $this->hasMany('App\Models\Page', 'header_image_id');
     }
 
     /**

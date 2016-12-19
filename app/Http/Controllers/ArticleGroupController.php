@@ -76,7 +76,8 @@ class ArticleGroupController extends Controller
 
         if ($articles != null) {
             foreach ($articles as $article) {
-                $article->delete();
+                $article->articleGroup()->dissociate();
+                $article->save();
             }
         }
         $articleGroup->delete();
