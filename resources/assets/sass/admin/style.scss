@@ -67,6 +67,39 @@
   .nav-pills > li > a, label, input { font-size: 14px; }
   .nav li.active a { background: darken($dropdown-link-hover-bg, 20%); }
 
+  .modal {
+    .table {
+      width: 100%;
+    }
+
+    .table td, .table th {
+      font-size: 12px;
+      padding: 10px;
+    }
+
+    textarea, .panel-body {
+      font-size: 14px;
+      padding: 6px 12px;
+    }
+
+    .list-group-item {
+      font-size: 12px;
+    }
+
+    .nav-tabs > li > a {
+      font-size: 14px;
+    }
+
+    p {
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .alert {
+      font-size: 14px;
+    }
+  }
+
   #cms {
     a {
       transition: all 0.25s ease;

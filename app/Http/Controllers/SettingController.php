@@ -23,8 +23,10 @@ class SettingController extends Controller
 
         foreach ($input as $name => $value) {
             $update = Setting::where('name', '=', $name)->first();
-            $update->value = $value;
-            $update->save();
+            if ($update) {
+                $update->value = $value;
+                $update->save();
+            }
         }
 
         return response()->json($input);

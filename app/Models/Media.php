@@ -26,6 +26,11 @@ class Media extends Model
         return $this->belongsToMany('App\Models\Album');
     }
 
+    public function pageHeader()
+    {
+        return $this->belongsTo('App\Models\Page', 'header_image_id');
+    }
+
     /**
      * Import existing media from old table by copying the file from
      * $origin to $destination.

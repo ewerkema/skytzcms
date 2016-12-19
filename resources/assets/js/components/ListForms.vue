@@ -27,7 +27,7 @@
                 </a>
             </ul>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8" v-if="selectedForm">
             <table class="table">
                 <tr>
                     <th>#</th>
@@ -59,6 +59,9 @@
             <div class="clear"></div>
             <button class="btn btn-default right" @click="changeSelectedForm = true"><span class="glyphicon glyphicon-cog"></span> Formulier instellingen</button>
             <button class="btn btn-danger right" @click="removeForm(selectedForm.id)">Verwijder formulier</button>
+        </div>
+        <div class="col-md-8" v-else>
+            <p>Er is geen formulier geselecteerd.</p>
         </div>
     </div>
     <div class="editForm" v-if="changeSelectedForm">
@@ -416,7 +419,6 @@
                     confirmButtonText: "Ja, verwijder dit formulier",
                 }).then(function(){
                     _this.doRemoveForm(formId);
-                    _this.selectedForm = _.head(_this.forms);
                 }).done();
             },
 
@@ -424,7 +426,10 @@
                 var _this = this;
                 $.ajax({
                     url: '/cms/formFields/'+formFieldId,
-                    type: 'DELETE',
+                    type: 'POST',
+                    data: {
+                        _method: 'DELETE'
+                    },
                     success: function(result) {
                         _this.formFields.$remove(_.find(_this.formFields, ['id', formFieldId]));
                     }
@@ -435,9 +440,13 @@
                 var _this = this;
                 $.ajax({
                     url: '/cms/forms/'+formId,
-                    type: 'DELETE',
+                    type: 'POST',
+                    data: {
+                        _method: 'DELETE'
+                    },
                     success: function(result) {
                         _this.forms.$remove(_.find(_this.forms, ['id', formId]));
+                        _this.selectedForm = _.head(_this.forms);
                     }
                 });
             },

@@ -52,8 +52,9 @@
             var array = $('.sortable').nestedSortable('toArray');
             $.ajax({
                 url: '/cms/pages/order',
-                type: 'PATCH',
+                type: 'POST',
                 data: {
+                    _method: 'PATCH',
                     pages: array
                 },
                 success: function() {

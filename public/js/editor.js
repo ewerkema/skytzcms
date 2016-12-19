@@ -65,9 +65,10 @@ window.addEventListener('load', function() {
 function saveContent(content) {
     $.ajax({
         url: '/cms/pages/'+page_id+'/content',
-        type: 'PATCH',
+        type: 'POST',
         data: {
-            'content' : content
+            _method: 'PATCH',
+            content: content
         },
         error: function (data) {
             showError(data);
@@ -245,9 +246,10 @@ function saveGrid() {
 
     $.ajax({
         url: '/cms/pages/'+page_id+'/grid',
-        type: 'PATCH',
+        type: 'POST',
         data: {
-            'content' : content
+            _method: 'PATCH',
+            content: content
         },
         error: function (data) {
             showError(data.message);

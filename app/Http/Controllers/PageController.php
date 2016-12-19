@@ -264,6 +264,10 @@ class PageController extends Controller
     public function destroy($id)
     {
         $page = Page::find($id);
+        $page->subpages()->getResults()->each(function ($page) {
+            $page->parent_id = NULL;
+            $page->save();
+        });
         $page->delete();
 
         session()->flash('flash_title', 'Pagina verwijderd');

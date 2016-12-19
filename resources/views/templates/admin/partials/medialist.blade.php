@@ -57,7 +57,10 @@
                 confirmButtonText: 'Ja, verwijder dit bestand!'
             }).then(function() {
                 $.ajax({
-                    type: "DELETE",
+                    type: "POST",
+                    data: {
+                        _method: 'DELETE'
+                    },
                     url: url,
                     success: function( data ) {
                         if(data.status == 'success') {

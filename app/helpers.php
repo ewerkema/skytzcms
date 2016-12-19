@@ -61,9 +61,9 @@ use Illuminate\Support\Facades\Route;
         $use_aws = Config::get('aws.use',false);
 
         if (File::extension($file)!='docx' && File::extension($file)!='pdf' && File::extension($file)!='doc') {
-            $folder = "/images/". ( empty($variation) || $variation =='original' ? $model : "{$model}{$variation}" );
+            $folder = "images". ( empty($variation) || $variation =='original' ? $model : "{$model}/{$variation}" );
         } else {
-            $folder = "/docs";
+            $folder = "docs";
         }
 
 

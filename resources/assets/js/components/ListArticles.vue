@@ -27,7 +27,7 @@
                 </a>
             </ul>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8" v-if="selectedArticleGroup">
             <table class="table">
                 <tr>
                     <th>#</th>
@@ -55,6 +55,9 @@
 
             <button class="btn btn-success right" v-on:click="createArticle()">Nieuw artikel</button>
             <button class="btn btn-danger right" v-on:click="removeArticleGroup(selectedArticleGroup)">Verwijder nieuwsgroep</button>
+        </div>
+        <div class="col-md-8" v-else>
+            <p>Er is geen nieuwsgroep geselecteerd.</p>
         </div>
     </div>
     <div class="editForm" v-if="selectedArticle">
@@ -282,7 +285,6 @@
                     confirmButtonText: "Ja, verwijder deze nieuwsgroep",
                 }).then(function(){
                     _this.doRemoveArticleGroup(articleGroupId);
-                    _this.selectedArticleGroup = _.head(_this.articleGroups).id;
                 }).done();
             },
 
@@ -290,7 +292,10 @@
                 var _this = this;
                 $.ajax({
                     url: '/cms/articles/'+articleId,
-                    type: 'DELETE',
+                    type: 'POST',
+                    data: {
+                        _method: 'DELETE'
+                    },
                     success: function(result) {
                         _this.articles.$remove(_.find(_this.articles, ['id', articleId]));
                     }
@@ -301,9 +306,13 @@
                 var _this = this;
                 $.ajax({
                     url: '/cms/articleGroups/'+articleGroupId,
-                    type: 'DELETE',
+                    type: 'POST',
+                    data: {
+                        _method: 'DELETE'
+                    },
                     success: function(result) {
                         _this.articleGroups.$remove(_.find(_this.articleGroups, ['id', articleGroupId]));
+                        _this.selectedArticleGroup = _.head(_this.articleGroups) ? _.head(_this.articleGroups).id : false;
                     }
                 });
             },
