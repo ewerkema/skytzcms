@@ -37,7 +37,7 @@ class Media extends Model
      *
      * @param $origin
      * @param $destination
-     * @return void|static
+     * @return void
      */
     public static function createFromFile($origin, $destination)
     {
@@ -55,7 +55,20 @@ class Media extends Model
         } else {
             if ($newFile = Media::copyFile($originPath, $destinationPath)) {
                 $newFilePath = $destination . File::name($newFile) . '.' . File::extension($newFile);
-                return Media::create([
+                $image_resolution = list($width, $height) = getimagesize($newFilePath);
+
+                if($image_resolution[0] > 1024) {
+                    Image::make($newFilePath)->resize(1024, 576)->save($newFilePath);
+                }
+                upload_move($newFilePath,'',$newFilePath,'large');
+
+                if($image_resolution[0] > 150) {
+                    Image::make($newFilePath)->fit(150, 150)->save($newFilePath);
+                }
+
+                upload_move($newFilePath,'',$newFilePath,'thumbnail');
+
+                Media::create([
                     'name' => File::name($newFile),
                     'path' => $newFilePath,
                     'mime' => File::mimeType($newFile),
@@ -77,6 +90,42 @@ class Media extends Model
     public static function fixForwardSlash($path)
     {
         return ltrim($path, '/');
+    }
+
+    /**
+     * Create all media types from input.
+     */
+    public function createMedia($file)
+    {
+        $target_path = upload_path($file,'','original');
+
+        if (file_exists($target_path)) {
+            $filename = substr($file, 0, strrpos($file, '.'));
+            $extension = substr($file, strrpos($file, '.') + 1);
+            $target_file = $filename.uniqid().'.'.$extension;
+        } else {
+            $target_file = $file;
+        }
+
+        if ($file && file_exists($source_path)) {
+            $image_resolution = list($width, $height) = getimagesize($source_path);
+            if (File::extension($file)!='docx' && File::extension($file)!='pdf' && File::extension($file)!='doc') {
+
+                upload_move($file,'',$target_file);
+
+                if($image_resolution[0] > 1024) {
+                    Image::make($source_path)->resize(1024, 576)->save($source_path);
+                }
+                upload_move($file,'',$target_file,'large');
+
+                if($image_resolution[0] > 150) {
+                    Image::make($source_path)->fit(150, 150)->save($source_path);
+                }
+                upload_move($file,'',$target_file,'thumbnail');
+            } else{
+                upload_move($file,'',$target_file);
+            }
+        }
     }
 
     /**
@@ -108,7 +157,7 @@ class Media extends Model
      * If the file already exists, add a unique identifier to the name.
      *
      * If the file is an image, also save the large (1024px wide) and
-     * thumbnail version (150px wide) versio of the image.
+     * thumbnail version (150px wide) version of the image.
      *
      * @param $file
      */
