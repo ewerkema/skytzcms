@@ -338,16 +338,19 @@ form select {
     line-height: 30px;
     margin: 0;
     padding: 0; }
-  .grid-stack-menu .remove {
-    display: block;
+  .grid-stack-menu .buttons {
     z-index: 10000;
-    cursor: pointer;
-    margin-left: auto;
-    color: white;
-    -webkit-transition: color 0.5s ease;
-    transition: color 0.5s ease; }
-    .grid-stack-menu .remove:hover {
-      color: #999999; }
+    margin-left: auto; }
+    .grid-stack-menu .buttons span {
+      cursor: pointer;
+      color: white;
+      -webkit-transition: color 0.5s ease;
+      transition: color 0.5s ease;
+      margin-left: 10px;
+      font-size: 16px;
+      line-height: 30px; }
+      .grid-stack-menu .buttons span:hover {
+        color: #999999; }
 
 .tekst {
   position: relative; }

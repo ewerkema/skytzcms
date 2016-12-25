@@ -82,16 +82,21 @@ form {
     padding: 0;
   }
 
-  .remove {
-    display: block;
+  .buttons {
     z-index: 10000;
-    cursor: pointer;
     margin-left: auto;
-    color: $editor-menu-text-color;
-    transition: color 0.5s ease;
 
-    &:hover {
-      color: darken($editor-menu-text-color, 40%);
+    span {
+      cursor: pointer;
+      color: $editor-menu-text-color;
+      transition: color 0.5s ease;
+      margin-left: 10px;
+      font-size: 16px;
+      line-height: 30px;
+
+      &:hover {
+        color: darken($editor-menu-text-color, 40%);
+      }
     }
   }
 }

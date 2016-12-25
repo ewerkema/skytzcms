@@ -162,10 +162,13 @@ $.fn.removeOffsets = function() {
     }
 };
 
-$.fn.addGridstackMenu = function() {
+$.fn.addGridstackMenu = function(originalWidth) {
     var width = this.parent(".grid-stack-item").attr('data-gs-width');
-    width = (width == undefined) ? 12 : width;
-    this.append("<div class='grid-stack-menu'><h3 class='grid-stack-title'>"+textWidth(width)+"</h3><div class='remove'><span class='glyphicon glyphicon-remove'></span></div></div>")
+    width = (width == undefined) ? originalWidth : width;
+    this.append("<div class='grid-stack-menu'><h3 class='grid-stack-title'>"+textWidth(width)+"</h3><div class='buttons'>" +
+        "<span class='duplicate glyphicon glyphicon-duplicate'></span>" +
+        "<span class='remove glyphicon glyphicon-remove'></span>" +
+        "</div>")
         .append("<div class='resize-icon resize-icon__left'><span class='stripe'></span><span class='stripe'></span></div>")
         .append("<div class='resize-icon resize-icon__right'><span class='stripe'></span><span class='stripe'></span></div>");
 
@@ -182,24 +185,38 @@ $.fn.addGridstackMenu = function() {
         }).then(function(){
             grid.removeWidget(el);
         }).done();
-    })
+    });
+
+    this.on('click', '.duplicate', function (e) {
+        e.preventDefault();
+        var item = $(this).closest('.grid-stack-item').clone();
+        copyWidget(item);
+    });
 };
 
 function addWidget() {
+    addWidgetWithParams(0, getEditorHeight(), 12, 1);
+}
+
+function addWidgetWithParams(x, y, width, height) {
     var name = "block" + (lastElementId() + 1);
     var element = $('<div class="grid-stack-item" data-name="'+name+'" data-module="0" data-module-id="0" data-editable><div class="grid-stack-item-content"></div></div>');
-    element.find(".grid-stack-item-content").addGridstackMenu();
-    var x = 0;
-    var y = getEditorHeight();
-    var width = 12;
-    var height = 1;
-    grid.addWidget(element, x, y, width, height);
+    element.find(".grid-stack-item-content").addGridstackMenu(width);
+    grid.addWidget(element, x, y, width, height, true);
+}
+
+function copyWidget(widget) {
+    var width = widget.attr('data-gs-width');
+    var height = widget.attr('data-gs-height');
+    var x = (widget.attr('data-gs-x') + width) % 12;
+    var y = widget.attr('data-gs-y') + Math.floor((widget.attr('data-gs-x') + width) / 12);
+    addWidgetWithParams(x, y, width, height);
 }
 
 function addModule (moduleType, moduleTypeName, moduleId, moduleName) {
     var name = "block" + (lastElementId() + 1);
     var element = $('<div class="grid-stack-item" data-name="'+name+'" data-module="'+moduleType+'" data-module-id="'+moduleId+'" data-editable><div class="grid-stack-item-content"><h1>Module '+moduleTypeName+'</h1> <h2>'+moduleName+'</h2></div></div>');
-    element.find(".grid-stack-item-content").addGridstackMenu();
+    element.find(".grid-stack-item-content").addGridstackMenu(12);
     var x = 0;
     var y = getEditorHeight();
     var width = 12;
