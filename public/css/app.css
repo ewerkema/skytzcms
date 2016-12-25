@@ -282,7 +282,8 @@ ul.sortable {
 .buttonContainer button {
   background: #fafafa;
   color: #3097D1;
-  margin-right: 15px; }
+  margin-right: 15px;
+  font-size: 16px; }
   .buttonContainer button:hover {
     background: #3097D1;
     color: white; }
@@ -294,7 +295,7 @@ ul.sortable {
   cursor: move;
   background: #fafafa;
   overflow: hidden !important;
-  padding: 30px 40px 0;
+  padding: 30px 20px 0;
   border-radius: 3px; }
   .grid-stack-item-content .resize-icon {
     top: 25%;
@@ -328,7 +329,7 @@ form select {
   align-items: center;
   left: 0;
   top: 0;
-  padding: 0 8px 0 10px;
+  padding: 0 8px 0 5px;
   height: 30px;
   background: #e8e8e8; }
   .grid-stack-menu h3 {

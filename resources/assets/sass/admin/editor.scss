@@ -3,12 +3,15 @@
   display: none;
 }
 
-.grid-stack>.grid-stack-item>.grid-stack-item-content {  }
+.grid-stack>.grid-stack-item>.grid-stack-item-content {
+
+}
 
 .buttonContainer button {
   background: $editor-item-bg;
   color: $brand-primary;
   margin-right: 15px;
+  font-size: 16px;
 
   &:hover {
     background: $brand-primary;
