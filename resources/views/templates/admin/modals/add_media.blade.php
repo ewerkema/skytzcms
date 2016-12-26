@@ -159,7 +159,7 @@
                         );
                         $.get('/cms/media?page=1',function(data){
                             $('#spinner').hide();
-                            $('#mediaModal .bootstrap-row').html(data);
+                            $('#medialist').html(data);
                         });  
                     }
                 }

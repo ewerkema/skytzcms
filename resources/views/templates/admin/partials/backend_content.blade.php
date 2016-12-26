@@ -1,7 +1,7 @@
 
 <div class="page-content" data-page="{{ $currentPage->id }}">
     @if (sizeof($currentPage->content) == 0)
-        <div class="block" data-name="block0" data-name="block0" data-gs-x="0" data-gs-y="0" data-gs-width="12" data-gs-height="2" data-module="0" data-editable></div>
+        <div class="block" data-name="block0" data-name="block0" data-gs-x="0" data-gs-y="0" data-gs-width="12" data-gs-height="1" data-module="0" data-editable></div>
     @endif
 
     @foreach ($currentPage->getContent() as $row)
@@ -53,7 +53,7 @@
 
             $.get('/cms/pages/{{ $currentPage->id }}/content', function(content) {
                 if (content.length == 0) {
-                    blockContent.html('<div class="block" data-name="block0" data-gs-x="0" data-gs-y="0" data-gs-width="12" data-gs-height="2" data-module="0" data-editable></div>');
+                    blockContent.html('<div class="block" data-name="block0" data-gs-x="0" data-gs-y="0" data-gs-width="12" data-gs-height="1" data-module="0" data-editable></div>');
                 }
 
                 _.each(content, function(row) {

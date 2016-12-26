@@ -51,11 +51,12 @@
 
             sendImage: function() {
                 var image = document.getElementById('select_image_'+this.selectedImage.id);
-                if (window.parent.CustomMediaManager !== undefined && window.parent.CustomMediaManager.active)
+                if (window.parent.CustomMediaManager !== undefined && window.parent.CustomMediaManager.active) {
                     window.parent.CustomMediaManager._insertImage(this.imagePath(this.selectedImage.path), image.naturalWidth, image.naturalHeight);
-
-                $('.selected_media_id').val(this.selectedImage.id).trigger('change');
-                $('.selected_media_name').val(this.selectedImage.name);
+                } else {
+                    $('.selected_media_id').val(this.selectedImage.id).trigger('change');
+                    $('.selected_media_name').val(this.selectedImage.name);
+                }
 
                 this.selectedImage = false;
                 $('#selectMediaModal').modal('toggle');
