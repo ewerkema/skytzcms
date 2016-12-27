@@ -26,6 +26,7 @@ var editor;
 var editorButtons = new ButtonGroup('#changePage, #changeLayout, #hideLayout', '#revertChanges, #saveChanges', '#cancelLayout, #saveLayout');
 
 window.addEventListener('load', function() {
+    ContentEdit.TRIM_WHITESPACE = false;
     editor = ContentTools.EditorApp.get();
     editor.init('*[data-editable]', 'data-name');
     editor._ignition.unmount();
@@ -155,10 +156,8 @@ $.fn.moveDownIn = function(classname) {
 
 $.fn.removeOffsets = function() {
     for (var i = 1; i < 12; i++) {
-        this.removeClass("lg-offset-"+i)
-            .removeClass("md-offset-"+i)
-            .removeClass("sm-offset-"+i)
-            .removeClass("xs-offset-"+i);
+        this.removeClass("large-offset-"+i)
+            .removeClass("medium-offset-"+i);
     }
 };
 

@@ -42,7 +42,7 @@ img.align-left {
 .album .image { flex: 1 1 auto; width: 25%; }
 
 .block {
-    word-break: break-all;
+    word-wrap: break-word;
 }
 
 @media only screen and (max-width: 40em) {
