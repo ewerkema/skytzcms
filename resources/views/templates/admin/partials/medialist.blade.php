@@ -39,7 +39,7 @@
 
         function getMedia(page){
             $.get('/cms/media?page='+page, function (data) {
-                $('.bootstrap-row').html(data);
+                $('#mediaModal .bootstrap-row').html(data);
                 $('#spinner').hide();
             });
         }

@@ -10,7 +10,7 @@
         <title>{{ $currentPage->meta_title }}</title>
 
         <link rel="stylesheet" href="{{ template_url('/css/foundation.css') }}" />
-        <link rel="stylesheet" href="{{ template_url('/css/base.css') }}" />
+        <link rel="stylesheet" href="/css/base.css" />
         <link rel="stylesheet" href="{{ template_url('/css/style.css') }}" />
 
         <!-- jQuery -->

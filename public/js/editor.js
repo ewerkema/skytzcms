@@ -155,10 +155,8 @@ $.fn.moveDownIn = function(classname) {
 
 $.fn.removeOffsets = function() {
     for (var i = 1; i < 12; i++) {
-        this.removeClass("lg-offset-"+i)
-            .removeClass("md-offset-"+i)
-            .removeClass("sm-offset-"+i)
-            .removeClass("xs-offset-"+i);
+        this.removeClass("large-offset-"+i)
+            .removeClass("medium-offset-"+i);
     }
 };
 

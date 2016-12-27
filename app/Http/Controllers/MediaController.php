@@ -20,6 +20,7 @@ class MediaController extends Controller
     {
         if (!isset($_GET['page']))
             return Media::all();
+
         $rows = Media::paginate(8);
         return view('templates.admin.partials.medialist', compact('rows'));
     }
