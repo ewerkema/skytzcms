@@ -26,6 +26,7 @@ var editor;
 var editorButtons = new ButtonGroup('#changePage, #changeLayout, #hideLayout', '#revertChanges, #saveChanges', '#cancelLayout, #saveLayout');
 
 window.addEventListener('load', function() {
+    ContentEdit.TRIM_WHITESPACE = false;
     editor = ContentTools.EditorApp.get();
     editor.init('*[data-editable]', 'data-name');
     editor._ignition.unmount();
