@@ -31,7 +31,8 @@ class CreateFormFieldsTable extends Migration
             try {
                 $form = Form::findOrFail($formField->formid);
             } catch (ModelNotFoundException $e) {
-                dd("Couldn't find form with ID ".$formField->formid.": ".$e->getMessage());
+                echo "Couldn't find form with ID ".$formField->formid.": ".$e->getMessage()."\n";
+                return;
             }
 
             if ($formField->elementtype == "input")

@@ -41,6 +41,7 @@ class Media extends Model
      */
     public static function createFromFile($origin, $destination)
     {
+        return;
         $originPath = base_path(Media::fixForwardSlash($origin));
         $destinationPath = public_path($destination);
         $fileName = File::name($origin).'.'.File::extension($origin);
