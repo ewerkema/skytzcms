@@ -39,6 +39,7 @@ Route::group(['prefix' => 'cms'], function() {
     Route::resource('forms', 'FormController');
     Route::resource('formFields', 'FormFieldController');
     Route::resource('modules', 'ModuleController');
+    Route::resource('htmlBlocks', 'HtmlBlockController');
 
     Route::get('/{slug}', array('as' => 'page.show', 'uses' => 'CmsTemplateController@show'));
     Route::get('/{slug}/{childSlug}', array('as' => 'page.show', 'uses' => 'CmsTemplateController@show'));
