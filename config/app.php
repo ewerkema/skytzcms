@@ -218,6 +218,7 @@ return [
         'Gate' => Illuminate\Support\Facades\Gate::class,
         'Hash' => Illuminate\Support\Facades\Hash::class,
         'Html'      => Collective\Html\HtmlFacade::class,
+        'HtmlBlock' => App\Facades\HtmlBlock::class,
         'ImportTable' => App\Facades\ImportTable::class,
         'Lang' => Illuminate\Support\Facades\Lang::class,
         'Log' => Illuminate\Support\Facades\Log::class,

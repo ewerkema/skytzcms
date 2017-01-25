@@ -20,7 +20,7 @@
 
                         <div class="small-9 columns">
                             @if ($field->type == "text" || $field->type == "email" || $field->type == "number")
-                                <input id="{{ $field->formName() }}" type="{{ $field->type }}" name="{{ $field->formName() }}" placeholder="{{ $field->placeholder }}" value="{{ old($field->formName()) }}" autofocus>
+                                <input id="{{ $field->formName() }}" type="{{ $field->type }}" name="{{ $field->formName() }}" placeholder="{{ $field->placeholder }}" value="{{ old($field->formName()) }}">
                             @elseif ($field->type == "textarea")
                                 <textarea id="{{ $field->formName() }}" name="{{ $field->formName() }}" placeholder="{{ $field->placeholder }}">{{ old($field->formName()) }}</textarea>
                             @elseif ($field->type == "select")

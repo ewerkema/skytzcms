@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\HtmlBlock;
 use App\Models\ImportTable;
 use App\Models\Album;
 use App\Models\Article;
@@ -30,6 +31,7 @@ class AppServiceProvider extends ServiceProvider
         'Slider' => Slider::class,
         'Module' => Module::class,
         'CustomForm' => Form::class,
+        'HtmlBlock' => HtmlBlock::class,
     );
 
     /**
