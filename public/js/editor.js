@@ -391,10 +391,16 @@ var CustomImageTool = (function(_super) {
             // Once the user has selected an image insert it
 
             // Create the image element
+            var elementWidth = element.domElement().offsetWidth;
+            if (elementWidth < width) {
+                height = (width - elementWidth) / width * height;
+                width = elementWidth;
+            }
             var image = new ContentEdit.Image({src: url, width: width, height: height});
 
             // Insert the image
             var insertAt = CustomImageTool._insertAt(element);
+
             insertAt[0].parent().attach(image, insertAt[1]);
 
             // Set the image as having focus

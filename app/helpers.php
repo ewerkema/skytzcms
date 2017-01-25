@@ -10,9 +10,13 @@ use Illuminate\Support\Facades\Route;
         return "templates/".config('skytz.template').$url;
     }
 
+    function add_forward_slash($url) {
+        return ($url[0] == '/') ? $url : '/'.$url;
+    }
+
+
     function cms_url($url) {
-        $url = ($url[0] == '/') ? $url : '/'.$url;
-        $url = 'cms'.$url;
+        $url = 'cms'.add_forward_slash($url);
         return url($url);
     }
 
