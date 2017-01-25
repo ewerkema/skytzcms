@@ -24,6 +24,11 @@ use Illuminate\Support\Facades\Route;
         return (is_cms()) ? cms_url($url) : url($url);
     }
 
+    function article_url($url) {
+        $url = 'artikel/'.$url;
+        return (is_cms()) ? cms_url($url) : url($url);
+    }
+
     function thumbnail_url($url) {
         $url = ($url[0] == '/') ? $url : '/'.$url;
         $url = 'images/thumbnail'.$url;
