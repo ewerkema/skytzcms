@@ -29,6 +29,7 @@ window.addEventListener('load', function() {
     ContentEdit.TRIM_WHITESPACE = false;
     editor = ContentTools.EditorApp.get();
     editor.init('*[data-editable]', 'data-name');
+
     editor._ignition.unmount();
     addPagesToEditor(ContentTools);
     editor.revert = function() {

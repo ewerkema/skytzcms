@@ -69,6 +69,8 @@ class PageController extends Controller
         if (!$input['header_image_id'])
             $input['header_image_id'] = NULL;
 
+        $input['order'] = Page::all()->max('order')+1;
+
         $input['content'] = array();
         $input['published_content'] = array();
         $page = Page::create($input);
