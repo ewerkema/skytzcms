@@ -29,6 +29,7 @@ window.addEventListener('load', function() {
     ContentEdit.TRIM_WHITESPACE = false;
     editor = ContentTools.EditorApp.get();
     editor.init('*[data-editable]', 'data-name');
+
     editor._ignition.unmount();
     addPagesToEditor(ContentTools);
     editor.revert = function() {
@@ -390,10 +391,16 @@ var CustomImageTool = (function(_super) {
             // Once the user has selected an image insert it
 
             // Create the image element
+            var elementWidth = element.domElement().offsetWidth;
+            if (elementWidth < width) {
+                height = (elementWidth / width) * height;
+                width = elementWidth;
+            }
             var image = new ContentEdit.Image({src: url, width: width, height: height});
 
             // Insert the image
             var insertAt = CustomImageTool._insertAt(element);
+
             insertAt[0].parent().attach(image, insertAt[1]);
 
             // Set the image as having focus

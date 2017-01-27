@@ -43,5 +43,14 @@ class Article extends Model
         return !$this->attributes['published'];
     }
 
+    /**
+     * Get slug of the current page.
+     *
+     */
+    public function getSlug()
+    {
+        return str_slug($this->attributes['title']);
+    }
+
 
 }

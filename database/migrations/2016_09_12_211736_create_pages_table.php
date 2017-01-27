@@ -36,13 +36,15 @@ class CreatePagesTable extends Migration
 
         ImportTable::import('skytz_pages', function ($page) {
 
+            $smallestId = ImportTable::getLowestId('skytz_pages');
+
             $newPage = Page::create([
                 'slug' => $page->serverpath,
                 'title' => $page->pagetitle,
                 'meta_title' => $page->metatitle,
                 'meta_desc' => $page->metadescr,
                 'menu' => $page->menuitem,
-                'parent_id' => $page->subitem,
+                'parent_id' => ($page->subitem) ? $page->subitem-($smallestId-1) : 0,
                 'order' => is_null($page->listorder) ? 0 : $page->listorder,
                 'pagehits' => $page->pagehits,
             ]);

@@ -1,25 +1,31 @@
 
-<div class="page-content" data-page="{{ $currentPage->id }}">
-    @if (sizeof($currentPage->content) == 0)
-        <div class="block" data-name="block0" data-name="block0" data-gs-x="0" data-gs-y="0" data-gs-width="12" data-gs-height="1" data-module="0" data-editable></div>
-    @endif
+@if (isset($article) && $article)
+    @include('templates.admin.modules.single_article')
+@else
+    <div class="page-content" data-page="{{ $currentPage->id }}">
+        @if (sizeof($currentPage->content) == 0)
+            <div class="block" data-name="block0" data-name="block0" data-gs-x="0" data-gs-y="0" data-gs-width="12" data-gs-height="1" data-module="0" data-editable></div>
+        @endif
 
-    @foreach ($currentPage->getContent() as $row)
-        <div class="row">
-            @foreach ($row as $block)
-                @if ($block['module'])
-                    <div class="block columns medium-{{ $block['width'] }} medium-offset-{{ $block['offset'] }}" data-name="{{ $block['name'] }}" data-gs-x="{{ $block['x'] }}" data-gs-y="{{ $block['y'] }}" data-gs-width="{{ $block['width'] }}" data-gs-height="{{ $block['height'] }}" data-module="{{ $block['module'] }}" data-module-id="{{ $block['module_id'] }}" data-noneditable>
-                        @include('templates.admin.modules.'.Module::find($block['module'])->template, ['id' => $block['module_id']])
-                    </div>
-                @else
-                    <div class="block columns medium-{{ $block['width'] }} medium-offset-{{ $block['offset'] }}" data-name="{{ $block['name'] }}" data-gs-x="{{ $block['x'] }}" data-gs-y="{{ $block['y'] }}" data-gs-width="{{ $block['width'] }}" data-gs-height="{{ $block['height'] }}" data-module="{{ isset($block['module']) ? $block['module'] : 0 }}" data-module-id="{{ isset($block['module_id']) ? $block['module_id'] : 0 }}" data-editable>
-                        {!! $block['content'] !!}
-                    </div>
-                @endif
-            @endforeach
-        </div>
-    @endforeach
-</div>
+        @foreach ($currentPage->getContent() as $row)
+            <div class="row">
+                @foreach ($row as $block)
+                    @if ($block['module'])
+                        <div class="block columns medium-{{ $block['width'] }} medium-offset-{{ $block['offset'] }}" data-name="{{ $block['name'] }}" data-gs-x="{{ $block['x'] }}" data-gs-y="{{ $block['y'] }}" data-gs-width="{{ $block['width'] }}" data-gs-height="{{ $block['height'] }}" data-module="{{ $block['module'] }}" data-module-id="{{ $block['module_id'] }}" data-noneditable>
+                            @include('templates.admin.modules.'.Module::find($block['module'])->template, ['id' => $block['module_id']])
+                        </div>
+                    @else
+                        <div class="block columns medium-{{ $block['width'] }} medium-offset-{{ $block['offset'] }}" data-name="{{ $block['name'] }}" data-gs-x="{{ $block['x'] }}" data-gs-y="{{ $block['y'] }}" data-gs-width="{{ $block['width'] }}" data-gs-height="{{ $block['height'] }}" data-module="{{ isset($block['module']) ? $block['module'] : 0 }}" data-module-id="{{ isset($block['module_id']) ? $block['module_id'] : 0 }}" data-editable>
+                            {!! $block['content'] !!}
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+        @endforeach
+    </div>
+
+@endif
+
 
 @if (!Auth::guest())
     <script type="text/javascript">

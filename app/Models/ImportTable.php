@@ -22,6 +22,13 @@ class ImportTable extends Model
         }
     }
 
+    public function getLowestId($table) {
+        if ($this->check()) {
+            return DB::table($table)->min('id');
+        }
+        return 0;
+    }
+
     public function reverseImport($table, $foreachFunc)
     {
         if ($this->check()) {
