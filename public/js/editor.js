@@ -393,7 +393,7 @@ var CustomImageTool = (function(_super) {
             // Create the image element
             var elementWidth = element.domElement().offsetWidth;
             if (elementWidth < width) {
-                height = (width - elementWidth) / width * height;
+                height = (elementWidth / width) * height;
                 width = elementWidth;
             }
             var image = new ContentEdit.Image({src: url, width: width, height: height});
