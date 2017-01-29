@@ -57,5 +57,24 @@ class Article extends Model
         return str_slug($this->attributes['title']);
     }
 
+    /**
+     * Search articles and return where slug is equal.
+     *
+     */
+    public static function whereSlug($slug)
+    {
+        $articles = Article::all();
+
+        $findArticle = null;
+        foreach ($articles as $article) {
+            if ($article->getSlug() == $slug) {
+                $findArticle = $article;
+                echo $findArticle->id;
+            }
+        }
+
+        return $findArticle;
+    }
+
 
 }
