@@ -15,7 +15,7 @@ class Article extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'summary', 'body', 'published', 'article_group_id',
+        'title', 'summary', 'body', 'published', 'article_group_id', 'image_id'
     ];
 
     /**
@@ -33,6 +33,11 @@ class Article extends Model
     public function articleGroup()
     {
         return $this->belongsTo('App\Models\ArticleGroup');
+    }
+
+    public function image()
+    {
+        return $this->belongsTo('App\Models\Media', 'image_id');
     }
 
     /**
