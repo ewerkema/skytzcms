@@ -79,14 +79,28 @@
                 <label for="title" class="col-md-3 control-label">Titel</label>
 
                 <div class="col-md-8">
-                    <input type="text" id="title" name="title" value="{{ selectedArticle.title }}" class="form-control" placeholder="Titel" required autofocus />
+                    <input type="text" id="title" name="title" value="{{ selectedArticle.title }}" class="form-control" placeholder="Titel" required />
                 </div>
             </div>
             <div class="form-group">
                 <label for="summary" class="col-md-3 control-label">Introductie</label>
 
                 <div class="col-md-8">
-                    <textarea type="text" id="summary" name="summary" placeholder="Introductie" required autofocus>{{ selectedArticle.summary }}</textarea>
+                    <textarea type="text" id="summary" name="summary" placeholder="Introductie">{{ selectedArticle.summary }}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="image_id" class="col-md-3 control-label">Artikel afbeelding</label>
+
+                <div class="col-md-8">
+                    <div class="input-group input-pointer">
+                        <input type="hidden" name="image_id" id="image_id" value="{{ selectedArticle.image_id }}" class="form-control selected_media_id" />
+                        <span class="input-group-addon" id="media-picture" onclick="selectMedia()"><span class="glyphicon glyphicon-picture"></span></span>
+                        <input type="text" name="image_name" onclick="selectMedia()" value="{{ selectedArticleImageName }}" class="form-control selected_media_name no-border-radius" placeholder="Pagina header" />
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="button" v-on:click="removeMedia()"><span class="glyphicon glyphicon-remove"></span></button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
@@ -147,7 +161,8 @@
                 selectedArticles: [],
                 selectedArticle: false,
                 newArticleGroup: false,
-                newArticleGroupError: false
+                newArticleGroupError: false,
+                selectedArticleImageName: false
             };
         },
 
@@ -167,6 +182,26 @@
 
             articles: function (val) {
                 this.selectedArticles = this.getSelectedArticles(this.selectedArticleGroup);
+            },
+
+            selectedArticle: function (val) {
+                if (val && val.image_id) {
+                    var _this = this;
+                    $.ajax({
+                        url: '/cms/media/'+val.image_id,
+                        type: 'GET',
+                        success: function(data) {
+                            _this.selectedArticleImageName = data.name;
+                        },
+                        error: function() {
+                            alert("Er ging iets fout, probeer het later opnieuw");
+                        }
+                    });
+
+                } else {
+                    this.selectedArticleImageName = false;
+                }
+
             }
 
         },
@@ -186,7 +221,7 @@
                 request.setForm('#articleForm');
                 request.setType('POST');
 
-                request.addFields(['article_group_id', 'title', 'summary', 'body', 'published']);
+                request.addFields(['article_group_id', 'title', 'summary', 'body', 'published', 'image_id']);
                 request.addCheckboxes(['published']);
 
                 if (this.selectedArticle.id != undefined) {
@@ -259,6 +294,11 @@
             cancelEdit: function(event) {
                 if (event) event.preventDefault()
                 this.selectedArticle = false;
+            },
+
+            removeMedia: function() {
+                this.selectedArticle.image_id = 0;
+                this.selectedArticleImageName = false;
             },
 
             removeArticle: function (articleId) {

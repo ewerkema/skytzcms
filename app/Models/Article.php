@@ -15,7 +15,7 @@ class Article extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'summary', 'body', 'published', 'article_group_id',
+        'title', 'summary', 'body', 'published', 'article_group_id', 'image_id'
     ];
 
     /**
@@ -35,6 +35,11 @@ class Article extends Model
         return $this->belongsTo('App\Models\ArticleGroup');
     }
 
+    public function image()
+    {
+        return $this->belongsTo('App\Models\Media', 'image_id');
+    }
+
     /**
      * Custom model functions.
      */
@@ -44,12 +49,39 @@ class Article extends Model
     }
 
     /**
-     * Get slug of the current page.
+     * Get slug of the current article.
      *
      */
     public function getSlug()
     {
         return str_slug($this->attributes['title']);
+    }
+
+    /**
+     * Get full link to the article.
+     */
+    public function getLink()
+    {
+        return "?article=".$this->getSlug();
+    }
+
+    /**
+     * Search articles and return where slug is equal.
+     *
+     */
+    public static function whereSlug($slug)
+    {
+        $articles = Article::all();
+
+        $findArticle = null;
+        foreach ($articles as $article) {
+            if ($article->getSlug() == $slug) {
+                $findArticle = $article;
+                echo $findArticle->id;
+            }
+        }
+
+        return $findArticle;
     }
 
 

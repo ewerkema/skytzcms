@@ -70,6 +70,18 @@ class MediaController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show($id)
+    {
+        $media = Media::find($id);
+        return response()->json($media);
+    }
+
+    /**
      * Remove global header reference is existing.
      *
      * @param $media

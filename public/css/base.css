@@ -48,3 +48,33 @@ img.align-left {
 @media only screen and (max-width: 40em) {
     .album .image { width: 50%; }
 }
+
+.news .image {
+    float: left;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-bottom: 15px;
+}
+
+.news .image img {
+    max-width: 100%;
+    margin-bottom: 0;
+}
+
+.news .text {
+    float: left;
+    padding-left: 50px;
+
+}
+
+.news .newsheader {
+    margin-top: 0;
+}
+
+.news .newsheader.block a {
+    display: block;
+    text-align: center;
+    padding: 10px 0;
+    background: gray;
+    color: #fff;
+}
