@@ -51,10 +51,14 @@ img.align-left {
 
 .news .image {
     float: left;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-bottom: 15px;
 }
 
 .news .image img {
     max-width: 100%;
+    margin-bottom: 0;
 }
 
 .news .text {
@@ -65,4 +69,12 @@ img.align-left {
 
 .news .newsheader {
     margin-top: 0;
+}
+
+.news .newsheader.block a {
+    display: block;
+    text-align: center;
+    padding: 10px 0;
+    background: gray;
+    color: #fff;
 }

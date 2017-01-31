@@ -31,7 +31,6 @@ class ArticleController extends Controller
         return Validator::make($data, [
             'article_group_id' => 'required|exists:article_groups,id',
             'title' => 'required|max:255',
-            'summary' => 'required',
             'body' => 'required',
             'published' => 'required|boolean',
         ], [], [

@@ -79,14 +79,14 @@
                 <label for="title" class="col-md-3 control-label">Titel</label>
 
                 <div class="col-md-8">
-                    <input type="text" id="title" name="title" value="{{ selectedArticle.title }}" class="form-control" placeholder="Titel" required autofocus />
+                    <input type="text" id="title" name="title" value="{{ selectedArticle.title }}" class="form-control" placeholder="Titel" required />
                 </div>
             </div>
             <div class="form-group">
                 <label for="summary" class="col-md-3 control-label">Introductie</label>
 
                 <div class="col-md-8">
-                    <textarea type="text" id="summary" name="summary" placeholder="Introductie" required autofocus>{{ selectedArticle.summary }}</textarea>
+                    <textarea type="text" id="summary" name="summary" placeholder="Introductie">{{ selectedArticle.summary }}</textarea>
                 </div>
             </div>
             <div class="form-group">
@@ -96,7 +96,7 @@
                     <div class="input-group input-pointer">
                         <input type="hidden" name="image_id" id="image_id" value="{{ selectedArticle.image_id }}" class="form-control selected_media_id" />
                         <span class="input-group-addon" id="media-picture" onclick="selectMedia()"><span class="glyphicon glyphicon-picture"></span></span>
-                        <input type="text" name="image_name" onclick="selectMedia()" value="{{ selectedArticleImageName }}" class="form-control selected_media_name no-border-radius" placeholder="Pagina header" autofocus />
+                        <input type="text" name="image_name" onclick="selectMedia()" value="{{ selectedArticleImageName }}" class="form-control selected_media_name no-border-radius" placeholder="Pagina header" />
                         <div class="input-group-btn">
                             <button class="btn btn-default" type="button" v-on:click="removeMedia()"><span class="glyphicon glyphicon-remove"></span></button>
                         </div>

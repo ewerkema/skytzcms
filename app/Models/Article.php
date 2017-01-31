@@ -49,12 +49,20 @@ class Article extends Model
     }
 
     /**
-     * Get slug of the current page.
+     * Get slug of the current article.
      *
      */
     public function getSlug()
     {
         return str_slug($this->attributes['title']);
+    }
+
+    /**
+     * Get full link to the article.
+     */
+    public function getLink()
+    {
+        return "?article=".$this->getSlug();
     }
 
     /**
