@@ -77,7 +77,6 @@ class Article extends Model
         foreach ($articles as $article) {
             if ($article->getSlug() == $slug) {
                 $findArticle = $article;
-                echo $findArticle->id;
             }
         }
 

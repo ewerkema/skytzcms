@@ -9,9 +9,16 @@ use Illuminate\Support\Facades\View;
 
 class TemplateController extends Controller
 {
+
+    public function __construct()
+    {
+        if (is_cms())
+            $this->middleware('auth');
+    }
+
     public function show($slug = 'index', $childSlug = false)
     {
-        if ($childSlug) {
+        if ($childSlug && Page::whereSlug($slug)->count()) {
             $page = Page::whereSlug($slug)->first()->subpages()->whereSlug($childSlug)->first();
         } else {
             $page = Page::whereSlug($slug)->where('parent_id', NULL)->first();
@@ -21,6 +28,14 @@ class TemplateController extends Controller
 
         if (!$page)
             abort(404);
+
+        if (is_cms()) {
+            return View::make('templates.admin.main')->with([
+                'currentPage' => $page,
+                'article' => $article,
+                'template' => 'templates.'.config('skytz.template').'.index'
+            ]);
+        }
 
         return View::make('templates.'.config('skytz.template').'.index')->with([
             'currentPage' => $page,
@@ -32,7 +47,7 @@ class TemplateController extends Controller
     {
         $article = false;
         if (isset($_GET['article'])) {
-            $article = Article::whereTitle(str_slug($_GET['article']))->first();
+            $article = Article::whereSlug(str_slug($_GET['article']));
         }
 
         return $article;
