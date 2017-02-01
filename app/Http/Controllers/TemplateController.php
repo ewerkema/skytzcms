@@ -47,7 +47,7 @@ class TemplateController extends Controller
     {
         $article = false;
         if (isset($_GET['article'])) {
-            $article = Article::whereSlug(str_slug($_GET['article']))->first();
+            $article = Article::whereSlug(str_slug($_GET['article']));
         }
 
         return $article;
