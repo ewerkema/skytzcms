@@ -94,7 +94,7 @@
 
                 <div class="col-md-8">
                     <div class="input-group input-pointer">
-                        <input type="hidden" name="image_id" id="image_id" value="{{ selectedArticle.image_id }}" class="form-control selected_media_id" />
+                        <input type="hidden" name="image_id" id="image_id" value="{{ selectedArticle.image_id || 0 }}" class="form-control selected_media_id" />
                         <span class="input-group-addon" id="media-picture" onclick="selectMedia()"><span class="glyphicon glyphicon-picture"></span></span>
                         <input type="text" name="image_name" onclick="selectMedia()" value="{{ selectedArticleImageName }}" class="form-control selected_media_name no-border-radius" placeholder="Pagina header" />
                         <div class="input-group-btn">

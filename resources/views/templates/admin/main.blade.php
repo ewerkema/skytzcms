@@ -50,6 +50,7 @@
         <script src="/plugins/summernote/summernote.min.js"></script>
         <script src="/plugins/summernote/lang/summernote-nl-NL.js"></script>
         <script src="/plugins/nestedSortable/jquery.nestedSortable.js"></script>
+        <script src="/plugins/tinymce/tinymce.min.js"></script>
 	    <script type="text/javascript" src="/js/plupload.full.min.js"></script>
 
         {{-- Modals --}}

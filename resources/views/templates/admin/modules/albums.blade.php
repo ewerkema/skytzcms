@@ -2,7 +2,7 @@
     <div id="album-{{ $id }}" class="portlet album">
         @if ($album = Album::find($id))
             @foreach ($album->media()->get() as $image)
-                <a href="{{ $image->photo_url('original') }}" target="_blank" class="group1 image">
+                <a href="{{ $image->photo_url('original') }}" target="_blank" class="group{{ $id }} image">
                     <img src="{{ $image->photo_url('thumbnail') }}" alt="{{ $image->description }}">
                 </a>
             @endforeach
@@ -11,3 +11,9 @@
         @endif
     </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+        $(".group{{ $id }}").colorbox({rel:'group{{ $id }}', maxWidth:'50%', fixed: true});
+    });
+</script>
