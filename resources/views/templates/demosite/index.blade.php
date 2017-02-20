@@ -71,10 +71,6 @@
         <script src="{{ template_url('/js/foundation.min.js') }}"></script>
         <script>
             $(document).foundation();
-
-            $(document).ready(function(){
-                $(".group1").colorbox({rel:'group1', maxWidth:'50%', fixed: true});
-            });
         </script>
     </body>
 </html>

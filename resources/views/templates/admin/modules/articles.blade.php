@@ -1,7 +1,6 @@
 <div class="news-wrapper">
     @if ($articleGroup = ArticleGroup::find($id))
         <div id="news-{{ $id }}" class="news">
-            <h1>Nieuws: {{ $articleGroup->title }}</h1>
             @foreach (ArticleGroup::find($id)->articles()->get() as $article)
                 @if ($article->image_id)
                     @if (strlen($article->summary) > 0)
