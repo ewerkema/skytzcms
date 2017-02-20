@@ -53,6 +53,9 @@ class ArticleController extends Controller
         $input = $request->all();
         $this->validator($input)->validate();
 
+        if (isset($input['image_id']) && $input['image_id'] == 0)
+            $input['image_id'] = null;
+
         $article = Article::create($input);
 
         return response()->json($article, 200);
@@ -82,6 +85,9 @@ class ArticleController extends Controller
     {
         $input = $request->all();
         $this->validator($input)->validate();
+
+        if (isset($input['image_id']) && $input['image_id'] == 0)
+            $input['image_id'] = null;
 
         if (!$article->update($input))
             return response()->json(['message' => 'Updaten van het artikel is niet gelukt.'], 500);
