@@ -10,7 +10,6 @@
                             </div>
                             <div class="text small-9">
                                 <h3 class="newsheader">{{ $article->title }}</h3>
-                                <p><i>Gepubliceerd: {{ $article->created_at->diffForHumans() }} ({{ $article->created_at->toDateString() }})</i></p>
                                 <p>{{ $article->summary }}</p>
                                 <a href="{{ $article->getLink() }}">Lees verder</a>
                                 <hr>
@@ -25,7 +24,6 @@
                 @else
                     <div class="portlet">
                         <h3 class="newsheader">{{ $article->title }}</h3>
-                        <p><i>Gepubliceerd: {{ $article->created_at->diffForHumans() }} ({{ $article->created_at->toDateString() }})</i></p>
                         <p>{{ $article->summary }}</p>
                         <a href="{{ $article->getLink() }}">Lees verder</a>
                         <hr>

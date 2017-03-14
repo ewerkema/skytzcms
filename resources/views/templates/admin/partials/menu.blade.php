@@ -1,4 +1,4 @@
-<nav class="small-12 medium-12 large-8 columns menu">
+<nav class="small-12 medium-12 large-12 columns menu">
     <ul>
         @foreach (Page::getMenuWithSubpages() as $page)
             <li class="{{ (isset($currentPage) && $page->id == $currentPage->id) ? "active" : "" }}{{ ($page->subpages->count()) ? " has-dropdown" : "" }}">
