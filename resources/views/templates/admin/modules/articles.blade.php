@@ -14,6 +14,7 @@
                                 <a href="{{ $article->getLink() }}">Lees verder</a>
                                 <hr>
                             </div>
+                            <div class="clear"></div>
                         </div>
                     @else
                         <div class="image small-4">

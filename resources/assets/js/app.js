@@ -27,6 +27,7 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
+$('[data-toggle="tooltip"]').tooltip();
 
 Vue.filter('chunk', function (value, size) {
     return _.chunk(value, size);

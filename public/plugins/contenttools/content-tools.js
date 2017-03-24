@@ -7190,7 +7190,7 @@ nt(function() {
       this._domInput = document.createElement('input');
       this._domInput.setAttribute('class', 'ct-anchored-dialog__input');
       this._domInput.setAttribute('name', 'href');
-      this._domInput.setAttribute('placeholder', ContentEdit._('Enter a link') + '...');
+      this._domInput.setAttribute('placeholder', ContentEdit._('Enter the link') + '...');
       this._domInput.setAttribute('type', 'text');
       this._domInput.setAttribute('value', this._href);
       this._domElement.appendChild(this._domInput);

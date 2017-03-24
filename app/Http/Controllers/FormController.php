@@ -123,6 +123,7 @@ class FormController extends Controller
 
         $validator = $this->buildValidator($input, $fields);
         if ($validator->fails()) {
+            print_r($input);
             return redirect()->back()
                 ->withInput($input)
                 ->withErrors($validator);
