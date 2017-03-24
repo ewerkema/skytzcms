@@ -103,7 +103,10 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        $article = Article::findOrFail($id)->delete();
+        $article = Article::findOrFail($id);
+        $article->articleGroup()->dissociate();
+        $article->save();
+        $article->delete();
 
         return response()->json(['message' => 'Artikel is succesvol verwijderd']);
     }
