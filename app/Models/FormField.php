@@ -23,7 +23,7 @@ class FormField extends Model
      */
     public function formName()
     {
-        return "form".$this->attributes['form_id']."-".camel_case($this->attributes['name']);
+        return "form".$this->attributes['form_id']."-field".$this->attributes['id'];
     }
 
     /**
