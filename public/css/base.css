@@ -5,6 +5,7 @@ table tbody tr td {
     padding: 8px;
 }
 tr th { font-weight: bold; }
+.clear { clear: both; }
 
 pre {
     display: block;
