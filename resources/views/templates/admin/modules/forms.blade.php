@@ -37,12 +37,14 @@
                                 @forelse($field->options as $option)
                                     <input type="radio" name="{{ $field->formName() }}" id="radio-{{ camel_case($option['name']) }}" value="{{$option['name']}}"{{ (old($field->formName()) == $option['name']) ? " checked" : "" }}>
                                     <label for="radio-{{ camel_case($option['name']) }}">{{ $option['name'] }}</label>
+                                    <br>
                                 @empty
                                     <p>Geen waardes om te selecteren.</p>
                                 @endforelse
                             @elseif ($field->type == "checkbox")
                                 <input type="checkbox" name="{{ $field->formName() }}" id="checkbox-{{ $field->formName() }}" value="aangevinkt" {{ (old($field->formName()) == "aangevinkt") ? " checked" : "" }}>
                                 <label for="checkbox-{{ $field->formName() }}">{{ $field['placeholder'] }}</label>
+                                <br>
                             @endif
 
                             @if ($errors->has($field->formName()))
