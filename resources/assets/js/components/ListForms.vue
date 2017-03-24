@@ -144,8 +144,7 @@
                         <tr>
                             <th>#</th>
                             <th>Naam</th>
-                            <th>Waarde</th>
-                            <th></th>
+                            <th>Acties</th>
                         </tr>
                         <tr v-for="option in selectedFormField.options"
                             class="option"
@@ -156,10 +155,7 @@
                                 <input type="text" name="option_{{ i }}" v-model="option.name" class="option-name form-control" placeholder="Naam" />
                             </td>
                             <td>
-                                <input type="text" name="option_{{ i }}" v-model="option.value" class="option-value form-control" placeholder="Waarde" />
-                            </td>
-                            <td>
-                                <a href="#" @click="removeOption(option)" class="right">
+                                <a href="#" @click="removeOption(option)" class="center" title="Verwijderen">
                                     <span class="glyphicon glyphicon-remove"></span>
                                 </a>
                             </td>
