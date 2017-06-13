@@ -1,4 +1,4 @@
-nt(function() {
+(function() {
   var FSM, exports;
 
   FSM = {};
@@ -5394,7 +5394,7 @@ nt(function() {
   ContentTools = {
     Tools: {},
     CANCEL_MESSAGE: 'Your changes have not been saved, do you really want to lose them?'.trim(),
-    DEFAULT_TOOLS: [['bold', 'italic', 'link', 'align-left', 'align-center', 'align-right'], ['heading', 'subheading', 'paragraph', 'unordered-list', 'ordered-list', 'table', 'indent', 'unindent', 'line-break'], ['image', 'video', 'preformatted'], ['undo', 'redo', 'remove']],
+    DEFAULT_TOOLS: [['bold', 'italic', 'link', 'align-left', 'align-center', 'align-right'], ['heading', 'subheading', 'subheading3', 'paragraph', 'unordered-list', 'ordered-list', 'table', 'indent', 'unindent', 'line-break'], ['image', 'video', 'preformatted'], ['undo', 'redo', 'remove']],
     DEFAULT_VIDEO_HEIGHT: 300,
     DEFAULT_VIDEO_WIDTH: 400,
     HIGHLIGHT_HOLD_DURATION: 2000,
@@ -5558,13 +5558,18 @@ nt(function() {
       return ContentEdit.addCSSClass(this._domElement, className);
     };
 
-    ComponentUI.prototype.detatch = function(component) {
+    ComponentUI.prototype.detach = function(component) {
       var componentIndex;
       componentIndex = this._children.indexOf(component);
       if (componentIndex === -1) {
         return;
       }
       return this._children.splice(componentIndex, 1);
+    };
+
+    ComponentUI.prototype.detatch = function(component) {
+      console.log('Please call detach, detatch will be removed in release 1.4.x');
+      return this.detach(component);
     };
 
     ComponentUI.prototype.mount = function() {};
@@ -5683,11 +5688,16 @@ nt(function() {
       }
     };
 
-    WidgetUI.prototype.detatch = function(component) {
-      WidgetUI.__super__.detatch.call(this, component);
+    WidgetUI.prototype.detach = function(component) {
+      WidgetUI.__super__.detach.call(this, component);
       if (this.isMounted()) {
         return component.unmount();
       }
+    };
+
+    WidgetUI.prototype.detatch = function(component) {
+      console.log('Please call detach, detatch will be removed in release 1.4.x');
+      return this.detach(component);
     };
 
     WidgetUI.prototype.show = function() {
@@ -7190,7 +7200,7 @@ nt(function() {
       this._domInput = document.createElement('input');
       this._domInput.setAttribute('class', 'ct-anchored-dialog__input');
       this._domInput.setAttribute('name', 'href');
-      this._domInput.setAttribute('placeholder', ContentEdit._('Enter the link') + '...');
+      this._domInput.setAttribute('placeholder', ContentEdit._('Enter a link') + '...');
       this._domInput.setAttribute('type', 'text');
       this._domInput.setAttribute('value', this._href);
       this._domElement.appendChild(this._domInput);
@@ -9200,7 +9210,7 @@ nt(function() {
           return ContentTools.Tools.Link.dispatchEditorEvent('tool-applied', toolDetail);
         }
       });
-      dialog = new ContentTools.LinkDialog(this.getAttr('href', element, selection), this.getAttr('target', element, selection));
+      dialog = new ContentTools.LinkDialog(this.getAttr('href', element, selection), this.getAttr('target', element, selection), this.getAttr('rel', element, selection));
       _ref1 = ContentTools.getScrollPosition(), scrollX = _ref1[0], scrollY = _ref1[1];
       dialog.position([rect.left + (rect.width / 2) + scrollX, rect.top + (rect.height / 2) + scrollY]);
       dialog.addEventListener('save', function(ev) {
@@ -9351,6 +9361,25 @@ nt(function() {
     Subheading.tagName = 'h2';
 
     return Subheading;
+
+  })(ContentTools.Tools.Heading);
+
+  ContentTools.Tools.Subheading3 = (function(_super) {
+    __extends(Subheading3, _super);
+
+    function Subheading3() {
+      return Subheading3.__super__.constructor.apply(this, arguments);
+    }
+
+    ContentTools.ToolShelf.stow(Subheading3, 'subheading3');
+
+    Subheading3.label = 'Subheading3';
+
+    Subheading3.icon = 'subheading3';
+
+    Subheading3.tagName = 'h3';
+
+    return Subheading3;
 
   })(ContentTools.Tools.Heading);
 

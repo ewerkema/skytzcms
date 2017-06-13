@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const Bootstrap = require('bootstrap-sass');
-const ContentTools = require('contenttools');
+const ContentTools = require('../../../public/plugins/ContentTools/build/content-tools');
 const Awesomplete = require('awesomplete');
 const jqueryUi = require('jquery-ui');
 
