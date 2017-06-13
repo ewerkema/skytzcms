@@ -455,10 +455,10 @@ function showHelp() {
     });
 }
 
-$(document).ready(function() {
-    $('button[type=\'submit\']').on('click', function() {
-        var id = '#' + $(this).attr('form');
-        if (id !== undefined)
-            $("form"+id).submit();
-    });
-});
+// $(document).ready(function() {
+//     $('button[type=\'submit\']').on('click', function() {
+//         var id = '#' + $(this).attr('form');
+//         if (id !== undefined)
+//             $("form"+id).submit();
+//     });
+// });
