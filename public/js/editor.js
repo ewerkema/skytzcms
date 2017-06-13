@@ -163,7 +163,7 @@ $.fn.removeOffsets = function() {
 };
 
 $.fn.addGridstackMenu = function(originalWidth) {
-    var width = this.parent(".grid-stack-item").attr('data-gs-width');
+    var width = $(this).parent(".grid-stack-item").attr('data-gs-width');
     width = (width == undefined) ? originalWidth : width;
     this.append("<div class='grid-stack-menu'><h3 class='grid-stack-title'>"+textWidth(width)+"</h3><div class='buttons'>" +
         "<span class='duplicate glyphicon glyphicon-duplicate'></span>" +
@@ -172,9 +172,10 @@ $.fn.addGridstackMenu = function(originalWidth) {
         .append("<div class='resize-icon resize-icon__left'><span class='stripe'></span><span class='stripe'></span></div>")
         .append("<div class='resize-icon resize-icon__right'><span class='stripe'></span><span class='stripe'></span></div>");
 
-    this.on('click', '.remove', function (e) {
+    $(this).on('click', '.remove', function (e) {
         e.preventDefault();
-        var el = this.closest('.grid-stack-item');
+        var el = $(this).closest('.grid-stack-item');
+        console.log("test");
         swal({
             title: "Blok verwijderen?",
             text: "Je kan deze wijzingen niet meer herstellen.",
@@ -185,12 +186,16 @@ $.fn.addGridstackMenu = function(originalWidth) {
         }).then(function(){
             grid.removeWidget(el);
         }).done();
+
+        return false;
     });
 
-    this.on('click', '.duplicate', function (e) {
+    $(this).on('click', '.duplicate', function (e) {
         e.preventDefault();
         var item = $(this).closest('.grid-stack-item').clone();
         copyWidget(item);
+
+        return false;
     });
 };
 
@@ -317,6 +322,8 @@ function changeLayout() {
         editor._ignition.unmount();
         editorButtons.showSaveLayout();
     }
+
+    return false;
 }
 
 function saveLayout() {
@@ -447,3 +454,11 @@ function showHelp() {
         type: 'info'
     });
 }
+
+$(document).ready(function() {
+    $('button[type=\'submit\']').on('click', function() {
+        var id = '#' + $(this).attr('form');
+        if (id !== undefined)
+            $("form"+id).submit();
+    });
+});
