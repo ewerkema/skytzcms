@@ -28,13 +28,15 @@ class Album extends Model
         if ($media->count()) {
             $order = $this->order;
 
-            foreach ($order as $id) {
-                $image = $media->filter(function($image) use ($id) {
-                    return $image->getKey() == $id;
-                })->first();
+            if (sizeof($order) > 0) {
+                foreach ($order as $id) {
+                    $image = $media->filter(function($image) use ($id) {
+                        return $image->getKey() == $id;
+                    })->first();
 
-                if ($image != null)
-                    $orderedMedia->push($image);
+                    if ($image != null)
+                        $orderedMedia->push($image);
+                }
             }
 
             foreach ($media->diff($orderedMedia) as $leftOver) {
