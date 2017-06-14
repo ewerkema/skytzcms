@@ -23,20 +23,23 @@ class Album extends Model
     public function getOrderedMedia()
     {
         $media = $this->media()->get();
-        $order = $this->order;
 
         $orderedMedia = Collection::make([]);
-        foreach ($order as $id) {
-            $image = $media->filter(function($image) use ($id) {
-                return $image->getKey() == $id;
-            })->first();
+        if ($media->count()) {
+            $order = $this->order;
 
-            if ($image != null)
-                $orderedMedia->push($image);
-        }
+            foreach ($order as $id) {
+                $image = $media->filter(function($image) use ($id) {
+                    return $image->getKey() == $id;
+                })->first();
 
-        foreach ($media->diff($orderedMedia) as $leftOver) {
-            $orderedMedia->push($leftOver);
+                if ($image != null)
+                    $orderedMedia->push($image);
+            }
+
+            foreach ($media->diff($orderedMedia) as $leftOver) {
+                $orderedMedia->push($leftOver);
+            }
         }
 
         return $orderedMedia;

@@ -252,7 +252,6 @@
                         if (image.id !== undefined)
                     sorted.push(image.id);
                 });
-                console.log(sorted);
                 $.ajax({
                     url: '/cms/albums/'+this.selectedAlbum.id+'/order',
                     type: 'POST',
