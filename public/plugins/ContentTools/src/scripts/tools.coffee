@@ -353,6 +353,9 @@ class ContentTools.Tools.Link extends ContentTools.Tools.Bold
                     if detail.target
                         element.a.target = detail.target
 
+                    if detail.rel
+                        element.a.rel = detail.rel
+
                     for className in alignmentClassNames
                         if element.hasCSSClass(className)
                             element.removeCSSClass(className)

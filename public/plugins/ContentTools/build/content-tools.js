@@ -7177,22 +7177,28 @@
   })(ContentTools.AnchoredComponentUI);
 
   ContentTools.LinkDialog = (function(_super) {
-    var NEW_WINDOW_TARGET;
+    var NEW_WINDOW_TARGET, NO_FOLLOW_REL;
 
     __extends(LinkDialog, _super);
 
     NEW_WINDOW_TARGET = '_blank';
 
-    function LinkDialog(href, target) {
+    NO_FOLLOW_REL = 'nofollow';
+
+    function LinkDialog(href, target, rel) {
       if (href == null) {
         href = '';
       }
       if (target == null) {
         target = '';
       }
+      if (rel == null) {
+        rel = '';
+      }
       LinkDialog.__super__.constructor.call(this);
       this._href = href;
       this._target = target;
+      this._rel = rel;
     }
 
     LinkDialog.prototype.mount = function() {
@@ -7208,6 +7214,11 @@
       this._domElement.appendChild(this._domTargetButton);
       if (this._target === NEW_WINDOW_TARGET) {
         ContentEdit.addCSSClass(this._domTargetButton, 'ct-anchored-dialog__target-button--active');
+      }
+      this._domRelButton = this.constructor.createDiv(['ct-anchored-dialog__rel-button']);
+      this._domElement.appendChild(this._domRelButton);
+      if (this._rel === NO_FOLLOW_REL) {
+        ContentEdit.addCSSClass(this._domRelButton, 'ct-anchored-dialog__rel-button--active');
       }
       this._domButton = this.constructor.createDiv(['ct-anchored-dialog__button']);
       this._domElement.appendChild(this._domButton);
@@ -7225,6 +7236,9 @@
       };
       if (this._target) {
         detail.target = this._target;
+      }
+      if (this._rel) {
+        detail.rel = this._rel;
       }
       return this.dispatchEvent(this.createEvent('save', detail));
     };
@@ -7263,6 +7277,18 @@
           } else {
             _this._target = NEW_WINDOW_TARGET;
             return ContentEdit.addCSSClass(_this._domTargetButton, 'ct-anchored-dialog__target-button--active');
+          }
+        };
+      })(this));
+      this._domRelButton.addEventListener('click', (function(_this) {
+        return function(ev) {
+          ev.preventDefault();
+          if (_this._rel === NO_FOLLOW_REL) {
+            _this._rel = '';
+            return ContentEdit.removeCSSClass(_this._domRelButton, 'ct-anchored-dialog__rel-button--active');
+          } else {
+            _this._rel = NO_FOLLOW_REL;
+            return ContentEdit.addCSSClass(_this._domRelButton, 'ct-anchored-dialog__rel-button--active');
           }
         };
       })(this));
@@ -9228,6 +9254,9 @@
             }
             if (detail.target) {
               element.a.target = detail.target;
+            }
+            if (detail.rel) {
+              element.a.rel = detail.rel;
             }
             for (_i = 0, _len = alignmentClassNames.length; _i < _len; _i++) {
               className = alignmentClassNames[_i];

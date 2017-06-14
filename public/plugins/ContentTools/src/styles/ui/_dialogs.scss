@@ -542,7 +542,7 @@
 
                 &:before {
                     color: white;
-                    content: '\ea98';
+                    content: '\e912';
                 }
             }
 
@@ -577,7 +577,7 @@
     &.ct-anchored-dialog {
         $bkg-color: #27ae60;
 
-        border-bottom: 2px solid $bkg-color;
+        //border-bottom: 2px solid $bkg-color;
         box-shadow: 0 3px 3px $shadow-color;
         font-size: 0;
         height: 34px;
@@ -586,7 +586,7 @@
         margin-top: -48px;
         position: absolute;
         top: 0;
-        width: 320px;
+        width: 352px;
         z-index: $base-z-index + 100;
 
         &:after {
@@ -652,6 +652,41 @@
             &:before {
                 color: lighten($text-color, 25%);;
                 content: '\ea7d';
+            }
+
+            &:hover:before {
+                color: lighten($text-color, 30%);
+            }
+
+            &--active {
+                &:before {
+                    color: $confirm-action-color;
+                }
+
+                &:hover:before {
+                    color: lighten($confirm-action-color, 5%);
+                }
+            }
+        }
+
+        &__rel-button {
+            // On the link dialog dialog this icon appears to allow users to
+            // toggle the link no follow rule.
+            //
+            // Enrico Werkema <info@codecentral.nl>, 2017-06-14
+
+            background: white;
+            cursor: pointer;
+            display: inline-block;
+            height: 32px;
+            line-height: 32px;
+            text-align: center;
+            @include type-icons;
+            width: 32px;
+
+            &:before {
+                color: lighten($text-color, 25%);
+                content: '\ea0e';
             }
 
             &:hover:before {

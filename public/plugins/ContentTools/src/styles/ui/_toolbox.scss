@@ -163,8 +163,8 @@
          * alphabetically).
          */
         &--bold:before           { content: "\ea62"; }
-        &--heading:before        { content: "H"    ; font-weight: bold; }
-        &--subheading:before     { content: "H"    ; }
+        &--heading:before        { content: "H1"    ; line-height: 35px; font-family: serif; }
+        &--subheading:before     { content: "H2"    ; line-height: 35px; font-family: serif; }
         &--subheading3:before     { content: "H3"    ; line-height: 35px; font-family: serif; }
         &--paragraph:before      { content: "P"    ; }
         &--preformatted:before   { content: "\ea80"; }
@@ -180,7 +180,7 @@
         &--unindent:before       { content: "\ea7c"; }
         &--line-break:before     { content: "\ea6e"; }
         &--image:before          { content: "\e90d"; }
-        &--video:before          { content: "\ea98"; }
+        &--video:before          { content: "\e912"; }
         &--undo:before           { content: "\e965"; }
         &--redo:before           { content: "\e966"; }
         &--remove:before         { content: "\e9ac"; }

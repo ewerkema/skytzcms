@@ -5,14 +5,16 @@ class ContentTools.LinkDialog extends ContentTools.AnchoredDialogUI
     # The target that will be set by the link tool if the open in new window
     # option is selected.
     NEW_WINDOW_TARGET = '_blank'
+    NO_FOLLOW_REL = 'nofollow'
 
-    constructor: (href='', target='') ->
+    constructor: (href='', target='', rel='') ->
         super()
 
         # The initial value to set the href and target attribute
         # of the link as (e.g if we're editing a link).
         @_href = href
         @_target = target
+        @_rel = rel
 
     mount: () ->
         # Mount the widget
@@ -43,6 +45,19 @@ class ContentTools.LinkDialog extends ContentTools.AnchoredDialogUI
                 'ct-anchored-dialog__target-button--active'
             )
 
+        # Create a toggle button to allow users to toogle between no target and
+        # TARGET (open in a new window).
+        @_domRelButton = @constructor.createDiv([
+            'ct-anchored-dialog__rel-button'])
+        @_domElement.appendChild(@_domRelButton)
+
+        # Check if the new window target has already been set for the link
+        if @_rel == NO_FOLLOW_REL
+            ContentEdit.addCSSClass(
+              @_domRelButton,
+              'ct-anchored-dialog__rel-button--active'
+            )
+
         # Create the confirm button
         @_domButton = @constructor.createDiv(['ct-anchored-dialog__button'])
         @_domElement.appendChild(@_domButton)
@@ -62,6 +77,9 @@ class ContentTools.LinkDialog extends ContentTools.AnchoredDialogUI
         detail = {href: @_domInput.value.trim()}
         if @_target
             detail.target = @_target
+
+        if @_rel
+            detail.rel = @_rel
 
         @dispatchEvent(@createEvent('save', detail))
 
@@ -120,6 +138,26 @@ class ContentTools.LinkDialog extends ContentTools.AnchoredDialogUI
                 ContentEdit.addCSSClass(
                     @_domTargetButton,
                     'ct-anchored-dialog__target-button--active'
+                )
+
+        # Toggle the rel attribute for the link ('' or REL)
+        @_domRelButton.addEventListener 'click', (ev) =>
+            ev.preventDefault()
+
+            # No rel
+            if @_rel == NO_FOLLOW_REL
+                @_rel = ''
+                ContentEdit.removeCSSClass(
+                  @_domRelButton,
+                  'ct-anchored-dialog__rel-button--active'
+                )
+
+            # Rel REL
+            else
+                @_rel = NO_FOLLOW_REL
+                ContentEdit.addCSSClass(
+                  @_domRelButton,
+                  'ct-anchored-dialog__rel-button--active'
                 )
 
         # Button
