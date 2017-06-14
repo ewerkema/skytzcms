@@ -17,7 +17,11 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        return Album::with('media')->get();
+        $albums = Album::all();
+        foreach ($albums as $album) {
+            $album->media = $album->getOrderedMedia();
+        }
+        return $albums;
     }
 
     /**
@@ -97,5 +101,23 @@ class AlbumController extends Controller
         $album->delete();
 
         return response()->json(['message' => 'Album is succesvol verwijderd']);
+    }
+
+    /**
+     * Update the the order in storage.
+     *
+     * @param  Request $request
+     * @param  Page $page
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateOrder(Request $request, Album $album)
+    {
+        $input = $request->all();
+
+        $album->order = $input['order'];
+        $album->save();
+
+        return response()->json(['message' => 'Updaten van de volgorde is gelukt.']);
+
     }
 }

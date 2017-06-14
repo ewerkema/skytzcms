@@ -1,5 +1,5 @@
 <template>
-    <div class="overview" v-if="!addImages">
+    <div class="overview" v-if="!addImages && !changeOrder">
         <div class="sidebar col-md-4">
             <ul class="list-group">
                 <a href="#" class="list-group-item"
@@ -39,6 +39,7 @@
             </div>
             <p v-if="!hasImages(selectedAlbum)">Er zijn geen afbeeldingen gevonden.</p>
             <button class="btn btn-success right" v-on:click="addImages = true">Afbeeldingen toevoegen</button>
+            <button class="btn btn-default right" v-on:click="changeOrder = true">Volgorde aanpassen <span class="glyphicon glyphicon-sort"></span></button>
             <button class="btn btn-danger right" v-on:click="removeAlbum(selectedAlbum)">Verwijder dit album</button>
         </div>
         <div class="col-md-8" v-else>
@@ -67,6 +68,26 @@
             </div>
         </form>
     </div>
+    <div class="editForm" v-if="changeOrder">
+        <form action="#" class="form-horizontal" id="ChangeAlbumOrder" v-on:submit.prevent>
+            <div class="alert form-message" role="alert" style="display: none;"></div>
+            <p>Verander de volgorde van het album door de afbeeldingen te slepen:</p>
+            <ul class="albumSortable sortable">
+                <li class="menu-item" :id="'image_' + image.id" :data-id="image.id" v-for="image in selectedAlbum.media">
+                    <div>
+                        <span class="glyphicon glyphicon-move"></span> <img :src="imagePath(image.path)" />
+                    </div>
+                </li>
+            </ul>
+            <p v-if="selectedAlbum.media.length == 0">Er zijn geen afbeeldingen in dit album.</p>
+            <div class="form-group">
+                <div class="col-md-8 col-md-offset-3">
+                    <button form="albumForm" class="btn btn-success right" v-on:click="updateOrder()">Volgorde opslaan</button>
+                    <button class="btn btn-default right" v-on:click.prevent="changeOrder = false">Annuleren</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </template>
 <style>
     .add-item > .glyphicon {
@@ -76,6 +97,15 @@
 
     .table .right {
         float: right;
+    }
+
+    .editForm ul li img {
+        max-height: 30px;
+        display: inline-block;
+    }
+
+    .editForm ul li {
+        padding: 0;
     }
 
     .editForm button, .overview button.right {
@@ -145,7 +175,8 @@
                 selectedImages: [],
                 images: [],
                 newAlbum: false,
-                newAlbumError: false
+                newAlbumError: false,
+                changeOrder: false
             };
         },
 
@@ -159,6 +190,19 @@
                 this.selectedImages = [];
                 if (active) {
                     this.loadImages();
+                }
+            },
+            changeOrder: function (open) {
+                if (open) {
+                    $('.albumSortable').nestedSortable({
+                        listType: 'ul',
+                        handle: 'div',
+                        items: 'li',
+                        toleranceElement: '> div',
+                        maxLevels: 1,
+                        placeholder: 'placeholder',
+                        forcePlaceholderSize: true
+                    });
                 }
             }
         },
@@ -196,6 +240,36 @@
                     success: function (data) {
                         _this.addImages = false;
                         _this.loadAlbums(_this.selectedAlbum.id);
+                    }
+                });
+            },
+
+            updateOrder: function() {
+                var _this = this;
+                var sortedArray = $('.albumSortable').nestedSortable('toArray');
+                var sorted = [];
+                _.each(sortedArray, function (image) {
+                        if (image.id !== undefined)
+                    sorted.push(image.id);
+                });
+                console.log(sorted);
+                $.ajax({
+                    url: '/cms/albums/'+this.selectedAlbum.id+'/order',
+                    type: 'POST',
+                    data: {
+                        _method: 'PATCH',
+                        order: sorted
+                    },
+                    success: function (data) {
+                        _this.changeOrder = false;
+                        _this.loadAlbums(_this.selectedAlbum.id);
+
+                        swal({
+                            title: "Success!",
+                            text: "Volgorde is succesvol aangepast.",
+                            type: "success",
+                            timer: 2000
+                        }).done();
                     }
                 });
             },

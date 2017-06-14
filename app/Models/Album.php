@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class Album extends Model
@@ -12,8 +13,34 @@ class Album extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'colorbox',
+        'name', 'colorbox', 'order'
     ];
+
+    protected $casts = [
+        'order' => 'array'
+    ];
+
+    public function getOrderedMedia()
+    {
+        $media = $this->media()->get();
+        $order = $this->order;
+
+        $orderedMedia = Collection::make([]);
+        foreach ($order as $id) {
+            $image = $media->filter(function($image) use ($id) {
+                return $image->getKey() == $id;
+            })->first();
+
+            if ($image != null)
+                $orderedMedia->push($image);
+        }
+
+        foreach ($media->diff($orderedMedia) as $leftOver) {
+            $orderedMedia->push($leftOver);
+        }
+
+        return $orderedMedia;
+    }
 
     /**
      * Define relationships.
