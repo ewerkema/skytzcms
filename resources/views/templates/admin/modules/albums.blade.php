@@ -1,7 +1,7 @@
 <div class="album-wrapper">
     <div id="album-{{ $id }}" class="portlet album">
         @if ($album = Album::find($id))
-            @foreach ($album->media()->get() as $image)
+            @foreach ($album->getOrderedMedia() as $image)
                 <a href="{{ $image->photo_url('original') }}" target="_blank" class="group{{ $id }} image">
                     <img src="{{ $image->photo_url('thumbnail') }}" alt="{{ $image->description }}">
                 </a>

@@ -33,6 +33,7 @@ Route::group(['prefix' => 'cms'], function() {
     Route::resource('articleGroups', 'ArticleGroupController');
     Route::resource('articles', 'ArticleController');
     Route::resource('albums', 'AlbumController');
+    Route::patch('albums/{album}/order', array('as' => 'albums.updateorder', 'uses' => 'AlbumController@updateOrder'));
     Route::resource('albums.media', 'AlbumMediaController');
     Route::resource('sliders', 'SliderController');
     Route::resource('sliders.media', 'SliderMediaController');
