@@ -34,7 +34,7 @@ class CreateUsersTable extends Migration
                 'lastname' => '',
                 'email' => $user->email,
                 'username' => $user->username,
-                'password' => 'password',
+                'password' => 'skytz9672',
             ]);
         });
 
@@ -70,7 +70,7 @@ class CreateUsersTable extends Migration
             'lastname' => 'Kok',
             'email' => 'info@skytz.nl',
             'username' => 'skytz',
-            'password' => 'password',
+            'password' => 'skytz9672',
         ];
         $this->generateUser($martin);
     }
