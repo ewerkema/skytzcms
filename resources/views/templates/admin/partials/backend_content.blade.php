@@ -12,7 +12,11 @@
                 @foreach ($row as $block)
                     @if ($block['module'])
                         <div class="block columns medium-{{ $block['width'] }} medium-offset-{{ $block['offset'] }}" data-name="{{ $block['name'] }}" data-gs-x="{{ $block['x'] }}" data-gs-y="{{ $block['y'] }}" data-gs-width="{{ $block['width'] }}" data-gs-height="{{ $block['height'] }}" data-module="{{ $block['module'] }}" data-module-id="{{ $block['module_id'] }}" data-noneditable>
-                            @include('templates.admin.modules.'.Module::find($block['module'])->template, ['id' => $block['module_id']])
+                            @if($block['module_id'] == -1)
+                                @include('templates.admin.modules.'.Module::find($block['module'])->template)
+                            @else
+                                @include('templates.admin.modules.'.Module::find($block['module'])->template, ['id' => $block['module_id']])
+                            @endif
                         </div>
                     @else
                         <div class="block columns medium-{{ $block['width'] }} medium-offset-{{ $block['offset'] }}" data-name="{{ $block['name'] }}" data-gs-x="{{ $block['x'] }}" data-gs-y="{{ $block['y'] }}" data-gs-width="{{ $block['width'] }}" data-gs-height="{{ $block['height'] }}" data-module="{{ isset($block['module']) ? $block['module'] : 0 }}" data-module-id="{{ isset($block['module_id']) ? $block['module_id'] : 0 }}" data-editable>

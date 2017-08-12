@@ -12,7 +12,7 @@
             </ul>
         </div>
         <div class="col-md-8" v-if="selectedModule">
-            <table class="table">
+            <table class="table" v-if="selectedModule.table !== ''">
                 <tr>
                     <th>#</th>
                     <th>Naam</th>
@@ -33,6 +33,9 @@
                     <td colspan="4">Er zijn geen modules gevonden.</td>
                 </tr>
             </table>
+            <button class="btn btn-primary" v-else v-on:click="selectModule(selectedModules[0])">
+                <span class="glyphicon glyphicon-plus"></span> Module toevoegen
+            </button>
         </div>
     </div>
     <div class="clear"></div>
@@ -81,10 +84,19 @@
             },
 
             loadModuleOptions: function (module) {
-                var _this = this;
-                $.get('/cms/'+_.camelCase(module.table), function (data) {
-                    _this.selectedModules = data;
-                });
+                if (module.table !== '') {
+                    var _this = this;
+                    $.get('/cms/'+_.camelCase(module.table), function (data) {
+                        _this.selectedModules = data;
+                    });
+                } else {
+                    this.selectedModules = {
+                        0: {
+                            id: -1,
+                            'name': module.name,
+                        }
+                    }
+                }
             },
 
             isset: function () {
