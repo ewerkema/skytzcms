@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\Page;
 use App\Http\Requests;
 use Illuminate\Support\Facades\View;
+use Session;
 
 class TemplateController extends Controller
 {
