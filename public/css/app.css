@@ -204,7 +204,10 @@ ul.sortable {
 .dropdown-menu-large {
   margin-left: 16px;
   margin-right: 16px;
+  max-height: 500px;
   padding: 20px 0px;
+  overflow: hidden;
+  overflow-y: scroll;
   left: initial !important; }
 
 .dropdown-menu-large > li > ul {
