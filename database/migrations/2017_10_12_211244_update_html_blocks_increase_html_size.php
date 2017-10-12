@@ -13,9 +13,7 @@ class UpdateHtmlBlocksIncreaseHtmlSize extends Migration
      */
     public function up()
     {
-        Schema::table('html_blocks', function ($table) {
-            $table->mediumText('html')->nullable()->change();
-        });
+        DB::statement('ALTER TABLE html_blocks MODIFY html MEDIUMTEXT;');
     }
 
     /**
@@ -25,8 +23,6 @@ class UpdateHtmlBlocksIncreaseHtmlSize extends Migration
      */
     public function down()
     {
-        Schema::table('html_blocks', function ($table) {
-            $table->text('html')->nullable()->change();
-        });
+        DB::statement('ALTER TABLE html_blocks MODIFY html TEXT;');
     }
 }

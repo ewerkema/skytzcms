@@ -13,10 +13,8 @@ class UpdatePagesIncreasePageContentSize extends Migration
      */
     public function up()
     {
-        Schema::table('pages', function ($table) {
-            $table->mediumText('content')->nullable()->change();
-            $table->mediumText('published_content')->nullable()->change();
-        });
+        DB::statement('ALTER TABLE pages MODIFY content MEDIUMTEXT;');
+        DB::statement('ALTER TABLE pages MODIFY published_content MEDIUMTEXT;');
     }
 
     /**
@@ -26,9 +24,7 @@ class UpdatePagesIncreasePageContentSize extends Migration
      */
     public function down()
     {
-        Schema::table('pages', function ($table) {
-            $table->text('content')->nullable()->change();
-            $table->text('published_content')->nullable()->change();
-        });
+        DB::statement('ALTER TABLE pages MODIFY content TEXT;');
+        DB::statement('ALTER TABLE pages MODIFY published_content TEXT;');
     }
 }
