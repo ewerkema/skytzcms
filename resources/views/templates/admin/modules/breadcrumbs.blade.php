@@ -7,7 +7,7 @@
             @endif
         @else
             @if (!empty(URL::previous()))
-                <li><a href="{{ URL::previous() }}">{{ Page::whereSlug(basename(URL::previous()))->first()->title }}</a></li>
+                <li><a href="{{ URL::previous() }}">{{ ($page = Page::whereSlug(basename(URL::previous()))->first() != null) ? $page->title : '' }}</a></li>
             @endif
 
             @if ($page = Page::find($currentPage->id))
