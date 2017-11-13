@@ -125,7 +125,7 @@ class Page extends Model
      */
     public function getEditorLink()
     {
-        return array($this->attributes['title'].' ('.$this->getSlug().')', url($this->getSlug()));
+        return array($this->attributes['title'].' ('.$this->getSlug().')', '/' . $this->getSlug());
     }
 
     /**
