@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Page;
+use Cache;
 use Illuminate\Http\Request;
 use Validator;
 use Response;
@@ -74,6 +75,8 @@ class PageController extends Controller
         $input['content'] = array();
         $input['published_content'] = array();
         $page = Page::create($input);
+
+        Cache::flush();
 
         session()->flash('flash_message', 'De pagina is succesvol aangemaakt');
         session()->flash('flash_title', 'Pagina aangemaakt');
@@ -208,6 +211,8 @@ class PageController extends Controller
             }
         }
 
+        Cache::flush();
+
         session()->flash('flash_message', 'De volgorde van de pagina\'s is succesvol aangepast');
         session()->flash('flash_title', 'Volgorde aangepast');
 
@@ -232,6 +237,8 @@ class PageController extends Controller
 
         if (!$page->update($input))
             return response()->json(['message' => 'Updaten van de pagina is niet gelukt.'], 500);
+
+        Cache::flush();
 
         session()->flash('flash_message', 'De pagina is succesvol aangepast');
         session()->flash('flash_title', 'Pagina aangepast');
@@ -274,6 +281,8 @@ class PageController extends Controller
 
         session()->flash('flash_title', 'Pagina verwijderd');
         session()->flash('flash_message', "De pagina '$page->title' is succesvol verwijderd.");
+
+        Cache::flush();
 
         $firstPage = Page::first();
         return response()->json(['redirectTo' => cms_url($firstPage->slug)]);

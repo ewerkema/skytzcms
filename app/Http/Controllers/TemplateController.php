@@ -34,7 +34,7 @@ class TemplateController extends Controller
             return View::make('templates.admin.main')->with([
                 'currentPage' => $page,
                 'article' => $article,
-                'template' => 'templates.'.config('skytz.template').'.index'
+                'template' => 'templates.'.config('skytz.template').'.index',
             ]);
         }
 

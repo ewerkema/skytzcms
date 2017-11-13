@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Cache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -72,10 +73,20 @@ class Page extends Model
      */
     public function getSlug()
     {
-        if ($parent = $this->parent()->first())
+        if ($this->hasParent()) {
+            $parent = $this->parent()->first();
             return $parent->slug . '/' . $this->attributes['slug'];
+        }
 
         return $this->attributes['slug'];
+    }
+
+    /**
+     * Boolean check whether this page has a parent.
+     */
+    public function hasParent()
+    {
+        return $this->parent_id != 0;
     }
 
     /**
@@ -85,7 +96,9 @@ class Page extends Model
      */
     public function getMenuWithSubpages()
     {
-        return $this->with('subpages')->get()->where('menu', 1)->where('parent_id', NULL)->sortBy('order');
+        return Cache::remember('menu-pages-with-subpages', 60, function () {
+            return $this->with('subpages')->get()->where('menu', 1)->where('parent_id', NULL)->sortBy('order');
+        });
     }
 
     /**
@@ -95,7 +108,9 @@ class Page extends Model
      */
     public function getMenuWithoutSubpages()
     {
-        return $this->all()->where('menu', 1)->where('parent_id', NULL)->sortBy('order');
+        return Cache::remember('menu-pages-without-subpages', 60, function () {
+            return $this->all()->where('menu', 1)->where('parent_id', NULL)->sortBy('order');
+        });
     }
 
     /**
@@ -105,7 +120,9 @@ class Page extends Model
      */
     public function getMenu()
     {
-        return $this->all()->where('menu', 1)->sortBy('order');
+        return Cache::remember('menu-pages', 60, function() {
+            return $this->all()->where('menu', 1)->sortBy('order');
+        });
     }
 
     /**
@@ -115,7 +132,9 @@ class Page extends Model
      */
     public function getNonMenu()
     {
-        return $this->all()->where('menu', 0)->sortBy('title');
+        return Cache::remember('non-menu-pages', 60, function() {
+            return $this->all()->where('menu', 0)->sortBy('title');
+        });
     }
 
     /**
@@ -135,8 +154,10 @@ class Page extends Model
      */
     public function getEditorLinks()
     {
-        return $this->all()->map(function($page) {
-            return $page->getEditorLink();
+        return Cache::remember('editor-links', 60, function() {
+            return $this->all()->map(function($page) {
+                return $page->getEditorLink();
+            });
         });
     }
 

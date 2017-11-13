@@ -28,21 +28,24 @@
                             </a>
                             <ul class="nav dropdown-menu dropdown-menu-large row">
                                 @php
-                                    if (Page::getMenu()->count() > Page::getNonMenu()->count()) {
-                                        $menuPageChunk = max(10, floor(Page::getMenu()->count() / 2));
-                                        $nonMenuPageChunk = Page::getNonMenu()->count();
+                                    $menuPages = Page::getMenu();
+                                    $nonMenuPages = Page::getNonMenu();
+
+                                    if ($menuPages->count() > $nonMenuPages->count()) {
+                                        $menuPageChunk = max(10, floor($menuPages->count() / 2));
+                                        $nonMenuPageChunk = $nonMenuPages->count();
                                     } else {
-                                        $menuPageChunk = Page::getMenu()->count();
-                                        $nonMenuPageChunk = max(10, floor(Page::getNonMenu()->count() / 2));
+                                        $menuPageChunk = $menuPages->count();
+                                        $nonMenuPageChunk = max(10, floor($nonMenuPages->count() / 2));
                                     }
                                 @endphp
-                                @foreach (Page::getMenu()->chunk($menuPageChunk) as $pageChunk)
+                                @foreach ($menuPages->chunk($menuPageChunk) as $pageChunk)
                                     <li class="small-4 columns">
                                         <ul>
                                             <li class="dropdown-header">Pagina's in menu</li>
                                             @foreach ($pageChunk as $page)
                                                 <li class="{{ (isset($currentPage) && $page->id == $currentPage->id) ? "active" : "" }}">
-                                                    <a href="{{ page_url($page->getSlug()) }}">{{ (($page->parent()->first()) ? $page->parent()->first()->title . ' > ' : '' ).$page->title }}</a>
+                                                    <a href="{{ page_url($page->getSlug()) }}">{{ ($page->hasParent() ? $page->parent()->first()->title . ' > ' : '' ).$page->title }}</a>
                                                 </li>
                                             @endforeach
                                         </ul>
@@ -56,7 +59,7 @@
                                         </ul>
                                     </li>
                                 @endif
-                                @foreach (Page::getNonMenu()->chunk($nonMenuPageChunk) as $pageChunk)
+                                @foreach ($nonMenuPages->chunk($nonMenuPageChunk) as $pageChunk)
                                     <li class="small-4 columns">
                                         <ul>
                                             <li class="dropdown-header">Losse pagina's</li>
@@ -70,7 +73,7 @@
                                     </li>
                                 @endforeach
 
-                                @if (!Page::getNonMenu()->count())
+                                @if (!$nonMenuPages->count())
                                     <li class="small-4 columns">
                                         <ul>
                                             <li>Geen losse pagina's gevonden.</li>
@@ -94,11 +97,14 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 <span class="glyphicon glyphicon-th-large"></span>
-                                Mijn modules ({{ Module::where('active', 1)->count() }}) <span class="caret"></span>
+                                @php
+                                    $modules = Module::where('active', 1)->get()
+                                @endphp
+                                Mijn modules ({{ $modules->count() }}) <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                @foreach (Module::where('active', 1)->get() as $module)
+                                @foreach ($modules as $module)
                                     <li><a href="#" data-toggle="modal" data-target="#module{{ ucfirst($module->template) }}Modal">Module {{ $module->name }}</a></li>
                                 @endforeach
                             </ul>
