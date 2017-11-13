@@ -35,26 +35,34 @@
     <script type="text/javascript">
 
         function publishWebsite() {
-
-            swal({
-                title: "Website publiceren?",
-                text: "Alle gemaakte wijzigingen zullen zichtbaar worden op de website.",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#2ab27b",
-                confirmButtonText: "Ja, website publiceren",
-            }).then(function(){
-                var request = new Request('{{ cms_url('pages/publish') }}');
-                request.setType('POST');
-                request.send(function() {
-                    swal({
-                        title: 'Website gepubliceerd!',
-                        text: 'Alle wijzigingen zijn succesvol online gezet.',
-                        type: 'success',
-                        timer: 2000
+            if ($('#saveChanges').is(":visible")) {
+                swal({
+                    title: "Publiceren niet mogelijk",
+                    text: "Er zijn nog niet opgeslagen wijzigingen op deze pagina. Druk eerst op \"Pagina opslaan\" om verder te gaan.",
+                    type: "error",
+                    timer: 2000,
+                });
+            } else {
+                swal({
+                    title: "Website publiceren?",
+                    text: "Alle gemaakte wijzigingen zullen zichtbaar worden op de website.",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#2ab27b",
+                    confirmButtonText: "Ja, website publiceren",
+                }).then(function(){
+                    var request = new Request('{{ cms_url('pages/publish') }}');
+                    request.setType('POST');
+                    request.send(function() {
+                        swal({
+                            title: 'Website gepubliceerd!',
+                            text: 'Alle wijzigingen zijn succesvol online gezet.',
+                            type: 'success',
+                            timer: 2000
+                        });
                     });
                 });
-            });
+            }
         }
 
         function reloadPageContent() {

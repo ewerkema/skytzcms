@@ -304,9 +304,17 @@ function saveChanges() {
 
 
 function changePage() {
-    editor._ignition.edit();
-    editor._ignition.unmount();
-    editorButtons.showSaveContent();
+    if (editor == undefined) {
+        swal({
+            title: "Pagina nog niet geladen.",
+            text: "Pagina is nog niet volledig geladen, probeer het nog een keer.",
+            type: "warning"
+        }).done();
+    } else {
+        editor._ignition.edit();
+        editor._ignition.unmount();
+        editorButtons.showSaveContent();
+    }
 }
 
 function changeLayout() {
