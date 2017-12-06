@@ -39,18 +39,6 @@
                                         $nonMenuPageChunk = max(10, floor($nonMenuPages->count() / 2));
                                     }
                                 @endphp
-                                @foreach ($menuPages->chunk($menuPageChunk) as $pageChunk)
-                                    <li class="small-4 columns">
-                                        <ul>
-                                            <li class="dropdown-header">Pagina's in menu</li>
-                                            @foreach ($pageChunk as $page)
-                                                <li class="{{ (isset($currentPage) && $page->id == $currentPage->id) ? "active" : "" }}">
-                                                    <a href="{{ page_url($page->getSlug()) }}">{{ ($page->hasParent() ? $page->parent()->first()->title . ' > ' : '' ).$page->title }}</a>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    </li>
-                                @endforeach
                                 @if (empty(Page::getMenuWithSubpages()))
                                     <li class="small-4 columns">
                                         <ul>
@@ -58,27 +46,42 @@
                                             <li>Geen pagina's gevonden.</li>
                                         </ul>
                                     </li>
+                                @else
+                                    @foreach ($menuPages->chunk($menuPageChunk) as $pageChunk)
+                                        <li class="small-4 columns">
+                                            <ul>
+                                                <li class="dropdown-header">Pagina's in menu</li>
+                                                @foreach ($pageChunk as $page)
+                                                    <li class="{{ (isset($currentPage) && $page->id == $currentPage->id) ? "active" : "" }}">
+                                                        <a href="{{ page_url($page->getSlug()) }}">{{ ($page->hasParent() ? $page->parent()->first()->title . ' > ' : '' ).$page->title }}</a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </li>
+                                    @endforeach
                                 @endif
-                                @foreach ($nonMenuPages->chunk($nonMenuPageChunk) as $pageChunk)
-                                    <li class="small-4 columns">
-                                        <ul>
-                                            <li class="dropdown-header">Losse pagina's</li>
-
-                                            @foreach ($pageChunk as $page)
-                                                <li class="{{ (isset($currentPage) && $page->id == $currentPage->id) ? "active" : "" }}">
-                                                    <a href="{{ page_url($page->getSlug()) }}">{{ $page->title }}</a>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    </li>
-                                @endforeach
 
                                 @if (!$nonMenuPages->count())
                                     <li class="small-4 columns">
                                         <ul>
+                                            <li class="dropdown-header">Losse pagina's</li>
                                             <li>Geen losse pagina's gevonden.</li>
                                         </ul>
                                     </li>
+                                @else
+                                    @foreach ($nonMenuPages->chunk($nonMenuPageChunk) as $pageChunk)
+                                        <li class="small-4 columns">
+                                            <ul>
+                                                <li class="dropdown-header">Losse pagina's</li>
+
+                                                @foreach ($pageChunk as $page)
+                                                    <li class="{{ (isset($currentPage) && $page->id == $currentPage->id) ? "active" : "" }}">
+                                                        <a href="{{ page_url($page->getSlug()) }}">{{ $page->title }}</a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </li>
+                                    @endforeach
                                 @endif
                             </ul>
 
