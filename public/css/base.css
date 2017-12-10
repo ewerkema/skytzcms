@@ -88,3 +88,16 @@ img.align-left {
 .modal-body {
     overflow-y: auto;
 }
+
+.portlet .project-images {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.portlet .project-image {
+    flex-grow: 1;
+    margin-right: 15px;
+    width: calc(100% * (1/4) - 15px);
+}

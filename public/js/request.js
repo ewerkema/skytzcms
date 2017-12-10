@@ -27,7 +27,7 @@ Request.prototype.getType = function() {
 };
 
 Request.prototype.findInForm = function (name) {
-    return this.form.find('[name='+name+']');
+    return this.form.find('[name="'+name+'"]');
 };
 
 Request.prototype.addField = function(name, type = "text", defaultVal = "", optional = false) {
@@ -57,6 +57,13 @@ Request.prototype.addCheckboxes = function (names) {
     });
 };
 
+Request.prototype.addArrays = function (names) {
+    var _this = this;
+    names.forEach(function(name) {
+        _this.addField(name, 'array');
+    });
+};
+
 Request.prototype.addOptionalFields = function(names) {
     var _this = this;
     names.forEach(function(name) {
@@ -81,6 +88,11 @@ Request.prototype.processFields = function() {
                 break;
             case "value":
                 data[name] = el.default;
+                break;
+            case "array":
+                data[name] = this.findInForm(name + '[]').map(function(){
+                    return $(this).val();
+                }).get();
                 break;
             default:
                 data[name] = (this.findInForm(name).val()) ? this.findInForm(name).val() : el.default;
@@ -119,6 +131,7 @@ Request.prototype.onSubmit = function (callback) {
     this.form.submit(function(e){
         e.preventDefault();
         var data = _this.processFields();
+
         $.ajax({
             url: _this.url,
             type: (_this.type == 'GET') ? 'GET' : 'POST',

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Page;
 use App\Http\Requests;
+use App\Models\Project;
 use Illuminate\Support\Facades\View;
 use Session;
 
@@ -26,6 +27,7 @@ class TemplateController extends Controller
         }
 
         $article = $this->getArticle();
+        $project = $this->getProject();
 
         if (!$page)
             abort(404);
@@ -34,6 +36,7 @@ class TemplateController extends Controller
             return View::make('templates.admin.main')->with([
                 'currentPage' => $page,
                 'article' => $article,
+                'project' => $project,
                 'template' => 'templates.'.config('skytz.template').'.index',
             ]);
         }
@@ -41,6 +44,7 @@ class TemplateController extends Controller
         return View::make('templates.'.config('skytz.template').'.index')->with([
             'currentPage' => $page,
             'article' => $article,
+            'project' => $project,
         ]);
     }
 
@@ -52,5 +56,15 @@ class TemplateController extends Controller
         }
 
         return $article;
+    }
+
+    public function getProject()
+    {
+        $project = false;
+        if (isset($_GET['project'])) {
+            $project = Project::whereSlug(str_slug($_GET['project']));
+        }
+
+        return $project;
     }
 }

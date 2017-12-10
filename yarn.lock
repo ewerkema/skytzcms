@@ -5229,6 +5229,23 @@ vue-html-loader@^1.2.2:
     loader-utils "^1.0.2"
     object-assign "^4.1.0"
 
+vue-loader@8.3.1:
+  version "8.3.1"
+  resolved "https://registry.yarnpkg.com/vue-loader/-/vue-loader-8.3.1.tgz#f39ee76cc69d5810e6761f52ae3e416677d207df"
+  dependencies:
+    autoprefixer "^6.0.3"
+    consolidate "^0.14.0"
+    de-indent "^1.0.0"
+    hash-sum "^1.0.2"
+    loader-utils "^0.2.10"
+    lru-cache "^2.7.0"
+    object-assign "^4.0.0"
+    parse5 "^2.1.0"
+    postcss "^5.0.10"
+    postcss-selector-parser "^1.1.2"
+    source-map "^0.5.3"
+    vue-template-validator "^1.0.0"
+
 vue-loader@^8.3.1:
   version "8.7.0"
   resolved "https://registry.yarnpkg.com/vue-loader/-/vue-loader-8.7.0.tgz#a9881ead751e75e0084ccd022e7fbdb737806b2a"

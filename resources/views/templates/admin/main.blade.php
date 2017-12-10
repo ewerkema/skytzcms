@@ -66,6 +66,7 @@
         @include('templates.admin.modals.module_sliders')
         @include('templates.admin.modals.module_html_blocks')
         @include('templates.admin.modals.module_breadcrumbs')
+        @include('templates.admin.modals.module_projects')
         @include('templates.admin.modals.account')
         @include('templates.admin.modals.sortMenu')
         @include('templates.admin.modals.website', ['settings' => Setting::all()->keyBy('name')])

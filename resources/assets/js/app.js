@@ -19,6 +19,7 @@ Vue.component('list-albums', require('./components/ListAlbums.vue'));
 Vue.component('list-sliders', require('./components/ListSliders.vue'));
 Vue.component('list-forms', require('./components/ListForms.vue'));
 Vue.component('list-html-blocks', require('./components/ListHtmlBlocks.vue'));
+Vue.component('list-projects', require('./components/ListProjects.vue'));
 Vue.component('select-media', require('./components/SelectMedia.vue'));
 Vue.component('select-module', require('./components/SelectModule.vue'));
 
@@ -34,5 +35,5 @@ Vue.filter('chunk', function (value, size) {
 });
 
 const app = new Vue({
-    el: 'body'
+    el: 'body',
 });

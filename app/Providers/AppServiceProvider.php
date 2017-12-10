@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Project;
+use App\Models\ProjectGroup;
 use App\Models\HtmlBlock;
 use App\Models\ImportTable;
 use App\Models\Album;
@@ -27,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
         'ArticleGroup' => ArticleGroup::class,
         'Media' => Media::class,
         'Page' => Page::class,
+        'Project' => Project::class,
+        'ProjectGroup' => ProjectGroup::class,
         'Setting' => Setting::class,
         'Slider' => Slider::class,
         'Module' => Module::class,

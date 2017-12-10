@@ -96,7 +96,7 @@
                     <div class="input-group input-pointer">
                         <input type="hidden" name="image_id" id="image_id" value="{{ selectedArticle.image_id || 0 }}" class="form-control selected_media_id" />
                         <span class="input-group-addon" id="media-picture" onclick="selectMedia()"><span class="glyphicon glyphicon-picture"></span></span>
-                        <input type="text" name="image_name" onclick="selectMedia()" value="{{ selectedArticleImageName }}" class="form-control selected_media_name no-border-radius" placeholder="Pagina header" />
+                        <input type="text" name="image_name" onclick="selectMedia()" value="{{ selectedArticleImageName }}" class="form-control selected_media_name no-border-radius" placeholder="Artikel afbeelding" />
                         <div class="input-group-btn">
                             <button class="btn btn-default" type="button" v-on:click="removeMedia()"><span class="glyphicon glyphicon-remove"></span></button>
                         </div>

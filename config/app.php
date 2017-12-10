@@ -240,6 +240,8 @@ return [
         'Notification' => Illuminate\Support\Facades\Notification::class,
         'Page' => App\Facades\Page::class,
         'Password' => Illuminate\Support\Facades\Password::class,
+        'Project' => App\Facades\Project::class,
+        'ProjectGroup' => App\Facades\ProjectGroup::class,
         'Queue' => Illuminate\Support\Facades\Queue::class,
         'Redirect' => Illuminate\Support\Facades\Redirect::class,
         'Redis' => Illuminate\Support\Facades\Redis::class,
@@ -256,7 +258,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Former'    => Former\Facades\Former::class,
         'Image'     => Intervention\Image\Facades\Image::class,
-        'Input' => Illuminate\Support\Facades\Input::class,
+        'Input' => Illuminate\Support\Facades\Input::class
+
     ],
 
 ];

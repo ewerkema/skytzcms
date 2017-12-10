@@ -1,6 +1,8 @@
 
 @if (isset($article) && $article)
     @include('templates.admin.modules.single_article')
+@elseif (isset($project) && $project)
+    @include('templates.admin.modules.single_project')
 @else
     <div class="page-content" data-page="{{ $currentPage->id }}">
         @if (sizeof($currentPage->content) == 0)
@@ -40,7 +42,14 @@
                     title: "Publiceren niet mogelijk",
                     text: "Er zijn nog niet opgeslagen wijzigingen op deze pagina. Druk eerst op \"Pagina opslaan\" om verder te gaan.",
                     type: "error",
-                    timer: 2000,
+                    timer: 5000,
+                });
+            } else if ($('#saveLayout').is(":visible")){
+                swal({
+                    title: "Publiceren niet mogelijk",
+                    text: "Er zijn nog niet opgeslagen wijzigingen op deze pagina. Druk eerst op \"Blokken opslaan\" om verder te gaan.",
+                    type: "error",
+                    timer: 5000,
                 });
             } else {
                 swal({

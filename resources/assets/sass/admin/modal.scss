@@ -10,6 +10,14 @@
     .input-pointer:hover > input {
         cursor: pointer !important;
     }
+
+    .modal-dialog{
+        overflow-y: initial !important
+    }
+    .modal-body{
+        max-height: 70vh;
+        overflow-y: auto;
+    }
 }
 
 #mediaModal {
