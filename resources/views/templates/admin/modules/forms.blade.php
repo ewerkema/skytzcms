@@ -14,15 +14,17 @@
 
                 @foreach ($form->fields()->get() as $start => $field)
                     <div class="row">
-                        <div class="small-3 columns">
-                            <label for="{{ $field->formName() }}" class="right inline{{ $errors->has($field->formName()) ? ' error' : '' }}">{{ $field->name }}{{ $field->required ? "*" : "" }}</label>
-                        </div>
+                        @if (!$field->hidden_name)
+                            <div class="small-3 columns">
+                                <label for="{{ $field->formName() }}" class="right inline{{ $errors->has($field->formName()) ? ' error' : '' }}">{{ $field->name }}{{ $field->required ? "*" : "" }}</label>
+                            </div>
+                        @endif
 
-                        <div class="small-9 columns">
+                        <div class="small-{{ $field->hidden_name ? 12 : 9 }} columns">
                             @if ($field->type == "text" || $field->type == "email" || $field->type == "number")
-                                <input id="{{ $field->formName() }}" type="{{ $field->type }}" name="{{ $field->formName() }}" placeholder="{{ $field->placeholder }}" value="{{ old($field->formName()) }}">
+                                <input id="{{ $field->formName() }}" type="{{ $field->type }}" name="{{ $field->formName() }}" placeholder="{{ $field->placeholder }}{{ $field->required ? "*" : "" }}" value="{{ old($field->formName()) }}">
                             @elseif ($field->type == "textarea")
-                                <textarea id="{{ $field->formName() }}" name="{{ $field->formName() }}" placeholder="{{ $field->placeholder }}">{{ old($field->formName()) }}</textarea>
+                                <textarea id="{{ $field->formName() }}" name="{{ $field->formName() }}" placeholder="{{ $field->placeholder }}{{ $field->required ? "*" : "" }}">{{ old($field->formName()) }}</textarea>
                             @elseif ($field->type == "select")
                                 <select name="{{ $field->formName() }}">
                                     @forelse($field->options as $option)

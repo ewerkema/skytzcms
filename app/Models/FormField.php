@@ -9,11 +9,12 @@ class FormField extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'type', 'name', 'options', 'required', 'placeholder', 'form_id',
+        'type', 'name', 'options', 'required', 'placeholder', 'form_id', 'hidden_name',
     ];
 
     protected $casts = [
-        'options' => 'array'
+        'options' => 'array',
+        'hidden_name' => 'boolean',
     ];
 
     /**

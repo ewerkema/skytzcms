@@ -136,6 +136,16 @@
                     </label>
                 </div>
             </div>
+            <div class="form-group">
+                <label for="hidden_name" class="col-md-3 control-label">Naam verbergen</label>
+
+                <div class="col-md-8">
+                    <label class="Switch">
+                        <input type="checkbox" name="hidden_name" id="hidden_name" :checked="selectedFormField.hidden_name">
+                        <div class="Switch__slider"></div>
+                    </label>
+                </div>
+            </div>
             <div class="form-group" v-if="activateOptions">
                 <label for="required" class="col-md-3 control-label">Opties</label>
 
@@ -276,6 +286,7 @@
                 request.setForm('#formForm');
                 request.setType('PATCH');
                 request.addFields(['name', 'message', 'email']);
+                request.addCheckboxes(['required', 'hidden_name']);
 
                 var _this = this;
                 request.send(function(data) {
@@ -295,7 +306,7 @@
                 request.setForm('#formFieldForm');
                 request.setType('POST');
                 request.addFields(['name', 'type', 'placeholder', 'form_id']);
-                request.addCheckboxes(['required']);
+                request.addCheckboxes(['required', 'hidden_name']);
 
                 if (!this.isOptionType(this.selectedFormField.type))
                     this.resetFormFieldOptions();
@@ -359,10 +370,15 @@
             },
 
             newFormField: function(formId) {
-                this.selectedFormField = ['type', 'name', 'placeholder', 'required', 'options'];
-                this.selectedFormField.required = true;
-                this.selectedFormField.form_id = formId;
-                this.selectedFormField.options = [];
+                this.selectedFormField = {
+                    'type': '',
+                    'name': '',
+                    'form_id': formId,
+                    'placeholder': '',
+                    'required': true,
+                    'hidden_name': false,
+                    'options': [],
+                };
             },
 
             addOption: function () {
