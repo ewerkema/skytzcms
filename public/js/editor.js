@@ -176,7 +176,6 @@ $.fn.addGridstackMenu = function(originalWidth) {
     $(this).on('click', '.remove', function (e) {
         e.preventDefault();
         var el = $(this).closest('.grid-stack-item');
-        console.log("test");
         swal({
             title: "Blok verwijderen?",
             text: "Je kan deze wijzingen niet meer herstellen.",

@@ -50,7 +50,7 @@
     export default {
         data(){
             return {
-                selectedImage: false    ,
+                selectedImage: false,
                 openInPopup: false,
                 selectedPage: 0,
                 totalPages: 0,

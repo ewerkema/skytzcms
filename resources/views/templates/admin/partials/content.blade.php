@@ -9,7 +9,6 @@
 
     function enableImagePopup() {
         $(popupImages).each(function(){
-            console.log("JEMEODER");
             let anchor = $('<a/>').attr({'href': this.src}).colorbox({rel: 'group', maxWidth:'50%', fixed: true});
             $(this).wrap(anchor);
         });
