@@ -570,6 +570,11 @@ form select {
   overflow-y: auto;
 }
 
+.modal .flex {
+  display: -webkit-box;
+  display: flex;
+}
+
 #mediaModal {
   overflow-y: auto;
 }

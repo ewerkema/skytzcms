@@ -3,3 +3,26 @@
 @else
     @include('templates.admin.partials.published_content')
 @endif
+
+<script type="text/javascript">
+    let popupImages = "img[openinpopup='true']";
+
+    function enableImagePopup() {
+        $(popupImages).each(function(){
+            console.log("JEMEODER");
+            let anchor = $('<a/>').attr({'href': this.src}).colorbox({rel: 'group', maxWidth:'50%', fixed: true});
+            $(this).wrap(anchor);
+        });
+    }
+
+    function disableImagePopup() {
+        $(popupImages).each(function() {
+            let parent = $(this).parent();
+            parent.replaceWith($(this));
+        });
+    }
+
+    $(document).ready(function(){
+        enableImagePopup();
+    });
+</script>

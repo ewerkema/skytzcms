@@ -26,6 +26,7 @@ var editor;
 var editorButtons = new ButtonGroup('#changePage, #changeLayout, #hideLayout', '#revertChanges, #saveChanges', '#cancelLayout, #saveLayout');
 
 window.addEventListener('load', function() {
+
     ContentEdit.TRIM_WHITESPACE = false;
     editor = ContentTools.EditorApp.get();
     editor.init('*[data-editable]', 'data-name');
@@ -33,6 +34,7 @@ window.addEventListener('load', function() {
     editor._ignition.unmount();
     addPagesToEditor(ContentTools);
     editor.revert = function() {
+        enableImagePopup();
         this.revertToSnapshot(this.history.goTo(0), false);
         return true;
     };
@@ -42,12 +44,12 @@ window.addEventListener('load', function() {
         var content = ev.detail().regions;
         var newBlocks = Object.keys(content).length;
 
+        enableImagePopup();
         if (newBlocks) {
             $.when(
                 saveContent(content)
             ).then(function() {
                 editorButtons.showEdit();
-
                 swal({
                     title: 'Pagina opgeslagen',
                     type: 'success',
@@ -74,7 +76,6 @@ function saveContent(content) {
         },
         error: function (data) {
             showError(data);
-            console.log(data);
         }
     });
 }
@@ -311,6 +312,7 @@ function changePage() {
             type: "warning"
         }).done();
     } else {
+        disableImagePopup();
         editor._ignition.edit();
         editor._ignition.unmount();
         editorButtons.showSaveContent();
@@ -402,7 +404,7 @@ var CustomImageTool = (function(_super) {
     CustomImageTool.apply = function(element, selection, callback) {
         // First define a function that we can send the custom media manager
         // when an image is ready to insert.
-        function _insertImage(url, width, height) {
+        function _insertImage(url, width, height, openInPopup) {
             // Once the user has selected an image insert it
 
             // Create the image element
@@ -411,7 +413,7 @@ var CustomImageTool = (function(_super) {
                 height = (elementWidth / width) * height;
                 width = elementWidth;
             }
-            var image = new ContentEdit.Image({src: url, width: width, height: height});
+            var image = new ContentEdit.Image({src: url, width: width, height: height, openInPopup: openInPopup});
 
             // Insert the image
             var insertAt = CustomImageTool._insertAt(element);

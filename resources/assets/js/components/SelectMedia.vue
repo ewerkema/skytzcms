@@ -31,6 +31,15 @@
             </div>
         </nav>
     </div>
+    <div class="form-group right flex">
+        <label for="openInPopup" class="control-label" style="margin-right: 10px;">Openen in popup</label>
+
+        <label class="Switch" style="align-self: center;">
+            <input type="checkbox" name="openInPopup" id="openInPopup" v-model="openInPopup">
+            <div class="Switch__slider"></div>
+        </label>
+    </div>
+    <div class="clear"></div>
     <button type="button" class="btn btn-success right" @click="sendImage()" :disabled="!selectedImage">Geselecteerde afbeelding gebruiken</button>
     <div class="clear"></div>
 </template>
@@ -41,7 +50,8 @@
     export default {
         data(){
             return {
-                selectedImage: false,
+                selectedImage: false    ,
+                openInPopup: false,
                 selectedPage: 0,
                 totalPages: 0,
                 imagesPerRow: 4,
@@ -76,7 +86,7 @@
             sendImage: function() {
                 var image = document.getElementById('select_image_'+this.selectedImage.id);
                 if (window.parent.CustomMediaManager !== undefined && window.parent.CustomMediaManager.active) {
-                    window.parent.CustomMediaManager._insertImage(this.imagePath(this.selectedImage.path), image.naturalWidth, image.naturalHeight);
+                    window.parent.CustomMediaManager._insertImage(this.imagePath(this.selectedImage.path), image.naturalWidth, image.naturalHeight, this.openInPopup);
                 } else {
                     $('.selected_media_id').val(this.selectedImage.id).trigger('change');
                     $('.selected_media_name').val(this.selectedImage.name);
