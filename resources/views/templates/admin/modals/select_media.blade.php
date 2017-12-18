@@ -11,9 +11,3 @@
 @section('modal-footer')
 
 @overwrite
-
-@section('javascript')
-    <script type="text/javascript">
-
-    </script>
-@overwrite

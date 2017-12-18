@@ -26,14 +26,14 @@
                 </a>
             </ul>
         </div>
-        <div class="col-md-8" v-if="selectedHtmlBlock">
+        <div class="col-md-8" v-if="selectedHtmlBlock && getHtmlBlock(selectedHtmlBlock)">
             <form action="#" class="form-horizontal editForm" id="htmlBlockForm" v-on:submit.prevent>
                 <div class="alert form-message" role="alert" style="display: none;"></div>
                 <div class="form-group">
                     <label for="name" class="col-md-3 control-label">Naam</label>
 
                     <div class="col-md-8">
-                        <input type="text" id="name" name="name" value="{{ getHtmlBlock(selectedHtmlBlock).name }}" class="form-control" placeholder="Naam" required autofocus />
+                        <input type="text" id="name" name="name" :value="getHtmlBlock(selectedHtmlBlock).name" class="form-control" placeholder="Naam" required autofocus />
                     </div>
                 </div>
                 <div class="form-group">
@@ -100,14 +100,14 @@
             },
 
             submitForm: function () {
-                var request = new Request('/cms/htmlBlocks');
+                let request = new Request('/cms/htmlBlocks');
                 request.setForm('#htmlBlockForm');
                 request.setType('PATCH');
                 request.addToUrl(this.selectedHtmlBlock);
 
                 request.addFields(['html', 'name']);
 
-                var _this = this;
+                let _this = this;
                 request.send(function(data) {
                     _this.htmlBlocks[_.findIndex(_this.htmlBlocks, function(htmlBlock) { return htmlBlock.id == data.id })] = data;
                     swal({
@@ -120,7 +120,7 @@
             },
 
             createHtmlBlock: function() {
-                var value = $('[name=html_block_name]').val();
+                let value = $('[name=html_block_name]').val();
 
                 if (value == "") {
                     this.newHtmlBlockError = true;
@@ -131,7 +131,7 @@
                 this.newHtmlBlockError = false;
                 this.newHtmlBlock = false;
 
-                var _this = this;
+                let _this = this;
                 $.ajax({
                     url: '/cms/htmlBlocks',
                     type: 'POST',
@@ -147,7 +147,7 @@
             },
 
             removeHtmlBlock: function (htmlBlockId) {
-                var _this = this;
+                let _this = this;
                 swal({
                     title: "Html block verwijderen?",
                     type: "warning",
@@ -160,7 +160,7 @@
             },
 
             doRemoveHtmlBlock: function (htmlBlockId) {
-                var _this = this;
+                let _this = this;
                 $.ajax({
                     url: '/cms/htmlBlocks/'+htmlBlockId,
                     type: 'POST',
@@ -169,7 +169,7 @@
                     },
                     success: function(result) {
                         _this.htmlBlocks.$remove(_.find(_this.htmlBlocks, ['id', htmlBlockId]));
-                        _this.selectedHtmlBlock = _.head(_this.htmlBlocks) ? _.head(_this.htmlBlocks).id : false;
+                        _this.selectedHtmlBlock = (_.head(_this.htmlBlocks) !== undefined) ? _.head(_this.htmlBlocks).id : false;
                     }
                 });
             },
@@ -179,7 +179,7 @@
             },
 
             loadHtmlBlocks: function() {
-                var _this = this;
+                let _this = this;
                 $.get('/cms/htmlBlocks', function (data) {
                     if (data.length != 0) {
                         _this.htmlBlocks = data;

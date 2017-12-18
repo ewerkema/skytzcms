@@ -44,10 +44,10 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="parent_id" class="col-md-3 control-label">Weergeven in submenu van</label>
+                <label for="parent_id2" class="col-md-3 control-label">Weergeven in submenu van</label>
 
                 <div class="col-md-8">
-                    <select class="form-control" id="parent_id" name="parent_id">
+                    <select class="form-control" id="parent_id2" name="parent_id">
                         <option value="" {{ (!$currentPage->parent_id) ? "selected" : "" }}>Geen submenu</option>
                         @foreach (Page::getMenuWithoutSubpages() as $page)
                             <option value="{{ $page->id }}" {{ ($page->id == $currentPage->parent_id) ? "selected" : "" }}>

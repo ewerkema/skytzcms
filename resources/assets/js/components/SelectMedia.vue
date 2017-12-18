@@ -1,47 +1,49 @@
 <template>
-    <div class="selectMedia" class="col-md-12">
-        <div class="bootstrap-row album-row" v-for="row in images | limitPage | chunk imagesPerRow">
-            <div class="album-image"
-                 v-for="image in row"
-                 v-on:click="selectImage(image)"
-                 :class="[{selected: image.id == selectedImage.id }, 'col-md-' + Math.floor(12/imagesPerRow)]"
-            >
-                <img :src="imagePath(image.path)" id="select_image_{{ image.id }}" />
-                <span class="glyphicon glyphicon-ok add"></span>
+    <div>
+        <div class="selectMedia">
+            <div class="bootstrap-row album-row" v-for="row in chunkedImages">
+                <div class="album-image"
+                     v-for="image in row"
+                     v-on:click="selectImage(image)"
+                     :class="[{selected: image.id == selectedImage.id }, 'col-md-' + Math.floor(12/imagesPerRow)]"
+                >
+                    <img :src="imagePath(image.path)" :id="'select_image_'+image.id" />
+                    <span class="glyphicon glyphicon-ok add"></span>
+                </div>
             </div>
+            <p v-if="images.length == 0">Er zijn geen afbeeldingen gevonden.</p>
+
+            <nav class="flex-center" aria-label="Select media navigation">
+                <div class="media-pagination">
+                    <ul class="pagination">
+                        <li :class="{disabled: selectedPage == 0}">
+                            <span v-if="selectedPage == 0">«</span>
+                            <a v-else rel="prev" @click="selectedPage = selectedPage - 1">«</a>
+                        </li>
+                        <li v-for="p in (totalPages+1)" :class="{active: selectedPage == p}">
+                            <span v-if="selectedPage == p">{{ p+1 }}</span>
+                            <a v-else @click="selectedPage = p">{{ p+1 }}</a>
+                        </li>
+                        <li :class="{disabled: selectedPage == totalPages}">
+                            <span v-if="selectedPage == totalPages">»</span>
+                            <a v-else rel="next" @click="selectedPage = selectedPage + 1">»</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
         </div>
-        <p v-if="images.length == 0">Er zijn geen afbeeldingen gevonden.</p>
+        <div class="form-group right flex">
+            <label for="openInPopup" class="control-label" style="margin-right: 10px;">Openen in popup</label>
 
-        <nav class="flex-center" aria-label="Select media navigation">
-            <div class="media-pagination">
-                <ul class="pagination">
-                    <li :class="{disabled: selectedPage == 0}">
-                        <span v-if="selectedPage == 0">«</span>
-                        <a v-else href="#" rel="prev" @click="selectedPage = selectedPage - 1">«</a>
-                    </li>
-                    <li v-for="p in (totalPages+1)" :class="{active: selectedPage == p}">
-                        <span v-if="selectedPage == p">{{ p+1 }}</span>
-                        <a v-else href="#" @click="selectedPage = p">{{ p+1 }}</a>
-                    </li>
-                    <li :class="{disabled: selectedPage == totalPages}">
-                        <span v-if="selectedPage == totalPages">»</span>
-                        <a v-else href="#" rel="next" @click="selectedPage = selectedPage + 1">»</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+            <label class="Switch" style="align-self: center;">
+                <input type="checkbox" name="openInPopup" id="openInPopup" v-model="openInPopup">
+                <div class="Switch__slider"></div>
+            </label>
+        </div>
+        <div class="clear"></div>
+        <button type="button" class="btn btn-success right" @click="sendImage()" :disabled="!selectedImage">Geselecteerde afbeelding gebruiken</button>
+        <div class="clear"></div>
     </div>
-    <div class="form-group right flex">
-        <label for="openInPopup" class="control-label" style="margin-right: 10px;">Openen in popup</label>
-
-        <label class="Switch" style="align-self: center;">
-            <input type="checkbox" name="openInPopup" id="openInPopup" v-model="openInPopup">
-            <div class="Switch__slider"></div>
-        </label>
-    </div>
-    <div class="clear"></div>
-    <button type="button" class="btn btn-success right" @click="sendImage()" :disabled="!selectedImage">Geselecteerde afbeelding gebruiken</button>
-    <div class="clear"></div>
 </template>
 <style>
 
@@ -125,7 +127,9 @@
         },
 
         computed: {
-
+            chunkedImages: function() {
+                return _.chunk(_.toArray(_.filter(this.images, this.limitPage), this.imagesPerRow));
+            }
         }
     }
 </script>

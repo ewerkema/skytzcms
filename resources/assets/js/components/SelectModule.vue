@@ -1,5 +1,5 @@
 <template>
-    <div class="selectModule" class="col-md-12">
+    <div class="selectModule col-md-12">
         <div class="sidebar col-md-4">
             <ul class="list-group">
                 <a href="#" class="list-group-item"
@@ -38,7 +38,6 @@
             </button>
         </div>
     </div>
-    <div class="clear"></div>
 </template>
 <style>
 
@@ -122,6 +121,6 @@
 
         computed: {
 
-        }
+        },
     }
 </script>

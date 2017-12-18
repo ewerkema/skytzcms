@@ -24,6 +24,10 @@
     }
 }
 
+#medialist {
+    margin-top: 15px;
+}
+
 #mediaModal {
     overflow-y: auto;
     .media-image-gallery{
@@ -45,6 +49,10 @@
                 line-height: 24px;
                 word-break: break-all;
             }
+        }
+        .thumbnail.selected {
+            background-color: mix(#fff, $brand-success, 70%);
+            border-color: $brand-success;
         }
         .trash{
             position: absolute;

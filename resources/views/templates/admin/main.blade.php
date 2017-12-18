@@ -58,21 +58,24 @@
             @include('templates.admin.modals.page')
         @endif
 
-        @include('templates.admin.modals.media')
+        <div id="vue-app">
+            @include('templates.admin.modals.media')
+            @include('templates.admin.modals.module_forms', ['settings' => Setting::all()->keyBy('name')])
+            @include('templates.admin.modals.module_articles')
+            @include('templates.admin.modals.module_albums')
+            @include('templates.admin.modals.module_sliders')
+            @include('templates.admin.modals.module_html_blocks')
+            @include('templates.admin.modals.module_breadcrumbs')
+            @include('templates.admin.modals.module_projects')
+            @include('templates.admin.modals.select_media')
+            @include('templates.admin.modals.select_module')
+        </div>
+
         @include('templates.admin.modals.newpage')
-        @include('templates.admin.modals.module_forms', ['settings' => Setting::all()->keyBy('name')])
-        @include('templates.admin.modals.module_articles')
-        @include('templates.admin.modals.module_albums')
-        @include('templates.admin.modals.module_sliders')
-        @include('templates.admin.modals.module_html_blocks')
-        @include('templates.admin.modals.module_breadcrumbs')
-        @include('templates.admin.modals.module_projects')
         @include('templates.admin.modals.account')
         @include('templates.admin.modals.sortMenu')
         @include('templates.admin.modals.website', ['settings' => Setting::all()->keyBy('name')])
         @include('templates.admin.modals.add_media')
-        @include('templates.admin.modals.select_media')
-        @include('templates.admin.modals.select_module')
 
 
         {{-- Flash messages --}}

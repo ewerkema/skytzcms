@@ -14,12 +14,21 @@ class MediaController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
     public function index()
     {
-        if (!isset($_GET['page']))
-            return Media::all();
+        if (!isset($_GET['page'])) {
+            $media = Media::all();
+
+            foreach ($media as $index => $item) {
+                $item['thumbnail_url'] = $item->photo_url('thumbnail');
+                $item['original_url'] = $item->photo_url('original');
+                $media[$index] = $item;
+            }
+
+            return Response::json($media);
+        }
 
         $rows = Media::paginate(8);
         return view('templates.admin.partials.medialist', compact('rows'));
@@ -56,15 +65,20 @@ class MediaController extends Controller
      */
     public function destroy($id)
     {
-        $media = Media::find($id);
+        $this->destroyMedia($id);
 
-        $this->checkGlobalHeader($media);
-        $this->removePageHeaders($media);
-        $media->albums()->detach();
-        $media->sliders()->detach();
-        $this->removeMedia($media);
+        return Response::json(['status' => 'success', 'msg' => 'Media verwijderd!']);
+    }
 
-        $media->delete();
+    public function destroyMany(Request $request)
+    {
+        $images = $request->get('images');
+
+        if ($images) {
+            foreach ($images as $image) {
+                $this->destroyMedia($image);
+            }
+        }
 
         return Response::json(['status' => 'success', 'msg' => 'Media verwijderd!']);
     }
@@ -120,5 +134,17 @@ class MediaController extends Controller
         @unlink(public_path().'/images/large/'.$media->name);
         @unlink(public_path().'/images/thumbnail/'.$media->name);
         @unlink(public_path().'/docs/'.$media->name);
+    }
+
+    private function destroyMedia($id)
+    {
+        $media = Media::find($id);
+
+        $this->checkGlobalHeader($media);
+        $this->removePageHeaders($media);
+        $media->albums()->detach();
+        $media->sliders()->detach();
+        $this->removeMedia($media);
+        $media->delete();
     }
 }

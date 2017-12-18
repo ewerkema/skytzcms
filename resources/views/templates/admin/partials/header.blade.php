@@ -128,12 +128,12 @@
                         <li class="visible-xs">
                             <a href="{{ cms_url('/logout') }}"
                                onclick="event.preventDefault();
-                               document.getElementById('logout-form').submit();"
+                               document.getElementById('logout-form-mobile').submit();"
                             >
                                 Uitloggen
                             </a>
 
-                            <form id="logout-form" action="{{ cms_url('/logout') }}" method="POST" style="display: none;">
+                            <form id="logout-form-mobile" action="{{ cms_url('/logout') }}" method="POST" style="display: none;">
                                 {{ csrf_field() }}
                             </form>
                         </li>
