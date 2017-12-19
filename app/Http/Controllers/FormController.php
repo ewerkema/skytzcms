@@ -175,7 +175,6 @@ class FormController extends Controller
             curl_setopt($ch,CURLOPT_URL, $url);
             curl_setopt($ch,CURLOPT_POST, count($fields));
             curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
             $result = (array) json_decode(curl_exec($ch));
