@@ -1,13 +1,20 @@
 <div class="form-wrapper">
     <div id="form-{{ $id }}">
         @if ($form = App\Models\Form::find($id))
-            <form role="form" action="/forms/{{ $id }}/send" method="POST">
+            <form role="form" action="/forms/{{ $id }}/send" method="POST" id="form{{ $id }}">
                 <input type="hidden" name="form_id" value="{{ $id }}">
                 {{ csrf_field() }}
 
                 @if(session()->has('message'))
                     <div data-alert class="alert-box success">
                         {{ session()->get('message') }}
+                        <a href="#" class="close">&times;</a>
+                    </div>
+                @endif
+
+                @if(session()->has('recaptcha'))
+                    <div data-alert class="alert-box alert">
+                        {{ session()->get('recaptcha') }}
                         <a href="#" class="close">&times;</a>
                     </div>
                 @endif
@@ -58,7 +65,18 @@
                 @endforeach
                 <div class="form-group">
                     <div class="col-md-8 col-md-offset-4">
-                        <button type="submit" class="button right" name="submitform">Verzenden</button>
+                        <button class="g-recaptcha button right"
+                                data-sitekey="6LdDmj0UAAAAAJN-kd3hzQKVq9xIuuP8-1gi8vmj"
+                                data-callback="submitForm{{ $id }}"
+                                name="submitform"
+                                type="submit">
+                            Verzenden
+                        </button>
+                        <script type="text/javascript">
+                            function submitForm{{ $id }}() {
+                                $('#form{{ $id }}').submit();
+                            }
+                        </script>
                         <span class="inline right">Velden met een (*) zijn verplicht.</span>
                     </div>
                 </div>

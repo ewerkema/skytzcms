@@ -101,3 +101,7 @@ img.align-left {
     margin-right: 15px;
     width: calc(100% * (1/4) - 15px);
 }
+
+.grecaptcha-badge {
+    display: none;
+}
