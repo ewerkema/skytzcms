@@ -86,7 +86,7 @@
                 if (!this.isSelected(id)) {
                     this.selectedImages.push(id);
                 } else {
-                    _.remove(this.selectedImages, image => image === id);
+                    this.selectedImages.$remove(id);
                 }
             },
 
