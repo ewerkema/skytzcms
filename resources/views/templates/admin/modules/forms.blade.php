@@ -69,7 +69,6 @@
                         @if ($form->recaptcha)
                             <div class="g-recaptcha" data-sitekey="6LfBsz0UAAAAAA4Qv5qShZkelXYqZAAJjFVopNpZ"></div>
                         @endif
-                        <span class="inline">Velden met een (*) zijn verplicht.</span>
                         <button form="form{{ $id }}" name="submitform" type="submit">Verzenden</button>
                     </div>
                 </div>

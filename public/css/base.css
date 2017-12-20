@@ -107,13 +107,13 @@ img.align-left {
 }
 
 .g-recaptcha {
-    transform: scale(0.77);
-    -webkit-transform: scale(0.77);
+    transform: scale(0.7);
+    -webkit-transform: scale(0.7);
     transform-origin: right top;
     -webkit-transform-origin: right top;
 }
 
-.form-flex .inline {
+.form-flex button {
     margin-left: 15px;
 }
 
