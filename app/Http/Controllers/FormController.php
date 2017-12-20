@@ -129,7 +129,7 @@ class FormController extends Controller
                 ->withErrors($validator);
         }
 
-        if (($error = $this->checkRecaptcha($input)) !== true) {
+        if ($form->recaptcha && ($error = $this->checkRecaptcha($input)) !== true) {
             return redirect()->back()
                 ->withInput($input)
                 ->with('recaptcha', 'Het verzende van het formulier is niet gelukt, probeer het opnieuw. 
@@ -157,7 +157,7 @@ class FormController extends Controller
 
         $url = 'https://www.google.com/recaptcha/api/siteverify';
         $fields = array(
-            'secret' => urlencode('6LdDmj0UAAAAAKsvhxpiCV2oE8iSVXtbmOvLBA_q'),
+            'secret' => urlencode('6LfBsz0UAAAAAAwcj5gkB_9moouSt2AjWVGzrCMY '),
             'response' => urlencode($response),
             'remoteip' => urlencode($_SERVER['REMOTE_ADDR'])
         );
@@ -175,6 +175,7 @@ class FormController extends Controller
             curl_setopt($ch,CURLOPT_URL, $url);
             curl_setopt($ch,CURLOPT_POST, count($fields));
             curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
+//            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
             $result = (array) json_decode(curl_exec($ch));

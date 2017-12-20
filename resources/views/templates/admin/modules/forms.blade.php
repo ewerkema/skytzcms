@@ -63,21 +63,14 @@
                     </div>
 
                 @endforeach
+
                 <div class="form-group">
-                    <div class="col-md-8 col-md-offset-4">
-                        <button class="g-recaptcha button right"
-                                data-sitekey="6LdDmj0UAAAAAJN-kd3hzQKVq9xIuuP8-1gi8vmj"
-                                data-callback="submitForm{{ $id }}"
-                                name="submitform"
-                                type="submit">
-                            Verzenden
-                        </button>
-                        <script type="text/javascript">
-                            function submitForm{{ $id }}() {
-                                $('#form{{ $id }}').submit();
-                            }
-                        </script>
-                        <span class="inline right">Velden met een (*) zijn verplicht.</span>
+                    <div class="form-flex flex-end">
+                        @if ($form->recaptcha)
+                            <div class="g-recaptcha" data-sitekey="6LfBsz0UAAAAAA4Qv5qShZkelXYqZAAJjFVopNpZ"></div>
+                        @endif
+                        <span class="inline">Velden met een (*) zijn verplicht.</span>
+                        <button form="form{{ $id }}" name="submitform" type="submit">Verzenden</button>
                     </div>
                 </div>
             </form>

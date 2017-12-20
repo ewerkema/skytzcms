@@ -90,6 +90,16 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="recaptcha" class="col-md-3 control-label">ReCAPTCHA verificatie</label>
+
+                    <div class="col-md-8">
+                        <label class="Switch">
+                            <input type="checkbox" name="recaptcha" id="recaptcha" :checked="selectedForm.recaptcha">
+                            <div class="Switch__slider"></div>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
                     <div class="col-md-8 col-md-offset-3">
                         <button form="formForm" class="btn btn-success right" @click="submitForm()">Formulier opslaan</button>
                         <button class="btn btn-default right" @click="cancelEdit($event)">Annuleren</button>
@@ -290,7 +300,7 @@
                 request.setForm('#formForm');
                 request.setType('PATCH');
                 request.addFields(['name', 'message', 'email']);
-                request.addCheckboxes(['required', 'hidden_name']);
+                request.addCheckboxes(['recaptcha']);
 
                 let _this = this;
                 request.send(function(data) {

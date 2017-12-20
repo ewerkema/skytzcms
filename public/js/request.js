@@ -31,7 +31,7 @@ Request.prototype.findInForm = function (name) {
 };
 
 Request.prototype.addField = function(name, type = "text", defaultVal = "", optional = false) {
-    var field = {};
+    let field = {};
     field.type = type;
     field.default = defaultVal;
     field.optional = optional;
@@ -44,28 +44,28 @@ Request.prototype.addValue = function(name, data) {
 };
 
 Request.prototype.addFields = function(names) {
-    var _this = this;
+    let _this = this;
     names.forEach(function(name) {
         _this.addField(name);
     });
 };
 
 Request.prototype.addCheckboxes = function (names) {
-    var _this = this;
+    let _this = this;
     names.forEach(function(name) {
         _this.addField(name, 'checkbox');
     });
 };
 
 Request.prototype.addArrays = function (names) {
-    var _this = this;
+    let _this = this;
     names.forEach(function(name) {
         _this.addField(name, 'array');
     });
 };
 
 Request.prototype.addOptionalFields = function(names) {
-    var _this = this;
+    let _this = this;
     names.forEach(function(name) {
         _this.addField(name, "text", "", true);
     });
@@ -78,9 +78,9 @@ Request.prototype.setFields = function (data) {
 };
 
 Request.prototype.processFields = function() {
-    var data = {};
-    for (var name in this.fields) {
-        var el = this.fields[name];
+    let data = {};
+    for (let name in this.fields) {
+        let el = this.fields[name];
 
         switch (el.type) {
             case "checkbox":
@@ -112,13 +112,13 @@ Request.prototype.processFields = function() {
 };
 
 Request.prototype.showError = function(data) {
-    var errors = JSON.parse(data.responseText);
-    var errorMessage = "";
+    let errors = JSON.parse(data.responseText);
+    let errorMessage = "";
 
     if (errors === undefined)
         errorMessage += "Er ging iets fout, we zullen er zo spoedig mogelijk naar kijken.";
     else {
-        for (var error in errors) {
+        for (let error in errors) {
             errorMessage += errors[error]+"<br />";
         }
     }
@@ -127,10 +127,10 @@ Request.prototype.showError = function(data) {
 };
 
 Request.prototype.onSubmit = function (callback) {
-    var _this = this;
+    let _this = this;
     this.form.submit(function(e){
         e.preventDefault();
-        var data = _this.processFields();
+        let data = _this.processFields();
 
         $.ajax({
             url: _this.url,
@@ -147,9 +147,9 @@ Request.prototype.onSubmit = function (callback) {
 };
 
 Request.prototype.send = function (callback) {
-    var data = this.processFields();
+    let data = this.processFields();
 
-    var _this = this;
+    let _this = this;
     $.ajax({
         url: this.url,
         type: (_this.type == 'GET') ? 'GET' : 'POST',

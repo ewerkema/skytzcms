@@ -105,3 +105,27 @@ img.align-left {
 .grecaptcha-badge {
     display: none;
 }
+
+.g-recaptcha {
+    transform: scale(0.77);
+    -webkit-transform: scale(0.77);
+    transform-origin: right top;
+    -webkit-transform-origin: right top;
+}
+
+.form-flex .inline {
+    margin-left: 15px;
+}
+
+.form-flex {
+    display: flex;
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+}
+
+.flex-end {
+    align-items: center;
+    -webkit-align-items: center;
+    justify-content: flex-end;
+    -webkit-justify-content: flex-end;
+}
