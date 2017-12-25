@@ -6,7 +6,6 @@
                 <h4 class="modal-title"><strong>Media overzicht</strong></h4>
             </div>
             <div class="modal-body">
-                <p>Klik op de afbeelding om meerdere media te selecteren om te verwijderen.</p>
                 <list-media></list-media>
             </div>
             <div class="modal-footer">

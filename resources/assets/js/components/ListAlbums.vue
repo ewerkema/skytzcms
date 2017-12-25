@@ -50,7 +50,7 @@
         <div class="editForm" v-if="addImages">
             <form action="#" class="form-horizontal" id="AlbumForm" v-on:submit.prevent>
                 <div class="alert form-message" role="alert" style="display: none;"></div>
-                <div class="bootstrap-row album-row" v-for="row in images | chunk 4">
+                <div class="bootstrap-row album-row" v-for="row in currentImages | chunk 4">
                     <div class="col-md-3 album-image"
                          v-for="image in row"
                          v-on:click="selectImage(image)"
@@ -61,6 +61,7 @@
                     </div>
                 </div>
                 <p v-if="images.length == 0">Er zijn geen afbeeldingen (meer) gevonden.</p>
+                <pagination :total="images.length" :per_page="per_page" :current_page="current_page"></pagination>
                 <div class="form-group">
                     <div class="col-md-8 col-md-offset-3">
                         <button form="albumForm" class="btn btn-success right" v-on:click="submitForm()">Afbeeldingen toevoegen</button>
@@ -168,6 +169,10 @@
 
 </style>
 <script>
+    import Pagination from "./Pagination.vue";
+    import VueEvents from 'vue-events';
+    Vue.use(VueEvents);
+
     export default {
         data(){
             return {
@@ -178,11 +183,40 @@
                 images: [],
                 newAlbum: false,
                 newAlbumError: false,
-                changeOrder: false
+                changeOrder: false,
+                per_page: 8,
+                current_page: 1,
             };
         },
 
+        components: {
+            Pagination,
+        },
+
+        computed: {
+            total: function() {
+                return this.images.length;
+            },
+
+            to: function() {
+                return Math.min(this.current_page * this.per_page, this.total);
+            },
+
+            from: function() {
+                return Math.min(this.total, (this.current_page - 1) * this.per_page + 1);
+            },
+
+            currentImages: function() {
+                return this.images.slice(
+                    Math.min((this.current_page - 1) * this.per_page, this.images.length),
+                    this.current_page * this.per_page
+                );
+            }
+        },
+
         created() {
+            this.$events.$on('changePage', page => this.changePage(page));
+            this.$events.$on('resetCurrentPage', () => this.changePage(1));
             this.loadFromDatabase();
         },
 
@@ -210,6 +244,10 @@
         },
 
         methods: {
+
+            changePage: function (page) {
+                this.current_page = page;
+            },
 
             imagePath: function(path) {
                 return '/'+path;
@@ -397,9 +435,5 @@
             }
 
         },
-
-        computed: {
-
-        }
     }
 </script>
