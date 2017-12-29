@@ -78,7 +78,7 @@ return [
     | for header images.
     */
 
-    'header_width' => env('SKYTZ_HEADER_WIDTH', 900),
+    'header_width' => env('SKYTZ_HEADER_WIDTH', 2000),
 
     /*
     |--------------------------------------------------------------------------
