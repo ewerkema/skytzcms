@@ -65,7 +65,6 @@
         @include('templates.admin.modals.account')
         @include('templates.admin.modals.sortMenu')
         @include('templates.admin.modals.website', ['settings' => Setting::all()->keyBy('name')])
-        @include('templates.admin.modals.add_media')
 
         <div id="vue-app">
             @include('templates.admin.modals.media')
@@ -81,13 +80,14 @@
             @include('templates.admin.modals.select_module')
         </div>
 
+        @include('templates.admin.modals.add_media')
 
         {{-- Flash messages --}}
         <script type="text/javascript">
 
             @if (Session::has('flash_message'))
-                swal({
-                    title: "{{ Session::has('flash_title') ? session('flash_title') : "Success!" }}",
+            swal({
+                title: "{{ Session::has('flash_title') ? session('flash_title') : "Success!" }}",
                     text: "{{ session('flash_message') }}",
                     type: "success",
                     timer: 2000

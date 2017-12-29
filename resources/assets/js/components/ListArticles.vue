@@ -8,7 +8,7 @@
                        :class="{ active: (articleGroup.id == selectedArticleGroup) }"
                        v-on:click="selectedArticleGroup = articleGroup.id"
                     >
-                        <span class="badge">{{ countArticles(articleGroup.id) }}</span>
+                        <span class="badge">{{ countArticles(articleGroup) }}</span>
                         {{ articleGroup.title }}
                     </a>
                     <a href="#" class="list-group-item add-item"
@@ -178,8 +178,8 @@
 
         watch: {
 
-            selectedArticleGroup: function (val) {
-                this.selectedArticles = this.getSelectedArticles(val);
+            selectedArticleGroup: function (articleGroup) {
+                this.selectedArticles = this.getSelectedArticles(articleGroup);
             },
 
             articles: function (val) {
@@ -210,12 +210,12 @@
 
         methods: {
 
-            countArticles: function (articleGroupId) {
-                return this.getSelectedArticles(articleGroupId).length;
+            countArticles: function (articleGroup) {
+                return this.getSelectedArticles(articleGroup.id).length;
             },
 
-            getSelectedArticles: function (articleGroupId) {
-                return _.filter(this.articles, ['article_group_id', articleGroupId]);
+            getSelectedArticles: function (articleGroup) {
+                return _.filter(this.articles, ['article_group_id', articleGroup.id]);
             },
 
             submitForm: function () {
@@ -281,7 +281,7 @@
                     data: { title: value },
                     success: function(data) {
                         _this.articleGroups.push(data);
-                        _this.selectedArticleGroup = data.id;
+                        _this.selectedArticleGroup = data;
                     },
                     error: function() {
                         alert("Er ging iets fout, probeer het later opnieuw");
@@ -316,7 +316,7 @@
                 }).done();
             },
 
-            removeArticleGroup: function (articleGroupId) {
+            removeArticleGroup: function (articleGroup) {
                 var _this = this;
                 swal({
                     title: "Nieuwsgroep verwijderen?",
@@ -326,7 +326,7 @@
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "Ja, verwijder deze nieuwsgroep",
                 }).then(function(){
-                    _this.doRemoveArticleGroup(articleGroupId);
+                    _this.doRemoveArticleGroup(articleGroup);
                 }).done();
             },
 
@@ -344,18 +344,16 @@
                 });
             },
 
-            doRemoveArticleGroup: function (articleGroupId) {
+            doRemoveArticleGroup: function (articleGroup) {
                 var _this = this;
                 $.ajax({
-                    url: '/cms/articleGroups/'+articleGroupId,
+                    url: '/cms/articleGroups/'+articleGroup.id,
                     type: 'POST',
                     data: {
                         _method: 'DELETE'
                     },
                     success: function(result) {
-                        console.log(_this.articleGroups);
-                        _.remove(_this.articleGroups, articleGroup => articleGroup.id === articleGroupId);
-                        console.log(_this.articleGroups);
+                        _this.articleGroups.$remove(articleGroup);
                         _this.selectedArticleGroup = _.head(_this.articleGroups) ? _.head(_this.articleGroups).id : false;
                     }
                 });

@@ -16,7 +16,7 @@
             <pagination :total="images.length" :per_page="per_page" :current_page="current_page"></pagination>
         </div>
         <div id="jcropEdit" v-else>
-            <p>Klik op de afbeelding om hem bij te snijden. {{ coordinates | json}}</p>
+            <p>Klik op de afbeelding om hem bij te snijden.</p>
             <img v-on:click="startEdit()" :src="imagePath(selectedImage.path)" alt="" id="jcropEditImage">
         </div>
 
