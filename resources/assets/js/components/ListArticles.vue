@@ -5,8 +5,8 @@
                 <ul class="list-group">
                     <a href="#" class="list-group-item"
                        v-for="articleGroup in articleGroups"
-                       :class="{ active: (articleGroup.id == selectedArticleGroup) }"
-                       v-on:click="selectedArticleGroup = articleGroup.id"
+                       :class="{ active: (articleGroup.id == selectedArticleGroup.id) }"
+                       v-on:click="selectedArticleGroup = articleGroup"
                     >
                         <span class="badge">{{ countArticles(articleGroup) }}</span>
                         {{ articleGroup.title }}
@@ -44,7 +44,7 @@
                             <a href="#" v-on:click="editArticle(article)">
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </a>
-                            <a href="#" v-on:click="removeArticle(article.id)" class="right">
+                            <a href="#" v-on:click="removeArticle(article)" class="right">
                                 <span class="glyphicon glyphicon-remove"></span>
                             </a>
                         </td>
@@ -188,7 +188,7 @@
 
             selectedArticle: function (val) {
                 if (val && val.image_id) {
-                    var _this = this;
+                    let _this = this;
                     $.ajax({
                         url: '/cms/media/'+val.image_id,
                         type: 'GET',
@@ -211,7 +211,7 @@
         methods: {
 
             countArticles: function (articleGroup) {
-                return this.getSelectedArticles(articleGroup.id).length;
+                return this.getSelectedArticles(articleGroup).length;
             },
 
             getSelectedArticles: function (articleGroup) {
@@ -219,7 +219,7 @@
             },
 
             submitForm: function () {
-                var request = new Request('/cms/articles');
+                let request = new Request('/cms/articles');
                 request.setForm('#articleForm');
                 request.setType('POST');
 
@@ -231,11 +231,10 @@
                     request.addToUrl(this.selectedArticle.id);
                 }
 
-                var _this = this;
-                request.send(function(data) {
+                let _this = this;
+                request.send(function() {
                     _this.selectedArticle = false;
                     _this.loadArticles();
-                    _this.selectedArticleGroup = data.article_group_id;
                     if (request.getType() == 'POST') {
                         swal({
                             title: "Artikel opgslagen!",
@@ -259,11 +258,11 @@
                 this.selectedArticle.published = true;
 
                 if (this.selectedArticleGroup)
-                    this.selectedArticle.article_group_id = this.selectedArticleGroup;
+                    this.selectedArticle.article_group_id = this.selectedArticleGroup.id;
             },
 
             createArticleGroup: function() {
-                var value = $('[name=article_group]').val();
+                let value = $('[name=article_group]').val();
 
                 if (value == "") {
                     this.newArticleGroupError = true;
@@ -274,7 +273,7 @@
                 this.newArticleGroupError = false;
                 this.newArticleGroup = false;
 
-                var _this = this;
+                let _this = this;
                 $.ajax({
                     url: '/cms/articleGroups',
                     type: 'POST',
@@ -303,8 +302,8 @@
                 this.selectedArticleImageName = false;
             },
 
-            removeArticle: function (articleId) {
-                var _this = this;
+            removeArticle: function (article) {
+                let _this = this;
                 swal({
                     title: "Artikel verwijderen?",
                     type: "warning",
@@ -312,12 +311,12 @@
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "Ja, verwijder dit artikel",
                 }).then(function(){
-                    _this.doRemoveArticle(articleId);
+                    _this.doRemoveArticle(article);
                 }).done();
             },
 
             removeArticleGroup: function (articleGroup) {
-                var _this = this;
+                let _this = this;
                 swal({
                     title: "Nieuwsgroep verwijderen?",
                     text: "Alle bijbehorende artikelen zullen ook verwijderd worden. Deze wijzigingen kunnen niet meer ongedaan worden.",
@@ -330,22 +329,22 @@
                 }).done();
             },
 
-            doRemoveArticle: function (articleId) {
-                var _this = this;
+            doRemoveArticle: function (article) {
+                let _this = this;
                 $.ajax({
-                    url: '/cms/articles/'+articleId,
+                    url: '/cms/articles/'+article.id,
                     type: 'POST',
                     data: {
                         _method: 'DELETE'
                     },
                     success: function(result) {
-                        _.remove(_this.articles, article => article.id === articleId);
+                        _.this.articles.$remove(article);
                     }
                 });
             },
 
             doRemoveArticleGroup: function (articleGroup) {
-                var _this = this;
+                let _this = this;
                 $.ajax({
                     url: '/cms/articleGroups/'+articleGroup.id,
                     type: 'POST',
@@ -354,7 +353,7 @@
                     },
                     success: function(result) {
                         _this.articleGroups.$remove(articleGroup);
-                        _this.selectedArticleGroup = _.head(_this.articleGroups) ? _.head(_this.articleGroups).id : false;
+                        _this.selectedArticleGroup = _.head(_this.articleGroups) ? _.head(_this.articleGroups) : false;
                     }
                 });
             },
@@ -365,18 +364,18 @@
             },
 
             loadArticles: function() {
-                var _this = this;
+                let _this = this;
                 $.get('/cms/articles', function (data) {
                     _this.articles = data;
                 });
             },
 
             loadArticleGroups: function() {
-                var _this = this;
+                let _this = this;
                 $.get('/cms/articleGroups', function (data) {
                     if (data.length != 0) {
                         _this.articleGroups = data;
-                        _this.selectedArticleGroup = _.head(data).id;
+                        _this.selectedArticleGroup = _.head(data);
                     }
                 });
             }
