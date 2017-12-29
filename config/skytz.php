@@ -68,4 +68,26 @@ return [
     */
 
     'upload_docs' => env('SKYTZ_UPLOAD_DOCS', 'docs\\'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Header width
+    |--------------------------------------------------------------------------
+    |
+    | The default width of the header, which is used in the crop editor
+    | for header images.
+    */
+
+    'header_width' => env('SKYTZ_HEADER_WIDTH', 900),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Header height
+    |--------------------------------------------------------------------------
+    |
+    | The default height of the header, which is used in the crop editor
+    | for header images.
+    */
+
+    'header_height' => env('SKYTZ_HEADER_HEIGHT', 300),
 ];

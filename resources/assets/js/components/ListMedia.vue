@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="list-media" v-if="!editingImage">
+        <div class="list-media">
             <p>Klik op de afbeelding om meerdere media te selecteren om te verwijderen.</p>
             <button v-on:click="deleteMedia()" class="btn btn-danger" v-show="selectedImages.length > 0">Alle {{ selectedImages.length }} media verwijderen</button>
             <div class="bootstrap-row" id='medialist'>
@@ -14,9 +14,6 @@
                             </a>
                             <p><a target="_blank" :href="image.original_url" title="Openen in groot formaat">{{ image.name }}</a></p>
                         </div>
-                        <div class="edit-media" v-show="selectedImages.length === 0 && isImage(image)">
-                            <a href="#" v-on:click="editMedia(image.id)"><span class="glyphicon glyphicon-pencil" :data-id="image.id"></span></a>
-                        </div>
                         <div class="trash" v-show="selectedImages.length === 0">
                             <a href="#" v-on:click="deleteSingleMedia(image.id)"><span class="glyphicon glyphicon-trash remove-media" :data-id="image.id"></span></a>
                         </div>
@@ -25,36 +22,8 @@
             </div>
             <pagination :total="images.length" :per_page="per_page" :current_page="current_page"></pagination>
         </div>
-        <div v-else>
-            <img :src="editingImage.original_url" id="editImageJcrop">
-
-            <button form="sliderForm" class="btn btn-success right" v-on:click="">Afbeelding bewerken</button>
-            <button class="btn btn-default right" v-on:click.prevent="editingImage = false">Annuleren</button>
-        </div>
     </div>
 </template>
-
-<style>
-    .edit-media {
-        position: absolute;
-        left: 27px;
-        top: 12px;
-        display: none;
-    }
-
-    .media-image-gallery:hover .edit-media {
-        display: block;
-    }
-
-    .edit-media a {
-        color: #fff;
-        background-color: #2ca02c;
-        padding: 2px 5px;
-        border-radius: 2px;
-        font-size: 14px;
-        display: inline-block;
-    }
-</style>
 
 <script>
     import Pagination from "./Pagination.vue";
@@ -66,7 +35,6 @@
             return {
                 images: [],
                 selectedImages: [],
-                editingImage: false,
                 per_page: 8,
                 current_page: 1,
             }
@@ -201,11 +169,6 @@
                     );
                 });
             },
-
-            editMedia: function (id) {
-                this.editingImage = this.getImage(id);
-                $('#editImageJcrop').Jcrop();
-            }
         },
     }
 </script>

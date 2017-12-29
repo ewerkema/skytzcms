@@ -28,6 +28,9 @@
         window.Laravel = <?php echo json_encode([
                 'csrfToken' => csrf_token(),
         ]); ?>
+
+        window.headerWidth = "{{ config('skytz.header_width') }}";
+        window.headerHeight = "{{ config('skytz.header_height') }}";
     </script>
 @stop
 
@@ -58,6 +61,12 @@
             @include('templates.admin.modals.page')
         @endif
 
+        @include('templates.admin.modals.newpage')
+        @include('templates.admin.modals.account')
+        @include('templates.admin.modals.sortMenu')
+        @include('templates.admin.modals.website', ['settings' => Setting::all()->keyBy('name')])
+        @include('templates.admin.modals.add_media')
+
         <div id="vue-app">
             @include('templates.admin.modals.media')
             @include('templates.admin.modals.module_forms', ['settings' => Setting::all()->keyBy('name')])
@@ -68,14 +77,9 @@
             @include('templates.admin.modals.module_breadcrumbs')
             @include('templates.admin.modals.module_projects')
             @include('templates.admin.modals.select_media')
+            @include('templates.admin.modals.select_media_with_edit')
             @include('templates.admin.modals.select_module')
         </div>
-
-        @include('templates.admin.modals.newpage')
-        @include('templates.admin.modals.account')
-        @include('templates.admin.modals.sortMenu')
-        @include('templates.admin.modals.website', ['settings' => Setting::all()->keyBy('name')])
-        @include('templates.admin.modals.add_media')
 
 
         {{-- Flash messages --}}

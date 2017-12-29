@@ -31,6 +31,7 @@ Route::group(['prefix' => 'cms'], function() {
     Route::patch('settings', 'SettingController@update');
     Route::resource('media', 'MediaController');
     Route::delete('media', 'MediaController@destroyMany');
+    Route::post('media/{medium}/header', 'MediaController@createHeader');
     Route::resource('articleGroups', 'ArticleGroupController');
     Route::resource('articles', 'ArticleController');
     Route::resource('albums', 'AlbumController');

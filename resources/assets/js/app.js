@@ -23,6 +23,7 @@ Vue.component('list-media', require('./components/ListMedia.vue'));
 Vue.component('list-html-blocks', require('./components/ListHtmlBlocks.vue'));
 Vue.component('list-projects', require('./components/ListProjects.vue'));
 Vue.component('select-media', require('./components/SelectMedia.vue'));
+Vue.component('select-media-with-edit', require('./components/SelectMediaWithEdit.vue'));
 Vue.component('select-module', require('./components/SelectModule.vue'));
 
 $.ajaxSetup({

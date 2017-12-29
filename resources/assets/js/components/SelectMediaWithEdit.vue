@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div class="selectMedia">
+    <div class="select-media-with-edit">
+        <div class="selectMedia" v-if="!selectedImage">
             <div class="bootstrap-row album-row">
                 <div class="album-image"
                      v-for="image in currentImages"
@@ -15,16 +15,14 @@
 
             <pagination :total="images.length" :per_page="per_page" :current_page="current_page"></pagination>
         </div>
-        <div class="form-group right flex">
-            <label for="openInPopup" class="control-label" style="margin-right: 10px;">Openen in popup</label>
-
-            <label class="Switch" style="align-self: center;">
-                <input type="checkbox" name="openInPopup" id="openInPopup" v-model="openInPopup">
-                <div class="Switch__slider"></div>
-            </label>
+        <div id="jcropEdit" v-else>
+            <p>Klik op de afbeelding om hem bij te snijden. {{ coordinates | json}}</p>
+            <img v-on:click="startEdit()" :src="imagePath(selectedImage.path)" alt="" id="jcropEditImage">
         </div>
+
         <div class="clear"></div>
-        <button type="button" class="btn btn-success right" @click="sendImage()" :disabled="!selectedImage">Geselecteerde afbeelding gebruiken</button>
+        <button type="button" class="btn btn-success right" @click="sendImage()" :disabled="!selectedImage || coordinates.length === 0">Geselecteerde afbeelding gebruiken</button>
+        <button class="btn btn-default right" v-on:click.prevent="selectedImage = false">Annuleren</button>
         <div class="clear"></div>
     </div>
 </template>
@@ -34,8 +32,16 @@
         -webkit-flex-wrap: wrap;
     }
 
-    .album-row .album-image {
+    .album-row .album-image, #jcropEdit {
         margin-bottom: 15px;
+    }
+
+    .select-media-with-edit button {
+        margin-left: 15px;
+    }
+
+    #jcropEditImage {
+        margin: 0;
     }
 </style>
 <script>
@@ -47,12 +53,13 @@
         data(){
             return {
                 selectedImage: false,
-                openInPopup: false,
                 selectedPage: 0,
                 totalPages: 0,
                 per_page: 8,
                 current_page: 1,
-                images: []
+                coordinates: [],
+                images: [],
+                zoomFactor: 1,
             };
         },
 
@@ -113,21 +120,48 @@
                 this.$set('selectedImage', image);
             },
 
+            startEdit: function() {
+                let img = event.target;
+                this.zoomFactor = img.naturalWidth / img.width;
+
+                $(event.target).Jcrop({
+                    onChange: this.updateCoordinates,
+                    aspectRatio: window.headerWidth / window.headerHeight,
+                    minSize: [
+                        Math.min(window.headerWidth / this.zoomFactor, img.naturalWidth),
+                        Math.min(window.headerWidth / this.zoomFactor, img.naturalHeight),
+                    ],
+                });
+            },
+
+            updateCoordinates: function(c) {
+                this.coordinates = {
+                    x: c.x * this.zoomFactor,
+                    y: c.y * this.zoomFactor,
+                    x2: c.x2 * this.zoomFactor,
+                    y2: c.y2 * this.zoomFactor,
+                    w: c.w * this.zoomFactor,
+                    h: c.h * this.zoomFactor,
+                };
+            },
+
             loadFromDatabase: function() {
                 this.loadImages();
             },
 
             sendImage: function() {
-                var image = document.getElementById('select_image_'+this.selectedImage.id);
-                if (window.parent.CustomMediaManager !== undefined && window.parent.CustomMediaManager.active) {
-                    window.parent.CustomMediaManager._insertImage(this.imagePath(this.selectedImage.path), image.naturalWidth, image.naturalHeight, this.openInPopup);
-                } else {
-                    $('.selected_media_id').val(this.selectedImage.id).trigger('change');
-                    $('.selected_media_name').val(this.selectedImage.name);
-                }
+                let self = this;
+                $.post('/cms/media/' + this.selectedImage.id + '/header', this.coordinates)
+                .done(function(image) {
+                    $('.selected_media_id').val(image.id).trigger('change');
+                    $('.selected_media_name').val(image.name);
 
-                this.selectedImage = false;
-                $('#selectMediaModal').modal('toggle');
+                    self.selectedImage = false;
+                    $('#selectMediaWithEditModal').modal('toggle');
+                })
+                .error(function() {
+                    alert("Er ging iets fout bij het bijsnijden van de foto, neem contact op met de admin!")
+                });
             },
 
             loadImages: function() {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Image;
 use Response;
 use App\Http\Requests;
 use App\Models\Media;
@@ -45,16 +46,60 @@ class MediaController extends Controller
         $name = Input::get('name');
 
         foreach($name as $filename) {
-            $media = new Media;
-            $media->name = $filename;
-            $media->description = '';
-            $media->extension = File::extension($filename);
-            $media->mime = '';
-            
-            $media->save();
+            $this->createMedia($filename);
         }
 
         return Response::json(['status'=>'success','msg'=>'Media toegevoegd!']);
+    }
+
+    /**
+     * Create media from filename.
+     *
+     * @param $filename
+     * @return Media
+     */
+    public function createMedia($filename)
+    {
+        $media = new Media;
+        $media->name = $filename;
+        $media->description = '';
+        $media->extension = File::extension($filename);
+        $media->mime = '';
+
+        $media->save();
+
+        return $media;
+    }
+
+    /**
+     * Create header from coordinates
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function createHeader($id, Request $request)
+    {
+        $media = Media::find($id);
+        $coordinates = $request;
+
+        $headerExtension = 1;
+        $headerPath = str_replace(".".$media->extension, "", $media->path);
+        while (file_exists($headerPath . "header" . $headerExtension . "." . $media->extension)) {
+            $headerExtension++;
+        }
+
+        $headerPath = $headerPath . "header" . $headerExtension . "." . $media->extension;
+
+        Image::make($media->path)->crop(
+            round($coordinates['w']),
+            round($coordinates['h']),
+            round($coordinates['x']),
+            round($coordinates['y'])
+        )->save(str_replace("images/", "tmp/", $headerPath));
+
+        $header = $this->createMedia($headerPath);
+
+        return Response::json($header);
     }
 
     /**
