@@ -338,7 +338,7 @@
                         _method: 'DELETE'
                     },
                     success: function(result) {
-                        _.this.articles.$remove(article);
+                        _this.articles.$remove(article);
                     }
                 });
             },
