@@ -1,71 +1,75 @@
 <template>
-    <div class="overview" v-if="!addImages">
-        <div class="sidebar col-md-4">
-            <ul class="list-group">
-                <a href="#" class="list-group-item"
-                   v-for="slider in sliders"
-                   :class="{ active: (slider.id == selectedSlider.id) }"
-                   v-on:click="selectedSlider = slider"
-                >
-                    <span class="badge">{{ slider.media.length }}</span>
-                    {{ slider.name }}
-                </a>
-                <a href="#" class="list-group-item add-item"
-                   v-on:click="newSlider = true"
-                   v-if="!newSlider"
-                >
-                    Voeg slider toe
-                    <span class="glyphicon glyphicon-plus"></span>
-                </a>
-                <a href="#" class="list-group-item add-item"
-                   v-if="newSlider"
-                   :class="{ 'has-error': newSliderError }"
-                >
-                    <input type="text" name="slider" class="form-control" @keyup.enter="createSlider()" placeholder="Slider naam" />
-                    <button class="btn btn-default" v-on:click.prevent="newSlider = false">Annuleren</button>
-                    <button class="btn btn-success right" v-on:click="createSlider()">Opslaan</button>
-                </a>
-            </ul>
-        </div>
-        <div class="col-md-8" v-if="selectedSlider">
-            <div class="bootstrap-row slider-row" v-for="row in selectedSlider.media | chunk 4">
-                <div class="col-md-3 slider-image"
-                     v-for="image in row"
-                     v-on:click="removeImage(selectedSlider, image)"
-                >
-                    <img :src="imagePath(image.path)" />
-                    <span class="glyphicon glyphicon-remove hover remove"></span>
-                </div>
+    <div>
+
+        <div class="overview" v-if="!addImages">
+            <div class="sidebar col-md-4">
+                <ul class="list-group">
+                    <a href="#" class="list-group-item"
+                       v-for="slider in sliders"
+                       :class="{ active: (slider.id == selectedSlider.id) }"
+                       v-on:click="selectedSlider = slider"
+                    >
+                        <span class="badge">{{ slider.media.length }}</span>
+                        {{ slider.name }}
+                    </a>
+                    <a href="#" class="list-group-item add-item"
+                       v-on:click="newSlider = true"
+                       v-if="!newSlider"
+                    >
+                        Voeg slider toe
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                    <a href="#" class="list-group-item add-item"
+                       v-if="newSlider"
+                       :class="{ 'has-error': newSliderError }"
+                    >
+                        <input type="text" name="slider" class="form-control" @keyup.enter="createSlider()" placeholder="Slider naam" />
+                        <button class="btn btn-default" v-on:click.prevent="newSlider = false">Annuleren</button>
+                        <button class="btn btn-success right" v-on:click="createSlider()">Opslaan</button>
+                    </a>
+                </ul>
             </div>
-            <p v-if="!hasImages(selectedSlider)">Er zijn geen afbeeldingen gevonden.</p>
-            <button class="btn btn-success right" v-on:click="addImages = true">Afbeeldingen toevoegen</button>
-            <button class="btn btn-danger right" v-on:click="removeSlider(selectedSlider)">Verwijder deze slider</button>
-        </div>
-        <div class="col-md-8" v-else>
-            <p>Er is geen slider geselecteerd.</p>
-        </div>
-    </div>
-    <div class="editForm" v-if="addImages">
-        <form action="#" class="form-horizontal" id="SliderForm" v-on:submit.prevent>
-            <div class="alert form-message" role="alert" style="display: none;"></div>
-            <div class="bootstrap-row slider-row" v-for="row in images | chunk 4">
-                <div class="col-md-3 slider-image"
-                     v-for="image in row"
-                     v-on:click="selectImage(image)"
-                     :class="{selected: isSelected(image) }"
-                >
-                    <img :src="imagePath(image.path)" />
-                    <span class="glyphicon glyphicon-ok add"></span>
+            <div class="col-md-8" v-if="selectedSlider">
+                <div class="bootstrap-row slider-row" v-for="row in selectedSlider.media | chunk 4">
+                    <div class="col-md-3 slider-image"
+                         v-for="image in row"
+                         v-on:click="removeImage(selectedSlider, image)"
+                    >
+                        <img :src="imagePath(image.path)" />
+                        <span class="glyphicon glyphicon-remove hover remove"></span>
+                    </div>
                 </div>
+                <p v-if="!hasImages(selectedSlider)">Er zijn geen afbeeldingen gevonden.</p>
+                <button class="btn btn-success right" v-on:click="addImages = true">Afbeeldingen toevoegen</button>
+                <button class="btn btn-danger right" v-on:click="removeSlider(selectedSlider)">Verwijder deze slider</button>
             </div>
-            <p v-if="images.length == 0">Er zijn geen afbeeldingen (meer) gevonden.</p>
-            <div class="form-group">
-                <div class="col-md-8 col-md-offset-3">
-                    <button form="sliderForm" class="btn btn-success right" v-on:click="submitForm()">Afbeeldingen toevoegen</button>
-                    <button class="btn btn-default right" v-on:click.prevent="addImages = false">Annuleren</button>
+            <div class="col-md-8" v-else>
+                <p>Er is geen slider geselecteerd.</p>
+            </div>
+        </div>
+        <div class="editForm" v-if="addImages">
+            <form action="#" class="form-horizontal" id="SliderForm" v-on:submit.prevent>
+                <div class="alert form-message" role="alert" style="display: none;"></div>
+                <div class="bootstrap-row slider-row" v-for="row in currentImages | chunk 4">
+                    <div class="col-md-3 slider-image"
+                         v-for="image in row"
+                         v-on:click="selectImage(image)"
+                         :class="{selected: isSelected(image) }"
+                    >
+                        <img :src="imagePath(image.path)" />
+                        <span class="glyphicon glyphicon-ok add"></span>
+                    </div>
                 </div>
-            </div>
-        </form>
+                <p v-if="images.length == 0">Er zijn geen afbeeldingen (meer) gevonden.</p>
+                <pagination :total="images.length" :per_page="per_page" :current_page="current_page"></pagination>
+                <div class="form-group">
+                    <div class="col-md-8 col-md-offset-3">
+                        <button form="sliderForm" class="btn btn-success right" v-on:click="submitForm()">{{ selectedImages.length }} Afbeeldingen toevoegen</button>
+                        <button class="btn btn-default right" v-on:click.prevent="addImages = false">Annuleren</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </template>
 <style>
@@ -136,6 +140,10 @@
 
 </style>
 <script>
+    import Pagination from "./Pagination.vue";
+    import VueEvents from 'vue-events';
+    Vue.use(VueEvents);
+
     export default {
         data(){
             return {
@@ -145,11 +153,40 @@
                 selectedImages: [],
                 images: [],
                 newSlider: false,
-                newSliderError: false
+                newSliderError: false,
+                per_page: 8,
+                current_page: 1,
             };
         },
 
+        components: {
+            Pagination,
+        },
+
+        computed: {
+            total: function() {
+                return this.images.length;
+            },
+
+            to: function() {
+                return Math.min(this.current_page * this.per_page, this.total);
+            },
+
+            from: function() {
+                return Math.min(this.total, (this.current_page - 1) * this.per_page + 1);
+            },
+
+            currentImages: function() {
+                return this.images.slice(
+                    Math.min((this.current_page - 1) * this.per_page, this.images.length),
+                    this.current_page * this.per_page
+                );
+            }
+        },
+
         created() {
+            this.$events.$on('changePage', page => this.changePage(page));
+            this.$events.$on('resetCurrentPage', () => this.changePage(1));
             this.loadFromDatabase();
         },
 
@@ -167,6 +204,10 @@
 
             imagePath: function(path) {
                 return '/'+path;
+            },
+
+            changePage: function (page) {
+                this.current_page = page;
             },
 
             hasImages: function (slider) {
@@ -322,9 +363,5 @@
             }
 
         },
-
-        computed: {
-
-        }
     }
 </script>

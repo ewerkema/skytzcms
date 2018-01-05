@@ -1,92 +1,95 @@
 <template>
-    <div class="overview" v-if="!addImages && !changeOrder">
-        <div class="sidebar col-md-4">
-            <ul class="list-group">
-                <a href="#" class="list-group-item"
-                   v-for="album in albums"
-                   :class="{ active: (album.id == selectedAlbum.id) }"
-                   v-on:click="selectedAlbum = album"
-                >
-                    <span class="badge">{{ album.media.length }}</span>
-                    {{ album.name }}
-                </a>
-                <a href="#" class="list-group-item add-item"
-                   v-on:click="newAlbum = true"
-                   v-if="!newAlbum"
-                >
-                    Voeg album toe
-                    <span class="glyphicon glyphicon-plus"></span>
-                </a>
-                <a href="#" class="list-group-item add-item"
-                   v-if="newAlbum"
-                   :class="{ 'has-error': newAlbumError }"
-                >
-                    <input type="text" name="album" class="form-control" @keyup.enter="createAlbum()" placeholder="Album naam" />
-                    <button class="btn btn-default" v-on:click.prevent="newAlbum = false">Annuleren</button>
-                    <button class="btn btn-success right" v-on:click="createAlbum()">Opslaan</button>
-                </a>
-            </ul>
-        </div>
-        <div class="col-md-8" v-if="selectedAlbum">
-            <div class="bootstrap-row album-row" v-for="row in selectedAlbum.media | chunk 4">
-                <div class="col-md-3 album-image"
-                     v-for="image in row"
-                     v-on:click="removeImage(selectedAlbum, image)"
-                >
-                    <img :src="imagePath(image.path)" />
-                    <span class="glyphicon glyphicon-remove hover remove"></span>
-                </div>
+    <div>
+        <div class="overview" v-if="!addImages && !changeOrder">
+            <div class="sidebar col-md-4">
+                <ul class="list-group">
+                    <a href="#" class="list-group-item"
+                       v-for="album in albums"
+                       :class="{ active: (album.id == selectedAlbum.id) }"
+                       v-on:click="selectedAlbum = album"
+                    >
+                        <span class="badge">{{ album.media.length }}</span>
+                        {{ album.name }}
+                    </a>
+                    <a href="#" class="list-group-item add-item"
+                       v-on:click="newAlbum = true"
+                       v-if="!newAlbum"
+                    >
+                        Voeg album toe
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                    <a href="#" class="list-group-item add-item"
+                       v-if="newAlbum"
+                       :class="{ 'has-error': newAlbumError }"
+                    >
+                        <input type="text" name="album" class="form-control" @keyup.enter="createAlbum()" placeholder="Album naam" />
+                        <button class="btn btn-default" v-on:click.prevent="newAlbum = false">Annuleren</button>
+                        <button class="btn btn-success right" v-on:click="createAlbum()">Opslaan</button>
+                    </a>
+                </ul>
             </div>
-            <p v-if="!hasImages(selectedAlbum)">Er zijn geen afbeeldingen gevonden.</p>
-            <button class="btn btn-success right" v-on:click="addImages = true">Afbeeldingen toevoegen</button>
-            <button class="btn btn-default right" v-on:click="changeOrder = true">Volgorde aanpassen <span class="glyphicon glyphicon-sort"></span></button>
-            <button class="btn btn-danger right" v-on:click="removeAlbum(selectedAlbum)">Verwijder dit album</button>
-        </div>
-        <div class="col-md-8" v-else>
-            <p>Er is geen album geselecteerd.</p>
-        </div>
-    </div>
-    <div class="editForm" v-if="addImages">
-        <form action="#" class="form-horizontal" id="AlbumForm" v-on:submit.prevent>
-            <div class="alert form-message" role="alert" style="display: none;"></div>
-            <div class="bootstrap-row album-row" v-for="row in images | chunk 4">
-                <div class="col-md-3 album-image"
-                     v-for="image in row"
-                     v-on:click="selectImage(image)"
-                     :class="{selected: isSelected(image) }"
-                >
-                    <img :src="imagePath(image.path)" />
-                    <span class="glyphicon glyphicon-ok add"></span>
-                </div>
-            </div>
-            <p v-if="images.length == 0">Er zijn geen afbeeldingen (meer) gevonden.</p>
-            <div class="form-group">
-                <div class="col-md-8 col-md-offset-3">
-                    <button form="albumForm" class="btn btn-success right" v-on:click="submitForm()">Afbeeldingen toevoegen</button>
-                    <button class="btn btn-default right" v-on:click.prevent="addImages = false">Annuleren</button>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="editForm" v-if="changeOrder">
-        <form action="#" class="form-horizontal" id="ChangeAlbumOrder" v-on:submit.prevent>
-            <div class="alert form-message" role="alert" style="display: none;"></div>
-            <p>Verander de volgorde van het album door de afbeeldingen te slepen:</p>
-            <ul class="albumSortable sortable">
-                <li class="menu-item" :id="'image_' + image.id" :data-id="image.id" v-for="image in selectedAlbum.media">
-                    <div>
-                        <span class="glyphicon glyphicon-move"></span> <img :src="imagePath(image.path)" />
+            <div class="col-md-8" v-if="selectedAlbum">
+                <div class="bootstrap-row album-row" v-for="row in selectedAlbum.media | chunk 4">
+                    <div class="col-md-3 album-image"
+                         v-for="image in row"
+                         v-on:click="removeImage(selectedAlbum, image)"
+                    >
+                        <img :src="imagePath(image.path)" />
+                        <span class="glyphicon glyphicon-remove hover remove"></span>
                     </div>
-                </li>
-            </ul>
-            <p v-if="selectedAlbum.media.length == 0">Er zijn geen afbeeldingen in dit album.</p>
-            <div class="form-group">
-                <div class="col-md-8 col-md-offset-3">
-                    <button form="albumForm" class="btn btn-success right" v-on:click="updateOrder()">Volgorde opslaan</button>
-                    <button class="btn btn-default right" v-on:click.prevent="changeOrder = false">Annuleren</button>
                 </div>
+                <p v-if="!hasImages(selectedAlbum)">Er zijn geen afbeeldingen gevonden.</p>
+                <button class="btn btn-success right" v-on:click="addImages = true">Afbeeldingen toevoegen</button>
+                <button class="btn btn-default right" v-on:click="changeOrder = true">Volgorde aanpassen <span class="glyphicon glyphicon-sort"></span></button>
+                <button class="btn btn-danger right" v-on:click="removeAlbum(selectedAlbum)">Verwijder dit album</button>
             </div>
-        </form>
+            <div class="col-md-8" v-else>
+                <p>Er is geen album geselecteerd.</p>
+            </div>
+        </div>
+        <div class="editForm" v-if="addImages">
+            <form action="#" class="form-horizontal" id="AlbumForm" v-on:submit.prevent>
+                <div class="alert form-message" role="alert" style="display: none;"></div>
+                <div class="bootstrap-row album-row" v-for="row in currentImages | chunk 4">
+                    <div class="col-md-3 album-image"
+                         v-for="image in row"
+                         v-on:click="selectImage(image)"
+                         :class="{selected: isSelected(image) }"
+                    >
+                        <img :src="imagePath(image.path)" />
+                        <span class="glyphicon glyphicon-ok add"></span>
+                    </div>
+                </div>
+                <p v-if="images.length == 0">Er zijn geen afbeeldingen (meer) gevonden.</p>
+                <pagination :total="images.length" :per_page="per_page" :current_page="current_page"></pagination>
+                <div class="form-group">
+                    <div class="col-md-8 col-md-offset-3">
+                        <button form="albumForm" class="btn btn-success right" v-on:click="submitForm()">Afbeeldingen toevoegen</button>
+                        <button class="btn btn-default right" v-on:click.prevent="addImages = false">Annuleren</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="editForm" v-if="changeOrder">
+            <form action="#" class="form-horizontal" id="ChangeAlbumOrder" v-on:submit.prevent>
+                <div class="alert form-message" role="alert" style="display: none;"></div>
+                <p>Verander de volgorde van het album door de afbeeldingen te slepen:</p>
+                <ul class="albumSortable sortable">
+                    <li class="menu-item" :id="'image_' + image.id" :data-id="image.id" v-for="image in selectedAlbum.media">
+                        <div>
+                            <span class="glyphicon glyphicon-move"></span> <img :src="imagePath(image.path)" />
+                        </div>
+                    </li>
+                </ul>
+                <p v-if="selectedAlbum.media.length == 0">Er zijn geen afbeeldingen in dit album.</p>
+                <div class="form-group">
+                    <div class="col-md-8 col-md-offset-3">
+                        <button form="albumForm" class="btn btn-success right" v-on:click="updateOrder()">Volgorde opslaan</button>
+                        <button class="btn btn-default right" v-on:click.prevent="changeOrder = false">Annuleren</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </template>
 <style>
@@ -166,6 +169,10 @@
 
 </style>
 <script>
+    import Pagination from "./Pagination.vue";
+    import VueEvents from 'vue-events';
+    Vue.use(VueEvents);
+
     export default {
         data(){
             return {
@@ -176,11 +183,40 @@
                 images: [],
                 newAlbum: false,
                 newAlbumError: false,
-                changeOrder: false
+                changeOrder: false,
+                per_page: 8,
+                current_page: 1,
             };
         },
 
+        components: {
+            Pagination,
+        },
+
+        computed: {
+            total: function() {
+                return this.images.length;
+            },
+
+            to: function() {
+                return Math.min(this.current_page * this.per_page, this.total);
+            },
+
+            from: function() {
+                return Math.min(this.total, (this.current_page - 1) * this.per_page + 1);
+            },
+
+            currentImages: function() {
+                return this.images.slice(
+                    Math.min((this.current_page - 1) * this.per_page, this.images.length),
+                    this.current_page * this.per_page
+                );
+            }
+        },
+
         created() {
+            this.$events.$on('changePage', page => this.changePage(page));
+            this.$events.$on('resetCurrentPage', () => this.changePage(1));
             this.loadFromDatabase();
         },
 
@@ -208,6 +244,10 @@
         },
 
         methods: {
+
+            changePage: function (page) {
+                this.current_page = page;
+            },
 
             imagePath: function(path) {
                 return '/'+path;
@@ -395,9 +435,5 @@
             }
 
         },
-
-        computed: {
-
-        }
     }
 </script>

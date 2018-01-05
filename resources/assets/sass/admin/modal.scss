@@ -10,6 +10,22 @@
     .input-pointer:hover > input {
         cursor: pointer !important;
     }
+
+    .modal-dialog{
+        overflow-y: initial !important
+    }
+    .modal-body{
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+
+    .flex {
+        display: flex;
+    }
+}
+
+#medialist {
+    margin-top: 15px;
 }
 
 #mediaModal {
@@ -33,6 +49,10 @@
                 line-height: 24px;
                 word-break: break-all;
             }
+        }
+        .thumbnail.selected {
+            background-color: mix(#fff, $brand-success, 70%);
+            border-color: $brand-success;
         }
         .trash{
             position: absolute;

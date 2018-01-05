@@ -1,6 +1,8 @@
 
 @if (isset($article) && $article)
     @include('templates.admin.modules.single_article')
+@elseif (isset($project) && $project)
+    @include('templates.admin.modules.single_project')
 @else
     <div class="page-content" data-page="{{ $currentPage->id }}">
         @if (sizeof($currentPage->content) == 0)
@@ -35,26 +37,41 @@
     <script type="text/javascript">
 
         function publishWebsite() {
-
-            swal({
-                title: "Website publiceren?",
-                text: "Alle gemaakte wijzigingen zullen zichtbaar worden op de website.",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#2ab27b",
-                confirmButtonText: "Ja, website publiceren",
-            }).then(function(){
-                var request = new Request('{{ cms_url('pages/publish') }}');
-                request.setType('POST');
-                request.send(function() {
-                    swal({
-                        title: 'Website gepubliceerd!',
-                        text: 'Alle wijzigingen zijn succesvol online gezet.',
-                        type: 'success',
-                        timer: 2000
+            if ($('#saveChanges').is(":visible")) {
+                swal({
+                    title: "Publiceren niet mogelijk",
+                    text: "Er zijn nog niet opgeslagen wijzigingen op deze pagina. Druk eerst op \"Pagina opslaan\" om verder te gaan.",
+                    type: "error",
+                    timer: 5000,
+                });
+            } else if ($('#saveLayout').is(":visible")){
+                swal({
+                    title: "Publiceren niet mogelijk",
+                    text: "Er zijn nog niet opgeslagen wijzigingen op deze pagina. Druk eerst op \"Blokken opslaan\" om verder te gaan.",
+                    type: "error",
+                    timer: 5000,
+                });
+            } else {
+                swal({
+                    title: "Website publiceren?",
+                    text: "Alle gemaakte wijzigingen zullen zichtbaar worden op de website.",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#2ab27b",
+                    confirmButtonText: "Ja, website publiceren",
+                }).then(function(){
+                    var request = new Request('{{ cms_url('pages/publish') }}');
+                    request.setType('POST');
+                    request.send(function() {
+                        swal({
+                            title: 'Website gepubliceerd!',
+                            text: 'Alle wijzigingen zijn succesvol online gezet.',
+                            type: 'success',
+                            timer: 2000
+                        });
                     });
                 });
-            });
+            }
         }
 
         function reloadPageContent() {

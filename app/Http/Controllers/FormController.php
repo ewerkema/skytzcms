@@ -8,6 +8,7 @@ use Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Mail;
+use Mockery\Exception;
 use Validator;
 use Input;
 
@@ -123,15 +124,69 @@ class FormController extends Controller
 
         $validator = $this->buildValidator($input, $fields);
         if ($validator->fails()) {
-            print_r($input);
             return redirect()->back()
                 ->withInput($input)
                 ->withErrors($validator);
         }
 
+        if ($form->recaptcha && ($error = $this->checkRecaptcha($input)) !== true) {
+            return redirect()->back()
+                ->withInput($input)
+                ->with('recaptcha', 'Het verzende van het formulier is niet gelukt, probeer het opnieuw. 
+                    Blijft deze foutmelding zich voordoen? Neem dan contact op met '. $form->email . '. 
+                    Vermeld daarbij de volgende foutmelding: ' . $error);
+        }
+
         Mail::to($form->email)->send(new CustomFormMail($form, $fields, $input));
 
         return redirect()->back()->with(['message' => $form->message]);
+    }
+
+    /**
+     * Check the g-recaptcha-response to verify the user is not a bot,
+     * through the invisible Google ReCAPTCHA
+     *
+     * @param Input $input
+     * @return bool
+     */
+    public function checkRecaptcha(array $input)
+    {
+        if (!$response = $input['g-recaptcha-response']) {
+            return 'Er is geen \'g-recaptcha-response\' met het formulier meegegeven.';
+        }
+
+        $url = 'https://www.google.com/recaptcha/api/siteverify';
+        $fields = array(
+            'secret' => urlencode('6LfBsz0UAAAAAAwcj5gkB_9moouSt2AjWVGzrCMY '),
+            'response' => urlencode($response),
+            'remoteip' => urlencode($_SERVER['REMOTE_ADDR'])
+        );
+
+        $fields_string = '';
+        foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
+        $fields_string = rtrim($fields_string,'&');
+
+        try {
+            $ch = curl_init();
+
+            if (false === $ch)
+                throw new Exception('Het is niet gelukt de verbinding met de ReCAPTCHA server op te stellen.');
+
+            curl_setopt($ch,CURLOPT_URL, $url);
+            curl_setopt($ch,CURLOPT_POST, count($fields));
+            curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
+//            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+            $result = (array) json_decode(curl_exec($ch));
+
+            if (false === $result)
+                throw new Exception(curl_error($ch), curl_errno($ch));
+
+            return $result['success'] === true ? true : $result['error-codes'][0];
+        } catch(Exception $e) {
+            return sprintf('Curl failed with error #%d: %s', $e->getCode(), $e->getMessage());
+        }
     }
 
     /**

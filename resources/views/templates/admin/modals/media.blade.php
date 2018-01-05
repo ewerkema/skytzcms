@@ -6,9 +6,7 @@
                 <h4 class="modal-title"><strong>Media overzicht</strong></h4>
             </div>
             <div class="modal-body">
-                <div class="bootstrap-row" id='medialist'>
-                   
-                </div>
+                <list-media></list-media>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
@@ -18,24 +16,3 @@
         <div id='spinner' class="modal-overlay"></div>
     </div>
 </div>
-
-
-
-<script type="text/javascript">
-
-    $(document).ready(function(){
-        $('#spinner').hide();
-
-        function getMedia(){
-            $('#medialist').load('/cms/media?page=1', function( response, status, xhr ) {
-                if ( status == "error" ) {
-                    var msg = "Er ging iets fout bij het ophalen van de media: ";
-                    $('#medialist').html( msg + xhr.status + " " + xhr.statusText );
-                }
-            });
-        }
-
-        getMedia();
-        
-    });
-</script>

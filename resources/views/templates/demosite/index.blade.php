@@ -57,8 +57,8 @@
         <div class="bottom">
             <div class="row ">
                 <div class="small-12 columns sitemap">
-                    @if (!empty(Setting::get('footerblock')))
-                        <p>{!! Setting::get('footerblock') !!}</p>
+                    @if (!empty($footerblock = Setting::get('footerblock')))
+                        <p>{!! $footerblock !!}</p>
                     @else
                         <p>Copyright 2016 - {{ date('Y') }} <a href="/">Skytz.nl</a>  |  Uw eigen website gemakkelijk beheren</p>
                     @endif

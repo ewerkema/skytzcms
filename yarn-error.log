@@ -1,0 +1,57 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add vue-html-loader --save-dev
+
+PATH: 
+  C:\ProgramData\Oracle\Java\javapath;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0\;C:\wamp64\bin\php\php7.1.9;C:\ProgramData\ComposerSetup\bin;C:\Program Files\nodejs\;C:\Program Files\Git\bin\;C:\Program Files (x86)\Yarn\bin;C:\Users\enric\AppData\Local\Programs\Python\Python36;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Users\enric\AppData\Local\Microsoft\WindowsApps;C:\Users\enric\AppData\Local\GitHubDesktop\bin;C:\Users\enric\AppData\Roaming\Composer\vendor\bin;C:\Users\enric\AppData\Roaming\npm;C:\Users\enric\AppData\Local\Yarn\bin
+
+Yarn version: 
+  1.3.2
+
+Node version: 
+  8.9.3
+
+Platform: 
+  win32 x64
+
+npm manifest: 
+  {
+    "private": true,
+    "scripts": {
+      "prod": "gulp --production",
+      "dev": "gulp watch"
+    },
+    "devDependencies": {
+      "awesomplete": "^1.1.1",
+      "bootstrap-sass": "^3.3.7",
+      "buble": "^0.14.0",
+      "buble-loader": "^0.3.1",
+      "gulp": "^3.9.1",
+      "jquery": "^3.1.0",
+      "laravel-elixir": "^6.0.0-9",
+      "laravel-elixir-vue-2": "^0.3.0",
+      "laravel-elixir-webpack-official": "^1.0.2",
+      "vue": "^2.1.10",
+      "vue-resource": "^0.9.3"
+    },
+    "dependencies": {
+      "ContentTools": "^1.3.0",
+      "gridstack": "^0.2.6",
+      "jquery-ui": "^1.12.1",
+      "lodash": "^4.16.2",
+      "moment": "^2.15.2",
+      "mustache": "^2.2.1",
+      "requirejs": "^2.3.2",
+      "sweetalert2": "^5.2.0",
+      "vue-loader": "8.3.1",
+      "vue-moment": "^2.0.2"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  Error: EPERM: operation not permitted, unlink 'C:\wamp64\www\skytz\skytzcms\node_modules\node-sass\vendor\win32-x64-57\binding.node'

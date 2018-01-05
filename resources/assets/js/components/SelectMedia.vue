@@ -1,55 +1,96 @@
 <template>
-    <div class="selectMedia" class="col-md-12">
-        <div class="bootstrap-row album-row" v-for="row in images | limitPage | chunk imagesPerRow">
-            <div class="album-image"
-                 v-for="image in row"
-                 v-on:click="selectImage(image)"
-                 :class="[{selected: image.id == selectedImage.id }, 'col-md-' + Math.floor(12/imagesPerRow)]"
-            >
-                <img :src="imagePath(image.path)" id="select_image_{{ image.id }}" />
-                <span class="glyphicon glyphicon-ok add"></span>
+    <div>
+        <div class="selectMedia">
+            <div class="bootstrap-row album-row">
+                <div class="album-image"
+                     v-for="image in currentImages"
+                     v-on:click="selectImage(image)"
+                     :class="[{selected: image.id == selectedImage.id }, 'col-md-3']"
+                >
+                    <img :src="imagePath(image.path)" :id="'select_image_'+image.id" />
+                    <span class="glyphicon glyphicon-ok add"></span>
+                </div>
             </div>
-        </div>
-        <p v-if="images.length == 0">Er zijn geen afbeeldingen gevonden.</p>
+            <p v-if="images.length == 0">Er zijn geen afbeeldingen gevonden.</p>
 
-        <nav class="flex-center" aria-label="Select media navigation">
-            <div class="media-pagination">
-                <ul class="pagination">
-                    <li :class="{disabled: selectedPage == 0}">
-                        <span v-if="selectedPage == 0">«</span>
-                        <a v-else href="#" rel="prev" @click="selectedPage = selectedPage - 1">«</a>
-                    </li>
-                    <li v-for="p in (totalPages+1)" :class="{active: selectedPage == p}">
-                        <span v-if="selectedPage == p">{{ p+1 }}</span>
-                        <a v-else href="#" @click="selectedPage = p">{{ p+1 }}</a>
-                    </li>
-                    <li :class="{disabled: selectedPage == totalPages}">
-                        <span v-if="selectedPage == totalPages">»</span>
-                        <a v-else href="#" rel="next" @click="selectedPage = selectedPage + 1">»</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+            <pagination :total="images.length" :per_page="per_page" :current_page="current_page"></pagination>
+        </div>
+        <div class="form-group right flex">
+            <label for="openInPopup" class="control-label" style="margin-right: 10px;">Openen in popup</label>
+
+            <label class="Switch" style="align-self: center;">
+                <input type="checkbox" name="openInPopup" id="openInPopup" v-model="openInPopup">
+                <div class="Switch__slider"></div>
+            </label>
+        </div>
+        <div class="clear"></div>
+        <button type="button" class="btn btn-success right" @click="sendImage()" :disabled="!selectedImage">Geselecteerde afbeelding gebruiken</button>
+        <div class="clear"></div>
     </div>
-    <button type="button" class="btn btn-success right" @click="sendImage()" :disabled="!selectedImage">Geselecteerde afbeelding gebruiken</button>
-    <div class="clear"></div>
 </template>
 <style>
+    .album-row {
+        flex-wrap: wrap;
+        -webkit-flex-wrap: wrap;
+    }
 
+    .album-row .album-image {
+        margin-bottom: 15px;
+    }
 </style>
 <script>
+    import Pagination from "./Pagination.vue";
+    import VueEvents from 'vue-events';
+    Vue.use(VueEvents);
+
     export default {
         data(){
             return {
                 selectedImage: false,
+                openInPopup: false,
                 selectedPage: 0,
                 totalPages: 0,
-                imagesPerRow: 4,
+                per_page: 8,
+                current_page: 1,
                 images: []
             };
         },
 
+        components: {
+            Pagination,
+        },
+
+        computed: {
+            total: function() {
+                return this.images.length;
+            },
+
+            to: function() {
+                return Math.min(this.current_page * this.per_page, this.total);
+            },
+
+            from: function() {
+                return Math.min(this.total, (this.current_page - 1) * this.per_page + 1);
+            },
+
+            currentImages: function() {
+                return this.images.slice(
+                    Math.min((this.current_page - 1) * this.per_page, this.images.length),
+                    this.current_page * this.per_page
+                );
+            }
+        },
+
+        filters: {
+            limitPage: function(arr) {
+                var imagesPerPage = this.imagesPerRow * 2;
+                return arr.slice(this.selectedPage * imagesPerPage, (this.selectedPage + 1) * imagesPerPage);
+            }
+        },
+
         created() {
+            this.$events.$on('changePage', page => this.changePage(page));
+            this.$events.$on('resetCurrentPage', () => this.changePage(1));
             this.loadFromDatabase();
         },
 
@@ -60,6 +101,9 @@
         },
 
         methods: {
+            changePage: function (page) {
+                this.current_page = page;
+            },
 
             imagePath: function(path) {
                 return '/'+path;
@@ -76,7 +120,7 @@
             sendImage: function() {
                 var image = document.getElementById('select_image_'+this.selectedImage.id);
                 if (window.parent.CustomMediaManager !== undefined && window.parent.CustomMediaManager.active) {
-                    window.parent.CustomMediaManager._insertImage(this.imagePath(this.selectedImage.path), image.naturalWidth, image.naturalHeight);
+                    window.parent.CustomMediaManager._insertImage(this.imagePath(this.selectedImage.path), image.naturalWidth, image.naturalHeight, this.openInPopup);
                 } else {
                     $('.selected_media_id').val(this.selectedImage.id).trigger('change');
                     $('.selected_media_name').val(this.selectedImage.name);
@@ -107,15 +151,5 @@
 
         },
 
-        filters: {
-            limitPage: function(arr) {
-                var imagesPerPage = this.imagesPerRow * 2;
-                return arr.slice(this.selectedPage * imagesPerPage, (this.selectedPage + 1) * imagesPerPage);
-            }
-        },
-
-        computed: {
-
-        }
     }
 </script>

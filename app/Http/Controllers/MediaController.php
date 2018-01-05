@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Image;
 use Response;
 use App\Http\Requests;
 use App\Models\Media;
@@ -14,12 +15,21 @@ class MediaController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
     public function index()
     {
-        if (!isset($_GET['page']))
-            return Media::all();
+        if (!isset($_GET['page'])) {
+            $media = Media::all();
+
+            foreach ($media as $index => $item) {
+                $item['thumbnail_url'] = $item->photo_url('thumbnail');
+                $item['original_url'] = $item->photo_url('original');
+                $media[$index] = $item;
+            }
+
+            return Response::json($media);
+        }
 
         $rows = Media::paginate(8);
         return view('templates.admin.partials.medialist', compact('rows'));
@@ -36,16 +46,60 @@ class MediaController extends Controller
         $name = Input::get('name');
 
         foreach($name as $filename) {
-            $media = new Media;
-            $media->name = $filename;
-            $media->description = '';
-            $media->extension = File::extension($filename);
-            $media->mime = '';
-            
-            $media->save();
+            $this->createMedia($filename);
         }
 
         return Response::json(['status'=>'success','msg'=>'Media toegevoegd!']);
+    }
+
+    /**
+     * Create media from filename.
+     *
+     * @param $filename
+     * @return Media
+     */
+    public function createMedia($filename)
+    {
+        $media = new Media;
+        $media->name = $filename;
+        $media->description = '';
+        $media->extension = File::extension($filename);
+        $media->mime = '';
+
+        $media->save();
+
+        return $media;
+    }
+
+    /**
+     * Create header from coordinates
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function createHeader($id, Request $request)
+    {
+        $media = Media::find($id);
+        $coordinates = $request;
+
+        $headerExtension = 1;
+        $headerPath = str_replace(".".$media->extension, "", $media->path);
+        while (file_exists($headerPath . "header" . $headerExtension . "." . $media->extension)) {
+            $headerExtension++;
+        }
+
+        $headerPath = $headerPath . "header" . $headerExtension . "." . $media->extension;
+
+        Image::make($media->path)->crop(
+            round($coordinates['w']),
+            round($coordinates['h']),
+            round($coordinates['x']),
+            round($coordinates['y'])
+        )->save(str_replace("images/", "tmp/", $headerPath));
+
+        $header = $this->createMedia($headerPath);
+
+        return Response::json($header);
     }
 
     /**
@@ -56,15 +110,20 @@ class MediaController extends Controller
      */
     public function destroy($id)
     {
-        $media = Media::find($id);
+        $this->destroyMedia($id);
 
-        $this->checkGlobalHeader($media);
-        $this->removePageHeaders($media);
-        $media->albums()->detach();
-        $media->sliders()->detach();
-        $this->removeMedia($media);
+        return Response::json(['status' => 'success', 'msg' => 'Media verwijderd!']);
+    }
 
-        $media->delete();
+    public function destroyMany(Request $request)
+    {
+        $images = $request->get('images');
+
+        if ($images) {
+            foreach ($images as $image) {
+                $this->destroyMedia($image);
+            }
+        }
 
         return Response::json(['status' => 'success', 'msg' => 'Media verwijderd!']);
     }
@@ -120,5 +179,17 @@ class MediaController extends Controller
         @unlink(public_path().'/images/large/'.$media->name);
         @unlink(public_path().'/images/thumbnail/'.$media->name);
         @unlink(public_path().'/docs/'.$media->name);
+    }
+
+    private function destroyMedia($id)
+    {
+        $media = Media::find($id);
+
+        $this->checkGlobalHeader($media);
+        $this->removePageHeaders($media);
+        $media->albums()->detach();
+        $media->sliders()->detach();
+        $this->removeMedia($media);
+        $media->delete();
     }
 }

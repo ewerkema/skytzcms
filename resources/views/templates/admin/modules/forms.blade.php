@@ -1,7 +1,7 @@
 <div class="form-wrapper">
     <div id="form-{{ $id }}">
         @if ($form = App\Models\Form::find($id))
-            <form role="form" action="/forms/{{ $id }}/send" method="POST">
+            <form role="form" action="/forms/{{ $id }}/send" method="POST" id="form{{ $id }}">
                 <input type="hidden" name="form_id" value="{{ $id }}">
                 {{ csrf_field() }}
 
@@ -12,17 +12,26 @@
                     </div>
                 @endif
 
+                @if(session()->has('recaptcha'))
+                    <div data-alert class="alert-box alert">
+                        {{ session()->get('recaptcha') }}
+                        <a href="#" class="close">&times;</a>
+                    </div>
+                @endif
+
                 @foreach ($form->fields()->get() as $start => $field)
                     <div class="row">
-                        <div class="small-3 columns">
-                            <label for="{{ $field->formName() }}" class="right inline{{ $errors->has($field->formName()) ? ' error' : '' }}">{{ $field->name }}{{ $field->required ? "*" : "" }}</label>
-                        </div>
+                        @if (!$field->hidden_name)
+                            <div class="small-3 columns">
+                                <label for="{{ $field->formName() }}" class="right inline{{ $errors->has($field->formName()) ? ' error' : '' }}">{{ $field->name }}{{ $field->required ? "*" : "" }}</label>
+                            </div>
+                        @endif
 
-                        <div class="small-9 columns">
+                        <div class="small-{{ $field->hidden_name ? 12 : 9 }} columns">
                             @if ($field->type == "text" || $field->type == "email" || $field->type == "number")
-                                <input id="{{ $field->formName() }}" type="{{ $field->type }}" name="{{ $field->formName() }}" placeholder="{{ $field->placeholder }}" value="{{ old($field->formName()) }}">
+                                <input id="{{ $field->formName() }}" type="{{ $field->type }}" name="{{ $field->formName() }}" placeholder="{{ $field->placeholder }}{{ $field->required ? "*" : "" }}" value="{{ old($field->formName()) }}">
                             @elseif ($field->type == "textarea")
-                                <textarea id="{{ $field->formName() }}" name="{{ $field->formName() }}" placeholder="{{ $field->placeholder }}">{{ old($field->formName()) }}</textarea>
+                                <textarea id="{{ $field->formName() }}" name="{{ $field->formName() }}" placeholder="{{ $field->placeholder }}{{ $field->required ? "*" : "" }}">{{ old($field->formName()) }}</textarea>
                             @elseif ($field->type == "select")
                                 <select name="{{ $field->formName() }}">
                                     @forelse($field->options as $option)
@@ -54,10 +63,13 @@
                     </div>
 
                 @endforeach
+
                 <div class="form-group">
-                    <div class="col-md-8 col-md-offset-4">
-                        <button type="submit" class="button right" name="submitform">Verzenden</button>
-                        <span class="inline right">Velden met een (*) zijn verplicht.</span>
+                    <div class="form-flex flex-end">
+                        @if ($form->recaptcha)
+                            <div class="g-recaptcha" data-sitekey="6LfBsz0UAAAAAA4Qv5qShZkelXYqZAAJjFVopNpZ"></div>
+                        @endif
+                        <button form="form{{ $id }}" name="submitform" type="submit">Verzenden</button>
                     </div>
                 </div>
             </form>

@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.3.15 on 2016-11-02.
+ * Generated for Laravel 5.3.19 on 2017-12-10.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -9,6 +9,1901 @@
 
 namespace {
     exit("This file should not be included, only analyzed by your IDE");
+
+    class Album extends \App\Facades\Album{
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function getOrderedMedia(){
+            return \App\Models\Album::getOrderedMedia();
+        }
+        
+        /**
+         * Define relationships.
+         *
+         * @static 
+         */
+        public static function media(){
+            return \App\Models\Album::media();
+        }
+        
+        /**
+         * Clear the list of booted models so they will be re-booted.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function clearBootedModels(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Album::clearBootedModels();
+        }
+        
+        /**
+         * Register a new global scope on the model.
+         *
+         * @param \Illuminate\Database\Eloquent\Scope|\Closure|string $scope
+         * @param \Closure|null $implementation
+         * @return mixed 
+         * @throws \InvalidArgumentException
+         * @static 
+         */
+        public static function addGlobalScope($scope, $implementation = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::addGlobalScope($scope, $implementation);
+        }
+        
+        /**
+         * Determine if a model has a global scope.
+         *
+         * @param \Illuminate\Database\Eloquent\Scope|string $scope
+         * @return bool 
+         * @static 
+         */
+        public static function hasGlobalScope($scope){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::hasGlobalScope($scope);
+        }
+        
+        /**
+         * Get a global scope registered with the model.
+         *
+         * @param \Illuminate\Database\Eloquent\Scope|string $scope
+         * @return \Illuminate\Database\Eloquent\Scope|\Closure|null 
+         * @static 
+         */
+        public static function getGlobalScope($scope){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getGlobalScope($scope);
+        }
+        
+        /**
+         * Get the global scopes for this class instance.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getGlobalScopes(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getGlobalScopes();
+        }
+        
+        /**
+         * Register an observer with the Model.
+         *
+         * @param object|string $class
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function observe($class, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Album::observe($class, $priority);
+        }
+        
+        /**
+         * Fill the model with an array of attributes.
+         *
+         * @param array $attributes
+         * @return $this 
+         * @throws \Illuminate\Database\Eloquent\MassAssignmentException
+         * @static 
+         */
+        public static function fill($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::fill($attributes);
+        }
+        
+        /**
+         * Fill the model with an array of attributes. Force mass assignment.
+         *
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function forceFill($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::forceFill($attributes);
+        }
+        
+        /**
+         * Create a new instance of the given model.
+         *
+         * @param array $attributes
+         * @param bool $exists
+         * @return static 
+         * @static 
+         */
+        public static function newInstance($attributes = array(), $exists = false){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::newInstance($attributes, $exists);
+        }
+        
+        /**
+         * Create a new model instance that is existing.
+         *
+         * @param array $attributes
+         * @param string|null $connection
+         * @return static 
+         * @static 
+         */
+        public static function newFromBuilder($attributes = array(), $connection = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::newFromBuilder($attributes, $connection);
+        }
+        
+        /**
+         * Create a collection of models from plain arrays.
+         *
+         * @param array $items
+         * @param string|null $connection
+         * @return \Illuminate\Database\Eloquent\Collection 
+         * @static 
+         */
+        public static function hydrate($items, $connection = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::hydrate($items, $connection);
+        }
+        
+        /**
+         * Create a collection of models from a raw query.
+         *
+         * @param string $query
+         * @param array $bindings
+         * @param string|null $connection
+         * @return \Illuminate\Database\Eloquent\Collection 
+         * @static 
+         */
+        public static function hydrateRaw($query, $bindings = array(), $connection = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::hydrateRaw($query, $bindings, $connection);
+        }
+        
+        /**
+         * Save a new model and return the instance.
+         *
+         * @param array $attributes
+         * @return static 
+         * @static 
+         */
+        public static function create($attributes = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::create($attributes);
+        }
+        
+        /**
+         * Save a new model and return the instance. Allow mass-assignment.
+         *
+         * @param array $attributes
+         * @return static 
+         * @static 
+         */
+        public static function forceCreate($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::forceCreate($attributes);
+        }
+        
+        /**
+         * Begin querying the model.
+         *
+         * @return \Illuminate\Database\Eloquent\Builder 
+         * @static 
+         */
+        public static function query(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::query();
+        }
+        
+        /**
+         * Begin querying the model on a given connection.
+         *
+         * @param string|null $connection
+         * @return \Illuminate\Database\Eloquent\Builder 
+         * @static 
+         */
+        public static function on($connection = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::on($connection);
+        }
+        
+        /**
+         * Begin querying the model on the write connection.
+         *
+         * @return \Illuminate\Database\Query\Builder 
+         * @static 
+         */
+        public static function onWriteConnection(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::onWriteConnection();
+        }
+        
+        /**
+         * Get all of the models from the database.
+         *
+         * @param array|mixed $columns
+         * @return \Illuminate\Database\Eloquent\Collection|static[] 
+         * @static 
+         */
+        public static function all($columns = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::all($columns);
+        }
+        
+        /**
+         * Reload a fresh model instance from the database.
+         *
+         * @param array|string $with
+         * @return $this|null 
+         * @static 
+         */
+        public static function fresh($with = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::fresh($with);
+        }
+        
+        /**
+         * Eager load relations on the model.
+         *
+         * @param array|string $relations
+         * @return $this 
+         * @static 
+         */
+        public static function load($relations){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::load($relations);
+        }
+        
+        /**
+         * Begin querying a model with eager loading.
+         *
+         * @param array|string $relations
+         * @return \Illuminate\Database\Eloquent\Builder|static 
+         * @static 
+         */
+        public static function with($relations){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::with($relations);
+        }
+        
+        /**
+         * Append attributes to query when building a query.
+         *
+         * @param array|string $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function append($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::append($attributes);
+        }
+        
+        /**
+         * Define a one-to-one relationship.
+         *
+         * @param string $related
+         * @param string $foreignKey
+         * @param string $localKey
+         * @return \Illuminate\Database\Eloquent\Relations\HasOne 
+         * @static 
+         */
+        public static function hasOne($related, $foreignKey = null, $localKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::hasOne($related, $foreignKey, $localKey);
+        }
+        
+        /**
+         * Define a polymorphic one-to-one relationship.
+         *
+         * @param string $related
+         * @param string $name
+         * @param string $type
+         * @param string $id
+         * @param string $localKey
+         * @return \Illuminate\Database\Eloquent\Relations\MorphOne 
+         * @static 
+         */
+        public static function morphOne($related, $name, $type = null, $id = null, $localKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::morphOne($related, $name, $type, $id, $localKey);
+        }
+        
+        /**
+         * Define an inverse one-to-one or many relationship.
+         *
+         * @param string $related
+         * @param string $foreignKey
+         * @param string $otherKey
+         * @param string $relation
+         * @return \Illuminate\Database\Eloquent\Relations\BelongsTo 
+         * @static 
+         */
+        public static function belongsTo($related, $foreignKey = null, $otherKey = null, $relation = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::belongsTo($related, $foreignKey, $otherKey, $relation);
+        }
+        
+        /**
+         * Define a polymorphic, inverse one-to-one or many relationship.
+         *
+         * @param string $name
+         * @param string $type
+         * @param string $id
+         * @return \Illuminate\Database\Eloquent\Relations\MorphTo 
+         * @static 
+         */
+        public static function morphTo($name = null, $type = null, $id = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::morphTo($name, $type, $id);
+        }
+        
+        /**
+         * Retrieve the fully qualified class name from a slug.
+         *
+         * @param string $class
+         * @return string 
+         * @static 
+         */
+        public static function getActualClassNameForMorph($class){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getActualClassNameForMorph($class);
+        }
+        
+        /**
+         * Define a one-to-many relationship.
+         *
+         * @param string $related
+         * @param string $foreignKey
+         * @param string $localKey
+         * @return \Illuminate\Database\Eloquent\Relations\HasMany 
+         * @static 
+         */
+        public static function hasMany($related, $foreignKey = null, $localKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::hasMany($related, $foreignKey, $localKey);
+        }
+        
+        /**
+         * Define a has-many-through relationship.
+         *
+         * @param string $related
+         * @param string $through
+         * @param string|null $firstKey
+         * @param string|null $secondKey
+         * @param string|null $localKey
+         * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough 
+         * @static 
+         */
+        public static function hasManyThrough($related, $through, $firstKey = null, $secondKey = null, $localKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::hasManyThrough($related, $through, $firstKey, $secondKey, $localKey);
+        }
+        
+        /**
+         * Define a polymorphic one-to-many relationship.
+         *
+         * @param string $related
+         * @param string $name
+         * @param string $type
+         * @param string $id
+         * @param string $localKey
+         * @return \Illuminate\Database\Eloquent\Relations\MorphMany 
+         * @static 
+         */
+        public static function morphMany($related, $name, $type = null, $id = null, $localKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::morphMany($related, $name, $type, $id, $localKey);
+        }
+        
+        /**
+         * Define a many-to-many relationship.
+         *
+         * @param string $related
+         * @param string $table
+         * @param string $foreignKey
+         * @param string $otherKey
+         * @param string $relation
+         * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany 
+         * @static 
+         */
+        public static function belongsToMany($related, $table = null, $foreignKey = null, $otherKey = null, $relation = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::belongsToMany($related, $table, $foreignKey, $otherKey, $relation);
+        }
+        
+        /**
+         * Define a polymorphic many-to-many relationship.
+         *
+         * @param string $related
+         * @param string $name
+         * @param string $table
+         * @param string $foreignKey
+         * @param string $otherKey
+         * @param bool $inverse
+         * @return \Illuminate\Database\Eloquent\Relations\MorphToMany 
+         * @static 
+         */
+        public static function morphToMany($related, $name, $table = null, $foreignKey = null, $otherKey = null, $inverse = false){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::morphToMany($related, $name, $table, $foreignKey, $otherKey, $inverse);
+        }
+        
+        /**
+         * Define a polymorphic, inverse many-to-many relationship.
+         *
+         * @param string $related
+         * @param string $name
+         * @param string $table
+         * @param string $foreignKey
+         * @param string $otherKey
+         * @return \Illuminate\Database\Eloquent\Relations\MorphToMany 
+         * @static 
+         */
+        public static function morphedByMany($related, $name, $table = null, $foreignKey = null, $otherKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::morphedByMany($related, $name, $table, $foreignKey, $otherKey);
+        }
+        
+        /**
+         * Get the joining table name for a many-to-many relation.
+         *
+         * @param string $related
+         * @return string 
+         * @static 
+         */
+        public static function joiningTable($related){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::joiningTable($related);
+        }
+        
+        /**
+         * Destroy the models for the given IDs.
+         *
+         * @param array|int $ids
+         * @return int 
+         * @static 
+         */
+        public static function destroy($ids){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::destroy($ids);
+        }
+        
+        /**
+         * Delete the model from the database.
+         *
+         * @return bool|null 
+         * @throws \Exception
+         * @static 
+         */
+        public static function delete(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::delete();
+        }
+        
+        /**
+         * Force a hard delete on a soft deleted model.
+         * 
+         * This method protects developers from running forceDelete when trait is missing.
+         *
+         * @return bool|null 
+         * @static 
+         */
+        public static function forceDelete(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::forceDelete();
+        }
+        
+        /**
+         * Register a saving model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function saving($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Album::saving($callback, $priority);
+        }
+        
+        /**
+         * Register a saved model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function saved($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Album::saved($callback, $priority);
+        }
+        
+        /**
+         * Register an updating model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function updating($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Album::updating($callback, $priority);
+        }
+        
+        /**
+         * Register an updated model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function updated($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Album::updated($callback, $priority);
+        }
+        
+        /**
+         * Register a creating model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function creating($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Album::creating($callback, $priority);
+        }
+        
+        /**
+         * Register a created model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function created($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Album::created($callback, $priority);
+        }
+        
+        /**
+         * Register a deleting model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function deleting($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Album::deleting($callback, $priority);
+        }
+        
+        /**
+         * Register a deleted model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function deleted($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Album::deleted($callback, $priority);
+        }
+        
+        /**
+         * Remove all of the event listeners for the model.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function flushEventListeners(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Album::flushEventListeners();
+        }
+        
+        /**
+         * Get the observable event names.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getObservableEvents(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getObservableEvents();
+        }
+        
+        /**
+         * Set the observable event names.
+         *
+         * @param array $observables
+         * @return $this 
+         * @static 
+         */
+        public static function setObservableEvents($observables){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::setObservableEvents($observables);
+        }
+        
+        /**
+         * Add an observable event name.
+         *
+         * @param array|mixed $observables
+         * @return void 
+         * @static 
+         */
+        public static function addObservableEvents($observables){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Album::addObservableEvents($observables);
+        }
+        
+        /**
+         * Remove an observable event name.
+         *
+         * @param array|mixed $observables
+         * @return void 
+         * @static 
+         */
+        public static function removeObservableEvents($observables){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Album::removeObservableEvents($observables);
+        }
+        
+        /**
+         * Update the model in the database.
+         *
+         * @param array $attributes
+         * @param array $options
+         * @return bool 
+         * @static 
+         */
+        public static function update($attributes = array(), $options = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::update($attributes, $options);
+        }
+        
+        /**
+         * Save the model and all of its relationships.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function push(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::push();
+        }
+        
+        /**
+         * Save the model to the database.
+         *
+         * @param array $options
+         * @return bool 
+         * @static 
+         */
+        public static function save($options = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::save($options);
+        }
+        
+        /**
+         * Save the model to the database using transaction.
+         *
+         * @param array $options
+         * @return bool 
+         * @throws \Throwable
+         * @static 
+         */
+        public static function saveOrFail($options = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::saveOrFail($options);
+        }
+        
+        /**
+         * Touch the owning relations of the model.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function touchOwners(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Album::touchOwners();
+        }
+        
+        /**
+         * Determine if the model touches a given relation.
+         *
+         * @param string $relation
+         * @return bool 
+         * @static 
+         */
+        public static function touches($relation){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::touches($relation);
+        }
+        
+        /**
+         * Update the model's update timestamp.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function touch(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::touch();
+        }
+        
+        /**
+         * Set the value of the "created at" attribute.
+         *
+         * @param mixed $value
+         * @return $this 
+         * @static 
+         */
+        public static function setCreatedAt($value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::setCreatedAt($value);
+        }
+        
+        /**
+         * Set the value of the "updated at" attribute.
+         *
+         * @param mixed $value
+         * @return $this 
+         * @static 
+         */
+        public static function setUpdatedAt($value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::setUpdatedAt($value);
+        }
+        
+        /**
+         * Get the name of the "created at" column.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getCreatedAtColumn(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getCreatedAtColumn();
+        }
+        
+        /**
+         * Get the name of the "updated at" column.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getUpdatedAtColumn(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getUpdatedAtColumn();
+        }
+        
+        /**
+         * Get a fresh timestamp for the model.
+         *
+         * @return \Carbon\Carbon 
+         * @static 
+         */
+        public static function freshTimestamp(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::freshTimestamp();
+        }
+        
+        /**
+         * Get a fresh timestamp for the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function freshTimestampString(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::freshTimestampString();
+        }
+        
+        /**
+         * Get a new query builder for the model's table.
+         *
+         * @return \Illuminate\Database\Eloquent\Builder 
+         * @static 
+         */
+        public static function newQuery(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::newQuery();
+        }
+        
+        /**
+         * Get a new query instance without a given scope.
+         *
+         * @param \Illuminate\Database\Eloquent\Scope|string $scope
+         * @return \Illuminate\Database\Eloquent\Builder 
+         * @static 
+         */
+        public static function newQueryWithoutScope($scope){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::newQueryWithoutScope($scope);
+        }
+        
+        /**
+         * Get a new query builder that doesn't have any global scopes.
+         *
+         * @return \Illuminate\Database\Eloquent\Builder|static 
+         * @static 
+         */
+        public static function newQueryWithoutScopes(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::newQueryWithoutScopes();
+        }
+        
+        /**
+         * Create a new Eloquent query builder for the model.
+         *
+         * @param \Illuminate\Database\Query\Builder $query
+         * @return \Illuminate\Database\Eloquent\Builder|static 
+         * @static 
+         */
+        public static function newEloquentBuilder($query){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::newEloquentBuilder($query);
+        }
+        
+        /**
+         * Create a new Eloquent Collection instance.
+         *
+         * @param array $models
+         * @return \Illuminate\Database\Eloquent\Collection 
+         * @static 
+         */
+        public static function newCollection($models = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::newCollection($models);
+        }
+        
+        /**
+         * Create a new pivot model instance.
+         *
+         * @param \Illuminate\Database\Eloquent\Model $parent
+         * @param array $attributes
+         * @param string $table
+         * @param bool $exists
+         * @return \Illuminate\Database\Eloquent\Relations\Pivot 
+         * @static 
+         */
+        public static function newPivot($parent, $attributes, $table, $exists){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::newPivot($parent, $attributes, $table, $exists);
+        }
+        
+        /**
+         * Get the table associated with the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getTable(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getTable();
+        }
+        
+        /**
+         * Set the table associated with the model.
+         *
+         * @param string $table
+         * @return $this 
+         * @static 
+         */
+        public static function setTable($table){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::setTable($table);
+        }
+        
+        /**
+         * Get the value of the model's primary key.
+         *
+         * @return mixed 
+         * @static 
+         */
+        public static function getKey(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getKey();
+        }
+        
+        /**
+         * Get the queueable identity for the entity.
+         *
+         * @return mixed 
+         * @static 
+         */
+        public static function getQueueableId(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getQueueableId();
+        }
+        
+        /**
+         * Get the primary key for the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getKeyName(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getKeyName();
+        }
+        
+        /**
+         * Set the primary key for the model.
+         *
+         * @param string $key
+         * @return $this 
+         * @static 
+         */
+        public static function setKeyName($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::setKeyName($key);
+        }
+        
+        /**
+         * Get the table qualified key name.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getQualifiedKeyName(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getQualifiedKeyName();
+        }
+        
+        /**
+         * Get the value of the model's route key.
+         *
+         * @return mixed 
+         * @static 
+         */
+        public static function getRouteKey(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getRouteKey();
+        }
+        
+        /**
+         * Get the route key for the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getRouteKeyName(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getRouteKeyName();
+        }
+        
+        /**
+         * Determine if the model uses timestamps.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function usesTimestamps(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::usesTimestamps();
+        }
+        
+        /**
+         * Get the class name for polymorphic relations.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getMorphClass(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getMorphClass();
+        }
+        
+        /**
+         * Get the number of models to return per page.
+         *
+         * @return int 
+         * @static 
+         */
+        public static function getPerPage(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getPerPage();
+        }
+        
+        /**
+         * Set the number of models to return per page.
+         *
+         * @param int $perPage
+         * @return $this 
+         * @static 
+         */
+        public static function setPerPage($perPage){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::setPerPage($perPage);
+        }
+        
+        /**
+         * Get the default foreign key name for the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getForeignKey(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getForeignKey();
+        }
+        
+        /**
+         * Get the hidden attributes for the model.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getHidden(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getHidden();
+        }
+        
+        /**
+         * Set the hidden attributes for the model.
+         *
+         * @param array $hidden
+         * @return $this 
+         * @static 
+         */
+        public static function setHidden($hidden){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::setHidden($hidden);
+        }
+        
+        /**
+         * Add hidden attributes for the model.
+         *
+         * @param array|string|null $attributes
+         * @return void 
+         * @static 
+         */
+        public static function addHidden($attributes = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Album::addHidden($attributes);
+        }
+        
+        /**
+         * Make the given, typically hidden, attributes visible.
+         *
+         * @param array|string $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function makeVisible($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::makeVisible($attributes);
+        }
+        
+        /**
+         * Make the given, typically visible, attributes hidden.
+         *
+         * @param array|string $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function makeHidden($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::makeHidden($attributes);
+        }
+        
+        /**
+         * Get the visible attributes for the model.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getVisible(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getVisible();
+        }
+        
+        /**
+         * Set the visible attributes for the model.
+         *
+         * @param array $visible
+         * @return $this 
+         * @static 
+         */
+        public static function setVisible($visible){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::setVisible($visible);
+        }
+        
+        /**
+         * Add visible attributes for the model.
+         *
+         * @param array|string|null $attributes
+         * @return void 
+         * @static 
+         */
+        public static function addVisible($attributes = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Album::addVisible($attributes);
+        }
+        
+        /**
+         * Set the accessors to append to model arrays.
+         *
+         * @param array $appends
+         * @return $this 
+         * @static 
+         */
+        public static function setAppends($appends){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::setAppends($appends);
+        }
+        
+        /**
+         * Get the fillable attributes for the model.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getFillable(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getFillable();
+        }
+        
+        /**
+         * Set the fillable attributes for the model.
+         *
+         * @param array $fillable
+         * @return $this 
+         * @static 
+         */
+        public static function fillable($fillable){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::fillable($fillable);
+        }
+        
+        /**
+         * Get the guarded attributes for the model.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getGuarded(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getGuarded();
+        }
+        
+        /**
+         * Set the guarded attributes for the model.
+         *
+         * @param array $guarded
+         * @return $this 
+         * @static 
+         */
+        public static function guard($guarded){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::guard($guarded);
+        }
+        
+        /**
+         * Disable all mass assignable restrictions.
+         *
+         * @param bool $state
+         * @return void 
+         * @static 
+         */
+        public static function unguard($state = true){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Album::unguard($state);
+        }
+        
+        /**
+         * Enable the mass assignment restrictions.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function reguard(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Album::reguard();
+        }
+        
+        /**
+         * Determine if current state is "unguarded".
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function isUnguarded(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::isUnguarded();
+        }
+        
+        /**
+         * Run the given callable while being unguarded.
+         *
+         * @param callable $callback
+         * @return mixed 
+         * @static 
+         */
+        public static function unguarded($callback){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::unguarded($callback);
+        }
+        
+        /**
+         * Determine if the given attribute may be mass assigned.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */
+        public static function isFillable($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::isFillable($key);
+        }
+        
+        /**
+         * Determine if the given key is guarded.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */
+        public static function isGuarded($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::isGuarded($key);
+        }
+        
+        /**
+         * Determine if the model is totally guarded.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function totallyGuarded(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::totallyGuarded();
+        }
+        
+        /**
+         * Get the relationships that are touched on save.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getTouchedRelations(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getTouchedRelations();
+        }
+        
+        /**
+         * Set the relationships that are touched on save.
+         *
+         * @param array $touches
+         * @return $this 
+         * @static 
+         */
+        public static function setTouchedRelations($touches){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::setTouchedRelations($touches);
+        }
+        
+        /**
+         * Get the value indicating whether the IDs are incrementing.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function getIncrementing(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getIncrementing();
+        }
+        
+        /**
+         * Set whether IDs are incrementing.
+         *
+         * @param bool $value
+         * @return $this 
+         * @static 
+         */
+        public static function setIncrementing($value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::setIncrementing($value);
+        }
+        
+        /**
+         * Convert the model instance to JSON.
+         *
+         * @param int $options
+         * @return string 
+         * @static 
+         */
+        public static function toJson($options = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::toJson($options);
+        }
+        
+        /**
+         * Convert the object into something JSON serializable.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function jsonSerialize(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::jsonSerialize();
+        }
+        
+        /**
+         * Convert the model instance to an array.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function toArray(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::toArray();
+        }
+        
+        /**
+         * Convert the model's attributes to an array.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function attributesToArray(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::attributesToArray();
+        }
+        
+        /**
+         * Get the model's relationships in array form.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function relationsToArray(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::relationsToArray();
+        }
+        
+        /**
+         * Get an attribute from the model.
+         *
+         * @param string $key
+         * @return mixed 
+         * @static 
+         */
+        public static function getAttribute($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getAttribute($key);
+        }
+        
+        /**
+         * Get a plain attribute (not a relationship).
+         *
+         * @param string $key
+         * @return mixed 
+         * @static 
+         */
+        public static function getAttributeValue($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getAttributeValue($key);
+        }
+        
+        /**
+         * Get a relationship.
+         *
+         * @param string $key
+         * @return mixed 
+         * @static 
+         */
+        public static function getRelationValue($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getRelationValue($key);
+        }
+        
+        /**
+         * Determine if a get mutator exists for an attribute.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */
+        public static function hasGetMutator($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::hasGetMutator($key);
+        }
+        
+        /**
+         * Determine whether an attribute should be cast to a native type.
+         *
+         * @param string $key
+         * @param array|string|null $types
+         * @return bool 
+         * @static 
+         */
+        public static function hasCast($key, $types = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::hasCast($key, $types);
+        }
+        
+        /**
+         * Get the casts array.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getCasts(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getCasts();
+        }
+        
+        /**
+         * Set a given attribute on the model.
+         *
+         * @param string $key
+         * @param mixed $value
+         * @return $this 
+         * @static 
+         */
+        public static function setAttribute($key, $value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::setAttribute($key, $value);
+        }
+        
+        /**
+         * Determine if a set mutator exists for an attribute.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */
+        public static function hasSetMutator($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::hasSetMutator($key);
+        }
+        
+        /**
+         * Get the attributes that should be converted to dates.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getDates(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getDates();
+        }
+        
+        /**
+         * Convert a DateTime to a storable string.
+         *
+         * @param \DateTime|int $value
+         * @return string 
+         * @static 
+         */
+        public static function fromDateTime($value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::fromDateTime($value);
+        }
+        
+        /**
+         * Set the date format used by the model.
+         *
+         * @param string $format
+         * @return $this 
+         * @static 
+         */
+        public static function setDateFormat($format){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::setDateFormat($format);
+        }
+        
+        /**
+         * Decode the given JSON back into an array or object.
+         *
+         * @param string $value
+         * @param bool $asObject
+         * @return mixed 
+         * @static 
+         */
+        public static function fromJson($value, $asObject = false){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::fromJson($value, $asObject);
+        }
+        
+        /**
+         * Clone the model into a new, non-existing instance.
+         *
+         * @param array|null $except
+         * @return \Illuminate\Database\Eloquent\Model 
+         * @static 
+         */
+        public static function replicate($except = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::replicate($except);
+        }
+        
+        /**
+         * Determine if two models have the same ID and belong to the same table.
+         *
+         * @param \Illuminate\Database\Eloquent\Model $model
+         * @return bool 
+         * @static 
+         */
+        public static function is($model){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::is($model);
+        }
+        
+        /**
+         * Get all of the current attributes on the model.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getAttributes(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getAttributes();
+        }
+        
+        /**
+         * Set the array of model attributes. No checking is done.
+         *
+         * @param array $attributes
+         * @param bool $sync
+         * @return $this 
+         * @static 
+         */
+        public static function setRawAttributes($attributes, $sync = false){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::setRawAttributes($attributes, $sync);
+        }
+        
+        /**
+         * Get the model's original attribute values.
+         *
+         * @param string|null $key
+         * @param mixed $default
+         * @return mixed|array 
+         * @static 
+         */
+        public static function getOriginal($key = null, $default = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getOriginal($key, $default);
+        }
+        
+        /**
+         * Sync the original attributes with the current.
+         *
+         * @return $this 
+         * @static 
+         */
+        public static function syncOriginal(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::syncOriginal();
+        }
+        
+        /**
+         * Sync a single original attribute with its current value.
+         *
+         * @param string $attribute
+         * @return $this 
+         * @static 
+         */
+        public static function syncOriginalAttribute($attribute){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::syncOriginalAttribute($attribute);
+        }
+        
+        /**
+         * Determine if the model or given attribute(s) have been modified.
+         *
+         * @param array|string|null $attributes
+         * @return bool 
+         * @static 
+         */
+        public static function isDirty($attributes = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::isDirty($attributes);
+        }
+        
+        /**
+         * Determine if the model or given attribute(s) have remained the same.
+         *
+         * @param array|string|null $attributes
+         * @return bool 
+         * @static 
+         */
+        public static function isClean($attributes = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::isClean($attributes);
+        }
+        
+        /**
+         * Get the attributes that have been changed since last sync.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getDirty(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getDirty();
+        }
+        
+        /**
+         * Get all the loaded relations for the instance.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getRelations(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getRelations();
+        }
+        
+        /**
+         * Get a specified relationship.
+         *
+         * @param string $relation
+         * @return mixed 
+         * @static 
+         */
+        public static function getRelation($relation){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getRelation($relation);
+        }
+        
+        /**
+         * Determine if the given relation is loaded.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */
+        public static function relationLoaded($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::relationLoaded($key);
+        }
+        
+        /**
+         * Set the specific relationship in the model.
+         *
+         * @param string $relation
+         * @param mixed $value
+         * @return $this 
+         * @static 
+         */
+        public static function setRelation($relation, $value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::setRelation($relation, $value);
+        }
+        
+        /**
+         * Set the entire relations array on the model.
+         *
+         * @param array $relations
+         * @return $this 
+         * @static 
+         */
+        public static function setRelations($relations){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::setRelations($relations);
+        }
+        
+        /**
+         * Get the database connection for the model.
+         *
+         * @return \Illuminate\Database\Connection 
+         * @static 
+         */
+        public static function getConnection(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getConnection();
+        }
+        
+        /**
+         * Get the current connection name for the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getConnectionName(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getConnectionName();
+        }
+        
+        /**
+         * Set the connection associated with the model.
+         *
+         * @param string $name
+         * @return $this 
+         * @static 
+         */
+        public static function setConnection($name){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::setConnection($name);
+        }
+        
+        /**
+         * Resolve a connection instance.
+         *
+         * @param string|null $connection
+         * @return \Illuminate\Database\Connection 
+         * @static 
+         */
+        public static function resolveConnection($connection = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::resolveConnection($connection);
+        }
+        
+        /**
+         * Get the connection resolver instance.
+         *
+         * @return \Illuminate\Database\ConnectionResolverInterface 
+         * @static 
+         */
+        public static function getConnectionResolver(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getConnectionResolver();
+        }
+        
+        /**
+         * Set the connection resolver instance.
+         *
+         * @param \Illuminate\Database\ConnectionResolverInterface $resolver
+         * @return void 
+         * @static 
+         */
+        public static function setConnectionResolver($resolver){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Album::setConnectionResolver($resolver);
+        }
+        
+        /**
+         * Unset the connection resolver for models.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function unsetConnectionResolver(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Album::unsetConnectionResolver();
+        }
+        
+        /**
+         * Get the event dispatcher instance.
+         *
+         * @return \Illuminate\Contracts\Events\Dispatcher 
+         * @static 
+         */
+        public static function getEventDispatcher(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getEventDispatcher();
+        }
+        
+        /**
+         * Set the event dispatcher instance.
+         *
+         * @param \Illuminate\Contracts\Events\Dispatcher $dispatcher
+         * @return void 
+         * @static 
+         */
+        public static function setEventDispatcher($dispatcher){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Album::setEventDispatcher($dispatcher);
+        }
+        
+        /**
+         * Unset the event dispatcher for models.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function unsetEventDispatcher(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Album::unsetEventDispatcher();
+        }
+        
+        /**
+         * Get the mutated attributes for a given instance.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getMutatedAttributes(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::getMutatedAttributes();
+        }
+        
+        /**
+         * Extract and cache all the mutated attributes of a class.
+         *
+         * @param string $class
+         * @return void 
+         * @static 
+         */
+        public static function cacheMutatedAttributes($class){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Album::cacheMutatedAttributes($class);
+        }
+        
+        /**
+         * Determine if the given attribute exists.
+         *
+         * @param mixed $offset
+         * @return bool 
+         * @static 
+         */
+        public static function offsetExists($offset){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::offsetExists($offset);
+        }
+        
+        /**
+         * Get the value for a given offset.
+         *
+         * @param mixed $offset
+         * @return mixed 
+         * @static 
+         */
+        public static function offsetGet($offset){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Album::offsetGet($offset);
+        }
+        
+        /**
+         * Set the value for a given offset.
+         *
+         * @param mixed $offset
+         * @param mixed $value
+         * @return void 
+         * @static 
+         */
+        public static function offsetSet($offset, $value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Album::offsetSet($offset, $value);
+        }
+        
+        /**
+         * Unset the value for a given offset.
+         *
+         * @param mixed $offset
+         * @return void 
+         * @static 
+         */
+        public static function offsetUnset($offset){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Album::offsetUnset($offset);
+        }
+        
+    }
+
 
     class App extends \Illuminate\Support\Facades\App{
         
@@ -1143,12 +3038,48 @@ namespace {
         }
         
         /**
+         * 
+         *
+         * @static 
+         */
+        public static function image(){
+            return \App\Models\Article::image();
+        }
+        
+        /**
          * Custom model functions.
          *
          * @static 
          */
         public static function notPublished(){
             return \App\Models\Article::notPublished();
+        }
+        
+        /**
+         * Get slug of the current article.
+         *
+         * @static 
+         */
+        public static function getSlug(){
+            return \App\Models\Article::getSlug();
+        }
+        
+        /**
+         * Get full link to the article.
+         *
+         * @static 
+         */
+        public static function getLink(){
+            return \App\Models\Article::getLink();
+        }
+        
+        /**
+         * Search articles and return where slug is equal.
+         *
+         * @static 
+         */
+        public static function whereSlug($slug){
+            return \App\Models\Article::whereSlug($slug);
         }
         
         /**
@@ -5550,6 +7481,17 @@ namespace {
         /**
          * Determine if the current user is authenticated.
          *
+         * @return \App\Models\User 
+         * @throws \Illuminate\Auth\AuthenticationException
+         * @static 
+         */
+        public static function authenticate(){
+            return \Illuminate\Auth\SessionGuard::authenticate();
+        }
+        
+        /**
+         * Determine if the current user is authenticated.
+         *
          * @return bool 
          * @static 
          */
@@ -5565,17 +7507,6 @@ namespace {
          */
         public static function guest(){
             return \Illuminate\Auth\SessionGuard::guest();
-        }
-        
-        /**
-         * Determine if the current user is authenticated.
-         *
-         * @return \App\Models\User 
-         * @throws \Illuminate\Auth\AuthenticationException
-         * @static 
-         */
-        public static function authenticate(){
-            return \Illuminate\Auth\SessionGuard::authenticate();
         }
         
     }
@@ -6495,6 +8426,102 @@ namespace {
          */
         public static function getKey(){
             return \Illuminate\Encryption\Encrypter::getKey();
+        }
+        
+    }
+
+
+    class CustomForm extends \App\Facades\CustomForm{
+        
+        /**
+         * Hotswap the underlying instance behind the facade.
+         *
+         * @param mixed $instance
+         * @return void 
+         * @static 
+         */
+        public static function swap($instance){
+            //Method inherited from \Illuminate\Support\Facades\Facade            
+            \Collective\Html\FormFacade::swap($instance);
+        }
+        
+        /**
+         * Convert the facade into a Mockery spy.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function spy(){
+            //Method inherited from \Illuminate\Support\Facades\Facade            
+            \Collective\Html\FormFacade::spy();
+        }
+        
+        /**
+         * Initiate a mock expectation on the facade.
+         *
+         * @return \Mockery\Expectation 
+         * @static 
+         */
+        public static function shouldReceive(){
+            //Method inherited from \Illuminate\Support\Facades\Facade            
+            return \Collective\Html\FormFacade::shouldReceive();
+        }
+        
+        /**
+         * Get the root object behind the facade.
+         *
+         * @return mixed 
+         * @static 
+         */
+        public static function getFacadeRoot(){
+            //Method inherited from \Illuminate\Support\Facades\Facade            
+            return \Collective\Html\FormFacade::getFacadeRoot();
+        }
+        
+        /**
+         * Clear a resolved facade instance.
+         *
+         * @param string $name
+         * @return void 
+         * @static 
+         */
+        public static function clearResolvedInstance($name){
+            //Method inherited from \Illuminate\Support\Facades\Facade            
+            \Collective\Html\FormFacade::clearResolvedInstance($name);
+        }
+        
+        /**
+         * Clear all of the resolved instances.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function clearResolvedInstances(){
+            //Method inherited from \Illuminate\Support\Facades\Facade            
+            \Collective\Html\FormFacade::clearResolvedInstances();
+        }
+        
+        /**
+         * Get the application instance behind the facade.
+         *
+         * @return \Illuminate\Contracts\Foundation\Application 
+         * @static 
+         */
+        public static function getFacadeApplication(){
+            //Method inherited from \Illuminate\Support\Facades\Facade            
+            return \Collective\Html\FormFacade::getFacadeApplication();
+        }
+        
+        /**
+         * Set the application instance.
+         *
+         * @param \Illuminate\Contracts\Foundation\Application $app
+         * @return void 
+         * @static 
+         */
+        public static function setFacadeApplication($app){
+            //Method inherited from \Illuminate\Support\Facades\Facade            
+            \Collective\Html\FormFacade::setFacadeApplication($app);
         }
         
     }
@@ -7653,7 +9680,7 @@ namespace {
         /**
          * Add a basic where clause to the query.
          *
-         * @param string $column
+         * @param string|\Closure $column
          * @param string $operator
          * @param mixed $value
          * @param string $boolean
@@ -7667,7 +9694,7 @@ namespace {
         /**
          * Add an "or where" clause to the query.
          *
-         * @param string $column
+         * @param string|\Closure $column
          * @param string $operator
          * @param mixed $value
          * @return \Illuminate\Database\Eloquent\Builder|static 
@@ -10725,6 +12752,1883 @@ namespace {
     }
 
 
+    class HtmlBlock extends \App\Facades\HtmlBlock{
+        
+        /**
+         * Clear the list of booted models so they will be re-booted.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function clearBootedModels(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\HtmlBlock::clearBootedModels();
+        }
+        
+        /**
+         * Register a new global scope on the model.
+         *
+         * @param \Illuminate\Database\Eloquent\Scope|\Closure|string $scope
+         * @param \Closure|null $implementation
+         * @return mixed 
+         * @throws \InvalidArgumentException
+         * @static 
+         */
+        public static function addGlobalScope($scope, $implementation = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::addGlobalScope($scope, $implementation);
+        }
+        
+        /**
+         * Determine if a model has a global scope.
+         *
+         * @param \Illuminate\Database\Eloquent\Scope|string $scope
+         * @return bool 
+         * @static 
+         */
+        public static function hasGlobalScope($scope){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::hasGlobalScope($scope);
+        }
+        
+        /**
+         * Get a global scope registered with the model.
+         *
+         * @param \Illuminate\Database\Eloquent\Scope|string $scope
+         * @return \Illuminate\Database\Eloquent\Scope|\Closure|null 
+         * @static 
+         */
+        public static function getGlobalScope($scope){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getGlobalScope($scope);
+        }
+        
+        /**
+         * Get the global scopes for this class instance.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getGlobalScopes(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getGlobalScopes();
+        }
+        
+        /**
+         * Register an observer with the Model.
+         *
+         * @param object|string $class
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function observe($class, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\HtmlBlock::observe($class, $priority);
+        }
+        
+        /**
+         * Fill the model with an array of attributes.
+         *
+         * @param array $attributes
+         * @return $this 
+         * @throws \Illuminate\Database\Eloquent\MassAssignmentException
+         * @static 
+         */
+        public static function fill($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::fill($attributes);
+        }
+        
+        /**
+         * Fill the model with an array of attributes. Force mass assignment.
+         *
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function forceFill($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::forceFill($attributes);
+        }
+        
+        /**
+         * Create a new instance of the given model.
+         *
+         * @param array $attributes
+         * @param bool $exists
+         * @return static 
+         * @static 
+         */
+        public static function newInstance($attributes = array(), $exists = false){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::newInstance($attributes, $exists);
+        }
+        
+        /**
+         * Create a new model instance that is existing.
+         *
+         * @param array $attributes
+         * @param string|null $connection
+         * @return static 
+         * @static 
+         */
+        public static function newFromBuilder($attributes = array(), $connection = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::newFromBuilder($attributes, $connection);
+        }
+        
+        /**
+         * Create a collection of models from plain arrays.
+         *
+         * @param array $items
+         * @param string|null $connection
+         * @return \Illuminate\Database\Eloquent\Collection 
+         * @static 
+         */
+        public static function hydrate($items, $connection = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::hydrate($items, $connection);
+        }
+        
+        /**
+         * Create a collection of models from a raw query.
+         *
+         * @param string $query
+         * @param array $bindings
+         * @param string|null $connection
+         * @return \Illuminate\Database\Eloquent\Collection 
+         * @static 
+         */
+        public static function hydrateRaw($query, $bindings = array(), $connection = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::hydrateRaw($query, $bindings, $connection);
+        }
+        
+        /**
+         * Save a new model and return the instance.
+         *
+         * @param array $attributes
+         * @return static 
+         * @static 
+         */
+        public static function create($attributes = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::create($attributes);
+        }
+        
+        /**
+         * Save a new model and return the instance. Allow mass-assignment.
+         *
+         * @param array $attributes
+         * @return static 
+         * @static 
+         */
+        public static function forceCreate($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::forceCreate($attributes);
+        }
+        
+        /**
+         * Begin querying the model.
+         *
+         * @return \Illuminate\Database\Eloquent\Builder 
+         * @static 
+         */
+        public static function query(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::query();
+        }
+        
+        /**
+         * Begin querying the model on a given connection.
+         *
+         * @param string|null $connection
+         * @return \Illuminate\Database\Eloquent\Builder 
+         * @static 
+         */
+        public static function on($connection = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::on($connection);
+        }
+        
+        /**
+         * Begin querying the model on the write connection.
+         *
+         * @return \Illuminate\Database\Query\Builder 
+         * @static 
+         */
+        public static function onWriteConnection(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::onWriteConnection();
+        }
+        
+        /**
+         * Get all of the models from the database.
+         *
+         * @param array|mixed $columns
+         * @return \Illuminate\Database\Eloquent\Collection|static[] 
+         * @static 
+         */
+        public static function all($columns = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::all($columns);
+        }
+        
+        /**
+         * Reload a fresh model instance from the database.
+         *
+         * @param array|string $with
+         * @return $this|null 
+         * @static 
+         */
+        public static function fresh($with = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::fresh($with);
+        }
+        
+        /**
+         * Eager load relations on the model.
+         *
+         * @param array|string $relations
+         * @return $this 
+         * @static 
+         */
+        public static function load($relations){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::load($relations);
+        }
+        
+        /**
+         * Begin querying a model with eager loading.
+         *
+         * @param array|string $relations
+         * @return \Illuminate\Database\Eloquent\Builder|static 
+         * @static 
+         */
+        public static function with($relations){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::with($relations);
+        }
+        
+        /**
+         * Append attributes to query when building a query.
+         *
+         * @param array|string $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function append($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::append($attributes);
+        }
+        
+        /**
+         * Define a one-to-one relationship.
+         *
+         * @param string $related
+         * @param string $foreignKey
+         * @param string $localKey
+         * @return \Illuminate\Database\Eloquent\Relations\HasOne 
+         * @static 
+         */
+        public static function hasOne($related, $foreignKey = null, $localKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::hasOne($related, $foreignKey, $localKey);
+        }
+        
+        /**
+         * Define a polymorphic one-to-one relationship.
+         *
+         * @param string $related
+         * @param string $name
+         * @param string $type
+         * @param string $id
+         * @param string $localKey
+         * @return \Illuminate\Database\Eloquent\Relations\MorphOne 
+         * @static 
+         */
+        public static function morphOne($related, $name, $type = null, $id = null, $localKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::morphOne($related, $name, $type, $id, $localKey);
+        }
+        
+        /**
+         * Define an inverse one-to-one or many relationship.
+         *
+         * @param string $related
+         * @param string $foreignKey
+         * @param string $otherKey
+         * @param string $relation
+         * @return \Illuminate\Database\Eloquent\Relations\BelongsTo 
+         * @static 
+         */
+        public static function belongsTo($related, $foreignKey = null, $otherKey = null, $relation = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::belongsTo($related, $foreignKey, $otherKey, $relation);
+        }
+        
+        /**
+         * Define a polymorphic, inverse one-to-one or many relationship.
+         *
+         * @param string $name
+         * @param string $type
+         * @param string $id
+         * @return \Illuminate\Database\Eloquent\Relations\MorphTo 
+         * @static 
+         */
+        public static function morphTo($name = null, $type = null, $id = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::morphTo($name, $type, $id);
+        }
+        
+        /**
+         * Retrieve the fully qualified class name from a slug.
+         *
+         * @param string $class
+         * @return string 
+         * @static 
+         */
+        public static function getActualClassNameForMorph($class){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getActualClassNameForMorph($class);
+        }
+        
+        /**
+         * Define a one-to-many relationship.
+         *
+         * @param string $related
+         * @param string $foreignKey
+         * @param string $localKey
+         * @return \Illuminate\Database\Eloquent\Relations\HasMany 
+         * @static 
+         */
+        public static function hasMany($related, $foreignKey = null, $localKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::hasMany($related, $foreignKey, $localKey);
+        }
+        
+        /**
+         * Define a has-many-through relationship.
+         *
+         * @param string $related
+         * @param string $through
+         * @param string|null $firstKey
+         * @param string|null $secondKey
+         * @param string|null $localKey
+         * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough 
+         * @static 
+         */
+        public static function hasManyThrough($related, $through, $firstKey = null, $secondKey = null, $localKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::hasManyThrough($related, $through, $firstKey, $secondKey, $localKey);
+        }
+        
+        /**
+         * Define a polymorphic one-to-many relationship.
+         *
+         * @param string $related
+         * @param string $name
+         * @param string $type
+         * @param string $id
+         * @param string $localKey
+         * @return \Illuminate\Database\Eloquent\Relations\MorphMany 
+         * @static 
+         */
+        public static function morphMany($related, $name, $type = null, $id = null, $localKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::morphMany($related, $name, $type, $id, $localKey);
+        }
+        
+        /**
+         * Define a many-to-many relationship.
+         *
+         * @param string $related
+         * @param string $table
+         * @param string $foreignKey
+         * @param string $otherKey
+         * @param string $relation
+         * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany 
+         * @static 
+         */
+        public static function belongsToMany($related, $table = null, $foreignKey = null, $otherKey = null, $relation = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::belongsToMany($related, $table, $foreignKey, $otherKey, $relation);
+        }
+        
+        /**
+         * Define a polymorphic many-to-many relationship.
+         *
+         * @param string $related
+         * @param string $name
+         * @param string $table
+         * @param string $foreignKey
+         * @param string $otherKey
+         * @param bool $inverse
+         * @return \Illuminate\Database\Eloquent\Relations\MorphToMany 
+         * @static 
+         */
+        public static function morphToMany($related, $name, $table = null, $foreignKey = null, $otherKey = null, $inverse = false){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::morphToMany($related, $name, $table, $foreignKey, $otherKey, $inverse);
+        }
+        
+        /**
+         * Define a polymorphic, inverse many-to-many relationship.
+         *
+         * @param string $related
+         * @param string $name
+         * @param string $table
+         * @param string $foreignKey
+         * @param string $otherKey
+         * @return \Illuminate\Database\Eloquent\Relations\MorphToMany 
+         * @static 
+         */
+        public static function morphedByMany($related, $name, $table = null, $foreignKey = null, $otherKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::morphedByMany($related, $name, $table, $foreignKey, $otherKey);
+        }
+        
+        /**
+         * Get the joining table name for a many-to-many relation.
+         *
+         * @param string $related
+         * @return string 
+         * @static 
+         */
+        public static function joiningTable($related){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::joiningTable($related);
+        }
+        
+        /**
+         * Destroy the models for the given IDs.
+         *
+         * @param array|int $ids
+         * @return int 
+         * @static 
+         */
+        public static function destroy($ids){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::destroy($ids);
+        }
+        
+        /**
+         * Delete the model from the database.
+         *
+         * @return bool|null 
+         * @throws \Exception
+         * @static 
+         */
+        public static function delete(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::delete();
+        }
+        
+        /**
+         * Force a hard delete on a soft deleted model.
+         * 
+         * This method protects developers from running forceDelete when trait is missing.
+         *
+         * @return bool|null 
+         * @static 
+         */
+        public static function forceDelete(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::forceDelete();
+        }
+        
+        /**
+         * Register a saving model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function saving($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\HtmlBlock::saving($callback, $priority);
+        }
+        
+        /**
+         * Register a saved model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function saved($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\HtmlBlock::saved($callback, $priority);
+        }
+        
+        /**
+         * Register an updating model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function updating($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\HtmlBlock::updating($callback, $priority);
+        }
+        
+        /**
+         * Register an updated model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function updated($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\HtmlBlock::updated($callback, $priority);
+        }
+        
+        /**
+         * Register a creating model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function creating($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\HtmlBlock::creating($callback, $priority);
+        }
+        
+        /**
+         * Register a created model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function created($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\HtmlBlock::created($callback, $priority);
+        }
+        
+        /**
+         * Register a deleting model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function deleting($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\HtmlBlock::deleting($callback, $priority);
+        }
+        
+        /**
+         * Register a deleted model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function deleted($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\HtmlBlock::deleted($callback, $priority);
+        }
+        
+        /**
+         * Remove all of the event listeners for the model.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function flushEventListeners(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\HtmlBlock::flushEventListeners();
+        }
+        
+        /**
+         * Get the observable event names.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getObservableEvents(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getObservableEvents();
+        }
+        
+        /**
+         * Set the observable event names.
+         *
+         * @param array $observables
+         * @return $this 
+         * @static 
+         */
+        public static function setObservableEvents($observables){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::setObservableEvents($observables);
+        }
+        
+        /**
+         * Add an observable event name.
+         *
+         * @param array|mixed $observables
+         * @return void 
+         * @static 
+         */
+        public static function addObservableEvents($observables){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\HtmlBlock::addObservableEvents($observables);
+        }
+        
+        /**
+         * Remove an observable event name.
+         *
+         * @param array|mixed $observables
+         * @return void 
+         * @static 
+         */
+        public static function removeObservableEvents($observables){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\HtmlBlock::removeObservableEvents($observables);
+        }
+        
+        /**
+         * Update the model in the database.
+         *
+         * @param array $attributes
+         * @param array $options
+         * @return bool 
+         * @static 
+         */
+        public static function update($attributes = array(), $options = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::update($attributes, $options);
+        }
+        
+        /**
+         * Save the model and all of its relationships.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function push(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::push();
+        }
+        
+        /**
+         * Save the model to the database.
+         *
+         * @param array $options
+         * @return bool 
+         * @static 
+         */
+        public static function save($options = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::save($options);
+        }
+        
+        /**
+         * Save the model to the database using transaction.
+         *
+         * @param array $options
+         * @return bool 
+         * @throws \Throwable
+         * @static 
+         */
+        public static function saveOrFail($options = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::saveOrFail($options);
+        }
+        
+        /**
+         * Touch the owning relations of the model.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function touchOwners(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\HtmlBlock::touchOwners();
+        }
+        
+        /**
+         * Determine if the model touches a given relation.
+         *
+         * @param string $relation
+         * @return bool 
+         * @static 
+         */
+        public static function touches($relation){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::touches($relation);
+        }
+        
+        /**
+         * Update the model's update timestamp.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function touch(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::touch();
+        }
+        
+        /**
+         * Set the value of the "created at" attribute.
+         *
+         * @param mixed $value
+         * @return $this 
+         * @static 
+         */
+        public static function setCreatedAt($value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::setCreatedAt($value);
+        }
+        
+        /**
+         * Set the value of the "updated at" attribute.
+         *
+         * @param mixed $value
+         * @return $this 
+         * @static 
+         */
+        public static function setUpdatedAt($value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::setUpdatedAt($value);
+        }
+        
+        /**
+         * Get the name of the "created at" column.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getCreatedAtColumn(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getCreatedAtColumn();
+        }
+        
+        /**
+         * Get the name of the "updated at" column.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getUpdatedAtColumn(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getUpdatedAtColumn();
+        }
+        
+        /**
+         * Get a fresh timestamp for the model.
+         *
+         * @return \Carbon\Carbon 
+         * @static 
+         */
+        public static function freshTimestamp(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::freshTimestamp();
+        }
+        
+        /**
+         * Get a fresh timestamp for the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function freshTimestampString(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::freshTimestampString();
+        }
+        
+        /**
+         * Get a new query builder for the model's table.
+         *
+         * @return \Illuminate\Database\Eloquent\Builder 
+         * @static 
+         */
+        public static function newQuery(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::newQuery();
+        }
+        
+        /**
+         * Get a new query instance without a given scope.
+         *
+         * @param \Illuminate\Database\Eloquent\Scope|string $scope
+         * @return \Illuminate\Database\Eloquent\Builder 
+         * @static 
+         */
+        public static function newQueryWithoutScope($scope){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::newQueryWithoutScope($scope);
+        }
+        
+        /**
+         * Get a new query builder that doesn't have any global scopes.
+         *
+         * @return \Illuminate\Database\Eloquent\Builder|static 
+         * @static 
+         */
+        public static function newQueryWithoutScopes(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::newQueryWithoutScopes();
+        }
+        
+        /**
+         * Create a new Eloquent query builder for the model.
+         *
+         * @param \Illuminate\Database\Query\Builder $query
+         * @return \Illuminate\Database\Eloquent\Builder|static 
+         * @static 
+         */
+        public static function newEloquentBuilder($query){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::newEloquentBuilder($query);
+        }
+        
+        /**
+         * Create a new Eloquent Collection instance.
+         *
+         * @param array $models
+         * @return \Illuminate\Database\Eloquent\Collection 
+         * @static 
+         */
+        public static function newCollection($models = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::newCollection($models);
+        }
+        
+        /**
+         * Create a new pivot model instance.
+         *
+         * @param \Illuminate\Database\Eloquent\Model $parent
+         * @param array $attributes
+         * @param string $table
+         * @param bool $exists
+         * @return \Illuminate\Database\Eloquent\Relations\Pivot 
+         * @static 
+         */
+        public static function newPivot($parent, $attributes, $table, $exists){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::newPivot($parent, $attributes, $table, $exists);
+        }
+        
+        /**
+         * Get the table associated with the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getTable(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getTable();
+        }
+        
+        /**
+         * Set the table associated with the model.
+         *
+         * @param string $table
+         * @return $this 
+         * @static 
+         */
+        public static function setTable($table){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::setTable($table);
+        }
+        
+        /**
+         * Get the value of the model's primary key.
+         *
+         * @return mixed 
+         * @static 
+         */
+        public static function getKey(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getKey();
+        }
+        
+        /**
+         * Get the queueable identity for the entity.
+         *
+         * @return mixed 
+         * @static 
+         */
+        public static function getQueueableId(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getQueueableId();
+        }
+        
+        /**
+         * Get the primary key for the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getKeyName(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getKeyName();
+        }
+        
+        /**
+         * Set the primary key for the model.
+         *
+         * @param string $key
+         * @return $this 
+         * @static 
+         */
+        public static function setKeyName($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::setKeyName($key);
+        }
+        
+        /**
+         * Get the table qualified key name.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getQualifiedKeyName(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getQualifiedKeyName();
+        }
+        
+        /**
+         * Get the value of the model's route key.
+         *
+         * @return mixed 
+         * @static 
+         */
+        public static function getRouteKey(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getRouteKey();
+        }
+        
+        /**
+         * Get the route key for the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getRouteKeyName(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getRouteKeyName();
+        }
+        
+        /**
+         * Determine if the model uses timestamps.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function usesTimestamps(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::usesTimestamps();
+        }
+        
+        /**
+         * Get the class name for polymorphic relations.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getMorphClass(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getMorphClass();
+        }
+        
+        /**
+         * Get the number of models to return per page.
+         *
+         * @return int 
+         * @static 
+         */
+        public static function getPerPage(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getPerPage();
+        }
+        
+        /**
+         * Set the number of models to return per page.
+         *
+         * @param int $perPage
+         * @return $this 
+         * @static 
+         */
+        public static function setPerPage($perPage){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::setPerPage($perPage);
+        }
+        
+        /**
+         * Get the default foreign key name for the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getForeignKey(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getForeignKey();
+        }
+        
+        /**
+         * Get the hidden attributes for the model.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getHidden(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getHidden();
+        }
+        
+        /**
+         * Set the hidden attributes for the model.
+         *
+         * @param array $hidden
+         * @return $this 
+         * @static 
+         */
+        public static function setHidden($hidden){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::setHidden($hidden);
+        }
+        
+        /**
+         * Add hidden attributes for the model.
+         *
+         * @param array|string|null $attributes
+         * @return void 
+         * @static 
+         */
+        public static function addHidden($attributes = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\HtmlBlock::addHidden($attributes);
+        }
+        
+        /**
+         * Make the given, typically hidden, attributes visible.
+         *
+         * @param array|string $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function makeVisible($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::makeVisible($attributes);
+        }
+        
+        /**
+         * Make the given, typically visible, attributes hidden.
+         *
+         * @param array|string $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function makeHidden($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::makeHidden($attributes);
+        }
+        
+        /**
+         * Get the visible attributes for the model.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getVisible(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getVisible();
+        }
+        
+        /**
+         * Set the visible attributes for the model.
+         *
+         * @param array $visible
+         * @return $this 
+         * @static 
+         */
+        public static function setVisible($visible){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::setVisible($visible);
+        }
+        
+        /**
+         * Add visible attributes for the model.
+         *
+         * @param array|string|null $attributes
+         * @return void 
+         * @static 
+         */
+        public static function addVisible($attributes = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\HtmlBlock::addVisible($attributes);
+        }
+        
+        /**
+         * Set the accessors to append to model arrays.
+         *
+         * @param array $appends
+         * @return $this 
+         * @static 
+         */
+        public static function setAppends($appends){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::setAppends($appends);
+        }
+        
+        /**
+         * Get the fillable attributes for the model.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getFillable(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getFillable();
+        }
+        
+        /**
+         * Set the fillable attributes for the model.
+         *
+         * @param array $fillable
+         * @return $this 
+         * @static 
+         */
+        public static function fillable($fillable){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::fillable($fillable);
+        }
+        
+        /**
+         * Get the guarded attributes for the model.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getGuarded(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getGuarded();
+        }
+        
+        /**
+         * Set the guarded attributes for the model.
+         *
+         * @param array $guarded
+         * @return $this 
+         * @static 
+         */
+        public static function guard($guarded){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::guard($guarded);
+        }
+        
+        /**
+         * Disable all mass assignable restrictions.
+         *
+         * @param bool $state
+         * @return void 
+         * @static 
+         */
+        public static function unguard($state = true){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\HtmlBlock::unguard($state);
+        }
+        
+        /**
+         * Enable the mass assignment restrictions.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function reguard(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\HtmlBlock::reguard();
+        }
+        
+        /**
+         * Determine if current state is "unguarded".
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function isUnguarded(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::isUnguarded();
+        }
+        
+        /**
+         * Run the given callable while being unguarded.
+         *
+         * @param callable $callback
+         * @return mixed 
+         * @static 
+         */
+        public static function unguarded($callback){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::unguarded($callback);
+        }
+        
+        /**
+         * Determine if the given attribute may be mass assigned.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */
+        public static function isFillable($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::isFillable($key);
+        }
+        
+        /**
+         * Determine if the given key is guarded.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */
+        public static function isGuarded($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::isGuarded($key);
+        }
+        
+        /**
+         * Determine if the model is totally guarded.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function totallyGuarded(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::totallyGuarded();
+        }
+        
+        /**
+         * Get the relationships that are touched on save.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getTouchedRelations(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getTouchedRelations();
+        }
+        
+        /**
+         * Set the relationships that are touched on save.
+         *
+         * @param array $touches
+         * @return $this 
+         * @static 
+         */
+        public static function setTouchedRelations($touches){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::setTouchedRelations($touches);
+        }
+        
+        /**
+         * Get the value indicating whether the IDs are incrementing.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function getIncrementing(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getIncrementing();
+        }
+        
+        /**
+         * Set whether IDs are incrementing.
+         *
+         * @param bool $value
+         * @return $this 
+         * @static 
+         */
+        public static function setIncrementing($value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::setIncrementing($value);
+        }
+        
+        /**
+         * Convert the model instance to JSON.
+         *
+         * @param int $options
+         * @return string 
+         * @static 
+         */
+        public static function toJson($options = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::toJson($options);
+        }
+        
+        /**
+         * Convert the object into something JSON serializable.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function jsonSerialize(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::jsonSerialize();
+        }
+        
+        /**
+         * Convert the model instance to an array.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function toArray(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::toArray();
+        }
+        
+        /**
+         * Convert the model's attributes to an array.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function attributesToArray(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::attributesToArray();
+        }
+        
+        /**
+         * Get the model's relationships in array form.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function relationsToArray(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::relationsToArray();
+        }
+        
+        /**
+         * Get an attribute from the model.
+         *
+         * @param string $key
+         * @return mixed 
+         * @static 
+         */
+        public static function getAttribute($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getAttribute($key);
+        }
+        
+        /**
+         * Get a plain attribute (not a relationship).
+         *
+         * @param string $key
+         * @return mixed 
+         * @static 
+         */
+        public static function getAttributeValue($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getAttributeValue($key);
+        }
+        
+        /**
+         * Get a relationship.
+         *
+         * @param string $key
+         * @return mixed 
+         * @static 
+         */
+        public static function getRelationValue($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getRelationValue($key);
+        }
+        
+        /**
+         * Determine if a get mutator exists for an attribute.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */
+        public static function hasGetMutator($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::hasGetMutator($key);
+        }
+        
+        /**
+         * Determine whether an attribute should be cast to a native type.
+         *
+         * @param string $key
+         * @param array|string|null $types
+         * @return bool 
+         * @static 
+         */
+        public static function hasCast($key, $types = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::hasCast($key, $types);
+        }
+        
+        /**
+         * Get the casts array.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getCasts(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getCasts();
+        }
+        
+        /**
+         * Set a given attribute on the model.
+         *
+         * @param string $key
+         * @param mixed $value
+         * @return $this 
+         * @static 
+         */
+        public static function setAttribute($key, $value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::setAttribute($key, $value);
+        }
+        
+        /**
+         * Determine if a set mutator exists for an attribute.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */
+        public static function hasSetMutator($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::hasSetMutator($key);
+        }
+        
+        /**
+         * Get the attributes that should be converted to dates.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getDates(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getDates();
+        }
+        
+        /**
+         * Convert a DateTime to a storable string.
+         *
+         * @param \DateTime|int $value
+         * @return string 
+         * @static 
+         */
+        public static function fromDateTime($value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::fromDateTime($value);
+        }
+        
+        /**
+         * Set the date format used by the model.
+         *
+         * @param string $format
+         * @return $this 
+         * @static 
+         */
+        public static function setDateFormat($format){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::setDateFormat($format);
+        }
+        
+        /**
+         * Decode the given JSON back into an array or object.
+         *
+         * @param string $value
+         * @param bool $asObject
+         * @return mixed 
+         * @static 
+         */
+        public static function fromJson($value, $asObject = false){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::fromJson($value, $asObject);
+        }
+        
+        /**
+         * Clone the model into a new, non-existing instance.
+         *
+         * @param array|null $except
+         * @return \Illuminate\Database\Eloquent\Model 
+         * @static 
+         */
+        public static function replicate($except = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::replicate($except);
+        }
+        
+        /**
+         * Determine if two models have the same ID and belong to the same table.
+         *
+         * @param \Illuminate\Database\Eloquent\Model $model
+         * @return bool 
+         * @static 
+         */
+        public static function is($model){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::is($model);
+        }
+        
+        /**
+         * Get all of the current attributes on the model.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getAttributes(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getAttributes();
+        }
+        
+        /**
+         * Set the array of model attributes. No checking is done.
+         *
+         * @param array $attributes
+         * @param bool $sync
+         * @return $this 
+         * @static 
+         */
+        public static function setRawAttributes($attributes, $sync = false){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::setRawAttributes($attributes, $sync);
+        }
+        
+        /**
+         * Get the model's original attribute values.
+         *
+         * @param string|null $key
+         * @param mixed $default
+         * @return mixed|array 
+         * @static 
+         */
+        public static function getOriginal($key = null, $default = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getOriginal($key, $default);
+        }
+        
+        /**
+         * Sync the original attributes with the current.
+         *
+         * @return $this 
+         * @static 
+         */
+        public static function syncOriginal(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::syncOriginal();
+        }
+        
+        /**
+         * Sync a single original attribute with its current value.
+         *
+         * @param string $attribute
+         * @return $this 
+         * @static 
+         */
+        public static function syncOriginalAttribute($attribute){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::syncOriginalAttribute($attribute);
+        }
+        
+        /**
+         * Determine if the model or given attribute(s) have been modified.
+         *
+         * @param array|string|null $attributes
+         * @return bool 
+         * @static 
+         */
+        public static function isDirty($attributes = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::isDirty($attributes);
+        }
+        
+        /**
+         * Determine if the model or given attribute(s) have remained the same.
+         *
+         * @param array|string|null $attributes
+         * @return bool 
+         * @static 
+         */
+        public static function isClean($attributes = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::isClean($attributes);
+        }
+        
+        /**
+         * Get the attributes that have been changed since last sync.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getDirty(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getDirty();
+        }
+        
+        /**
+         * Get all the loaded relations for the instance.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getRelations(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getRelations();
+        }
+        
+        /**
+         * Get a specified relationship.
+         *
+         * @param string $relation
+         * @return mixed 
+         * @static 
+         */
+        public static function getRelation($relation){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getRelation($relation);
+        }
+        
+        /**
+         * Determine if the given relation is loaded.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */
+        public static function relationLoaded($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::relationLoaded($key);
+        }
+        
+        /**
+         * Set the specific relationship in the model.
+         *
+         * @param string $relation
+         * @param mixed $value
+         * @return $this 
+         * @static 
+         */
+        public static function setRelation($relation, $value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::setRelation($relation, $value);
+        }
+        
+        /**
+         * Set the entire relations array on the model.
+         *
+         * @param array $relations
+         * @return $this 
+         * @static 
+         */
+        public static function setRelations($relations){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::setRelations($relations);
+        }
+        
+        /**
+         * Get the database connection for the model.
+         *
+         * @return \Illuminate\Database\Connection 
+         * @static 
+         */
+        public static function getConnection(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getConnection();
+        }
+        
+        /**
+         * Get the current connection name for the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getConnectionName(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getConnectionName();
+        }
+        
+        /**
+         * Set the connection associated with the model.
+         *
+         * @param string $name
+         * @return $this 
+         * @static 
+         */
+        public static function setConnection($name){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::setConnection($name);
+        }
+        
+        /**
+         * Resolve a connection instance.
+         *
+         * @param string|null $connection
+         * @return \Illuminate\Database\Connection 
+         * @static 
+         */
+        public static function resolveConnection($connection = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::resolveConnection($connection);
+        }
+        
+        /**
+         * Get the connection resolver instance.
+         *
+         * @return \Illuminate\Database\ConnectionResolverInterface 
+         * @static 
+         */
+        public static function getConnectionResolver(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getConnectionResolver();
+        }
+        
+        /**
+         * Set the connection resolver instance.
+         *
+         * @param \Illuminate\Database\ConnectionResolverInterface $resolver
+         * @return void 
+         * @static 
+         */
+        public static function setConnectionResolver($resolver){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\HtmlBlock::setConnectionResolver($resolver);
+        }
+        
+        /**
+         * Unset the connection resolver for models.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function unsetConnectionResolver(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\HtmlBlock::unsetConnectionResolver();
+        }
+        
+        /**
+         * Get the event dispatcher instance.
+         *
+         * @return \Illuminate\Contracts\Events\Dispatcher 
+         * @static 
+         */
+        public static function getEventDispatcher(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getEventDispatcher();
+        }
+        
+        /**
+         * Set the event dispatcher instance.
+         *
+         * @param \Illuminate\Contracts\Events\Dispatcher $dispatcher
+         * @return void 
+         * @static 
+         */
+        public static function setEventDispatcher($dispatcher){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\HtmlBlock::setEventDispatcher($dispatcher);
+        }
+        
+        /**
+         * Unset the event dispatcher for models.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function unsetEventDispatcher(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\HtmlBlock::unsetEventDispatcher();
+        }
+        
+        /**
+         * Get the mutated attributes for a given instance.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getMutatedAttributes(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::getMutatedAttributes();
+        }
+        
+        /**
+         * Extract and cache all the mutated attributes of a class.
+         *
+         * @param string $class
+         * @return void 
+         * @static 
+         */
+        public static function cacheMutatedAttributes($class){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\HtmlBlock::cacheMutatedAttributes($class);
+        }
+        
+        /**
+         * Determine if the given attribute exists.
+         *
+         * @param mixed $offset
+         * @return bool 
+         * @static 
+         */
+        public static function offsetExists($offset){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::offsetExists($offset);
+        }
+        
+        /**
+         * Get the value for a given offset.
+         *
+         * @param mixed $offset
+         * @return mixed 
+         * @static 
+         */
+        public static function offsetGet($offset){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\HtmlBlock::offsetGet($offset);
+        }
+        
+        /**
+         * Set the value for a given offset.
+         *
+         * @param mixed $offset
+         * @param mixed $value
+         * @return void 
+         * @static 
+         */
+        public static function offsetSet($offset, $value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\HtmlBlock::offsetSet($offset, $value);
+        }
+        
+        /**
+         * Unset the value for a given offset.
+         *
+         * @param mixed $offset
+         * @return void 
+         * @static 
+         */
+        public static function offsetUnset($offset){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\HtmlBlock::offsetUnset($offset);
+        }
+        
+    }
+
+
     class ImportTable extends \App\Facades\ImportTable{
         
         /**
@@ -10743,6 +14647,15 @@ namespace {
          */
         public static function import($table, $importFunc){
             return \App\Models\ImportTable::import($table, $importFunc);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function getLowestId($table){
+            return \App\Models\ImportTable::getLowestId($table);
         }
         
         /**
@@ -13329,6 +17242,3869 @@ namespace {
     }
 
 
+    class Media extends \App\Facades\Media{
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function sliders(){
+            return \App\Models\Media::sliders();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function albums(){
+            return \App\Models\Media::albums();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function pages(){
+            return \App\Models\Media::pages();
+        }
+        
+        /**
+         * Import existing media from old table by copying the file from
+         * $origin to $destination.
+         *
+         * @param $origin
+         * @param $destination
+         * @return void 
+         * @static 
+         */
+        public static function createFromFile($origin, $destination){
+            \App\Models\Media::createFromFile($origin, $destination);
+        }
+        
+        /**
+         * Fix path by removing forward slash at the front.
+         *
+         * @param $path
+         * @return string 
+         * @static 
+         */
+        public static function fixForwardSlash($path){
+            return \App\Models\Media::fixForwardSlash($path);
+        }
+        
+        /**
+         * Create all media types from input.
+         *
+         * @static 
+         */
+        public static function createMedia($file){
+            return \App\Models\Media::createMedia($file);
+        }
+        
+        /**
+         * Copy file to directory, and make sure directory exists.
+         * 
+         * Returns the new directory if the copy was successful.
+         *
+         * @param $path string
+         * @param $newDirectory string
+         * @return string 
+         * @static 
+         */
+        public static function copyFile($path, $newDirectory){
+            return \App\Models\Media::copyFile($path, $newDirectory);
+        }
+        
+        /**
+         * Set the name attribute and check if the file already exists.
+         * 
+         * If the file already exists, add a unique identifier to the name.
+         * 
+         * If the file is an image, also save the large (1024px wide) and
+         * thumbnail version (150px wide) version of the image.
+         *
+         * @param $file
+         * @static 
+         */
+        public static function setNameAttribute($file){
+            return \App\Models\Media::setNameAttribute($file);
+        }
+        
+        /**
+         * Returns the photo url.
+         *
+         * @param string $type
+         * @return bool|string 
+         * @static 
+         */
+        public static function photo_url($type = 'original'){
+            return \App\Models\Media::photo_url($type);
+        }
+        
+        /**
+         * Delete the media file from storage.
+         *
+         * @static 
+         */
+        public static function deleteFile(){
+            return \App\Models\Media::deleteFile();
+        }
+        
+        /**
+         * Clear the list of booted models so they will be re-booted.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function clearBootedModels(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Media::clearBootedModels();
+        }
+        
+        /**
+         * Register a new global scope on the model.
+         *
+         * @param \Illuminate\Database\Eloquent\Scope|\Closure|string $scope
+         * @param \Closure|null $implementation
+         * @return mixed 
+         * @throws \InvalidArgumentException
+         * @static 
+         */
+        public static function addGlobalScope($scope, $implementation = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::addGlobalScope($scope, $implementation);
+        }
+        
+        /**
+         * Determine if a model has a global scope.
+         *
+         * @param \Illuminate\Database\Eloquent\Scope|string $scope
+         * @return bool 
+         * @static 
+         */
+        public static function hasGlobalScope($scope){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::hasGlobalScope($scope);
+        }
+        
+        /**
+         * Get a global scope registered with the model.
+         *
+         * @param \Illuminate\Database\Eloquent\Scope|string $scope
+         * @return \Illuminate\Database\Eloquent\Scope|\Closure|null 
+         * @static 
+         */
+        public static function getGlobalScope($scope){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getGlobalScope($scope);
+        }
+        
+        /**
+         * Get the global scopes for this class instance.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getGlobalScopes(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getGlobalScopes();
+        }
+        
+        /**
+         * Register an observer with the Model.
+         *
+         * @param object|string $class
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function observe($class, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Media::observe($class, $priority);
+        }
+        
+        /**
+         * Fill the model with an array of attributes.
+         *
+         * @param array $attributes
+         * @return $this 
+         * @throws \Illuminate\Database\Eloquent\MassAssignmentException
+         * @static 
+         */
+        public static function fill($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::fill($attributes);
+        }
+        
+        /**
+         * Fill the model with an array of attributes. Force mass assignment.
+         *
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function forceFill($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::forceFill($attributes);
+        }
+        
+        /**
+         * Create a new instance of the given model.
+         *
+         * @param array $attributes
+         * @param bool $exists
+         * @return static 
+         * @static 
+         */
+        public static function newInstance($attributes = array(), $exists = false){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::newInstance($attributes, $exists);
+        }
+        
+        /**
+         * Create a new model instance that is existing.
+         *
+         * @param array $attributes
+         * @param string|null $connection
+         * @return static 
+         * @static 
+         */
+        public static function newFromBuilder($attributes = array(), $connection = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::newFromBuilder($attributes, $connection);
+        }
+        
+        /**
+         * Create a collection of models from plain arrays.
+         *
+         * @param array $items
+         * @param string|null $connection
+         * @return \Illuminate\Database\Eloquent\Collection 
+         * @static 
+         */
+        public static function hydrate($items, $connection = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::hydrate($items, $connection);
+        }
+        
+        /**
+         * Create a collection of models from a raw query.
+         *
+         * @param string $query
+         * @param array $bindings
+         * @param string|null $connection
+         * @return \Illuminate\Database\Eloquent\Collection 
+         * @static 
+         */
+        public static function hydrateRaw($query, $bindings = array(), $connection = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::hydrateRaw($query, $bindings, $connection);
+        }
+        
+        /**
+         * Save a new model and return the instance.
+         *
+         * @param array $attributes
+         * @return static 
+         * @static 
+         */
+        public static function create($attributes = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::create($attributes);
+        }
+        
+        /**
+         * Save a new model and return the instance. Allow mass-assignment.
+         *
+         * @param array $attributes
+         * @return static 
+         * @static 
+         */
+        public static function forceCreate($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::forceCreate($attributes);
+        }
+        
+        /**
+         * Begin querying the model.
+         *
+         * @return \Illuminate\Database\Eloquent\Builder 
+         * @static 
+         */
+        public static function query(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::query();
+        }
+        
+        /**
+         * Begin querying the model on a given connection.
+         *
+         * @param string|null $connection
+         * @return \Illuminate\Database\Eloquent\Builder 
+         * @static 
+         */
+        public static function on($connection = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::on($connection);
+        }
+        
+        /**
+         * Begin querying the model on the write connection.
+         *
+         * @return \Illuminate\Database\Query\Builder 
+         * @static 
+         */
+        public static function onWriteConnection(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::onWriteConnection();
+        }
+        
+        /**
+         * Get all of the models from the database.
+         *
+         * @param array|mixed $columns
+         * @return \Illuminate\Database\Eloquent\Collection|static[] 
+         * @static 
+         */
+        public static function all($columns = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::all($columns);
+        }
+        
+        /**
+         * Reload a fresh model instance from the database.
+         *
+         * @param array|string $with
+         * @return $this|null 
+         * @static 
+         */
+        public static function fresh($with = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::fresh($with);
+        }
+        
+        /**
+         * Eager load relations on the model.
+         *
+         * @param array|string $relations
+         * @return $this 
+         * @static 
+         */
+        public static function load($relations){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::load($relations);
+        }
+        
+        /**
+         * Begin querying a model with eager loading.
+         *
+         * @param array|string $relations
+         * @return \Illuminate\Database\Eloquent\Builder|static 
+         * @static 
+         */
+        public static function with($relations){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::with($relations);
+        }
+        
+        /**
+         * Append attributes to query when building a query.
+         *
+         * @param array|string $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function append($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::append($attributes);
+        }
+        
+        /**
+         * Define a one-to-one relationship.
+         *
+         * @param string $related
+         * @param string $foreignKey
+         * @param string $localKey
+         * @return \Illuminate\Database\Eloquent\Relations\HasOne 
+         * @static 
+         */
+        public static function hasOne($related, $foreignKey = null, $localKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::hasOne($related, $foreignKey, $localKey);
+        }
+        
+        /**
+         * Define a polymorphic one-to-one relationship.
+         *
+         * @param string $related
+         * @param string $name
+         * @param string $type
+         * @param string $id
+         * @param string $localKey
+         * @return \Illuminate\Database\Eloquent\Relations\MorphOne 
+         * @static 
+         */
+        public static function morphOne($related, $name, $type = null, $id = null, $localKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::morphOne($related, $name, $type, $id, $localKey);
+        }
+        
+        /**
+         * Define an inverse one-to-one or many relationship.
+         *
+         * @param string $related
+         * @param string $foreignKey
+         * @param string $otherKey
+         * @param string $relation
+         * @return \Illuminate\Database\Eloquent\Relations\BelongsTo 
+         * @static 
+         */
+        public static function belongsTo($related, $foreignKey = null, $otherKey = null, $relation = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::belongsTo($related, $foreignKey, $otherKey, $relation);
+        }
+        
+        /**
+         * Define a polymorphic, inverse one-to-one or many relationship.
+         *
+         * @param string $name
+         * @param string $type
+         * @param string $id
+         * @return \Illuminate\Database\Eloquent\Relations\MorphTo 
+         * @static 
+         */
+        public static function morphTo($name = null, $type = null, $id = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::morphTo($name, $type, $id);
+        }
+        
+        /**
+         * Retrieve the fully qualified class name from a slug.
+         *
+         * @param string $class
+         * @return string 
+         * @static 
+         */
+        public static function getActualClassNameForMorph($class){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getActualClassNameForMorph($class);
+        }
+        
+        /**
+         * Define a one-to-many relationship.
+         *
+         * @param string $related
+         * @param string $foreignKey
+         * @param string $localKey
+         * @return \Illuminate\Database\Eloquent\Relations\HasMany 
+         * @static 
+         */
+        public static function hasMany($related, $foreignKey = null, $localKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::hasMany($related, $foreignKey, $localKey);
+        }
+        
+        /**
+         * Define a has-many-through relationship.
+         *
+         * @param string $related
+         * @param string $through
+         * @param string|null $firstKey
+         * @param string|null $secondKey
+         * @param string|null $localKey
+         * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough 
+         * @static 
+         */
+        public static function hasManyThrough($related, $through, $firstKey = null, $secondKey = null, $localKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::hasManyThrough($related, $through, $firstKey, $secondKey, $localKey);
+        }
+        
+        /**
+         * Define a polymorphic one-to-many relationship.
+         *
+         * @param string $related
+         * @param string $name
+         * @param string $type
+         * @param string $id
+         * @param string $localKey
+         * @return \Illuminate\Database\Eloquent\Relations\MorphMany 
+         * @static 
+         */
+        public static function morphMany($related, $name, $type = null, $id = null, $localKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::morphMany($related, $name, $type, $id, $localKey);
+        }
+        
+        /**
+         * Define a many-to-many relationship.
+         *
+         * @param string $related
+         * @param string $table
+         * @param string $foreignKey
+         * @param string $otherKey
+         * @param string $relation
+         * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany 
+         * @static 
+         */
+        public static function belongsToMany($related, $table = null, $foreignKey = null, $otherKey = null, $relation = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::belongsToMany($related, $table, $foreignKey, $otherKey, $relation);
+        }
+        
+        /**
+         * Define a polymorphic many-to-many relationship.
+         *
+         * @param string $related
+         * @param string $name
+         * @param string $table
+         * @param string $foreignKey
+         * @param string $otherKey
+         * @param bool $inverse
+         * @return \Illuminate\Database\Eloquent\Relations\MorphToMany 
+         * @static 
+         */
+        public static function morphToMany($related, $name, $table = null, $foreignKey = null, $otherKey = null, $inverse = false){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::morphToMany($related, $name, $table, $foreignKey, $otherKey, $inverse);
+        }
+        
+        /**
+         * Define a polymorphic, inverse many-to-many relationship.
+         *
+         * @param string $related
+         * @param string $name
+         * @param string $table
+         * @param string $foreignKey
+         * @param string $otherKey
+         * @return \Illuminate\Database\Eloquent\Relations\MorphToMany 
+         * @static 
+         */
+        public static function morphedByMany($related, $name, $table = null, $foreignKey = null, $otherKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::morphedByMany($related, $name, $table, $foreignKey, $otherKey);
+        }
+        
+        /**
+         * Get the joining table name for a many-to-many relation.
+         *
+         * @param string $related
+         * @return string 
+         * @static 
+         */
+        public static function joiningTable($related){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::joiningTable($related);
+        }
+        
+        /**
+         * Destroy the models for the given IDs.
+         *
+         * @param array|int $ids
+         * @return int 
+         * @static 
+         */
+        public static function destroy($ids){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::destroy($ids);
+        }
+        
+        /**
+         * Delete the model from the database.
+         *
+         * @return bool|null 
+         * @throws \Exception
+         * @static 
+         */
+        public static function delete(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::delete();
+        }
+        
+        /**
+         * Force a hard delete on a soft deleted model.
+         * 
+         * This method protects developers from running forceDelete when trait is missing.
+         *
+         * @return bool|null 
+         * @static 
+         */
+        public static function forceDelete(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::forceDelete();
+        }
+        
+        /**
+         * Register a saving model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function saving($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Media::saving($callback, $priority);
+        }
+        
+        /**
+         * Register a saved model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function saved($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Media::saved($callback, $priority);
+        }
+        
+        /**
+         * Register an updating model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function updating($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Media::updating($callback, $priority);
+        }
+        
+        /**
+         * Register an updated model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function updated($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Media::updated($callback, $priority);
+        }
+        
+        /**
+         * Register a creating model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function creating($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Media::creating($callback, $priority);
+        }
+        
+        /**
+         * Register a created model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function created($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Media::created($callback, $priority);
+        }
+        
+        /**
+         * Register a deleting model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function deleting($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Media::deleting($callback, $priority);
+        }
+        
+        /**
+         * Register a deleted model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function deleted($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Media::deleted($callback, $priority);
+        }
+        
+        /**
+         * Remove all of the event listeners for the model.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function flushEventListeners(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Media::flushEventListeners();
+        }
+        
+        /**
+         * Get the observable event names.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getObservableEvents(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getObservableEvents();
+        }
+        
+        /**
+         * Set the observable event names.
+         *
+         * @param array $observables
+         * @return $this 
+         * @static 
+         */
+        public static function setObservableEvents($observables){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::setObservableEvents($observables);
+        }
+        
+        /**
+         * Add an observable event name.
+         *
+         * @param array|mixed $observables
+         * @return void 
+         * @static 
+         */
+        public static function addObservableEvents($observables){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Media::addObservableEvents($observables);
+        }
+        
+        /**
+         * Remove an observable event name.
+         *
+         * @param array|mixed $observables
+         * @return void 
+         * @static 
+         */
+        public static function removeObservableEvents($observables){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Media::removeObservableEvents($observables);
+        }
+        
+        /**
+         * Update the model in the database.
+         *
+         * @param array $attributes
+         * @param array $options
+         * @return bool 
+         * @static 
+         */
+        public static function update($attributes = array(), $options = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::update($attributes, $options);
+        }
+        
+        /**
+         * Save the model and all of its relationships.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function push(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::push();
+        }
+        
+        /**
+         * Save the model to the database.
+         *
+         * @param array $options
+         * @return bool 
+         * @static 
+         */
+        public static function save($options = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::save($options);
+        }
+        
+        /**
+         * Save the model to the database using transaction.
+         *
+         * @param array $options
+         * @return bool 
+         * @throws \Throwable
+         * @static 
+         */
+        public static function saveOrFail($options = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::saveOrFail($options);
+        }
+        
+        /**
+         * Touch the owning relations of the model.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function touchOwners(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Media::touchOwners();
+        }
+        
+        /**
+         * Determine if the model touches a given relation.
+         *
+         * @param string $relation
+         * @return bool 
+         * @static 
+         */
+        public static function touches($relation){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::touches($relation);
+        }
+        
+        /**
+         * Update the model's update timestamp.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function touch(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::touch();
+        }
+        
+        /**
+         * Set the value of the "created at" attribute.
+         *
+         * @param mixed $value
+         * @return $this 
+         * @static 
+         */
+        public static function setCreatedAt($value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::setCreatedAt($value);
+        }
+        
+        /**
+         * Set the value of the "updated at" attribute.
+         *
+         * @param mixed $value
+         * @return $this 
+         * @static 
+         */
+        public static function setUpdatedAt($value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::setUpdatedAt($value);
+        }
+        
+        /**
+         * Get the name of the "created at" column.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getCreatedAtColumn(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getCreatedAtColumn();
+        }
+        
+        /**
+         * Get the name of the "updated at" column.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getUpdatedAtColumn(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getUpdatedAtColumn();
+        }
+        
+        /**
+         * Get a fresh timestamp for the model.
+         *
+         * @return \Carbon\Carbon 
+         * @static 
+         */
+        public static function freshTimestamp(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::freshTimestamp();
+        }
+        
+        /**
+         * Get a fresh timestamp for the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function freshTimestampString(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::freshTimestampString();
+        }
+        
+        /**
+         * Get a new query builder for the model's table.
+         *
+         * @return \Illuminate\Database\Eloquent\Builder 
+         * @static 
+         */
+        public static function newQuery(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::newQuery();
+        }
+        
+        /**
+         * Get a new query instance without a given scope.
+         *
+         * @param \Illuminate\Database\Eloquent\Scope|string $scope
+         * @return \Illuminate\Database\Eloquent\Builder 
+         * @static 
+         */
+        public static function newQueryWithoutScope($scope){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::newQueryWithoutScope($scope);
+        }
+        
+        /**
+         * Get a new query builder that doesn't have any global scopes.
+         *
+         * @return \Illuminate\Database\Eloquent\Builder|static 
+         * @static 
+         */
+        public static function newQueryWithoutScopes(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::newQueryWithoutScopes();
+        }
+        
+        /**
+         * Create a new Eloquent query builder for the model.
+         *
+         * @param \Illuminate\Database\Query\Builder $query
+         * @return \Illuminate\Database\Eloquent\Builder|static 
+         * @static 
+         */
+        public static function newEloquentBuilder($query){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::newEloquentBuilder($query);
+        }
+        
+        /**
+         * Create a new Eloquent Collection instance.
+         *
+         * @param array $models
+         * @return \Illuminate\Database\Eloquent\Collection 
+         * @static 
+         */
+        public static function newCollection($models = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::newCollection($models);
+        }
+        
+        /**
+         * Create a new pivot model instance.
+         *
+         * @param \Illuminate\Database\Eloquent\Model $parent
+         * @param array $attributes
+         * @param string $table
+         * @param bool $exists
+         * @return \Illuminate\Database\Eloquent\Relations\Pivot 
+         * @static 
+         */
+        public static function newPivot($parent, $attributes, $table, $exists){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::newPivot($parent, $attributes, $table, $exists);
+        }
+        
+        /**
+         * Get the table associated with the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getTable(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getTable();
+        }
+        
+        /**
+         * Set the table associated with the model.
+         *
+         * @param string $table
+         * @return $this 
+         * @static 
+         */
+        public static function setTable($table){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::setTable($table);
+        }
+        
+        /**
+         * Get the value of the model's primary key.
+         *
+         * @return mixed 
+         * @static 
+         */
+        public static function getKey(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getKey();
+        }
+        
+        /**
+         * Get the queueable identity for the entity.
+         *
+         * @return mixed 
+         * @static 
+         */
+        public static function getQueueableId(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getQueueableId();
+        }
+        
+        /**
+         * Get the primary key for the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getKeyName(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getKeyName();
+        }
+        
+        /**
+         * Set the primary key for the model.
+         *
+         * @param string $key
+         * @return $this 
+         * @static 
+         */
+        public static function setKeyName($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::setKeyName($key);
+        }
+        
+        /**
+         * Get the table qualified key name.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getQualifiedKeyName(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getQualifiedKeyName();
+        }
+        
+        /**
+         * Get the value of the model's route key.
+         *
+         * @return mixed 
+         * @static 
+         */
+        public static function getRouteKey(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getRouteKey();
+        }
+        
+        /**
+         * Get the route key for the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getRouteKeyName(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getRouteKeyName();
+        }
+        
+        /**
+         * Determine if the model uses timestamps.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function usesTimestamps(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::usesTimestamps();
+        }
+        
+        /**
+         * Get the class name for polymorphic relations.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getMorphClass(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getMorphClass();
+        }
+        
+        /**
+         * Get the number of models to return per page.
+         *
+         * @return int 
+         * @static 
+         */
+        public static function getPerPage(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getPerPage();
+        }
+        
+        /**
+         * Set the number of models to return per page.
+         *
+         * @param int $perPage
+         * @return $this 
+         * @static 
+         */
+        public static function setPerPage($perPage){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::setPerPage($perPage);
+        }
+        
+        /**
+         * Get the default foreign key name for the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getForeignKey(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getForeignKey();
+        }
+        
+        /**
+         * Get the hidden attributes for the model.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getHidden(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getHidden();
+        }
+        
+        /**
+         * Set the hidden attributes for the model.
+         *
+         * @param array $hidden
+         * @return $this 
+         * @static 
+         */
+        public static function setHidden($hidden){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::setHidden($hidden);
+        }
+        
+        /**
+         * Add hidden attributes for the model.
+         *
+         * @param array|string|null $attributes
+         * @return void 
+         * @static 
+         */
+        public static function addHidden($attributes = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Media::addHidden($attributes);
+        }
+        
+        /**
+         * Make the given, typically hidden, attributes visible.
+         *
+         * @param array|string $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function makeVisible($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::makeVisible($attributes);
+        }
+        
+        /**
+         * Make the given, typically visible, attributes hidden.
+         *
+         * @param array|string $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function makeHidden($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::makeHidden($attributes);
+        }
+        
+        /**
+         * Get the visible attributes for the model.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getVisible(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getVisible();
+        }
+        
+        /**
+         * Set the visible attributes for the model.
+         *
+         * @param array $visible
+         * @return $this 
+         * @static 
+         */
+        public static function setVisible($visible){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::setVisible($visible);
+        }
+        
+        /**
+         * Add visible attributes for the model.
+         *
+         * @param array|string|null $attributes
+         * @return void 
+         * @static 
+         */
+        public static function addVisible($attributes = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Media::addVisible($attributes);
+        }
+        
+        /**
+         * Set the accessors to append to model arrays.
+         *
+         * @param array $appends
+         * @return $this 
+         * @static 
+         */
+        public static function setAppends($appends){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::setAppends($appends);
+        }
+        
+        /**
+         * Get the fillable attributes for the model.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getFillable(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getFillable();
+        }
+        
+        /**
+         * Set the fillable attributes for the model.
+         *
+         * @param array $fillable
+         * @return $this 
+         * @static 
+         */
+        public static function fillable($fillable){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::fillable($fillable);
+        }
+        
+        /**
+         * Get the guarded attributes for the model.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getGuarded(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getGuarded();
+        }
+        
+        /**
+         * Set the guarded attributes for the model.
+         *
+         * @param array $guarded
+         * @return $this 
+         * @static 
+         */
+        public static function guard($guarded){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::guard($guarded);
+        }
+        
+        /**
+         * Disable all mass assignable restrictions.
+         *
+         * @param bool $state
+         * @return void 
+         * @static 
+         */
+        public static function unguard($state = true){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Media::unguard($state);
+        }
+        
+        /**
+         * Enable the mass assignment restrictions.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function reguard(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Media::reguard();
+        }
+        
+        /**
+         * Determine if current state is "unguarded".
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function isUnguarded(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::isUnguarded();
+        }
+        
+        /**
+         * Run the given callable while being unguarded.
+         *
+         * @param callable $callback
+         * @return mixed 
+         * @static 
+         */
+        public static function unguarded($callback){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::unguarded($callback);
+        }
+        
+        /**
+         * Determine if the given attribute may be mass assigned.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */
+        public static function isFillable($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::isFillable($key);
+        }
+        
+        /**
+         * Determine if the given key is guarded.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */
+        public static function isGuarded($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::isGuarded($key);
+        }
+        
+        /**
+         * Determine if the model is totally guarded.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function totallyGuarded(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::totallyGuarded();
+        }
+        
+        /**
+         * Get the relationships that are touched on save.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getTouchedRelations(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getTouchedRelations();
+        }
+        
+        /**
+         * Set the relationships that are touched on save.
+         *
+         * @param array $touches
+         * @return $this 
+         * @static 
+         */
+        public static function setTouchedRelations($touches){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::setTouchedRelations($touches);
+        }
+        
+        /**
+         * Get the value indicating whether the IDs are incrementing.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function getIncrementing(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getIncrementing();
+        }
+        
+        /**
+         * Set whether IDs are incrementing.
+         *
+         * @param bool $value
+         * @return $this 
+         * @static 
+         */
+        public static function setIncrementing($value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::setIncrementing($value);
+        }
+        
+        /**
+         * Convert the model instance to JSON.
+         *
+         * @param int $options
+         * @return string 
+         * @static 
+         */
+        public static function toJson($options = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::toJson($options);
+        }
+        
+        /**
+         * Convert the object into something JSON serializable.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function jsonSerialize(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::jsonSerialize();
+        }
+        
+        /**
+         * Convert the model instance to an array.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function toArray(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::toArray();
+        }
+        
+        /**
+         * Convert the model's attributes to an array.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function attributesToArray(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::attributesToArray();
+        }
+        
+        /**
+         * Get the model's relationships in array form.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function relationsToArray(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::relationsToArray();
+        }
+        
+        /**
+         * Get an attribute from the model.
+         *
+         * @param string $key
+         * @return mixed 
+         * @static 
+         */
+        public static function getAttribute($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getAttribute($key);
+        }
+        
+        /**
+         * Get a plain attribute (not a relationship).
+         *
+         * @param string $key
+         * @return mixed 
+         * @static 
+         */
+        public static function getAttributeValue($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getAttributeValue($key);
+        }
+        
+        /**
+         * Get a relationship.
+         *
+         * @param string $key
+         * @return mixed 
+         * @static 
+         */
+        public static function getRelationValue($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getRelationValue($key);
+        }
+        
+        /**
+         * Determine if a get mutator exists for an attribute.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */
+        public static function hasGetMutator($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::hasGetMutator($key);
+        }
+        
+        /**
+         * Determine whether an attribute should be cast to a native type.
+         *
+         * @param string $key
+         * @param array|string|null $types
+         * @return bool 
+         * @static 
+         */
+        public static function hasCast($key, $types = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::hasCast($key, $types);
+        }
+        
+        /**
+         * Get the casts array.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getCasts(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getCasts();
+        }
+        
+        /**
+         * Set a given attribute on the model.
+         *
+         * @param string $key
+         * @param mixed $value
+         * @return $this 
+         * @static 
+         */
+        public static function setAttribute($key, $value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::setAttribute($key, $value);
+        }
+        
+        /**
+         * Determine if a set mutator exists for an attribute.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */
+        public static function hasSetMutator($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::hasSetMutator($key);
+        }
+        
+        /**
+         * Get the attributes that should be converted to dates.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getDates(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getDates();
+        }
+        
+        /**
+         * Convert a DateTime to a storable string.
+         *
+         * @param \DateTime|int $value
+         * @return string 
+         * @static 
+         */
+        public static function fromDateTime($value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::fromDateTime($value);
+        }
+        
+        /**
+         * Set the date format used by the model.
+         *
+         * @param string $format
+         * @return $this 
+         * @static 
+         */
+        public static function setDateFormat($format){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::setDateFormat($format);
+        }
+        
+        /**
+         * Decode the given JSON back into an array or object.
+         *
+         * @param string $value
+         * @param bool $asObject
+         * @return mixed 
+         * @static 
+         */
+        public static function fromJson($value, $asObject = false){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::fromJson($value, $asObject);
+        }
+        
+        /**
+         * Clone the model into a new, non-existing instance.
+         *
+         * @param array|null $except
+         * @return \Illuminate\Database\Eloquent\Model 
+         * @static 
+         */
+        public static function replicate($except = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::replicate($except);
+        }
+        
+        /**
+         * Determine if two models have the same ID and belong to the same table.
+         *
+         * @param \Illuminate\Database\Eloquent\Model $model
+         * @return bool 
+         * @static 
+         */
+        public static function is($model){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::is($model);
+        }
+        
+        /**
+         * Get all of the current attributes on the model.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getAttributes(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getAttributes();
+        }
+        
+        /**
+         * Set the array of model attributes. No checking is done.
+         *
+         * @param array $attributes
+         * @param bool $sync
+         * @return $this 
+         * @static 
+         */
+        public static function setRawAttributes($attributes, $sync = false){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::setRawAttributes($attributes, $sync);
+        }
+        
+        /**
+         * Get the model's original attribute values.
+         *
+         * @param string|null $key
+         * @param mixed $default
+         * @return mixed|array 
+         * @static 
+         */
+        public static function getOriginal($key = null, $default = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getOriginal($key, $default);
+        }
+        
+        /**
+         * Sync the original attributes with the current.
+         *
+         * @return $this 
+         * @static 
+         */
+        public static function syncOriginal(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::syncOriginal();
+        }
+        
+        /**
+         * Sync a single original attribute with its current value.
+         *
+         * @param string $attribute
+         * @return $this 
+         * @static 
+         */
+        public static function syncOriginalAttribute($attribute){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::syncOriginalAttribute($attribute);
+        }
+        
+        /**
+         * Determine if the model or given attribute(s) have been modified.
+         *
+         * @param array|string|null $attributes
+         * @return bool 
+         * @static 
+         */
+        public static function isDirty($attributes = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::isDirty($attributes);
+        }
+        
+        /**
+         * Determine if the model or given attribute(s) have remained the same.
+         *
+         * @param array|string|null $attributes
+         * @return bool 
+         * @static 
+         */
+        public static function isClean($attributes = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::isClean($attributes);
+        }
+        
+        /**
+         * Get the attributes that have been changed since last sync.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getDirty(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getDirty();
+        }
+        
+        /**
+         * Get all the loaded relations for the instance.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getRelations(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getRelations();
+        }
+        
+        /**
+         * Get a specified relationship.
+         *
+         * @param string $relation
+         * @return mixed 
+         * @static 
+         */
+        public static function getRelation($relation){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getRelation($relation);
+        }
+        
+        /**
+         * Determine if the given relation is loaded.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */
+        public static function relationLoaded($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::relationLoaded($key);
+        }
+        
+        /**
+         * Set the specific relationship in the model.
+         *
+         * @param string $relation
+         * @param mixed $value
+         * @return $this 
+         * @static 
+         */
+        public static function setRelation($relation, $value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::setRelation($relation, $value);
+        }
+        
+        /**
+         * Set the entire relations array on the model.
+         *
+         * @param array $relations
+         * @return $this 
+         * @static 
+         */
+        public static function setRelations($relations){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::setRelations($relations);
+        }
+        
+        /**
+         * Get the database connection for the model.
+         *
+         * @return \Illuminate\Database\Connection 
+         * @static 
+         */
+        public static function getConnection(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getConnection();
+        }
+        
+        /**
+         * Get the current connection name for the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getConnectionName(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getConnectionName();
+        }
+        
+        /**
+         * Set the connection associated with the model.
+         *
+         * @param string $name
+         * @return $this 
+         * @static 
+         */
+        public static function setConnection($name){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::setConnection($name);
+        }
+        
+        /**
+         * Resolve a connection instance.
+         *
+         * @param string|null $connection
+         * @return \Illuminate\Database\Connection 
+         * @static 
+         */
+        public static function resolveConnection($connection = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::resolveConnection($connection);
+        }
+        
+        /**
+         * Get the connection resolver instance.
+         *
+         * @return \Illuminate\Database\ConnectionResolverInterface 
+         * @static 
+         */
+        public static function getConnectionResolver(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getConnectionResolver();
+        }
+        
+        /**
+         * Set the connection resolver instance.
+         *
+         * @param \Illuminate\Database\ConnectionResolverInterface $resolver
+         * @return void 
+         * @static 
+         */
+        public static function setConnectionResolver($resolver){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Media::setConnectionResolver($resolver);
+        }
+        
+        /**
+         * Unset the connection resolver for models.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function unsetConnectionResolver(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Media::unsetConnectionResolver();
+        }
+        
+        /**
+         * Get the event dispatcher instance.
+         *
+         * @return \Illuminate\Contracts\Events\Dispatcher 
+         * @static 
+         */
+        public static function getEventDispatcher(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getEventDispatcher();
+        }
+        
+        /**
+         * Set the event dispatcher instance.
+         *
+         * @param \Illuminate\Contracts\Events\Dispatcher $dispatcher
+         * @return void 
+         * @static 
+         */
+        public static function setEventDispatcher($dispatcher){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Media::setEventDispatcher($dispatcher);
+        }
+        
+        /**
+         * Unset the event dispatcher for models.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function unsetEventDispatcher(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Media::unsetEventDispatcher();
+        }
+        
+        /**
+         * Get the mutated attributes for a given instance.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getMutatedAttributes(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::getMutatedAttributes();
+        }
+        
+        /**
+         * Extract and cache all the mutated attributes of a class.
+         *
+         * @param string $class
+         * @return void 
+         * @static 
+         */
+        public static function cacheMutatedAttributes($class){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Media::cacheMutatedAttributes($class);
+        }
+        
+        /**
+         * Determine if the given attribute exists.
+         *
+         * @param mixed $offset
+         * @return bool 
+         * @static 
+         */
+        public static function offsetExists($offset){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::offsetExists($offset);
+        }
+        
+        /**
+         * Get the value for a given offset.
+         *
+         * @param mixed $offset
+         * @return mixed 
+         * @static 
+         */
+        public static function offsetGet($offset){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Media::offsetGet($offset);
+        }
+        
+        /**
+         * Set the value for a given offset.
+         *
+         * @param mixed $offset
+         * @param mixed $value
+         * @return void 
+         * @static 
+         */
+        public static function offsetSet($offset, $value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Media::offsetSet($offset, $value);
+        }
+        
+        /**
+         * Unset the value for a given offset.
+         *
+         * @param mixed $offset
+         * @return void 
+         * @static 
+         */
+        public static function offsetUnset($offset){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Media::offsetUnset($offset);
+        }
+        
+    }
+
+
+    class Module extends \App\Facades\Module{
+        
+        /**
+         * Clear the list of booted models so they will be re-booted.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function clearBootedModels(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Module::clearBootedModels();
+        }
+        
+        /**
+         * Register a new global scope on the model.
+         *
+         * @param \Illuminate\Database\Eloquent\Scope|\Closure|string $scope
+         * @param \Closure|null $implementation
+         * @return mixed 
+         * @throws \InvalidArgumentException
+         * @static 
+         */
+        public static function addGlobalScope($scope, $implementation = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::addGlobalScope($scope, $implementation);
+        }
+        
+        /**
+         * Determine if a model has a global scope.
+         *
+         * @param \Illuminate\Database\Eloquent\Scope|string $scope
+         * @return bool 
+         * @static 
+         */
+        public static function hasGlobalScope($scope){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::hasGlobalScope($scope);
+        }
+        
+        /**
+         * Get a global scope registered with the model.
+         *
+         * @param \Illuminate\Database\Eloquent\Scope|string $scope
+         * @return \Illuminate\Database\Eloquent\Scope|\Closure|null 
+         * @static 
+         */
+        public static function getGlobalScope($scope){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getGlobalScope($scope);
+        }
+        
+        /**
+         * Get the global scopes for this class instance.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getGlobalScopes(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getGlobalScopes();
+        }
+        
+        /**
+         * Register an observer with the Model.
+         *
+         * @param object|string $class
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function observe($class, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Module::observe($class, $priority);
+        }
+        
+        /**
+         * Fill the model with an array of attributes.
+         *
+         * @param array $attributes
+         * @return $this 
+         * @throws \Illuminate\Database\Eloquent\MassAssignmentException
+         * @static 
+         */
+        public static function fill($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::fill($attributes);
+        }
+        
+        /**
+         * Fill the model with an array of attributes. Force mass assignment.
+         *
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function forceFill($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::forceFill($attributes);
+        }
+        
+        /**
+         * Create a new instance of the given model.
+         *
+         * @param array $attributes
+         * @param bool $exists
+         * @return static 
+         * @static 
+         */
+        public static function newInstance($attributes = array(), $exists = false){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::newInstance($attributes, $exists);
+        }
+        
+        /**
+         * Create a new model instance that is existing.
+         *
+         * @param array $attributes
+         * @param string|null $connection
+         * @return static 
+         * @static 
+         */
+        public static function newFromBuilder($attributes = array(), $connection = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::newFromBuilder($attributes, $connection);
+        }
+        
+        /**
+         * Create a collection of models from plain arrays.
+         *
+         * @param array $items
+         * @param string|null $connection
+         * @return \Illuminate\Database\Eloquent\Collection 
+         * @static 
+         */
+        public static function hydrate($items, $connection = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::hydrate($items, $connection);
+        }
+        
+        /**
+         * Create a collection of models from a raw query.
+         *
+         * @param string $query
+         * @param array $bindings
+         * @param string|null $connection
+         * @return \Illuminate\Database\Eloquent\Collection 
+         * @static 
+         */
+        public static function hydrateRaw($query, $bindings = array(), $connection = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::hydrateRaw($query, $bindings, $connection);
+        }
+        
+        /**
+         * Save a new model and return the instance.
+         *
+         * @param array $attributes
+         * @return static 
+         * @static 
+         */
+        public static function create($attributes = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::create($attributes);
+        }
+        
+        /**
+         * Save a new model and return the instance. Allow mass-assignment.
+         *
+         * @param array $attributes
+         * @return static 
+         * @static 
+         */
+        public static function forceCreate($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::forceCreate($attributes);
+        }
+        
+        /**
+         * Begin querying the model.
+         *
+         * @return \Illuminate\Database\Eloquent\Builder 
+         * @static 
+         */
+        public static function query(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::query();
+        }
+        
+        /**
+         * Begin querying the model on a given connection.
+         *
+         * @param string|null $connection
+         * @return \Illuminate\Database\Eloquent\Builder 
+         * @static 
+         */
+        public static function on($connection = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::on($connection);
+        }
+        
+        /**
+         * Begin querying the model on the write connection.
+         *
+         * @return \Illuminate\Database\Query\Builder 
+         * @static 
+         */
+        public static function onWriteConnection(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::onWriteConnection();
+        }
+        
+        /**
+         * Get all of the models from the database.
+         *
+         * @param array|mixed $columns
+         * @return \Illuminate\Database\Eloquent\Collection|static[] 
+         * @static 
+         */
+        public static function all($columns = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::all($columns);
+        }
+        
+        /**
+         * Reload a fresh model instance from the database.
+         *
+         * @param array|string $with
+         * @return $this|null 
+         * @static 
+         */
+        public static function fresh($with = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::fresh($with);
+        }
+        
+        /**
+         * Eager load relations on the model.
+         *
+         * @param array|string $relations
+         * @return $this 
+         * @static 
+         */
+        public static function load($relations){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::load($relations);
+        }
+        
+        /**
+         * Begin querying a model with eager loading.
+         *
+         * @param array|string $relations
+         * @return \Illuminate\Database\Eloquent\Builder|static 
+         * @static 
+         */
+        public static function with($relations){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::with($relations);
+        }
+        
+        /**
+         * Append attributes to query when building a query.
+         *
+         * @param array|string $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function append($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::append($attributes);
+        }
+        
+        /**
+         * Define a one-to-one relationship.
+         *
+         * @param string $related
+         * @param string $foreignKey
+         * @param string $localKey
+         * @return \Illuminate\Database\Eloquent\Relations\HasOne 
+         * @static 
+         */
+        public static function hasOne($related, $foreignKey = null, $localKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::hasOne($related, $foreignKey, $localKey);
+        }
+        
+        /**
+         * Define a polymorphic one-to-one relationship.
+         *
+         * @param string $related
+         * @param string $name
+         * @param string $type
+         * @param string $id
+         * @param string $localKey
+         * @return \Illuminate\Database\Eloquent\Relations\MorphOne 
+         * @static 
+         */
+        public static function morphOne($related, $name, $type = null, $id = null, $localKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::morphOne($related, $name, $type, $id, $localKey);
+        }
+        
+        /**
+         * Define an inverse one-to-one or many relationship.
+         *
+         * @param string $related
+         * @param string $foreignKey
+         * @param string $otherKey
+         * @param string $relation
+         * @return \Illuminate\Database\Eloquent\Relations\BelongsTo 
+         * @static 
+         */
+        public static function belongsTo($related, $foreignKey = null, $otherKey = null, $relation = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::belongsTo($related, $foreignKey, $otherKey, $relation);
+        }
+        
+        /**
+         * Define a polymorphic, inverse one-to-one or many relationship.
+         *
+         * @param string $name
+         * @param string $type
+         * @param string $id
+         * @return \Illuminate\Database\Eloquent\Relations\MorphTo 
+         * @static 
+         */
+        public static function morphTo($name = null, $type = null, $id = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::morphTo($name, $type, $id);
+        }
+        
+        /**
+         * Retrieve the fully qualified class name from a slug.
+         *
+         * @param string $class
+         * @return string 
+         * @static 
+         */
+        public static function getActualClassNameForMorph($class){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getActualClassNameForMorph($class);
+        }
+        
+        /**
+         * Define a one-to-many relationship.
+         *
+         * @param string $related
+         * @param string $foreignKey
+         * @param string $localKey
+         * @return \Illuminate\Database\Eloquent\Relations\HasMany 
+         * @static 
+         */
+        public static function hasMany($related, $foreignKey = null, $localKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::hasMany($related, $foreignKey, $localKey);
+        }
+        
+        /**
+         * Define a has-many-through relationship.
+         *
+         * @param string $related
+         * @param string $through
+         * @param string|null $firstKey
+         * @param string|null $secondKey
+         * @param string|null $localKey
+         * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough 
+         * @static 
+         */
+        public static function hasManyThrough($related, $through, $firstKey = null, $secondKey = null, $localKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::hasManyThrough($related, $through, $firstKey, $secondKey, $localKey);
+        }
+        
+        /**
+         * Define a polymorphic one-to-many relationship.
+         *
+         * @param string $related
+         * @param string $name
+         * @param string $type
+         * @param string $id
+         * @param string $localKey
+         * @return \Illuminate\Database\Eloquent\Relations\MorphMany 
+         * @static 
+         */
+        public static function morphMany($related, $name, $type = null, $id = null, $localKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::morphMany($related, $name, $type, $id, $localKey);
+        }
+        
+        /**
+         * Define a many-to-many relationship.
+         *
+         * @param string $related
+         * @param string $table
+         * @param string $foreignKey
+         * @param string $otherKey
+         * @param string $relation
+         * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany 
+         * @static 
+         */
+        public static function belongsToMany($related, $table = null, $foreignKey = null, $otherKey = null, $relation = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::belongsToMany($related, $table, $foreignKey, $otherKey, $relation);
+        }
+        
+        /**
+         * Define a polymorphic many-to-many relationship.
+         *
+         * @param string $related
+         * @param string $name
+         * @param string $table
+         * @param string $foreignKey
+         * @param string $otherKey
+         * @param bool $inverse
+         * @return \Illuminate\Database\Eloquent\Relations\MorphToMany 
+         * @static 
+         */
+        public static function morphToMany($related, $name, $table = null, $foreignKey = null, $otherKey = null, $inverse = false){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::morphToMany($related, $name, $table, $foreignKey, $otherKey, $inverse);
+        }
+        
+        /**
+         * Define a polymorphic, inverse many-to-many relationship.
+         *
+         * @param string $related
+         * @param string $name
+         * @param string $table
+         * @param string $foreignKey
+         * @param string $otherKey
+         * @return \Illuminate\Database\Eloquent\Relations\MorphToMany 
+         * @static 
+         */
+        public static function morphedByMany($related, $name, $table = null, $foreignKey = null, $otherKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::morphedByMany($related, $name, $table, $foreignKey, $otherKey);
+        }
+        
+        /**
+         * Get the joining table name for a many-to-many relation.
+         *
+         * @param string $related
+         * @return string 
+         * @static 
+         */
+        public static function joiningTable($related){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::joiningTable($related);
+        }
+        
+        /**
+         * Destroy the models for the given IDs.
+         *
+         * @param array|int $ids
+         * @return int 
+         * @static 
+         */
+        public static function destroy($ids){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::destroy($ids);
+        }
+        
+        /**
+         * Delete the model from the database.
+         *
+         * @return bool|null 
+         * @throws \Exception
+         * @static 
+         */
+        public static function delete(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::delete();
+        }
+        
+        /**
+         * Force a hard delete on a soft deleted model.
+         * 
+         * This method protects developers from running forceDelete when trait is missing.
+         *
+         * @return bool|null 
+         * @static 
+         */
+        public static function forceDelete(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::forceDelete();
+        }
+        
+        /**
+         * Register a saving model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function saving($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Module::saving($callback, $priority);
+        }
+        
+        /**
+         * Register a saved model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function saved($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Module::saved($callback, $priority);
+        }
+        
+        /**
+         * Register an updating model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function updating($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Module::updating($callback, $priority);
+        }
+        
+        /**
+         * Register an updated model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function updated($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Module::updated($callback, $priority);
+        }
+        
+        /**
+         * Register a creating model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function creating($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Module::creating($callback, $priority);
+        }
+        
+        /**
+         * Register a created model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function created($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Module::created($callback, $priority);
+        }
+        
+        /**
+         * Register a deleting model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function deleting($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Module::deleting($callback, $priority);
+        }
+        
+        /**
+         * Register a deleted model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function deleted($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Module::deleted($callback, $priority);
+        }
+        
+        /**
+         * Remove all of the event listeners for the model.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function flushEventListeners(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Module::flushEventListeners();
+        }
+        
+        /**
+         * Get the observable event names.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getObservableEvents(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getObservableEvents();
+        }
+        
+        /**
+         * Set the observable event names.
+         *
+         * @param array $observables
+         * @return $this 
+         * @static 
+         */
+        public static function setObservableEvents($observables){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::setObservableEvents($observables);
+        }
+        
+        /**
+         * Add an observable event name.
+         *
+         * @param array|mixed $observables
+         * @return void 
+         * @static 
+         */
+        public static function addObservableEvents($observables){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Module::addObservableEvents($observables);
+        }
+        
+        /**
+         * Remove an observable event name.
+         *
+         * @param array|mixed $observables
+         * @return void 
+         * @static 
+         */
+        public static function removeObservableEvents($observables){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Module::removeObservableEvents($observables);
+        }
+        
+        /**
+         * Update the model in the database.
+         *
+         * @param array $attributes
+         * @param array $options
+         * @return bool 
+         * @static 
+         */
+        public static function update($attributes = array(), $options = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::update($attributes, $options);
+        }
+        
+        /**
+         * Save the model and all of its relationships.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function push(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::push();
+        }
+        
+        /**
+         * Save the model to the database.
+         *
+         * @param array $options
+         * @return bool 
+         * @static 
+         */
+        public static function save($options = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::save($options);
+        }
+        
+        /**
+         * Save the model to the database using transaction.
+         *
+         * @param array $options
+         * @return bool 
+         * @throws \Throwable
+         * @static 
+         */
+        public static function saveOrFail($options = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::saveOrFail($options);
+        }
+        
+        /**
+         * Touch the owning relations of the model.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function touchOwners(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Module::touchOwners();
+        }
+        
+        /**
+         * Determine if the model touches a given relation.
+         *
+         * @param string $relation
+         * @return bool 
+         * @static 
+         */
+        public static function touches($relation){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::touches($relation);
+        }
+        
+        /**
+         * Update the model's update timestamp.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function touch(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::touch();
+        }
+        
+        /**
+         * Set the value of the "created at" attribute.
+         *
+         * @param mixed $value
+         * @return $this 
+         * @static 
+         */
+        public static function setCreatedAt($value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::setCreatedAt($value);
+        }
+        
+        /**
+         * Set the value of the "updated at" attribute.
+         *
+         * @param mixed $value
+         * @return $this 
+         * @static 
+         */
+        public static function setUpdatedAt($value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::setUpdatedAt($value);
+        }
+        
+        /**
+         * Get the name of the "created at" column.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getCreatedAtColumn(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getCreatedAtColumn();
+        }
+        
+        /**
+         * Get the name of the "updated at" column.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getUpdatedAtColumn(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getUpdatedAtColumn();
+        }
+        
+        /**
+         * Get a fresh timestamp for the model.
+         *
+         * @return \Carbon\Carbon 
+         * @static 
+         */
+        public static function freshTimestamp(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::freshTimestamp();
+        }
+        
+        /**
+         * Get a fresh timestamp for the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function freshTimestampString(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::freshTimestampString();
+        }
+        
+        /**
+         * Get a new query builder for the model's table.
+         *
+         * @return \Illuminate\Database\Eloquent\Builder 
+         * @static 
+         */
+        public static function newQuery(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::newQuery();
+        }
+        
+        /**
+         * Get a new query instance without a given scope.
+         *
+         * @param \Illuminate\Database\Eloquent\Scope|string $scope
+         * @return \Illuminate\Database\Eloquent\Builder 
+         * @static 
+         */
+        public static function newQueryWithoutScope($scope){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::newQueryWithoutScope($scope);
+        }
+        
+        /**
+         * Get a new query builder that doesn't have any global scopes.
+         *
+         * @return \Illuminate\Database\Eloquent\Builder|static 
+         * @static 
+         */
+        public static function newQueryWithoutScopes(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::newQueryWithoutScopes();
+        }
+        
+        /**
+         * Create a new Eloquent query builder for the model.
+         *
+         * @param \Illuminate\Database\Query\Builder $query
+         * @return \Illuminate\Database\Eloquent\Builder|static 
+         * @static 
+         */
+        public static function newEloquentBuilder($query){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::newEloquentBuilder($query);
+        }
+        
+        /**
+         * Create a new Eloquent Collection instance.
+         *
+         * @param array $models
+         * @return \Illuminate\Database\Eloquent\Collection 
+         * @static 
+         */
+        public static function newCollection($models = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::newCollection($models);
+        }
+        
+        /**
+         * Create a new pivot model instance.
+         *
+         * @param \Illuminate\Database\Eloquent\Model $parent
+         * @param array $attributes
+         * @param string $table
+         * @param bool $exists
+         * @return \Illuminate\Database\Eloquent\Relations\Pivot 
+         * @static 
+         */
+        public static function newPivot($parent, $attributes, $table, $exists){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::newPivot($parent, $attributes, $table, $exists);
+        }
+        
+        /**
+         * Get the table associated with the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getTable(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getTable();
+        }
+        
+        /**
+         * Set the table associated with the model.
+         *
+         * @param string $table
+         * @return $this 
+         * @static 
+         */
+        public static function setTable($table){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::setTable($table);
+        }
+        
+        /**
+         * Get the value of the model's primary key.
+         *
+         * @return mixed 
+         * @static 
+         */
+        public static function getKey(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getKey();
+        }
+        
+        /**
+         * Get the queueable identity for the entity.
+         *
+         * @return mixed 
+         * @static 
+         */
+        public static function getQueueableId(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getQueueableId();
+        }
+        
+        /**
+         * Get the primary key for the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getKeyName(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getKeyName();
+        }
+        
+        /**
+         * Set the primary key for the model.
+         *
+         * @param string $key
+         * @return $this 
+         * @static 
+         */
+        public static function setKeyName($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::setKeyName($key);
+        }
+        
+        /**
+         * Get the table qualified key name.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getQualifiedKeyName(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getQualifiedKeyName();
+        }
+        
+        /**
+         * Get the value of the model's route key.
+         *
+         * @return mixed 
+         * @static 
+         */
+        public static function getRouteKey(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getRouteKey();
+        }
+        
+        /**
+         * Get the route key for the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getRouteKeyName(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getRouteKeyName();
+        }
+        
+        /**
+         * Determine if the model uses timestamps.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function usesTimestamps(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::usesTimestamps();
+        }
+        
+        /**
+         * Get the class name for polymorphic relations.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getMorphClass(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getMorphClass();
+        }
+        
+        /**
+         * Get the number of models to return per page.
+         *
+         * @return int 
+         * @static 
+         */
+        public static function getPerPage(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getPerPage();
+        }
+        
+        /**
+         * Set the number of models to return per page.
+         *
+         * @param int $perPage
+         * @return $this 
+         * @static 
+         */
+        public static function setPerPage($perPage){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::setPerPage($perPage);
+        }
+        
+        /**
+         * Get the default foreign key name for the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getForeignKey(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getForeignKey();
+        }
+        
+        /**
+         * Get the hidden attributes for the model.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getHidden(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getHidden();
+        }
+        
+        /**
+         * Set the hidden attributes for the model.
+         *
+         * @param array $hidden
+         * @return $this 
+         * @static 
+         */
+        public static function setHidden($hidden){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::setHidden($hidden);
+        }
+        
+        /**
+         * Add hidden attributes for the model.
+         *
+         * @param array|string|null $attributes
+         * @return void 
+         * @static 
+         */
+        public static function addHidden($attributes = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Module::addHidden($attributes);
+        }
+        
+        /**
+         * Make the given, typically hidden, attributes visible.
+         *
+         * @param array|string $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function makeVisible($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::makeVisible($attributes);
+        }
+        
+        /**
+         * Make the given, typically visible, attributes hidden.
+         *
+         * @param array|string $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function makeHidden($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::makeHidden($attributes);
+        }
+        
+        /**
+         * Get the visible attributes for the model.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getVisible(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getVisible();
+        }
+        
+        /**
+         * Set the visible attributes for the model.
+         *
+         * @param array $visible
+         * @return $this 
+         * @static 
+         */
+        public static function setVisible($visible){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::setVisible($visible);
+        }
+        
+        /**
+         * Add visible attributes for the model.
+         *
+         * @param array|string|null $attributes
+         * @return void 
+         * @static 
+         */
+        public static function addVisible($attributes = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Module::addVisible($attributes);
+        }
+        
+        /**
+         * Set the accessors to append to model arrays.
+         *
+         * @param array $appends
+         * @return $this 
+         * @static 
+         */
+        public static function setAppends($appends){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::setAppends($appends);
+        }
+        
+        /**
+         * Get the fillable attributes for the model.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getFillable(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getFillable();
+        }
+        
+        /**
+         * Set the fillable attributes for the model.
+         *
+         * @param array $fillable
+         * @return $this 
+         * @static 
+         */
+        public static function fillable($fillable){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::fillable($fillable);
+        }
+        
+        /**
+         * Get the guarded attributes for the model.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getGuarded(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getGuarded();
+        }
+        
+        /**
+         * Set the guarded attributes for the model.
+         *
+         * @param array $guarded
+         * @return $this 
+         * @static 
+         */
+        public static function guard($guarded){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::guard($guarded);
+        }
+        
+        /**
+         * Disable all mass assignable restrictions.
+         *
+         * @param bool $state
+         * @return void 
+         * @static 
+         */
+        public static function unguard($state = true){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Module::unguard($state);
+        }
+        
+        /**
+         * Enable the mass assignment restrictions.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function reguard(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Module::reguard();
+        }
+        
+        /**
+         * Determine if current state is "unguarded".
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function isUnguarded(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::isUnguarded();
+        }
+        
+        /**
+         * Run the given callable while being unguarded.
+         *
+         * @param callable $callback
+         * @return mixed 
+         * @static 
+         */
+        public static function unguarded($callback){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::unguarded($callback);
+        }
+        
+        /**
+         * Determine if the given attribute may be mass assigned.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */
+        public static function isFillable($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::isFillable($key);
+        }
+        
+        /**
+         * Determine if the given key is guarded.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */
+        public static function isGuarded($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::isGuarded($key);
+        }
+        
+        /**
+         * Determine if the model is totally guarded.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function totallyGuarded(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::totallyGuarded();
+        }
+        
+        /**
+         * Get the relationships that are touched on save.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getTouchedRelations(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getTouchedRelations();
+        }
+        
+        /**
+         * Set the relationships that are touched on save.
+         *
+         * @param array $touches
+         * @return $this 
+         * @static 
+         */
+        public static function setTouchedRelations($touches){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::setTouchedRelations($touches);
+        }
+        
+        /**
+         * Get the value indicating whether the IDs are incrementing.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function getIncrementing(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getIncrementing();
+        }
+        
+        /**
+         * Set whether IDs are incrementing.
+         *
+         * @param bool $value
+         * @return $this 
+         * @static 
+         */
+        public static function setIncrementing($value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::setIncrementing($value);
+        }
+        
+        /**
+         * Convert the model instance to JSON.
+         *
+         * @param int $options
+         * @return string 
+         * @static 
+         */
+        public static function toJson($options = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::toJson($options);
+        }
+        
+        /**
+         * Convert the object into something JSON serializable.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function jsonSerialize(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::jsonSerialize();
+        }
+        
+        /**
+         * Convert the model instance to an array.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function toArray(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::toArray();
+        }
+        
+        /**
+         * Convert the model's attributes to an array.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function attributesToArray(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::attributesToArray();
+        }
+        
+        /**
+         * Get the model's relationships in array form.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function relationsToArray(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::relationsToArray();
+        }
+        
+        /**
+         * Get an attribute from the model.
+         *
+         * @param string $key
+         * @return mixed 
+         * @static 
+         */
+        public static function getAttribute($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getAttribute($key);
+        }
+        
+        /**
+         * Get a plain attribute (not a relationship).
+         *
+         * @param string $key
+         * @return mixed 
+         * @static 
+         */
+        public static function getAttributeValue($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getAttributeValue($key);
+        }
+        
+        /**
+         * Get a relationship.
+         *
+         * @param string $key
+         * @return mixed 
+         * @static 
+         */
+        public static function getRelationValue($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getRelationValue($key);
+        }
+        
+        /**
+         * Determine if a get mutator exists for an attribute.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */
+        public static function hasGetMutator($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::hasGetMutator($key);
+        }
+        
+        /**
+         * Determine whether an attribute should be cast to a native type.
+         *
+         * @param string $key
+         * @param array|string|null $types
+         * @return bool 
+         * @static 
+         */
+        public static function hasCast($key, $types = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::hasCast($key, $types);
+        }
+        
+        /**
+         * Get the casts array.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getCasts(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getCasts();
+        }
+        
+        /**
+         * Set a given attribute on the model.
+         *
+         * @param string $key
+         * @param mixed $value
+         * @return $this 
+         * @static 
+         */
+        public static function setAttribute($key, $value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::setAttribute($key, $value);
+        }
+        
+        /**
+         * Determine if a set mutator exists for an attribute.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */
+        public static function hasSetMutator($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::hasSetMutator($key);
+        }
+        
+        /**
+         * Get the attributes that should be converted to dates.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getDates(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getDates();
+        }
+        
+        /**
+         * Convert a DateTime to a storable string.
+         *
+         * @param \DateTime|int $value
+         * @return string 
+         * @static 
+         */
+        public static function fromDateTime($value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::fromDateTime($value);
+        }
+        
+        /**
+         * Set the date format used by the model.
+         *
+         * @param string $format
+         * @return $this 
+         * @static 
+         */
+        public static function setDateFormat($format){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::setDateFormat($format);
+        }
+        
+        /**
+         * Decode the given JSON back into an array or object.
+         *
+         * @param string $value
+         * @param bool $asObject
+         * @return mixed 
+         * @static 
+         */
+        public static function fromJson($value, $asObject = false){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::fromJson($value, $asObject);
+        }
+        
+        /**
+         * Clone the model into a new, non-existing instance.
+         *
+         * @param array|null $except
+         * @return \Illuminate\Database\Eloquent\Model 
+         * @static 
+         */
+        public static function replicate($except = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::replicate($except);
+        }
+        
+        /**
+         * Determine if two models have the same ID and belong to the same table.
+         *
+         * @param \Illuminate\Database\Eloquent\Model $model
+         * @return bool 
+         * @static 
+         */
+        public static function is($model){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::is($model);
+        }
+        
+        /**
+         * Get all of the current attributes on the model.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getAttributes(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getAttributes();
+        }
+        
+        /**
+         * Set the array of model attributes. No checking is done.
+         *
+         * @param array $attributes
+         * @param bool $sync
+         * @return $this 
+         * @static 
+         */
+        public static function setRawAttributes($attributes, $sync = false){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::setRawAttributes($attributes, $sync);
+        }
+        
+        /**
+         * Get the model's original attribute values.
+         *
+         * @param string|null $key
+         * @param mixed $default
+         * @return mixed|array 
+         * @static 
+         */
+        public static function getOriginal($key = null, $default = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getOriginal($key, $default);
+        }
+        
+        /**
+         * Sync the original attributes with the current.
+         *
+         * @return $this 
+         * @static 
+         */
+        public static function syncOriginal(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::syncOriginal();
+        }
+        
+        /**
+         * Sync a single original attribute with its current value.
+         *
+         * @param string $attribute
+         * @return $this 
+         * @static 
+         */
+        public static function syncOriginalAttribute($attribute){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::syncOriginalAttribute($attribute);
+        }
+        
+        /**
+         * Determine if the model or given attribute(s) have been modified.
+         *
+         * @param array|string|null $attributes
+         * @return bool 
+         * @static 
+         */
+        public static function isDirty($attributes = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::isDirty($attributes);
+        }
+        
+        /**
+         * Determine if the model or given attribute(s) have remained the same.
+         *
+         * @param array|string|null $attributes
+         * @return bool 
+         * @static 
+         */
+        public static function isClean($attributes = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::isClean($attributes);
+        }
+        
+        /**
+         * Get the attributes that have been changed since last sync.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getDirty(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getDirty();
+        }
+        
+        /**
+         * Get all the loaded relations for the instance.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getRelations(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getRelations();
+        }
+        
+        /**
+         * Get a specified relationship.
+         *
+         * @param string $relation
+         * @return mixed 
+         * @static 
+         */
+        public static function getRelation($relation){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getRelation($relation);
+        }
+        
+        /**
+         * Determine if the given relation is loaded.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */
+        public static function relationLoaded($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::relationLoaded($key);
+        }
+        
+        /**
+         * Set the specific relationship in the model.
+         *
+         * @param string $relation
+         * @param mixed $value
+         * @return $this 
+         * @static 
+         */
+        public static function setRelation($relation, $value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::setRelation($relation, $value);
+        }
+        
+        /**
+         * Set the entire relations array on the model.
+         *
+         * @param array $relations
+         * @return $this 
+         * @static 
+         */
+        public static function setRelations($relations){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::setRelations($relations);
+        }
+        
+        /**
+         * Get the database connection for the model.
+         *
+         * @return \Illuminate\Database\Connection 
+         * @static 
+         */
+        public static function getConnection(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getConnection();
+        }
+        
+        /**
+         * Get the current connection name for the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getConnectionName(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getConnectionName();
+        }
+        
+        /**
+         * Set the connection associated with the model.
+         *
+         * @param string $name
+         * @return $this 
+         * @static 
+         */
+        public static function setConnection($name){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::setConnection($name);
+        }
+        
+        /**
+         * Resolve a connection instance.
+         *
+         * @param string|null $connection
+         * @return \Illuminate\Database\Connection 
+         * @static 
+         */
+        public static function resolveConnection($connection = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::resolveConnection($connection);
+        }
+        
+        /**
+         * Get the connection resolver instance.
+         *
+         * @return \Illuminate\Database\ConnectionResolverInterface 
+         * @static 
+         */
+        public static function getConnectionResolver(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getConnectionResolver();
+        }
+        
+        /**
+         * Set the connection resolver instance.
+         *
+         * @param \Illuminate\Database\ConnectionResolverInterface $resolver
+         * @return void 
+         * @static 
+         */
+        public static function setConnectionResolver($resolver){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Module::setConnectionResolver($resolver);
+        }
+        
+        /**
+         * Unset the connection resolver for models.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function unsetConnectionResolver(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Module::unsetConnectionResolver();
+        }
+        
+        /**
+         * Get the event dispatcher instance.
+         *
+         * @return \Illuminate\Contracts\Events\Dispatcher 
+         * @static 
+         */
+        public static function getEventDispatcher(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getEventDispatcher();
+        }
+        
+        /**
+         * Set the event dispatcher instance.
+         *
+         * @param \Illuminate\Contracts\Events\Dispatcher $dispatcher
+         * @return void 
+         * @static 
+         */
+        public static function setEventDispatcher($dispatcher){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Module::setEventDispatcher($dispatcher);
+        }
+        
+        /**
+         * Unset the event dispatcher for models.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function unsetEventDispatcher(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Module::unsetEventDispatcher();
+        }
+        
+        /**
+         * Get the mutated attributes for a given instance.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getMutatedAttributes(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::getMutatedAttributes();
+        }
+        
+        /**
+         * Extract and cache all the mutated attributes of a class.
+         *
+         * @param string $class
+         * @return void 
+         * @static 
+         */
+        public static function cacheMutatedAttributes($class){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Module::cacheMutatedAttributes($class);
+        }
+        
+        /**
+         * Determine if the given attribute exists.
+         *
+         * @param mixed $offset
+         * @return bool 
+         * @static 
+         */
+        public static function offsetExists($offset){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::offsetExists($offset);
+        }
+        
+        /**
+         * Get the value for a given offset.
+         *
+         * @param mixed $offset
+         * @return mixed 
+         * @static 
+         */
+        public static function offsetGet($offset){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Module::offsetGet($offset);
+        }
+        
+        /**
+         * Set the value for a given offset.
+         *
+         * @param mixed $offset
+         * @param mixed $value
+         * @return void 
+         * @static 
+         */
+        public static function offsetSet($offset, $value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Module::offsetSet($offset, $value);
+        }
+        
+        /**
+         * Unset the value for a given offset.
+         *
+         * @param mixed $offset
+         * @return void 
+         * @static 
+         */
+        public static function offsetUnset($offset){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Module::offsetUnset($offset);
+        }
+        
+    }
+
+
     class Notification extends \Illuminate\Support\Facades\Notification{
         
         /**
@@ -13501,6 +21277,15 @@ namespace {
          */
         public static function getSlug(){
             return \App\Models\Page::getSlug();
+        }
+        
+        /**
+         * Boolean check whether this page has a parent.
+         *
+         * @static 
+         */
+        public static function hasParent(){
+            return \App\Models\Page::hasParent();
         }
         
         /**
@@ -21119,94 +28904,1884 @@ namespace {
     class Slider extends \App\Facades\Slider{
         
         /**
-         * Hotswap the underlying instance behind the facade.
+         * Define relationships.
          *
-         * @param mixed $instance
-         * @return void 
          * @static 
          */
-        public static function swap($instance){
-            //Method inherited from \Illuminate\Support\Facades\Facade            
-            \App\Facades\Slider::swap($instance);
+        public static function media(){
+            return \App\Models\Slider::media();
         }
         
         /**
-         * Convert the facade into a Mockery spy.
+         * Clear the list of booted models so they will be re-booted.
          *
          * @return void 
          * @static 
          */
-        public static function spy(){
-            //Method inherited from \Illuminate\Support\Facades\Facade            
-            \App\Facades\Slider::spy();
+        public static function clearBootedModels(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Slider::clearBootedModels();
         }
         
         /**
-         * Initiate a mock expectation on the facade.
+         * Register a new global scope on the model.
          *
-         * @return \Mockery\Expectation 
+         * @param \Illuminate\Database\Eloquent\Scope|\Closure|string $scope
+         * @param \Closure|null $implementation
+         * @return mixed 
+         * @throws \InvalidArgumentException
          * @static 
          */
-        public static function shouldReceive(){
-            //Method inherited from \Illuminate\Support\Facades\Facade            
-            return \App\Facades\Slider::shouldReceive();
+        public static function addGlobalScope($scope, $implementation = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::addGlobalScope($scope, $implementation);
         }
         
         /**
-         * Get the root object behind the facade.
+         * Determine if a model has a global scope.
+         *
+         * @param \Illuminate\Database\Eloquent\Scope|string $scope
+         * @return bool 
+         * @static 
+         */
+        public static function hasGlobalScope($scope){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::hasGlobalScope($scope);
+        }
+        
+        /**
+         * Get a global scope registered with the model.
+         *
+         * @param \Illuminate\Database\Eloquent\Scope|string $scope
+         * @return \Illuminate\Database\Eloquent\Scope|\Closure|null 
+         * @static 
+         */
+        public static function getGlobalScope($scope){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getGlobalScope($scope);
+        }
+        
+        /**
+         * Get the global scopes for this class instance.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getGlobalScopes(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getGlobalScopes();
+        }
+        
+        /**
+         * Register an observer with the Model.
+         *
+         * @param object|string $class
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function observe($class, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Slider::observe($class, $priority);
+        }
+        
+        /**
+         * Fill the model with an array of attributes.
+         *
+         * @param array $attributes
+         * @return $this 
+         * @throws \Illuminate\Database\Eloquent\MassAssignmentException
+         * @static 
+         */
+        public static function fill($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::fill($attributes);
+        }
+        
+        /**
+         * Fill the model with an array of attributes. Force mass assignment.
+         *
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function forceFill($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::forceFill($attributes);
+        }
+        
+        /**
+         * Create a new instance of the given model.
+         *
+         * @param array $attributes
+         * @param bool $exists
+         * @return static 
+         * @static 
+         */
+        public static function newInstance($attributes = array(), $exists = false){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::newInstance($attributes, $exists);
+        }
+        
+        /**
+         * Create a new model instance that is existing.
+         *
+         * @param array $attributes
+         * @param string|null $connection
+         * @return static 
+         * @static 
+         */
+        public static function newFromBuilder($attributes = array(), $connection = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::newFromBuilder($attributes, $connection);
+        }
+        
+        /**
+         * Create a collection of models from plain arrays.
+         *
+         * @param array $items
+         * @param string|null $connection
+         * @return \Illuminate\Database\Eloquent\Collection 
+         * @static 
+         */
+        public static function hydrate($items, $connection = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::hydrate($items, $connection);
+        }
+        
+        /**
+         * Create a collection of models from a raw query.
+         *
+         * @param string $query
+         * @param array $bindings
+         * @param string|null $connection
+         * @return \Illuminate\Database\Eloquent\Collection 
+         * @static 
+         */
+        public static function hydrateRaw($query, $bindings = array(), $connection = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::hydrateRaw($query, $bindings, $connection);
+        }
+        
+        /**
+         * Save a new model and return the instance.
+         *
+         * @param array $attributes
+         * @return static 
+         * @static 
+         */
+        public static function create($attributes = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::create($attributes);
+        }
+        
+        /**
+         * Save a new model and return the instance. Allow mass-assignment.
+         *
+         * @param array $attributes
+         * @return static 
+         * @static 
+         */
+        public static function forceCreate($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::forceCreate($attributes);
+        }
+        
+        /**
+         * Begin querying the model.
+         *
+         * @return \Illuminate\Database\Eloquent\Builder 
+         * @static 
+         */
+        public static function query(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::query();
+        }
+        
+        /**
+         * Begin querying the model on a given connection.
+         *
+         * @param string|null $connection
+         * @return \Illuminate\Database\Eloquent\Builder 
+         * @static 
+         */
+        public static function on($connection = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::on($connection);
+        }
+        
+        /**
+         * Begin querying the model on the write connection.
+         *
+         * @return \Illuminate\Database\Query\Builder 
+         * @static 
+         */
+        public static function onWriteConnection(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::onWriteConnection();
+        }
+        
+        /**
+         * Get all of the models from the database.
+         *
+         * @param array|mixed $columns
+         * @return \Illuminate\Database\Eloquent\Collection|static[] 
+         * @static 
+         */
+        public static function all($columns = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::all($columns);
+        }
+        
+        /**
+         * Reload a fresh model instance from the database.
+         *
+         * @param array|string $with
+         * @return $this|null 
+         * @static 
+         */
+        public static function fresh($with = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::fresh($with);
+        }
+        
+        /**
+         * Eager load relations on the model.
+         *
+         * @param array|string $relations
+         * @return $this 
+         * @static 
+         */
+        public static function load($relations){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::load($relations);
+        }
+        
+        /**
+         * Begin querying a model with eager loading.
+         *
+         * @param array|string $relations
+         * @return \Illuminate\Database\Eloquent\Builder|static 
+         * @static 
+         */
+        public static function with($relations){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::with($relations);
+        }
+        
+        /**
+         * Append attributes to query when building a query.
+         *
+         * @param array|string $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function append($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::append($attributes);
+        }
+        
+        /**
+         * Define a one-to-one relationship.
+         *
+         * @param string $related
+         * @param string $foreignKey
+         * @param string $localKey
+         * @return \Illuminate\Database\Eloquent\Relations\HasOne 
+         * @static 
+         */
+        public static function hasOne($related, $foreignKey = null, $localKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::hasOne($related, $foreignKey, $localKey);
+        }
+        
+        /**
+         * Define a polymorphic one-to-one relationship.
+         *
+         * @param string $related
+         * @param string $name
+         * @param string $type
+         * @param string $id
+         * @param string $localKey
+         * @return \Illuminate\Database\Eloquent\Relations\MorphOne 
+         * @static 
+         */
+        public static function morphOne($related, $name, $type = null, $id = null, $localKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::morphOne($related, $name, $type, $id, $localKey);
+        }
+        
+        /**
+         * Define an inverse one-to-one or many relationship.
+         *
+         * @param string $related
+         * @param string $foreignKey
+         * @param string $otherKey
+         * @param string $relation
+         * @return \Illuminate\Database\Eloquent\Relations\BelongsTo 
+         * @static 
+         */
+        public static function belongsTo($related, $foreignKey = null, $otherKey = null, $relation = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::belongsTo($related, $foreignKey, $otherKey, $relation);
+        }
+        
+        /**
+         * Define a polymorphic, inverse one-to-one or many relationship.
+         *
+         * @param string $name
+         * @param string $type
+         * @param string $id
+         * @return \Illuminate\Database\Eloquent\Relations\MorphTo 
+         * @static 
+         */
+        public static function morphTo($name = null, $type = null, $id = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::morphTo($name, $type, $id);
+        }
+        
+        /**
+         * Retrieve the fully qualified class name from a slug.
+         *
+         * @param string $class
+         * @return string 
+         * @static 
+         */
+        public static function getActualClassNameForMorph($class){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getActualClassNameForMorph($class);
+        }
+        
+        /**
+         * Define a one-to-many relationship.
+         *
+         * @param string $related
+         * @param string $foreignKey
+         * @param string $localKey
+         * @return \Illuminate\Database\Eloquent\Relations\HasMany 
+         * @static 
+         */
+        public static function hasMany($related, $foreignKey = null, $localKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::hasMany($related, $foreignKey, $localKey);
+        }
+        
+        /**
+         * Define a has-many-through relationship.
+         *
+         * @param string $related
+         * @param string $through
+         * @param string|null $firstKey
+         * @param string|null $secondKey
+         * @param string|null $localKey
+         * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough 
+         * @static 
+         */
+        public static function hasManyThrough($related, $through, $firstKey = null, $secondKey = null, $localKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::hasManyThrough($related, $through, $firstKey, $secondKey, $localKey);
+        }
+        
+        /**
+         * Define a polymorphic one-to-many relationship.
+         *
+         * @param string $related
+         * @param string $name
+         * @param string $type
+         * @param string $id
+         * @param string $localKey
+         * @return \Illuminate\Database\Eloquent\Relations\MorphMany 
+         * @static 
+         */
+        public static function morphMany($related, $name, $type = null, $id = null, $localKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::morphMany($related, $name, $type, $id, $localKey);
+        }
+        
+        /**
+         * Define a many-to-many relationship.
+         *
+         * @param string $related
+         * @param string $table
+         * @param string $foreignKey
+         * @param string $otherKey
+         * @param string $relation
+         * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany 
+         * @static 
+         */
+        public static function belongsToMany($related, $table = null, $foreignKey = null, $otherKey = null, $relation = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::belongsToMany($related, $table, $foreignKey, $otherKey, $relation);
+        }
+        
+        /**
+         * Define a polymorphic many-to-many relationship.
+         *
+         * @param string $related
+         * @param string $name
+         * @param string $table
+         * @param string $foreignKey
+         * @param string $otherKey
+         * @param bool $inverse
+         * @return \Illuminate\Database\Eloquent\Relations\MorphToMany 
+         * @static 
+         */
+        public static function morphToMany($related, $name, $table = null, $foreignKey = null, $otherKey = null, $inverse = false){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::morphToMany($related, $name, $table, $foreignKey, $otherKey, $inverse);
+        }
+        
+        /**
+         * Define a polymorphic, inverse many-to-many relationship.
+         *
+         * @param string $related
+         * @param string $name
+         * @param string $table
+         * @param string $foreignKey
+         * @param string $otherKey
+         * @return \Illuminate\Database\Eloquent\Relations\MorphToMany 
+         * @static 
+         */
+        public static function morphedByMany($related, $name, $table = null, $foreignKey = null, $otherKey = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::morphedByMany($related, $name, $table, $foreignKey, $otherKey);
+        }
+        
+        /**
+         * Get the joining table name for a many-to-many relation.
+         *
+         * @param string $related
+         * @return string 
+         * @static 
+         */
+        public static function joiningTable($related){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::joiningTable($related);
+        }
+        
+        /**
+         * Destroy the models for the given IDs.
+         *
+         * @param array|int $ids
+         * @return int 
+         * @static 
+         */
+        public static function destroy($ids){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::destroy($ids);
+        }
+        
+        /**
+         * Delete the model from the database.
+         *
+         * @return bool|null 
+         * @throws \Exception
+         * @static 
+         */
+        public static function delete(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::delete();
+        }
+        
+        /**
+         * Force a hard delete on a soft deleted model.
+         * 
+         * This method protects developers from running forceDelete when trait is missing.
+         *
+         * @return bool|null 
+         * @static 
+         */
+        public static function forceDelete(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::forceDelete();
+        }
+        
+        /**
+         * Register a saving model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function saving($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Slider::saving($callback, $priority);
+        }
+        
+        /**
+         * Register a saved model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function saved($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Slider::saved($callback, $priority);
+        }
+        
+        /**
+         * Register an updating model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function updating($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Slider::updating($callback, $priority);
+        }
+        
+        /**
+         * Register an updated model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function updated($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Slider::updated($callback, $priority);
+        }
+        
+        /**
+         * Register a creating model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function creating($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Slider::creating($callback, $priority);
+        }
+        
+        /**
+         * Register a created model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function created($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Slider::created($callback, $priority);
+        }
+        
+        /**
+         * Register a deleting model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function deleting($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Slider::deleting($callback, $priority);
+        }
+        
+        /**
+         * Register a deleted model event with the dispatcher.
+         *
+         * @param \Closure|string $callback
+         * @param int $priority
+         * @return void 
+         * @static 
+         */
+        public static function deleted($callback, $priority = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Slider::deleted($callback, $priority);
+        }
+        
+        /**
+         * Remove all of the event listeners for the model.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function flushEventListeners(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Slider::flushEventListeners();
+        }
+        
+        /**
+         * Get the observable event names.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getObservableEvents(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getObservableEvents();
+        }
+        
+        /**
+         * Set the observable event names.
+         *
+         * @param array $observables
+         * @return $this 
+         * @static 
+         */
+        public static function setObservableEvents($observables){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::setObservableEvents($observables);
+        }
+        
+        /**
+         * Add an observable event name.
+         *
+         * @param array|mixed $observables
+         * @return void 
+         * @static 
+         */
+        public static function addObservableEvents($observables){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Slider::addObservableEvents($observables);
+        }
+        
+        /**
+         * Remove an observable event name.
+         *
+         * @param array|mixed $observables
+         * @return void 
+         * @static 
+         */
+        public static function removeObservableEvents($observables){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Slider::removeObservableEvents($observables);
+        }
+        
+        /**
+         * Update the model in the database.
+         *
+         * @param array $attributes
+         * @param array $options
+         * @return bool 
+         * @static 
+         */
+        public static function update($attributes = array(), $options = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::update($attributes, $options);
+        }
+        
+        /**
+         * Save the model and all of its relationships.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function push(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::push();
+        }
+        
+        /**
+         * Save the model to the database.
+         *
+         * @param array $options
+         * @return bool 
+         * @static 
+         */
+        public static function save($options = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::save($options);
+        }
+        
+        /**
+         * Save the model to the database using transaction.
+         *
+         * @param array $options
+         * @return bool 
+         * @throws \Throwable
+         * @static 
+         */
+        public static function saveOrFail($options = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::saveOrFail($options);
+        }
+        
+        /**
+         * Touch the owning relations of the model.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function touchOwners(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Slider::touchOwners();
+        }
+        
+        /**
+         * Determine if the model touches a given relation.
+         *
+         * @param string $relation
+         * @return bool 
+         * @static 
+         */
+        public static function touches($relation){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::touches($relation);
+        }
+        
+        /**
+         * Update the model's update timestamp.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function touch(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::touch();
+        }
+        
+        /**
+         * Set the value of the "created at" attribute.
+         *
+         * @param mixed $value
+         * @return $this 
+         * @static 
+         */
+        public static function setCreatedAt($value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::setCreatedAt($value);
+        }
+        
+        /**
+         * Set the value of the "updated at" attribute.
+         *
+         * @param mixed $value
+         * @return $this 
+         * @static 
+         */
+        public static function setUpdatedAt($value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::setUpdatedAt($value);
+        }
+        
+        /**
+         * Get the name of the "created at" column.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getCreatedAtColumn(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getCreatedAtColumn();
+        }
+        
+        /**
+         * Get the name of the "updated at" column.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getUpdatedAtColumn(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getUpdatedAtColumn();
+        }
+        
+        /**
+         * Get a fresh timestamp for the model.
+         *
+         * @return \Carbon\Carbon 
+         * @static 
+         */
+        public static function freshTimestamp(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::freshTimestamp();
+        }
+        
+        /**
+         * Get a fresh timestamp for the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function freshTimestampString(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::freshTimestampString();
+        }
+        
+        /**
+         * Get a new query builder for the model's table.
+         *
+         * @return \Illuminate\Database\Eloquent\Builder 
+         * @static 
+         */
+        public static function newQuery(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::newQuery();
+        }
+        
+        /**
+         * Get a new query instance without a given scope.
+         *
+         * @param \Illuminate\Database\Eloquent\Scope|string $scope
+         * @return \Illuminate\Database\Eloquent\Builder 
+         * @static 
+         */
+        public static function newQueryWithoutScope($scope){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::newQueryWithoutScope($scope);
+        }
+        
+        /**
+         * Get a new query builder that doesn't have any global scopes.
+         *
+         * @return \Illuminate\Database\Eloquent\Builder|static 
+         * @static 
+         */
+        public static function newQueryWithoutScopes(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::newQueryWithoutScopes();
+        }
+        
+        /**
+         * Create a new Eloquent query builder for the model.
+         *
+         * @param \Illuminate\Database\Query\Builder $query
+         * @return \Illuminate\Database\Eloquent\Builder|static 
+         * @static 
+         */
+        public static function newEloquentBuilder($query){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::newEloquentBuilder($query);
+        }
+        
+        /**
+         * Create a new Eloquent Collection instance.
+         *
+         * @param array $models
+         * @return \Illuminate\Database\Eloquent\Collection 
+         * @static 
+         */
+        public static function newCollection($models = array()){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::newCollection($models);
+        }
+        
+        /**
+         * Create a new pivot model instance.
+         *
+         * @param \Illuminate\Database\Eloquent\Model $parent
+         * @param array $attributes
+         * @param string $table
+         * @param bool $exists
+         * @return \Illuminate\Database\Eloquent\Relations\Pivot 
+         * @static 
+         */
+        public static function newPivot($parent, $attributes, $table, $exists){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::newPivot($parent, $attributes, $table, $exists);
+        }
+        
+        /**
+         * Get the table associated with the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getTable(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getTable();
+        }
+        
+        /**
+         * Set the table associated with the model.
+         *
+         * @param string $table
+         * @return $this 
+         * @static 
+         */
+        public static function setTable($table){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::setTable($table);
+        }
+        
+        /**
+         * Get the value of the model's primary key.
          *
          * @return mixed 
          * @static 
          */
-        public static function getFacadeRoot(){
-            //Method inherited from \Illuminate\Support\Facades\Facade            
-            return \App\Facades\Slider::getFacadeRoot();
+        public static function getKey(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getKey();
         }
         
         /**
-         * Clear a resolved facade instance.
+         * Get the queueable identity for the entity.
+         *
+         * @return mixed 
+         * @static 
+         */
+        public static function getQueueableId(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getQueueableId();
+        }
+        
+        /**
+         * Get the primary key for the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getKeyName(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getKeyName();
+        }
+        
+        /**
+         * Set the primary key for the model.
+         *
+         * @param string $key
+         * @return $this 
+         * @static 
+         */
+        public static function setKeyName($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::setKeyName($key);
+        }
+        
+        /**
+         * Get the table qualified key name.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getQualifiedKeyName(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getQualifiedKeyName();
+        }
+        
+        /**
+         * Get the value of the model's route key.
+         *
+         * @return mixed 
+         * @static 
+         */
+        public static function getRouteKey(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getRouteKey();
+        }
+        
+        /**
+         * Get the route key for the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getRouteKeyName(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getRouteKeyName();
+        }
+        
+        /**
+         * Determine if the model uses timestamps.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function usesTimestamps(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::usesTimestamps();
+        }
+        
+        /**
+         * Get the class name for polymorphic relations.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getMorphClass(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getMorphClass();
+        }
+        
+        /**
+         * Get the number of models to return per page.
+         *
+         * @return int 
+         * @static 
+         */
+        public static function getPerPage(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getPerPage();
+        }
+        
+        /**
+         * Set the number of models to return per page.
+         *
+         * @param int $perPage
+         * @return $this 
+         * @static 
+         */
+        public static function setPerPage($perPage){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::setPerPage($perPage);
+        }
+        
+        /**
+         * Get the default foreign key name for the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getForeignKey(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getForeignKey();
+        }
+        
+        /**
+         * Get the hidden attributes for the model.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getHidden(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getHidden();
+        }
+        
+        /**
+         * Set the hidden attributes for the model.
+         *
+         * @param array $hidden
+         * @return $this 
+         * @static 
+         */
+        public static function setHidden($hidden){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::setHidden($hidden);
+        }
+        
+        /**
+         * Add hidden attributes for the model.
+         *
+         * @param array|string|null $attributes
+         * @return void 
+         * @static 
+         */
+        public static function addHidden($attributes = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Slider::addHidden($attributes);
+        }
+        
+        /**
+         * Make the given, typically hidden, attributes visible.
+         *
+         * @param array|string $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function makeVisible($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::makeVisible($attributes);
+        }
+        
+        /**
+         * Make the given, typically visible, attributes hidden.
+         *
+         * @param array|string $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function makeHidden($attributes){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::makeHidden($attributes);
+        }
+        
+        /**
+         * Get the visible attributes for the model.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getVisible(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getVisible();
+        }
+        
+        /**
+         * Set the visible attributes for the model.
+         *
+         * @param array $visible
+         * @return $this 
+         * @static 
+         */
+        public static function setVisible($visible){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::setVisible($visible);
+        }
+        
+        /**
+         * Add visible attributes for the model.
+         *
+         * @param array|string|null $attributes
+         * @return void 
+         * @static 
+         */
+        public static function addVisible($attributes = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Slider::addVisible($attributes);
+        }
+        
+        /**
+         * Set the accessors to append to model arrays.
+         *
+         * @param array $appends
+         * @return $this 
+         * @static 
+         */
+        public static function setAppends($appends){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::setAppends($appends);
+        }
+        
+        /**
+         * Get the fillable attributes for the model.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getFillable(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getFillable();
+        }
+        
+        /**
+         * Set the fillable attributes for the model.
+         *
+         * @param array $fillable
+         * @return $this 
+         * @static 
+         */
+        public static function fillable($fillable){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::fillable($fillable);
+        }
+        
+        /**
+         * Get the guarded attributes for the model.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getGuarded(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getGuarded();
+        }
+        
+        /**
+         * Set the guarded attributes for the model.
+         *
+         * @param array $guarded
+         * @return $this 
+         * @static 
+         */
+        public static function guard($guarded){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::guard($guarded);
+        }
+        
+        /**
+         * Disable all mass assignable restrictions.
+         *
+         * @param bool $state
+         * @return void 
+         * @static 
+         */
+        public static function unguard($state = true){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Slider::unguard($state);
+        }
+        
+        /**
+         * Enable the mass assignment restrictions.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function reguard(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Slider::reguard();
+        }
+        
+        /**
+         * Determine if current state is "unguarded".
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function isUnguarded(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::isUnguarded();
+        }
+        
+        /**
+         * Run the given callable while being unguarded.
+         *
+         * @param callable $callback
+         * @return mixed 
+         * @static 
+         */
+        public static function unguarded($callback){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::unguarded($callback);
+        }
+        
+        /**
+         * Determine if the given attribute may be mass assigned.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */
+        public static function isFillable($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::isFillable($key);
+        }
+        
+        /**
+         * Determine if the given key is guarded.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */
+        public static function isGuarded($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::isGuarded($key);
+        }
+        
+        /**
+         * Determine if the model is totally guarded.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function totallyGuarded(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::totallyGuarded();
+        }
+        
+        /**
+         * Get the relationships that are touched on save.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getTouchedRelations(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getTouchedRelations();
+        }
+        
+        /**
+         * Set the relationships that are touched on save.
+         *
+         * @param array $touches
+         * @return $this 
+         * @static 
+         */
+        public static function setTouchedRelations($touches){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::setTouchedRelations($touches);
+        }
+        
+        /**
+         * Get the value indicating whether the IDs are incrementing.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function getIncrementing(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getIncrementing();
+        }
+        
+        /**
+         * Set whether IDs are incrementing.
+         *
+         * @param bool $value
+         * @return $this 
+         * @static 
+         */
+        public static function setIncrementing($value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::setIncrementing($value);
+        }
+        
+        /**
+         * Convert the model instance to JSON.
+         *
+         * @param int $options
+         * @return string 
+         * @static 
+         */
+        public static function toJson($options = 0){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::toJson($options);
+        }
+        
+        /**
+         * Convert the object into something JSON serializable.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function jsonSerialize(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::jsonSerialize();
+        }
+        
+        /**
+         * Convert the model instance to an array.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function toArray(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::toArray();
+        }
+        
+        /**
+         * Convert the model's attributes to an array.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function attributesToArray(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::attributesToArray();
+        }
+        
+        /**
+         * Get the model's relationships in array form.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function relationsToArray(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::relationsToArray();
+        }
+        
+        /**
+         * Get an attribute from the model.
+         *
+         * @param string $key
+         * @return mixed 
+         * @static 
+         */
+        public static function getAttribute($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getAttribute($key);
+        }
+        
+        /**
+         * Get a plain attribute (not a relationship).
+         *
+         * @param string $key
+         * @return mixed 
+         * @static 
+         */
+        public static function getAttributeValue($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getAttributeValue($key);
+        }
+        
+        /**
+         * Get a relationship.
+         *
+         * @param string $key
+         * @return mixed 
+         * @static 
+         */
+        public static function getRelationValue($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getRelationValue($key);
+        }
+        
+        /**
+         * Determine if a get mutator exists for an attribute.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */
+        public static function hasGetMutator($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::hasGetMutator($key);
+        }
+        
+        /**
+         * Determine whether an attribute should be cast to a native type.
+         *
+         * @param string $key
+         * @param array|string|null $types
+         * @return bool 
+         * @static 
+         */
+        public static function hasCast($key, $types = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::hasCast($key, $types);
+        }
+        
+        /**
+         * Get the casts array.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getCasts(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getCasts();
+        }
+        
+        /**
+         * Set a given attribute on the model.
+         *
+         * @param string $key
+         * @param mixed $value
+         * @return $this 
+         * @static 
+         */
+        public static function setAttribute($key, $value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::setAttribute($key, $value);
+        }
+        
+        /**
+         * Determine if a set mutator exists for an attribute.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */
+        public static function hasSetMutator($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::hasSetMutator($key);
+        }
+        
+        /**
+         * Get the attributes that should be converted to dates.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getDates(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getDates();
+        }
+        
+        /**
+         * Convert a DateTime to a storable string.
+         *
+         * @param \DateTime|int $value
+         * @return string 
+         * @static 
+         */
+        public static function fromDateTime($value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::fromDateTime($value);
+        }
+        
+        /**
+         * Set the date format used by the model.
+         *
+         * @param string $format
+         * @return $this 
+         * @static 
+         */
+        public static function setDateFormat($format){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::setDateFormat($format);
+        }
+        
+        /**
+         * Decode the given JSON back into an array or object.
+         *
+         * @param string $value
+         * @param bool $asObject
+         * @return mixed 
+         * @static 
+         */
+        public static function fromJson($value, $asObject = false){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::fromJson($value, $asObject);
+        }
+        
+        /**
+         * Clone the model into a new, non-existing instance.
+         *
+         * @param array|null $except
+         * @return \Illuminate\Database\Eloquent\Model 
+         * @static 
+         */
+        public static function replicate($except = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::replicate($except);
+        }
+        
+        /**
+         * Determine if two models have the same ID and belong to the same table.
+         *
+         * @param \Illuminate\Database\Eloquent\Model $model
+         * @return bool 
+         * @static 
+         */
+        public static function is($model){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::is($model);
+        }
+        
+        /**
+         * Get all of the current attributes on the model.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getAttributes(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getAttributes();
+        }
+        
+        /**
+         * Set the array of model attributes. No checking is done.
+         *
+         * @param array $attributes
+         * @param bool $sync
+         * @return $this 
+         * @static 
+         */
+        public static function setRawAttributes($attributes, $sync = false){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::setRawAttributes($attributes, $sync);
+        }
+        
+        /**
+         * Get the model's original attribute values.
+         *
+         * @param string|null $key
+         * @param mixed $default
+         * @return mixed|array 
+         * @static 
+         */
+        public static function getOriginal($key = null, $default = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getOriginal($key, $default);
+        }
+        
+        /**
+         * Sync the original attributes with the current.
+         *
+         * @return $this 
+         * @static 
+         */
+        public static function syncOriginal(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::syncOriginal();
+        }
+        
+        /**
+         * Sync a single original attribute with its current value.
+         *
+         * @param string $attribute
+         * @return $this 
+         * @static 
+         */
+        public static function syncOriginalAttribute($attribute){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::syncOriginalAttribute($attribute);
+        }
+        
+        /**
+         * Determine if the model or given attribute(s) have been modified.
+         *
+         * @param array|string|null $attributes
+         * @return bool 
+         * @static 
+         */
+        public static function isDirty($attributes = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::isDirty($attributes);
+        }
+        
+        /**
+         * Determine if the model or given attribute(s) have remained the same.
+         *
+         * @param array|string|null $attributes
+         * @return bool 
+         * @static 
+         */
+        public static function isClean($attributes = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::isClean($attributes);
+        }
+        
+        /**
+         * Get the attributes that have been changed since last sync.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getDirty(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getDirty();
+        }
+        
+        /**
+         * Get all the loaded relations for the instance.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getRelations(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getRelations();
+        }
+        
+        /**
+         * Get a specified relationship.
+         *
+         * @param string $relation
+         * @return mixed 
+         * @static 
+         */
+        public static function getRelation($relation){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getRelation($relation);
+        }
+        
+        /**
+         * Determine if the given relation is loaded.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */
+        public static function relationLoaded($key){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::relationLoaded($key);
+        }
+        
+        /**
+         * Set the specific relationship in the model.
+         *
+         * @param string $relation
+         * @param mixed $value
+         * @return $this 
+         * @static 
+         */
+        public static function setRelation($relation, $value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::setRelation($relation, $value);
+        }
+        
+        /**
+         * Set the entire relations array on the model.
+         *
+         * @param array $relations
+         * @return $this 
+         * @static 
+         */
+        public static function setRelations($relations){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::setRelations($relations);
+        }
+        
+        /**
+         * Get the database connection for the model.
+         *
+         * @return \Illuminate\Database\Connection 
+         * @static 
+         */
+        public static function getConnection(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getConnection();
+        }
+        
+        /**
+         * Get the current connection name for the model.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getConnectionName(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getConnectionName();
+        }
+        
+        /**
+         * Set the connection associated with the model.
          *
          * @param string $name
-         * @return void 
+         * @return $this 
          * @static 
          */
-        public static function clearResolvedInstance($name){
-            //Method inherited from \Illuminate\Support\Facades\Facade            
-            \App\Facades\Slider::clearResolvedInstance($name);
+        public static function setConnection($name){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::setConnection($name);
         }
         
         /**
-         * Clear all of the resolved instances.
+         * Resolve a connection instance.
+         *
+         * @param string|null $connection
+         * @return \Illuminate\Database\Connection 
+         * @static 
+         */
+        public static function resolveConnection($connection = null){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::resolveConnection($connection);
+        }
+        
+        /**
+         * Get the connection resolver instance.
+         *
+         * @return \Illuminate\Database\ConnectionResolverInterface 
+         * @static 
+         */
+        public static function getConnectionResolver(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getConnectionResolver();
+        }
+        
+        /**
+         * Set the connection resolver instance.
+         *
+         * @param \Illuminate\Database\ConnectionResolverInterface $resolver
+         * @return void 
+         * @static 
+         */
+        public static function setConnectionResolver($resolver){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Slider::setConnectionResolver($resolver);
+        }
+        
+        /**
+         * Unset the connection resolver for models.
          *
          * @return void 
          * @static 
          */
-        public static function clearResolvedInstances(){
-            //Method inherited from \Illuminate\Support\Facades\Facade            
-            \App\Facades\Slider::clearResolvedInstances();
+        public static function unsetConnectionResolver(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Slider::unsetConnectionResolver();
         }
         
         /**
-         * Get the application instance behind the facade.
+         * Get the event dispatcher instance.
          *
-         * @return \Illuminate\Contracts\Foundation\Application 
+         * @return \Illuminate\Contracts\Events\Dispatcher 
          * @static 
          */
-        public static function getFacadeApplication(){
-            //Method inherited from \Illuminate\Support\Facades\Facade            
-            return \App\Facades\Slider::getFacadeApplication();
+        public static function getEventDispatcher(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getEventDispatcher();
         }
         
         /**
-         * Set the application instance.
+         * Set the event dispatcher instance.
          *
-         * @param \Illuminate\Contracts\Foundation\Application $app
+         * @param \Illuminate\Contracts\Events\Dispatcher $dispatcher
          * @return void 
          * @static 
          */
-        public static function setFacadeApplication($app){
-            //Method inherited from \Illuminate\Support\Facades\Facade            
-            \App\Facades\Slider::setFacadeApplication($app);
+        public static function setEventDispatcher($dispatcher){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Slider::setEventDispatcher($dispatcher);
+        }
+        
+        /**
+         * Unset the event dispatcher for models.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function unsetEventDispatcher(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Slider::unsetEventDispatcher();
+        }
+        
+        /**
+         * Get the mutated attributes for a given instance.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getMutatedAttributes(){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::getMutatedAttributes();
+        }
+        
+        /**
+         * Extract and cache all the mutated attributes of a class.
+         *
+         * @param string $class
+         * @return void 
+         * @static 
+         */
+        public static function cacheMutatedAttributes($class){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Slider::cacheMutatedAttributes($class);
+        }
+        
+        /**
+         * Determine if the given attribute exists.
+         *
+         * @param mixed $offset
+         * @return bool 
+         * @static 
+         */
+        public static function offsetExists($offset){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::offsetExists($offset);
+        }
+        
+        /**
+         * Get the value for a given offset.
+         *
+         * @param mixed $offset
+         * @return mixed 
+         * @static 
+         */
+        public static function offsetGet($offset){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            return \App\Models\Slider::offsetGet($offset);
+        }
+        
+        /**
+         * Set the value for a given offset.
+         *
+         * @param mixed $offset
+         * @param mixed $value
+         * @return void 
+         * @static 
+         */
+        public static function offsetSet($offset, $value){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Slider::offsetSet($offset, $value);
+        }
+        
+        /**
+         * Unset the value for a given offset.
+         *
+         * @param mixed $offset
+         * @return void 
+         * @static 
+         */
+        public static function offsetUnset($offset){
+            //Method inherited from \Illuminate\Database\Eloquent\Model            
+            \App\Models\Slider::offsetUnset($offset);
         }
         
     }
@@ -22501,6 +32076,1897 @@ namespace {
          */
         public static function getNames(){
             return \Illuminate\View\Factory::getNames();
+        }
+        
+    }
+
+
+    class Former extends \Former\Facades\Former{
+        
+        /**
+         * Register a macro with Former
+         *
+         * @param string $name The name of the macro
+         * @param Callable $macro The macro itself
+         * @return mixed 
+         * @static 
+         */
+        public static function macro($name, $macro){
+            return \Former\Former::macro($name, $macro);
+        }
+        
+        /**
+         * Check if a macro exists
+         *
+         * @param string $name
+         * @return boolean 
+         * @static 
+         */
+        public static function hasMacro($name){
+            return \Former\Former::hasMacro($name);
+        }
+        
+        /**
+         * Get a registered macro
+         *
+         * @param string $name
+         * @return \Closure 
+         * @static 
+         */
+        public static function getMacro($name){
+            return \Former\Former::getMacro($name);
+        }
+        
+        /**
+         * Add values to populate the array
+         *
+         * @param mixed $values Can be an Eloquent object or an array
+         * @static 
+         */
+        public static function populate($values){
+            return \Former\Former::populate($values);
+        }
+        
+        /**
+         * Set the value of a particular field
+         *
+         * @param string $field The field's name
+         * @param mixed $value Its new value
+         * @static 
+         */
+        public static function populateField($field, $value){
+            return \Former\Former::populateField($field, $value);
+        }
+        
+        /**
+         * Get the value of a field
+         *
+         * @param string $field The field's name
+         * @param null $fallback
+         * @return mixed 
+         * @static 
+         */
+        public static function getValue($field, $fallback = null){
+            return \Former\Former::getValue($field, $fallback);
+        }
+        
+        /**
+         * Fetch a field value from both the new and old POST array
+         *
+         * @param string $name A field name
+         * @param string $fallback A fallback if nothing was found
+         * @return string The results
+         * @static 
+         */
+        public static function getPost($name, $fallback = null){
+            return \Former\Former::getPost($name, $fallback);
+        }
+        
+        /**
+         * Set the errors to use for validations
+         *
+         * @param \Former\Message $validator The result from a validation
+         * @return void 
+         * @static 
+         */
+        public static function withErrors($validator = null){
+            \Former\Former::withErrors($validator);
+        }
+        
+        /**
+         * Add live validation rules
+         *
+         * @param array  *$rules An array of Laravel rules
+         * @return void 
+         * @static 
+         */
+        public static function withRules(){
+            \Former\Former::withRules();
+        }
+        
+        /**
+         * Switch the framework used by Former
+         *
+         * @param string $framework The name of the framework to use
+         * @static 
+         */
+        public static function framework($framework = null){
+            return \Former\Former::framework($framework);
+        }
+        
+        /**
+         * Get a new framework instance
+         *
+         * @param string $framework
+         * @throws Exceptions\InvalidFrameworkException
+         * @return \Former\Interfaces\FrameworkInterface 
+         * @static 
+         */
+        public static function getFrameworkInstance($framework){
+            return \Former\Former::getFrameworkInstance($framework);
+        }
+        
+        /**
+         * Get an option from the config
+         *
+         * @param string $option The option
+         * @param mixed $default Optional fallback
+         * @return mixed 
+         * @static 
+         */
+        public static function getOption($option, $default = null){
+            return \Former\Former::getOption($option, $default);
+        }
+        
+        /**
+         * Set an option on the config
+         *
+         * @param string $option
+         * @param string $value
+         * @static 
+         */
+        public static function setOption($option, $value){
+            return \Former\Former::setOption($option, $value);
+        }
+        
+        /**
+         * Closes a form
+         *
+         * @return string A form closing tag
+         * @static 
+         */
+        public static function close(){
+            return \Former\Former::close();
+        }
+        
+        /**
+         * Get the errors for the current field
+         *
+         * @param string $name A field name
+         * @return string An error message
+         * @static 
+         */
+        public static function getErrors($name = null){
+            return \Former\Former::getErrors($name);
+        }
+        
+        /**
+         * Get a rule from the Rules array
+         *
+         * @param string $name The field to fetch
+         * @return array An array of rules
+         * @static 
+         */
+        public static function getRules($name){
+            return \Former\Former::getRules($name);
+        }
+        
+    }
+
+
+    class Image extends \Intervention\Image\Facades\Image{
+        
+        /**
+         * Overrides configuration settings
+         *
+         * @param array $config
+         * @static 
+         */
+        public static function configure($config = array()){
+            return \Intervention\Image\ImageManager::configure($config);
+        }
+        
+        /**
+         * Initiates an Image instance from different input types
+         *
+         * @param mixed $data
+         * @return \Intervention\Image\Image 
+         * @static 
+         */
+        public static function make($data){
+            return \Intervention\Image\ImageManager::make($data);
+        }
+        
+        /**
+         * Creates an empty image canvas
+         *
+         * @param integer $width
+         * @param integer $height
+         * @param mixed $background
+         * @return \Intervention\Image\Image 
+         * @static 
+         */
+        public static function canvas($width, $height, $background = null){
+            return \Intervention\Image\ImageManager::canvas($width, $height, $background);
+        }
+        
+        /**
+         * Create new cached image and run callback
+         * (requires additional package intervention/imagecache)
+         *
+         * @param \Closure $callback
+         * @param integer $lifetime
+         * @param boolean $returnObj
+         * @return \Image 
+         * @static 
+         */
+        public static function cache($callback, $lifetime = null, $returnObj = false){
+            return \Intervention\Image\ImageManager::cache($callback, $lifetime, $returnObj);
+        }
+        
+    }
+
+
+    class Input extends \Illuminate\Support\Facades\Input{
+        
+        /**
+         * Create a new Illuminate HTTP request from server variables.
+         *
+         * @return static 
+         * @static 
+         */
+        public static function capture(){
+            return \Illuminate\Http\Request::capture();
+        }
+        
+        /**
+         * Return the Request instance.
+         *
+         * @return $this 
+         * @static 
+         */
+        public static function instance(){
+            return \Illuminate\Http\Request::instance();
+        }
+        
+        /**
+         * Get the request method.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function method(){
+            return \Illuminate\Http\Request::method();
+        }
+        
+        /**
+         * Get the root URL for the application.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function root(){
+            return \Illuminate\Http\Request::root();
+        }
+        
+        /**
+         * Get the URL (no query string) for the request.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function url(){
+            return \Illuminate\Http\Request::url();
+        }
+        
+        /**
+         * Get the full URL for the request.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function fullUrl(){
+            return \Illuminate\Http\Request::fullUrl();
+        }
+        
+        /**
+         * Get the full URL for the request with the added query string parameters.
+         *
+         * @param array $query
+         * @return string 
+         * @static 
+         */
+        public static function fullUrlWithQuery($query){
+            return \Illuminate\Http\Request::fullUrlWithQuery($query);
+        }
+        
+        /**
+         * Get the current path info for the request.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function path(){
+            return \Illuminate\Http\Request::path();
+        }
+        
+        /**
+         * Get the current encoded path info for the request.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function decodedPath(){
+            return \Illuminate\Http\Request::decodedPath();
+        }
+        
+        /**
+         * Get a segment from the URI (1 based index).
+         *
+         * @param int $index
+         * @param string|null $default
+         * @return string|null 
+         * @static 
+         */
+        public static function segment($index, $default = null){
+            return \Illuminate\Http\Request::segment($index, $default);
+        }
+        
+        /**
+         * Get all of the segments for the request path.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function segments(){
+            return \Illuminate\Http\Request::segments();
+        }
+        
+        /**
+         * Determine if the current request URI matches a pattern.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function is(){
+            return \Illuminate\Http\Request::is();
+        }
+        
+        /**
+         * Determine if the current request URL and query string matches a pattern.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function fullUrlIs(){
+            return \Illuminate\Http\Request::fullUrlIs();
+        }
+        
+        /**
+         * Determine if the request is the result of an AJAX call.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function ajax(){
+            return \Illuminate\Http\Request::ajax();
+        }
+        
+        /**
+         * Determine if the request is the result of an PJAX call.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function pjax(){
+            return \Illuminate\Http\Request::pjax();
+        }
+        
+        /**
+         * Determine if the request is over HTTPS.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function secure(){
+            return \Illuminate\Http\Request::secure();
+        }
+        
+        /**
+         * Returns the client IP address.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function ip(){
+            return \Illuminate\Http\Request::ip();
+        }
+        
+        /**
+         * Returns the client IP addresses.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function ips(){
+            return \Illuminate\Http\Request::ips();
+        }
+        
+        /**
+         * Determine if the request contains a given input item key.
+         *
+         * @param string|array $key
+         * @return bool 
+         * @static 
+         */
+        public static function exists($key){
+            return \Illuminate\Http\Request::exists($key);
+        }
+        
+        /**
+         * Determine if the request contains a non-empty value for an input item.
+         *
+         * @param string|array $key
+         * @return bool 
+         * @static 
+         */
+        public static function has($key){
+            return \Illuminate\Http\Request::has($key);
+        }
+        
+        /**
+         * Get all of the input and files for the request.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function all(){
+            return \Illuminate\Http\Request::all();
+        }
+        
+        /**
+         * Retrieve an input item from the request.
+         *
+         * @param string $key
+         * @param string|array|null $default
+         * @return string|array 
+         * @static 
+         */
+        public static function input($key = null, $default = null){
+            return \Illuminate\Http\Request::input($key, $default);
+        }
+        
+        /**
+         * Get a subset containing the provided keys with values from the input data.
+         *
+         * @param array|mixed $keys
+         * @return array 
+         * @static 
+         */
+        public static function only($keys){
+            return \Illuminate\Http\Request::only($keys);
+        }
+        
+        /**
+         * Get all of the input except for a specified array of items.
+         *
+         * @param array|mixed $keys
+         * @return array 
+         * @static 
+         */
+        public static function except($keys){
+            return \Illuminate\Http\Request::except($keys);
+        }
+        
+        /**
+         * Intersect an array of items with the input data.
+         *
+         * @param array|mixed $keys
+         * @return array 
+         * @static 
+         */
+        public static function intersect($keys){
+            return \Illuminate\Http\Request::intersect($keys);
+        }
+        
+        /**
+         * Retrieve a query string item from the request.
+         *
+         * @param string $key
+         * @param string|array|null $default
+         * @return string|array 
+         * @static 
+         */
+        public static function query($key = null, $default = null){
+            return \Illuminate\Http\Request::query($key, $default);
+        }
+        
+        /**
+         * Determine if a cookie is set on the request.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */
+        public static function hasCookie($key){
+            return \Illuminate\Http\Request::hasCookie($key);
+        }
+        
+        /**
+         * Retrieve a cookie from the request.
+         *
+         * @param string $key
+         * @param string|array|null $default
+         * @return string|array 
+         * @static 
+         */
+        public static function cookie($key = null, $default = null){
+            return \Illuminate\Http\Request::cookie($key, $default);
+        }
+        
+        /**
+         * Get an array of all of the files on the request.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function allFiles(){
+            return \Illuminate\Http\Request::allFiles();
+        }
+        
+        /**
+         * Retrieve a file from the request.
+         *
+         * @param string $key
+         * @param mixed $default
+         * @return \Illuminate\Http\UploadedFile|array|null 
+         * @static 
+         */
+        public static function file($key = null, $default = null){
+            return \Illuminate\Http\Request::file($key, $default);
+        }
+        
+        /**
+         * Determine if the uploaded data contains a file.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */
+        public static function hasFile($key){
+            return \Illuminate\Http\Request::hasFile($key);
+        }
+        
+        /**
+         * Determine if a header is set on the request.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */
+        public static function hasHeader($key){
+            return \Illuminate\Http\Request::hasHeader($key);
+        }
+        
+        /**
+         * Retrieve a header from the request.
+         *
+         * @param string $key
+         * @param string|array|null $default
+         * @return string|array 
+         * @static 
+         */
+        public static function header($key = null, $default = null){
+            return \Illuminate\Http\Request::header($key, $default);
+        }
+        
+        /**
+         * Retrieve a server variable from the request.
+         *
+         * @param string $key
+         * @param string|array|null $default
+         * @return string|array 
+         * @static 
+         */
+        public static function server($key = null, $default = null){
+            return \Illuminate\Http\Request::server($key, $default);
+        }
+        
+        /**
+         * Retrieve an old input item.
+         *
+         * @param string $key
+         * @param string|array|null $default
+         * @return string|array 
+         * @static 
+         */
+        public static function old($key = null, $default = null){
+            return \Illuminate\Http\Request::old($key, $default);
+        }
+        
+        /**
+         * Flash the input for the current request to the session.
+         *
+         * @param string $filter
+         * @param array $keys
+         * @return void 
+         * @static 
+         */
+        public static function flash($filter = null, $keys = array()){
+            \Illuminate\Http\Request::flash($filter, $keys);
+        }
+        
+        /**
+         * Flash only some of the input to the session.
+         *
+         * @param array|mixed $keys
+         * @return void 
+         * @static 
+         */
+        public static function flashOnly($keys){
+            \Illuminate\Http\Request::flashOnly($keys);
+        }
+        
+        /**
+         * Flash only some of the input to the session.
+         *
+         * @param array|mixed $keys
+         * @return void 
+         * @static 
+         */
+        public static function flashExcept($keys){
+            \Illuminate\Http\Request::flashExcept($keys);
+        }
+        
+        /**
+         * Flush all of the old input from the session.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function flush(){
+            \Illuminate\Http\Request::flush();
+        }
+        
+        /**
+         * Merge new input into the current request's input array.
+         *
+         * @param array $input
+         * @return void 
+         * @static 
+         */
+        public static function merge($input){
+            \Illuminate\Http\Request::merge($input);
+        }
+        
+        /**
+         * Replace the input for the current request.
+         *
+         * @param array $input
+         * @return void 
+         * @static 
+         */
+        public static function replace($input){
+            \Illuminate\Http\Request::replace($input);
+        }
+        
+        /**
+         * Get the JSON payload for the request.
+         *
+         * @param string $key
+         * @param mixed $default
+         * @return mixed 
+         * @static 
+         */
+        public static function json($key = null, $default = null){
+            return \Illuminate\Http\Request::json($key, $default);
+        }
+        
+        /**
+         * Determine if the given content types match.
+         *
+         * @param string $actual
+         * @param string $type
+         * @return bool 
+         * @static 
+         */
+        public static function matchesType($actual, $type){
+            return \Illuminate\Http\Request::matchesType($actual, $type);
+        }
+        
+        /**
+         * Determine if the request is sending JSON.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function isJson(){
+            return \Illuminate\Http\Request::isJson();
+        }
+        
+        /**
+         * Determine if the current request probably expects a JSON response.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function expectsJson(){
+            return \Illuminate\Http\Request::expectsJson();
+        }
+        
+        /**
+         * Determine if the current request is asking for JSON in return.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function wantsJson(){
+            return \Illuminate\Http\Request::wantsJson();
+        }
+        
+        /**
+         * Determines whether the current requests accepts a given content type.
+         *
+         * @param string|array $contentTypes
+         * @return bool 
+         * @static 
+         */
+        public static function accepts($contentTypes){
+            return \Illuminate\Http\Request::accepts($contentTypes);
+        }
+        
+        /**
+         * Return the most suitable content type from the given array based on content negotiation.
+         *
+         * @param string|array $contentTypes
+         * @return string|null 
+         * @static 
+         */
+        public static function prefers($contentTypes){
+            return \Illuminate\Http\Request::prefers($contentTypes);
+        }
+        
+        /**
+         * Determines whether a request accepts JSON.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function acceptsJson(){
+            return \Illuminate\Http\Request::acceptsJson();
+        }
+        
+        /**
+         * Determines whether a request accepts HTML.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function acceptsHtml(){
+            return \Illuminate\Http\Request::acceptsHtml();
+        }
+        
+        /**
+         * Get the data format expected in the response.
+         *
+         * @param string $default
+         * @return string 
+         * @static 
+         */
+        public static function format($default = 'html'){
+            return \Illuminate\Http\Request::format($default);
+        }
+        
+        /**
+         * Get the bearer token from the request headers.
+         *
+         * @return string|null 
+         * @static 
+         */
+        public static function bearerToken(){
+            return \Illuminate\Http\Request::bearerToken();
+        }
+        
+        /**
+         * Create an Illuminate request from a Symfony instance.
+         *
+         * @param \Symfony\Component\HttpFoundation\Request $request
+         * @return \Illuminate\Http\Request 
+         * @static 
+         */
+        public static function createFromBase($request){
+            return \Illuminate\Http\Request::createFromBase($request);
+        }
+        
+        /**
+         * Clones a request and overrides some of its parameters.
+         *
+         * @param array $query The GET parameters
+         * @param array $request The POST parameters
+         * @param array $attributes The request attributes (parameters parsed from the PATH_INFO, ...)
+         * @param array $cookies The COOKIE parameters
+         * @param array $files The FILES parameters
+         * @param array $server The SERVER parameters
+         * @return \Request The duplicated request
+         * @static 
+         */
+        public static function duplicate($query = null, $request = null, $attributes = null, $cookies = null, $files = null, $server = null){
+            return \Illuminate\Http\Request::duplicate($query, $request, $attributes, $cookies, $files, $server);
+        }
+        
+        /**
+         * Get the session associated with the request.
+         *
+         * @return \Illuminate\Session\Store 
+         * @throws \RuntimeException
+         * @static 
+         */
+        public static function session(){
+            return \Illuminate\Http\Request::session();
+        }
+        
+        /**
+         * Get the user making the request.
+         *
+         * @param string|null $guard
+         * @return mixed 
+         * @static 
+         */
+        public static function user($guard = null){
+            return \Illuminate\Http\Request::user($guard);
+        }
+        
+        /**
+         * Get the route handling the request.
+         *
+         * @param string|null $param
+         * @return \Illuminate\Routing\Route|object|string 
+         * @static 
+         */
+        public static function route($param = null){
+            return \Illuminate\Http\Request::route($param);
+        }
+        
+        /**
+         * Get a unique fingerprint for the request / route / IP address.
+         *
+         * @return string 
+         * @throws \RuntimeException
+         * @static 
+         */
+        public static function fingerprint(){
+            return \Illuminate\Http\Request::fingerprint();
+        }
+        
+        /**
+         * Get the user resolver callback.
+         *
+         * @return \Closure 
+         * @static 
+         */
+        public static function getUserResolver(){
+            return \Illuminate\Http\Request::getUserResolver();
+        }
+        
+        /**
+         * Set the user resolver callback.
+         *
+         * @param \Closure $callback
+         * @return $this 
+         * @static 
+         */
+        public static function setUserResolver($callback){
+            return \Illuminate\Http\Request::setUserResolver($callback);
+        }
+        
+        /**
+         * Get the route resolver callback.
+         *
+         * @return \Closure 
+         * @static 
+         */
+        public static function getRouteResolver(){
+            return \Illuminate\Http\Request::getRouteResolver();
+        }
+        
+        /**
+         * Set the route resolver callback.
+         *
+         * @param \Closure $callback
+         * @return $this 
+         * @static 
+         */
+        public static function setRouteResolver($callback){
+            return \Illuminate\Http\Request::setRouteResolver($callback);
+        }
+        
+        /**
+         * Get all of the input and files for the request.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function toArray(){
+            return \Illuminate\Http\Request::toArray();
+        }
+        
+        /**
+         * Determine if the given offset exists.
+         *
+         * @param string $offset
+         * @return bool 
+         * @static 
+         */
+        public static function offsetExists($offset){
+            return \Illuminate\Http\Request::offsetExists($offset);
+        }
+        
+        /**
+         * Get the value at the given offset.
+         *
+         * @param string $offset
+         * @return mixed 
+         * @static 
+         */
+        public static function offsetGet($offset){
+            return \Illuminate\Http\Request::offsetGet($offset);
+        }
+        
+        /**
+         * Set the value at the given offset.
+         *
+         * @param string $offset
+         * @param mixed $value
+         * @return void 
+         * @static 
+         */
+        public static function offsetSet($offset, $value){
+            \Illuminate\Http\Request::offsetSet($offset, $value);
+        }
+        
+        /**
+         * Remove the value at the given offset.
+         *
+         * @param string $offset
+         * @return void 
+         * @static 
+         */
+        public static function offsetUnset($offset){
+            \Illuminate\Http\Request::offsetUnset($offset);
+        }
+        
+        /**
+         * Sets the parameters for this request.
+         * 
+         * This method also re-initializes all properties.
+         *
+         * @param array $query The GET parameters
+         * @param array $request The POST parameters
+         * @param array $attributes The request attributes (parameters parsed from the PATH_INFO, ...)
+         * @param array $cookies The COOKIE parameters
+         * @param array $files The FILES parameters
+         * @param array $server The SERVER parameters
+         * @param string|resource $content The raw body data
+         * @static 
+         */
+        public static function initialize($query = array(), $request = array(), $attributes = array(), $cookies = array(), $files = array(), $server = array(), $content = null){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::initialize($query, $request, $attributes, $cookies, $files, $server, $content);
+        }
+        
+        /**
+         * Creates a new request with values from PHP's super globals.
+         *
+         * @return \Request A new request
+         * @static 
+         */
+        public static function createFromGlobals(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::createFromGlobals();
+        }
+        
+        /**
+         * Creates a Request based on a given URI and configuration.
+         * 
+         * The information contained in the URI always take precedence
+         * over the other information (server and parameters).
+         *
+         * @param string $uri The URI
+         * @param string $method The HTTP method
+         * @param array $parameters The query (GET) or request (POST) parameters
+         * @param array $cookies The request cookies ($_COOKIE)
+         * @param array $files The request files ($_FILES)
+         * @param array $server The server parameters ($_SERVER)
+         * @param string $content The raw body data
+         * @return \Request A Request instance
+         * @static 
+         */
+        public static function create($uri, $method = 'GET', $parameters = array(), $cookies = array(), $files = array(), $server = array(), $content = null){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::create($uri, $method, $parameters, $cookies, $files, $server, $content);
+        }
+        
+        /**
+         * Sets a callable able to create a Request instance.
+         * 
+         * This is mainly useful when you need to override the Request class
+         * to keep BC with an existing system. It should not be used for any
+         * other purpose.
+         *
+         * @param callable|null $callable A PHP callable
+         * @static 
+         */
+        public static function setFactory($callable){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::setFactory($callable);
+        }
+        
+        /**
+         * Overrides the PHP global variables according to this request instance.
+         * 
+         * It overrides $_GET, $_POST, $_REQUEST, $_SERVER, $_COOKIE.
+         * $_FILES is never overridden, see rfc1867
+         *
+         * @static 
+         */
+        public static function overrideGlobals(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::overrideGlobals();
+        }
+        
+        /**
+         * Sets a list of trusted proxies.
+         * 
+         * You should only list the reverse proxies that you manage directly.
+         *
+         * @param array $proxies A list of trusted proxies
+         * @static 
+         */
+        public static function setTrustedProxies($proxies){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::setTrustedProxies($proxies);
+        }
+        
+        /**
+         * Gets the list of trusted proxies.
+         *
+         * @return array An array of trusted proxies
+         * @static 
+         */
+        public static function getTrustedProxies(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getTrustedProxies();
+        }
+        
+        /**
+         * Sets a list of trusted host patterns.
+         * 
+         * You should only list the hosts you manage using regexs.
+         *
+         * @param array $hostPatterns A list of trusted host patterns
+         * @static 
+         */
+        public static function setTrustedHosts($hostPatterns){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::setTrustedHosts($hostPatterns);
+        }
+        
+        /**
+         * Gets the list of trusted host patterns.
+         *
+         * @return array An array of trusted host patterns
+         * @static 
+         */
+        public static function getTrustedHosts(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getTrustedHosts();
+        }
+        
+        /**
+         * Sets the name for trusted headers.
+         * 
+         * The following header keys are supported:
+         * 
+         *  * Request::HEADER_CLIENT_IP:    defaults to X-Forwarded-For   (see getClientIp())
+         *  * Request::HEADER_CLIENT_HOST:  defaults to X-Forwarded-Host  (see getHost())
+         *  * Request::HEADER_CLIENT_PORT:  defaults to X-Forwarded-Port  (see getPort())
+         *  * Request::HEADER_CLIENT_PROTO: defaults to X-Forwarded-Proto (see getScheme() and isSecure())
+         * 
+         * Setting an empty value allows to disable the trusted header for the given key.
+         *
+         * @param string $key The header key
+         * @param string $value The header name
+         * @throws \InvalidArgumentException
+         * @static 
+         */
+        public static function setTrustedHeaderName($key, $value){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::setTrustedHeaderName($key, $value);
+        }
+        
+        /**
+         * Gets the trusted proxy header name.
+         *
+         * @param string $key The header key
+         * @return string The header name
+         * @throws \InvalidArgumentException
+         * @static 
+         */
+        public static function getTrustedHeaderName($key){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getTrustedHeaderName($key);
+        }
+        
+        /**
+         * Normalizes a query string.
+         * 
+         * It builds a normalized query string, where keys/value pairs are alphabetized,
+         * have consistent escaping and unneeded delimiters are removed.
+         *
+         * @param string $qs Query string
+         * @return string A normalized query string for the Request
+         * @static 
+         */
+        public static function normalizeQueryString($qs){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::normalizeQueryString($qs);
+        }
+        
+        /**
+         * Enables support for the _method request parameter to determine the intended HTTP method.
+         * 
+         * Be warned that enabling this feature might lead to CSRF issues in your code.
+         * Check that you are using CSRF tokens when required.
+         * If the HTTP method parameter override is enabled, an html-form with method "POST" can be altered
+         * and used to send a "PUT" or "DELETE" request via the _method request parameter.
+         * If these methods are not protected against CSRF, this presents a possible vulnerability.
+         * 
+         * The HTTP method can only be overridden when the real HTTP method is POST.
+         *
+         * @static 
+         */
+        public static function enableHttpMethodParameterOverride(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::enableHttpMethodParameterOverride();
+        }
+        
+        /**
+         * Checks whether support for the _method request parameter is enabled.
+         *
+         * @return bool True when the _method request parameter is enabled, false otherwise
+         * @static 
+         */
+        public static function getHttpMethodParameterOverride(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getHttpMethodParameterOverride();
+        }
+        
+        /**
+         * Gets a "parameter" value from any bag.
+         * 
+         * This method is mainly useful for libraries that want to provide some flexibility. If you don't need the
+         * flexibility in controllers, it is better to explicitly get request parameters from the appropriate
+         * public property instead (attributes, query, request).
+         * 
+         * Order of precedence: PATH (routing placeholders or custom attributes), GET, BODY
+         *
+         * @param string $key the key
+         * @param mixed $default the default value if the parameter key does not exist
+         * @return mixed 
+         * @static 
+         */
+        public static function get($key, $default = null){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::get($key, $default);
+        }
+        
+        /**
+         * Gets the Session.
+         *
+         * @return \Symfony\Component\HttpFoundation\SessionInterface|null The session
+         * @static 
+         */
+        public static function getSession(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getSession();
+        }
+        
+        /**
+         * Whether the request contains a Session which was started in one of the
+         * previous requests.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function hasPreviousSession(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::hasPreviousSession();
+        }
+        
+        /**
+         * Whether the request contains a Session object.
+         * 
+         * This method does not give any information about the state of the session object,
+         * like whether the session is started or not. It is just a way to check if this Request
+         * is associated with a Session instance.
+         *
+         * @return bool true when the Request contains a Session object, false otherwise
+         * @static 
+         */
+        public static function hasSession(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::hasSession();
+        }
+        
+        /**
+         * Sets the Session.
+         *
+         * @param \Symfony\Component\HttpFoundation\SessionInterface $session The Session
+         * @static 
+         */
+        public static function setSession($session){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::setSession($session);
+        }
+        
+        /**
+         * Returns the client IP addresses.
+         * 
+         * In the returned array the most trusted IP address is first, and the
+         * least trusted one last. The "real" client IP address is the last one,
+         * but this is also the least trusted one. Trusted proxies are stripped.
+         * 
+         * Use this method carefully; you should use getClientIp() instead.
+         *
+         * @return array The client IP addresses
+         * @see getClientIp()
+         * @static 
+         */
+        public static function getClientIps(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getClientIps();
+        }
+        
+        /**
+         * Returns the client IP address.
+         * 
+         * This method can read the client IP address from the "X-Forwarded-For" header
+         * when trusted proxies were set via "setTrustedProxies()". The "X-Forwarded-For"
+         * header value is a comma+space separated list of IP addresses, the left-most
+         * being the original client, and each successive proxy that passed the request
+         * adding the IP address where it received the request from.
+         * 
+         * If your reverse proxy uses a different header name than "X-Forwarded-For",
+         * ("Client-Ip" for instance), configure it via "setTrustedHeaderName()" with
+         * the "client-ip" key.
+         *
+         * @return string The client IP address
+         * @see getClientIps()
+         * @see http://en.wikipedia.org/wiki/X-Forwarded-For
+         * @static 
+         */
+        public static function getClientIp(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getClientIp();
+        }
+        
+        /**
+         * Returns current script name.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getScriptName(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getScriptName();
+        }
+        
+        /**
+         * Returns the path being requested relative to the executed script.
+         * 
+         * The path info always starts with a /.
+         * 
+         * Suppose this request is instantiated from /mysite on localhost:
+         * 
+         *  * http://localhost/mysite              returns an empty string
+         *  * http://localhost/mysite/about        returns '/about'
+         *  * http://localhost/mysite/enco%20ded   returns '/enco%20ded'
+         *  * http://localhost/mysite/about?var=1  returns '/about'
+         *
+         * @return string The raw path (i.e. not urldecoded)
+         * @static 
+         */
+        public static function getPathInfo(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getPathInfo();
+        }
+        
+        /**
+         * Returns the root path from which this request is executed.
+         * 
+         * Suppose that an index.php file instantiates this request object:
+         * 
+         *  * http://localhost/index.php         returns an empty string
+         *  * http://localhost/index.php/page    returns an empty string
+         *  * http://localhost/web/index.php     returns '/web'
+         *  * http://localhost/we%20b/index.php  returns '/we%20b'
+         *
+         * @return string The raw path (i.e. not urldecoded)
+         * @static 
+         */
+        public static function getBasePath(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getBasePath();
+        }
+        
+        /**
+         * Returns the root URL from which this request is executed.
+         * 
+         * The base URL never ends with a /.
+         * 
+         * This is similar to getBasePath(), except that it also includes the
+         * script filename (e.g. index.php) if one exists.
+         *
+         * @return string The raw URL (i.e. not urldecoded)
+         * @static 
+         */
+        public static function getBaseUrl(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getBaseUrl();
+        }
+        
+        /**
+         * Gets the request's scheme.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getScheme(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getScheme();
+        }
+        
+        /**
+         * Returns the port on which the request is made.
+         * 
+         * This method can read the client port from the "X-Forwarded-Port" header
+         * when trusted proxies were set via "setTrustedProxies()".
+         * 
+         * The "X-Forwarded-Port" header must contain the client port.
+         * 
+         * If your reverse proxy uses a different header name than "X-Forwarded-Port",
+         * configure it via "setTrustedHeaderName()" with the "client-port" key.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getPort(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getPort();
+        }
+        
+        /**
+         * Returns the user.
+         *
+         * @return string|null 
+         * @static 
+         */
+        public static function getUser(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getUser();
+        }
+        
+        /**
+         * Returns the password.
+         *
+         * @return string|null 
+         * @static 
+         */
+        public static function getPassword(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getPassword();
+        }
+        
+        /**
+         * Gets the user info.
+         *
+         * @return string A user name and, optionally, scheme-specific information about how to gain authorization to access the server
+         * @static 
+         */
+        public static function getUserInfo(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getUserInfo();
+        }
+        
+        /**
+         * Returns the HTTP host being requested.
+         * 
+         * The port name will be appended to the host if it's non-standard.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getHttpHost(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getHttpHost();
+        }
+        
+        /**
+         * Returns the requested URI (path and query string).
+         *
+         * @return string The raw URI (i.e. not URI decoded)
+         * @static 
+         */
+        public static function getRequestUri(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getRequestUri();
+        }
+        
+        /**
+         * Gets the scheme and HTTP host.
+         * 
+         * If the URL was called with basic authentication, the user
+         * and the password are not added to the generated string.
+         *
+         * @return string The scheme and HTTP host
+         * @static 
+         */
+        public static function getSchemeAndHttpHost(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getSchemeAndHttpHost();
+        }
+        
+        /**
+         * Generates a normalized URI (URL) for the Request.
+         *
+         * @return string A normalized URI (URL) for the Request
+         * @see getQueryString()
+         * @static 
+         */
+        public static function getUri(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getUri();
+        }
+        
+        /**
+         * Generates a normalized URI for the given path.
+         *
+         * @param string $path A path to use instead of the current one
+         * @return string The normalized URI for the path
+         * @static 
+         */
+        public static function getUriForPath($path){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getUriForPath($path);
+        }
+        
+        /**
+         * Returns the path as relative reference from the current Request path.
+         * 
+         * Only the URIs path component (no schema, host etc.) is relevant and must be given.
+         * Both paths must be absolute and not contain relative parts.
+         * Relative URLs from one resource to another are useful when generating self-contained downloadable document archives.
+         * Furthermore, they can be used to reduce the link size in documents.
+         * 
+         * Example target paths, given a base path of "/a/b/c/d":
+         * - "/a/b/c/d"     -> ""
+         * - "/a/b/c/"      -> "./"
+         * - "/a/b/"        -> "../"
+         * - "/a/b/c/other" -> "other"
+         * - "/a/x/y"       -> "../../x/y"
+         *
+         * @param string $path The target path
+         * @return string The relative target path
+         * @static 
+         */
+        public static function getRelativeUriForPath($path){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getRelativeUriForPath($path);
+        }
+        
+        /**
+         * Generates the normalized query string for the Request.
+         * 
+         * It builds a normalized query string, where keys/value pairs are alphabetized
+         * and have consistent escaping.
+         *
+         * @return string|null A normalized query string for the Request
+         * @static 
+         */
+        public static function getQueryString(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getQueryString();
+        }
+        
+        /**
+         * Checks whether the request is secure or not.
+         * 
+         * This method can read the client protocol from the "X-Forwarded-Proto" header
+         * when trusted proxies were set via "setTrustedProxies()".
+         * 
+         * The "X-Forwarded-Proto" header must contain the protocol: "https" or "http".
+         * 
+         * If your reverse proxy uses a different header name than "X-Forwarded-Proto"
+         * ("SSL_HTTPS" for instance), configure it via "setTrustedHeaderName()" with
+         * the "client-proto" key.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function isSecure(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::isSecure();
+        }
+        
+        /**
+         * Returns the host name.
+         * 
+         * This method can read the client host name from the "X-Forwarded-Host" header
+         * when trusted proxies were set via "setTrustedProxies()".
+         * 
+         * The "X-Forwarded-Host" header must contain the client host name.
+         * 
+         * If your reverse proxy uses a different header name than "X-Forwarded-Host",
+         * configure it via "setTrustedHeaderName()" with the "client-host" key.
+         *
+         * @return string 
+         * @throws \UnexpectedValueException when the host name is invalid
+         * @static 
+         */
+        public static function getHost(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getHost();
+        }
+        
+        /**
+         * Sets the request method.
+         *
+         * @param string $method
+         * @static 
+         */
+        public static function setMethod($method){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::setMethod($method);
+        }
+        
+        /**
+         * Gets the request "intended" method.
+         * 
+         * If the X-HTTP-Method-Override header is set, and if the method is a POST,
+         * then it is used to determine the "real" intended HTTP method.
+         * 
+         * The _method request parameter can also be used to determine the HTTP method,
+         * but only if enableHttpMethodParameterOverride() has been called.
+         * 
+         * The method is always an uppercased string.
+         *
+         * @return string The request method
+         * @see getRealMethod()
+         * @static 
+         */
+        public static function getMethod(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getMethod();
+        }
+        
+        /**
+         * Gets the "real" request method.
+         *
+         * @return string The request method
+         * @see getMethod()
+         * @static 
+         */
+        public static function getRealMethod(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getRealMethod();
+        }
+        
+        /**
+         * Gets the mime type associated with the format.
+         *
+         * @param string $format The format
+         * @return string The associated mime type (null if not found)
+         * @static 
+         */
+        public static function getMimeType($format){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getMimeType($format);
+        }
+        
+        /**
+         * Gets the mime types associated with the format.
+         *
+         * @param string $format The format
+         * @return array The associated mime types
+         * @static 
+         */
+        public static function getMimeTypes($format){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getMimeTypes($format);
+        }
+        
+        /**
+         * Gets the format associated with the mime type.
+         *
+         * @param string $mimeType The associated mime type
+         * @return string|null The format (null if not found)
+         * @static 
+         */
+        public static function getFormat($mimeType){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getFormat($mimeType);
+        }
+        
+        /**
+         * Associates a format with mime types.
+         *
+         * @param string $format The format
+         * @param string|array $mimeTypes The associated mime types (the preferred one must be the first as it will be used as the content type)
+         * @static 
+         */
+        public static function setFormat($format, $mimeTypes){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::setFormat($format, $mimeTypes);
+        }
+        
+        /**
+         * Gets the request format.
+         * 
+         * Here is the process to determine the format:
+         * 
+         *  * format defined by the user (with setRequestFormat())
+         *  * _format request attribute
+         *  * $default
+         *
+         * @param string $default The default format
+         * @return string The request format
+         * @static 
+         */
+        public static function getRequestFormat($default = 'html'){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getRequestFormat($default);
+        }
+        
+        /**
+         * Sets the request format.
+         *
+         * @param string $format The request format
+         * @static 
+         */
+        public static function setRequestFormat($format){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::setRequestFormat($format);
+        }
+        
+        /**
+         * Gets the format associated with the request.
+         *
+         * @return string|null The format (null if no content type is present)
+         * @static 
+         */
+        public static function getContentType(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getContentType();
+        }
+        
+        /**
+         * Sets the default locale.
+         *
+         * @param string $locale
+         * @static 
+         */
+        public static function setDefaultLocale($locale){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::setDefaultLocale($locale);
+        }
+        
+        /**
+         * Get the default locale.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getDefaultLocale(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getDefaultLocale();
+        }
+        
+        /**
+         * Sets the locale.
+         *
+         * @param string $locale
+         * @static 
+         */
+        public static function setLocale($locale){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::setLocale($locale);
+        }
+        
+        /**
+         * Get the locale.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getLocale(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getLocale();
+        }
+        
+        /**
+         * Checks if the request method is of specified type.
+         *
+         * @param string $method Uppercase request method (GET, POST etc)
+         * @return bool 
+         * @static 
+         */
+        public static function isMethod($method){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::isMethod($method);
+        }
+        
+        /**
+         * Checks whether the method is safe or not.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function isMethodSafe(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::isMethodSafe();
+        }
+        
+        /**
+         * Returns the request body content.
+         *
+         * @param bool $asResource If true, a resource will be returned
+         * @return string|resource The request body content or a resource to read the body stream
+         * @throws \LogicException
+         * @static 
+         */
+        public static function getContent($asResource = false){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getContent($asResource);
+        }
+        
+        /**
+         * Gets the Etags.
+         *
+         * @return array The entity tags
+         * @static 
+         */
+        public static function getETags(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getETags();
+        }
+        
+        /**
+         * 
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function isNoCache(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::isNoCache();
+        }
+        
+        /**
+         * Returns the preferred language.
+         *
+         * @param array $locales An array of ordered available locales
+         * @return string|null The preferred locale
+         * @static 
+         */
+        public static function getPreferredLanguage($locales = null){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getPreferredLanguage($locales);
+        }
+        
+        /**
+         * Gets a list of languages acceptable by the client browser.
+         *
+         * @return array Languages ordered in the user browser preferences
+         * @static 
+         */
+        public static function getLanguages(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getLanguages();
+        }
+        
+        /**
+         * Gets a list of charsets acceptable by the client browser.
+         *
+         * @return array List of charsets in preferable order
+         * @static 
+         */
+        public static function getCharsets(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getCharsets();
+        }
+        
+        /**
+         * Gets a list of encodings acceptable by the client browser.
+         *
+         * @return array List of encodings in preferable order
+         * @static 
+         */
+        public static function getEncodings(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getEncodings();
+        }
+        
+        /**
+         * Gets a list of content types acceptable by the client browser.
+         *
+         * @return array List of content types in preferable order
+         * @static 
+         */
+        public static function getAcceptableContentTypes(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getAcceptableContentTypes();
+        }
+        
+        /**
+         * Returns true if the request is a XMLHttpRequest.
+         * 
+         * It works if your JavaScript library sets an X-Requested-With HTTP header.
+         * It is known to work with common JavaScript frameworks:
+         *
+         * @link http://en.wikipedia.org/wiki/List_of_Ajax_frameworks#JavaScript
+         * @return bool true if the request is an XMLHttpRequest, false otherwise
+         * @static 
+         */
+        public static function isXmlHttpRequest(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::isXmlHttpRequest();
+        }
+        
+        /**
+         * Indicates whether this request originated from a trusted proxy.
+         * 
+         * This can be useful to determine whether or not to trust the
+         * contents of a proxy-specific header.
+         *
+         * @return bool true if the request came from a trusted proxy, false otherwise
+         * @static 
+         */
+        public static function isFromTrustedProxy(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::isFromTrustedProxy();
+        }
+        
+        /**
+         * Register a custom macro.
+         *
+         * @param string $name
+         * @param callable $macro
+         * @return void 
+         * @static 
+         */
+        public static function macro($name, $macro){
+            \Illuminate\Http\Request::macro($name, $macro);
+        }
+        
+        /**
+         * Checks if macro is registered.
+         *
+         * @param string $name
+         * @return bool 
+         * @static 
+         */
+        public static function hasMacro($name){
+            return \Illuminate\Http\Request::hasMacro($name);
         }
         
     }

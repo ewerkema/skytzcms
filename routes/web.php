@@ -30,6 +30,8 @@ Route::group(['prefix' => 'cms'], function() {
     Route::resource('users', 'UserController');
     Route::patch('settings', 'SettingController@update');
     Route::resource('media', 'MediaController');
+    Route::delete('media', 'MediaController@destroyMany');
+    Route::post('media/{medium}/header', 'MediaController@createHeader');
     Route::resource('articleGroups', 'ArticleGroupController');
     Route::resource('articles', 'ArticleController');
     Route::resource('albums', 'AlbumController');
@@ -41,7 +43,9 @@ Route::group(['prefix' => 'cms'], function() {
     Route::resource('formFields', 'FormFieldController');
     Route::resource('modules', 'ModuleController');
     Route::resource('htmlBlocks', 'HtmlBlockController');
-
+    Route::resource('projects', 'ProjectController');
+    Route::resource('projectGroups', 'ProjectGroupController');
+//
     Route::get('/{slug}', array('as' => 'page.show', 'uses' => 'TemplateController@show'));
     Route::get('/{slug}/{childSlug}', array('as' => 'page.show', 'uses' => 'TemplateController@show'));
 });

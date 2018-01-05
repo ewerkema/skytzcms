@@ -44,10 +44,10 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="parent_id" class="col-md-3 control-label">Weergeven in submenu van</label>
+                <label for="parent_id2" class="col-md-3 control-label">Weergeven in submenu van</label>
 
                 <div class="col-md-8">
-                    <select class="form-control" id="parent_id" name="parent_id">
+                    <select class="form-control" id="parent_id2" name="parent_id">
                         <option value="" {{ (!$currentPage->parent_id) ? "selected" : "" }}>Geen submenu</option>
                         @foreach (Page::getMenuWithoutSubpages() as $page)
                             <option value="{{ $page->id }}" {{ ($page->id == $currentPage->parent_id) ? "selected" : "" }}>
@@ -88,8 +88,8 @@
                 <div class="col-md-8">
                     <div class="input-group input-pointer">
                         <input type="hidden" name="header_image_id" value="{{ $currentPage->header_image_id }}" class="form-control selected_media_id" />
-                        <span class="input-group-addon" id="media-picture" onclick="selectMedia()"><span class="glyphicon glyphicon-picture"></span></span>
-                        <input type="text" name="header_image_name" onclick="selectMedia()" value="{{ ($currentPage->header_image_id) ? Media::find($currentPage->header_image_id)->name : "" }}" class="form-control selected_media_name no-border-radius" placeholder="Pagina header" autofocus />
+                        <span class="input-group-addon" id="media-picture" onclick="selectMediaWithEdit()"><span class="glyphicon glyphicon-picture"></span></span>
+                        <input type="text" name="header_image_name" onclick="selectMediaWithEdit()" value="{{ ($currentPage->header_image_id) ? Media::find($currentPage->header_image_id)->name : "" }}" class="form-control selected_media_name no-border-radius" placeholder="Pagina header" autofocus />
                         <div class="input-group-btn">
                             <button class="btn btn-default removeMedia" type="button"><span class="glyphicon glyphicon-remove"></span></button>
                         </div>
@@ -109,6 +109,11 @@
 
 @section('javascript')
     <script type="text/javascript">
+        function selectMediaWithEdit() {
+            $('#selectMediaWithEditModal').modal('toggle');
+        }
+
+
         var request = new Request('{{ cms_url('pages/'.$currentPage->id) }}');
         request.setType('PATCH');
         request.setForm('#pageForm');

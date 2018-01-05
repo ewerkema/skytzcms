@@ -29,6 +29,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application SSL
+    |--------------------------------------------------------------------------
+    |
+    | This value determines whether the website should be forced
+    | into an https protocol using the middleware provided.
+    |
+    */
+
+    'ssl' => env('APP_SSL', 'false'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Debug Mode
     |--------------------------------------------------------------------------
     |
@@ -180,8 +192,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Former\FormerServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class
-
+        Intervention\Image\ImageServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
 
     ],
 
@@ -228,6 +240,8 @@ return [
         'Notification' => Illuminate\Support\Facades\Notification::class,
         'Page' => App\Facades\Page::class,
         'Password' => Illuminate\Support\Facades\Password::class,
+        'Project' => App\Facades\Project::class,
+        'ProjectGroup' => App\Facades\ProjectGroup::class,
         'Queue' => Illuminate\Support\Facades\Queue::class,
         'Redirect' => Illuminate\Support\Facades\Redirect::class,
         'Redis' => Illuminate\Support\Facades\Redis::class,
@@ -244,7 +258,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Former'    => Former\Facades\Former::class,
         'Image'     => Intervention\Image\Facades\Image::class,
-        'Input' => Illuminate\Support\Facades\Input::class,
+        'Input' => Illuminate\Support\Facades\Input::class
+
     ],
 
 ];

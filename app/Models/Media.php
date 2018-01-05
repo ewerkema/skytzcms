@@ -164,7 +164,6 @@ class Media extends Model
      */
     public function setNameAttribute($file)
     {
-
         $source_path = upload_tmp_path($file);
         $target_path = upload_path($file,'','original');
 
@@ -196,6 +195,7 @@ class Media extends Model
             }
         }
 
+        $target_file = str_replace("images/", "", $file);
         $this->attributes['name'] = $target_file;
 
         if (File::extension($file)!='docx' && File::extension($file)!='pdf' && File::extension($file)!='doc') {

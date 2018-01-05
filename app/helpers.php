@@ -36,10 +36,14 @@ use Illuminate\Support\Facades\Route;
     }
 
     function is_cms() {
-        return strpos(Route::getCurrentRoute()->getPath(), "cms") !== false;
+        if (!($route = Route::getCurrentRoute()))
+            return false;
+
+        return strpos($route->getPath(), "cms") !== false;
     }
 
     function upload_tmp_path($file) {
+        $file = str_replace("images/", "", $file);
         return public_path("tmp/$file");
     }
 
@@ -61,7 +65,8 @@ use Illuminate\Support\Facades\Route;
             umask(0);
             @mkdir(public_path().$folder, 0777, true);
         }
-        $target_path = ($use_aws? "" : public_path()). "$folder/$file";
+
+        $target_path = ($use_aws? "" : public_path()). "$folder/".str_replace("images/", "", $file);
 
         return $target_path;
     }
@@ -89,6 +94,7 @@ use Illuminate\Support\Facades\Route;
         $use_aws = Config::get('aws.use',false);
         $source = upload_tmp_path($file);
         $target = upload_path($target_file, $model, $variation);
+
         if ($use_aws) {
             AWS::get('s3')->putObject(array(
                 'Bucket'     => Config::get('aws.bucket'),

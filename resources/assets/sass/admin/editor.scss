@@ -3,6 +3,10 @@
   display: none;
 }
 
+.jcrop-keymgr {
+  opacity: 0;
+}
+
 .grid-stack>.grid-stack-item>.grid-stack-item-content {
 
 }
@@ -143,4 +147,8 @@ form {
 
 [data-editable] .text-right {
   text-align: right;
+}
+
+.input-image {
+  margin-bottom: 5px;
 }

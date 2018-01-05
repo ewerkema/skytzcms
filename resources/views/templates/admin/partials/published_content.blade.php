@@ -1,5 +1,7 @@
 @if (isset($article) && $article)
     @include('templates.admin.modules.single_article')
+@elseif (isset($project) && $project)
+    @include('templates.admin.modules.single_project')
 @else
 
     <div class="page-content" data-page="{{ $currentPage->id }}">

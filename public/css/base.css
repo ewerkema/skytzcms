@@ -88,3 +88,44 @@ img.align-left {
 .modal-body {
     overflow-y: auto;
 }
+
+.portlet .project-images {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.portlet .project-image {
+    flex-grow: 1;
+    margin-right: 15px;
+    width: calc(100% * (1/4) - 15px);
+}
+
+.grecaptcha-badge {
+    display: none;
+}
+
+.g-recaptcha {
+    transform: scale(0.7);
+    -webkit-transform: scale(0.7);
+    transform-origin: right top;
+    -webkit-transform-origin: right top;
+}
+
+.form-flex button {
+    margin-left: 15px;
+}
+
+.form-flex {
+    display: flex;
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+}
+
+.flex-end {
+    align-items: center;
+    -webkit-align-items: center;
+    justify-content: flex-end;
+    -webkit-justify-content: flex-end;
+}
