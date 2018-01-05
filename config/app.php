@@ -193,7 +193,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Former\FormerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
+//        Barryvdh\Debugbar\ServiceProvider::class,
 
     ],
 
