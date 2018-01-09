@@ -67,7 +67,7 @@
                 <div class="form-group">
                     <div class="form-flex flex-end">
                         @if ($form->recaptcha)
-                            <div class="g-recaptcha" data-sitekey="6LfBsz0UAAAAAA4Qv5qShZkelXYqZAAJjFVopNpZ"></div>
+                            <div class="g-recaptcha" data-sitekey="{{ config('skytz.recaptcha_public') }}"></div>
                         @endif
                         <button form="form{{ $id }}" name="submitform" type="submit">Verzenden</button>
                     </div>

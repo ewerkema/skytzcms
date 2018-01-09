@@ -90,4 +90,26 @@ return [
     */
 
     'header_height' => env('SKYTZ_HEADER_HEIGHT', 300),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Header height
+    |--------------------------------------------------------------------------
+    |
+    | The default height of the header, which is used in the crop editor
+    | for header images.
+    */
+
+    'recaptcha_public' => env('SKYTZ_RECAPTCHA_PUBLIC', '6Lew7z8UAAAAAE18uywDrkVONSerfh6O1uG6A29e'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Header height
+    |--------------------------------------------------------------------------
+    |
+    | The default height of the header, which is used in the crop editor
+    | for header images.
+    */
+
+    'recaptcha_private' => env('SKYTZ_RECAPTCHA_PRIVATE', '6Lew7z8UAAAAALnFNRroGZJbqVAXMoXzHknEWliN'),
 ];
