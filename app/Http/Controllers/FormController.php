@@ -157,7 +157,7 @@ class FormController extends Controller
 
         $url = 'https://www.google.com/recaptcha/api/siteverify';
         $fields = array(
-            'secret' => urlencode('6LfBsz0UAAAAAAwcj5gkB_9moouSt2AjWVGzrCMY '),
+            'secret' => urlencode(config('skytz.recaptcha_private')),
             'response' => urlencode($response),
             'remoteip' => urlencode($_SERVER['REMOTE_ADDR'])
         );
