@@ -6,7 +6,7 @@
 <script type="text/javascript">
     var CaptchaCallback = function() {
         $('.g-recaptcha').each(function(index, el) {
-            grecaptcha.render(el, {'sitekey' : '6LfBsz0UAAAAAA4Qv5qShZkelXYqZAAJjFVopNpZ'});
+            grecaptcha.render(el, {'sitekey' : '{{ config('skytz.recaptcha_public') }}'});
         });
     };
 </script>
