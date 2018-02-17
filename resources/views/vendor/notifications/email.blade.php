@@ -70,7 +70,7 @@ $style = [
                 <!-- Logo -->
                 <tr>
                     <td style="{{ $style['email-masthead'] }}">
-                        <img src="{{ public_path("images/skytz_logo.png") }}" alt="Skytz">
+                        <img src="{{ asset("favicon.png") }}" style="vertical-align: middle; height: 20px;" alt="Skytz">
                         <a style="{{ $fontFamily }} {{ $style['email-masthead_name'] }}" href="{{ url('/') }}" target="_blank">
                             {{ config('app.name') }}
                         </a>
