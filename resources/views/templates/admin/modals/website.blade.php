@@ -82,8 +82,8 @@
                     <div class="col-md-8">
                         <div class="input-group input-pointer">
                             <input type="hidden" name="header_image" value="{{ $settings['header_image']->value }}" class="form-control selected_media_id" />
-                            <span class="input-group-addon" id="media-picture" onclick="selectMedia()"><span class="glyphicon glyphicon-picture"></span></span>
-                            <input type="text" name="header_image_name" onclick="selectMedia()" value="{{ ($settings['header_image']->value) ? Media::findOrFail($settings['header_image']->value)->name : "" }}" class="form-control selected_media_name" placeholder="Header afbeelding" autofocus />
+                            <span class="input-group-addon" id="media-picture" onclick="selectMediaWithEdit()"><span class="glyphicon glyphicon-picture"></span></span>
+                            <input type="text" name="header_image_name" onclick="selectMediaWithEdit()" value="{{ ($settings['header_image']->value) ? Media::findOrFail($settings['header_image']->value)->name : "" }}" class="form-control selected_media_name" placeholder="Header afbeelding" autofocus />
                             <div class="input-group-btn">
                                 <button class="btn btn-default removeMedia" type="button"><span class="glyphicon glyphicon-remove"></span></button>
                             </div>
