@@ -112,6 +112,9 @@
                                 @endforeach
                             </ul>
                         </li>
+                        @if (Auth::user()->isAn('admin'))
+                            <li><a href="#" data-toggle="modal" data-target="#usersModal"><span class="glyphicon glyphicon-user"></span> Gebruikersbeheer</a></li>
+                        @endif
                     @endif
                 </ul>
             </div>
