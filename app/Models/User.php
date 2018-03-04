@@ -6,10 +6,16 @@ use App\Notifications\ResetPasswordNotification;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Silber\Bouncer\Database\HasRolesAndAbilities;
 
 class User extends Authenticatable
 {
-    use Notifiable, SoftDeletes;
+    use Notifiable, SoftDeletes, HasRolesAndAbilities;
+
+    const ROLES = [
+        'admin' => 'Admin',
+        'user' => 'Gebruiker',
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -30,6 +36,60 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Boot function for using with User Events
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function (User $user) {
+            $user->assign('user');
+        });
+    }
+
+    /**
+     * Return the role of the user.
+     *
+     * @return string
+     */
+    public function getRoleAttribute()
+    {
+        foreach (User::ROLES as $role => $name) {
+            if ($this->isA($role))
+                return $name;
+        }
+
+        return "Onbekende rol";
+    }
+
+    /**
+     * Return the role type of the user.
+     *
+     * @return string
+     */
+    public function getRoleTypeAttribute()
+    {
+        foreach (User::ROLES as $role => $name) {
+            if ($this->isA($role))
+                return $role;
+        }
+
+        return "user";
+    }
+
+    /**
+     * Retract all possible roles from the user.
+     */
+    public function retractAllRoles()
+    {
+        foreach (User::ROLES as $role => $name) {
+            $this->retract($role);
+        }
+    }
 
     /**
      * Send the password reset notification.

@@ -63,7 +63,7 @@ class CreateUsersTable extends Migration
             'username' => 'ewerkema',
             'password' => 'codecentral',
         ];
-        $this->generateUser($admin);
+        $this->generateAdmin($admin);
 
         $martin = [
             'firstname' => 'Martin',
@@ -72,7 +72,7 @@ class CreateUsersTable extends Migration
             'username' => 'skytz',
             'password' => 'skytz9672',
         ];
-        $this->generateUser($martin);
+        $this->generateAdmin($martin);
     }
 
     /**
@@ -80,10 +80,10 @@ class CreateUsersTable extends Migration
      *
      * @param $user
      */
-    private function generateUser($user)
+    private function generateAdmin($user)
     {
         if (!User::where('email', $user['email'])->count())
-            User::create($user);
+            User::create($user)->assign('admin');
     }
 
 
