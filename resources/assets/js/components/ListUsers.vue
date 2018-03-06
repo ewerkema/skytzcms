@@ -14,7 +14,7 @@
                         <td>{{ i+1 }}</td>
                         <td>{{ user.firstname }} {{ user.lastname }}</td>
                         <td>{{ user.email }}</td>
-                        <td>Gebruiker</td>
+                        <td>{{ user.role }}</td>
                         <td>
                             <a href="#" v-on:click="editUser(user)">
                                 <span class="glyphicon glyphicon-pencil"></span>
@@ -75,7 +75,7 @@
 
                     <div class="col-md-8">
                         <select class="form-control" id="role" name="role">
-                            <option v-for="(role, name) in roles" :value="role" :selected="selectedUser.role == role">
+                            <option v-for="(role, name) in roles" :value="role" :selected="selectedUser.role === name">
                                 {{ name }}
                             </option>
                         </select>
@@ -166,7 +166,7 @@
                 request.setForm('#userForm');
                 request.setType('POST');
 
-                request.addFields(['firstname', 'lastname', 'email', 'password', 'password_confirmation']);
+                request.addFields(['firstname', 'lastname', 'email', 'password', 'password_confirmation', 'role']);
                 request.addCheckboxes(['published']);
 
                 if (this.selectedUser.id != undefined) {
@@ -197,7 +197,7 @@
             },
 
             createUser: function () {
-                this.selectedUser = ['firstname', 'lastname', 'email', 'password', 'password_confirmation'];
+                this.selectedUser = ['firstname', 'lastname', 'email', 'password', 'password_confirmation', 'role'];
             },
 
             editUser: function (user) {

@@ -54,7 +54,7 @@ class UserController extends Controller
         $input = $request->all();
         $this->validator($input)->validate();
 
-        $user = User::create($input);
+        $user = User::create($input)->assign($request->get('role'));
 
         return response()->json($user, 200);
     }
@@ -86,6 +86,12 @@ class UserController extends Controller
 
         if (!$user->update($input))
             return response()->json(['message' => 'Updaten van je account is niet gelukt.'], 500);
+
+        $role = $request->get('role');
+        if ($role != null && $user->isNotA($role)) {
+            $user->retractAllRoles();
+            $user->assign($role);
+        }
 
         return response()->json($user);
     }
