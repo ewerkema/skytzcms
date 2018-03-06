@@ -102,11 +102,21 @@ class User extends Authenticatable
         $this->notify(new ResetPasswordNotification($token, $this->email));
     }
 
+    /**
+     * Automatically encrypt passwords on set.
+     *
+     * @param $password
+     */
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = bcrypt($password);
     }
 
+    /**
+     * Get the full name of the user.
+     *
+     * @return string
+     */
     public function getName()
     {
         if (empty($this->attributes['firstname']) && empty($this->attributes['lastname']))

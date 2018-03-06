@@ -86,7 +86,7 @@
                             </ul>
 
                         </li>
-                        <li class="hidden-xs"><a href="#" data-toggle="modal" data-target="#newPageModal"><span class="glyphicon glyphicon-plus"></span> Nieuwe pagina</a></li>
+                        <li class="hidden-xs"><a href="#" data-toggle="modal" data-target="#newPageModal"><span class="glyphicon glyphicon-plus"></span></a></li>
                     @endif
                 </ul>
             </div>

@@ -38,21 +38,11 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return User[]|\Illuminate\Database\Eloquent\Collection
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return User::all();
     }
 
     /**
@@ -63,7 +53,12 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        $this->validator($input)->validate();
+
+        $user = User::create($input);
+
+        return response()->json($user, 200);
     }
 
     /**
@@ -74,18 +69,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
-    }
+        $user = User::findOrFail($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return response()->json($user);
     }
 
     /**
@@ -114,6 +100,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return response()->json(['message' => 'Gebruiker is succesvol verwijderd']);
     }
 }
