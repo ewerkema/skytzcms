@@ -12,6 +12,14 @@ use App\Http\Requests;
 class UserController extends Controller
 {
     /**
+     * Authorize the requests based on its policy.
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(User::class);
+    }
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array $data
