@@ -32,12 +32,7 @@ class AddNewSettings extends Migration
      */
     public function up()
     {
-        foreach ($this->newSettings as $name => $value) {
-            Setting::create([
-                'name' => $name,
-                'value' => $value,
-            ]);
-        }
+        Setting::createMany($this->newSettings);
     }
 
     /**
@@ -47,11 +42,6 @@ class AddNewSettings extends Migration
      */
     public function down()
     {
-        foreach ($this->newSettings as $name => $value) {
-            $setting = Setting::where('name', '=', $name)->first();
-
-            if ($setting != null)
-                $setting->delete();
-        }
+        Setting::deleteMany($this->newSettings);
     }
 }

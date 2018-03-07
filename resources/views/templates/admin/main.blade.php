@@ -105,6 +105,6 @@
 
         </script>
         <script src="/js/app.js"></script>
-
+        @include('templates.admin.partials.whatsapp')
     @endif
 @stop
