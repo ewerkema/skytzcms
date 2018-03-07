@@ -7,6 +7,7 @@ $(document).ready(function() {
         });
 
         let timer = parseInt(element.data('delay'));
+        timer = isNaN(timer) ? 3 : timer;
         setTimeout(function(){
             element.addClass('visible');
         }, timer*1000);
