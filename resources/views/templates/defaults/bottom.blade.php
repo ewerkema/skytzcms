@@ -1,0 +1,1 @@
+@include('templates.admin.partials.whatsapp')

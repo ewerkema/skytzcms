@@ -22,13 +22,6 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="title" class="col-md-3 control-label">Gebruikersnaam</label>
-
-            <div class="col-md-8">
-                <input type="text" name="username" value="{{ Auth::user()->username }}" class="form-control" placeholder="Gebruikersnaam" required />
-            </div>
-        </div>
-        <div class="form-group">
             <label for="title" class="col-md-3 control-label">Email</label>
 
             <div class="col-md-8">

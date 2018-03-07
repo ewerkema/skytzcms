@@ -193,6 +193,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Former\FormerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Silber\Bouncer\BouncerServiceProvider::class,
 //        Barryvdh\Debugbar\ServiceProvider::class,
 
     ],
@@ -217,6 +218,7 @@ return [
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
         'Auth' => Illuminate\Support\Facades\Auth::class,
         'Blade' => Illuminate\Support\Facades\Blade::class,
+        'Bouncer' => Silber\Bouncer\BouncerFacade::class,
         'Cache' => Illuminate\Support\Facades\Cache::class,
         'Config' => Illuminate\Support\Facades\Config::class,
         'Cookie' => Illuminate\Support\Facades\Cookie::class,

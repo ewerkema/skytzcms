@@ -23,6 +23,38 @@ class Setting extends Model
      */
     public function get($name)
     {
-        return $this->where('name', $name)->first()->value;
+        $setting = $this->where('name', $name)->first();
+
+        return $setting != null ? $setting->value : false;
+    }
+
+    /**
+     * Create many settings by array[name => value, ..].
+     *
+     * @param array $settings
+     */
+    public function createMany($settings)
+    {
+        foreach ($settings as $name => $value) {
+            Setting::create([
+                'name' => $name,
+                'value' => $value,
+            ]);
+        }
+    }
+
+    /**
+     * Delete many settings by array [name => value, ..].
+     *
+     * @param array $settings
+     */
+    public function deleteMany($settings)
+    {
+        foreach ($settings as $name => $value) {
+            $setting = Setting::where('name', '=', $name)->first();
+
+            if ($setting != null)
+                $setting->delete();
+        }
     }
 }

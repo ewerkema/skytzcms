@@ -75,6 +75,7 @@
             @include('templates.admin.modals.module_html_blocks')
             @include('templates.admin.modals.module_breadcrumbs')
             @include('templates.admin.modals.module_projects')
+            @include('templates.admin.modals.users')
             @include('templates.admin.modals.select_media')
             @include('templates.admin.modals.select_media_with_edit')
             @include('templates.admin.modals.select_module')
@@ -104,6 +105,5 @@
 
         </script>
         <script src="/js/app.js"></script>
-
     @endif
 @stop

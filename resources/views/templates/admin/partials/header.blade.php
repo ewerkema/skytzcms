@@ -86,7 +86,7 @@
                             </ul>
 
                         </li>
-                        <li class="hidden-xs"><a href="#" data-toggle="modal" data-target="#newPageModal"><span class="glyphicon glyphicon-plus"></span> Nieuwe pagina</a></li>
+                        <li class="hidden-xs"><a href="#" data-toggle="modal" data-target="#newPageModal"><span class="glyphicon glyphicon-plus"></span></a></li>
                     @endif
                 </ul>
             </div>
@@ -112,6 +112,9 @@
                                 @endforeach
                             </ul>
                         </li>
+                        @if (Auth::user()->isAn('admin'))
+                            <li><a href="#" data-toggle="modal" data-target="#usersModal"><span class="glyphicon glyphicon-user"></span> Gebruikersbeheer</a></li>
+                        @endif
                     @endif
                 </ul>
             </div>

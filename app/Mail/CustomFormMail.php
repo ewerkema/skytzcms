@@ -40,11 +40,15 @@ class CustomFormMail extends Mailable
     {
         $lines = $this->buildFieldLines();
 
+        $emailField = $this->form->getEmailField();
+        $from = ($emailField) ? $this->input[$emailField] : config('mail.from.address');
+
         return $this->subject("Reactie formulier: ".$this->form->name)
-                    ->view('vendor.notifications.email')
+                    ->view('vendor.notifications.email-contact')
+                    ->from($from)
                     ->with([
                         'greeting' => 'Nieuwe reactie formulier',
-                        'introLines' => array('Er is een nieuwe reactie geplaatst op het '.$this->form->name.' formulier op je website. De volgende gegevens zijn daarbij ingevuld:'),
+                        'introLines' => array("Er is een nieuwe reactie geplaatst op het ".$this->form->name." formulier op je website. De volgende gegevens zijn daarbij ingevuld: "),
                         'outroLines' => $lines
                     ]);
     }
@@ -55,9 +59,9 @@ class CustomFormMail extends Mailable
 
         foreach ($this->fields as $field) {
             if (isset($this->input[$field->formName()]) && !empty($this->input[$field->formName()]))
-                $lines[] = "<strong>$field->name:</strong> ".$this->input[$field->formName()];
+                $lines[] = "<strong>$field->name:</strong> ".$this->input[$field->formName()]."<br>";
             else
-                $lines[] = "<strong>$field->name:</strong> Geen waarde ingevuld / niet aangevinkt.";
+                $lines[] = "<strong>$field->name:</strong> Geen waarde ingevuld / niet aangevinkt."."<br>";
         }
 
         return $lines;
