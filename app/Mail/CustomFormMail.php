@@ -44,7 +44,7 @@ class CustomFormMail extends Mailable
         $from = ($emailField) ? $this->input[$emailField] : config('mail.from.address');
 
         return $this->subject("Reactie formulier: ".$this->form->name)
-                    ->view('vendor.notifications.email-plain-contact')
+                    ->view('vendor.notifications.email-contact')
                     ->from($from)
                     ->with([
                         'greeting' => 'Nieuwe reactie formulier',
