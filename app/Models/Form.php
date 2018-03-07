@@ -15,6 +15,23 @@ class Form extends Model
     ];
 
     /**
+     * Returns the field name of the email field if there exists one.
+     *
+     * @return string
+     */
+    public function getEmailField()
+    {
+        $fields = $this->fields()->get();
+
+        foreach ($fields as $field) {
+            if ($field->type == 'email')
+                return $field->formName();
+        }
+
+        return false;
+    }
+
+    /**
      * Define relationships.
      */
     public function fields()
