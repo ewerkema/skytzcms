@@ -45,6 +45,7 @@ class CustomFormMail extends Mailable
 
         return $this->subject("Reactie formulier: ".$this->form->name)
                     ->view('vendor.notifications.email-contact')
+                    ->to($this->form->email)
                     ->from($from)
                     ->with([
                         'greeting' => 'Nieuwe reactie formulier',
@@ -63,6 +64,8 @@ class CustomFormMail extends Mailable
             else
                 $lines[] = "<strong>$field->name:</strong> Geen waarde ingevuld / niet aangevinkt."."<br>";
         }
+        
+        $lines[] = "<em>Dit bericht was verzonden vanaf de website op ".config('app.url')."</em>";
 
         return $lines;
     }
