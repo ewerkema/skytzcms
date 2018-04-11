@@ -139,3 +139,7 @@ img.align-left {
 .whatspop > a:hover { text-decoration: none; color:#000; }
 .whatspop > a > span { color:#0DC24F; display:block; margin-top:10px; font-weight: normal; }
 .whatspop span.numb { position: absolute; right: 0; top: -10px; background: #ff3f3f; color: #fff; font-size: 13px; border-radius: 50%; padding: 2px 8px; }
+
+@media only screen and (min-width: 763px) {
+    .whatspop { display: none !important; }
+}
