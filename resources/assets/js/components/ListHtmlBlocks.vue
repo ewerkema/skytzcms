@@ -79,7 +79,11 @@
     }
 </style>
 <script>
+    import ListBase from './ListBase.vue';
+
     export default {
+        extends: ListBase,
+
         data(){
             return {
                 htmlBlocks: [],
@@ -87,10 +91,6 @@
                 newHtmlBlock: false,
                 newHtmlBlockError: false
             };
-        },
-
-        created() {
-            this.loadFromDatabase();
         },
 
         methods: {

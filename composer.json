@@ -42,7 +42,8 @@
     "autoload-dev": {
         "classmap": [
             "tests/TestCase.php"
-        ]
+        ],
+        "files": ["tests/functions.php"]
     },
     "scripts": {
         "post-root-package-install": [

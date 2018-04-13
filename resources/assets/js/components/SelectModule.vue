@@ -43,17 +43,17 @@
 
 </style>
 <script>
+    import ListBase from './ListBase.vue';
+
     export default {
+        extends: ListBase,
+
         data(){
             return {
                 selectedModule: false,
                 modules: [],
                 selectedModules: []
             };
-        },
-
-        created() {
-            this.loadFromDatabase();
         },
 
         watch: {

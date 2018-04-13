@@ -222,7 +222,11 @@
     }
 </style>
 <script>
+    import ListBase from './ListBase.vue';
+
     export default {
+        extends: ListBase,
+
         data(){
             return {
                 forms: [],
@@ -248,12 +252,7 @@
             };
         },
 
-        created() {
-            this.loadFromDatabase();
-        },
-
         watch: {
-
             selectedType: function (type) {
                 if (this.isOptionType(type)) {
                     if (this.selectedFormField.options.length == 0)
@@ -278,7 +277,6 @@
         },
 
         methods: {
-
             countFormFields: function (formId) {
                 return this.getSelectedFormFields(formId).length;
             },
