@@ -30,7 +30,8 @@ ContentTools =
             'table',
             'indent',
             'unindent',
-            'line-break'
+            'line-break',
+            'font'
         ], [
             'image',
             'video',

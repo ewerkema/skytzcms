@@ -5385,7 +5385,7 @@
 }).call(this);
 
 (function() {
-  var AttributeUI, ContentTools, CropMarksUI, StyleUI, exports, _EditorApp,
+  var AttributeUI, ContentTools, CropMarksUI, FontDialog, FontTool, StyleUI, exports, _EditorApp,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -5394,7 +5394,7 @@
   ContentTools = {
     Tools: {},
     CANCEL_MESSAGE: 'Your changes have not been saved, do you really want to lose them?'.trim(),
-    DEFAULT_TOOLS: [['bold', 'italic', 'link', 'align-left', 'align-center', 'align-right'], ['heading', 'subheading', 'subheading3', 'paragraph', 'unordered-list', 'ordered-list', 'table', 'indent', 'unindent', 'line-break'], ['image', 'video', 'preformatted'], ['undo', 'redo', 'remove']],
+    DEFAULT_TOOLS: [['bold', 'italic', 'link', 'align-left', 'align-center', 'align-right'], ['heading', 'subheading', 'subheading3', 'paragraph', 'unordered-list', 'ordered-list', 'table', 'indent', 'unindent', 'line-break', 'font'], ['image', 'video', 'preformatted'], ['undo', 'redo', 'remove']],
     DEFAULT_VIDEO_HEIGHT: 300,
     DEFAULT_VIDEO_WIDTH: 400,
     HIGHLIGHT_HOLD_DURATION: 2000,
@@ -10303,5 +10303,154 @@
     return Remove;
 
   })(ContentTools.Tool);
+
+  FontTool = (function(_super) {
+    __extends(FontTool, _super);
+
+    function FontTool() {
+      return FontTool.__super__.constructor.apply(this, arguments);
+    }
+
+    ContentTools.ToolShelf.stow(FontTool, 'font');
+
+    FontTool.label = 'Font';
+
+    FontTool.icon = 'font';
+
+    FontTool.tagName = 'span';
+
+    FontTool.apply = function(element, selection, callback) {
+      var allowScrolling, app, dialog, domElement, from, measureSpan, modal, rect, selectTag, to, transparent, _ref;
+      element.storeState();
+      selectTag = new HTMLString.Tag('span', {
+        'class': 'ct--puesdo-select'
+      });
+      _ref = selection.get(), from = _ref[0], to = _ref[1];
+      element.content = element.content.format(from, to, selectTag);
+      element.updateInnerHTML();
+      app = ContentTools.EditorApp.get();
+      modal = new ContentTools.ModalUI(transparent = true, allowScrolling = true);
+      modal.addEventListener('click', function() {
+        this.unmount();
+        dialog.hide();
+        element.content = element.content.unformat(from, to, selectTag);
+        element.updateInnerHTML();
+        element.restoreState();
+        return callback(false);
+      });
+      domElement = element.domElement();
+      measureSpan = domElement.getElementsByClassName('ct--puesdo-select');
+      rect = measureSpan[0].getBoundingClientRect();
+      dialog = new FontDialog(this.getFont(element, selection));
+      dialog.position([rect.left + (rect.width / 2) + window.scrollX, rect.top + (rect.height / 2) + window.scrollY]);
+      dialog.addEventListener('save', (function(_this) {
+        return function(ev) {
+          var font, rules, span, styles;
+          font = ev.detail().font;
+          span = _this.getFirstSpanTag(element, selection);
+          styles = 'span { ' + span.attr('style') + ' }';
+          rules = _this.rulesForCssText(styles);
+          element.content = element.content.unformat(from, to, 'span');
+          if (font) {
+            rules.style.fontFamily = font;
+            font = new HTMLString.Tag('span', {
+              style: _this.removeSpanFromCssText(rules.cssText)
+            });
+            element.content = element.content.format(from, to, font);
+          }
+          element.updateInnerHTML();
+          element.taint();
+          modal.unmount();
+          dialog.hide();
+          element.content = element.content.unformat(from, to, selectTag);
+          element.updateInnerHTML();
+          element.restoreState();
+          return callback(true);
+        };
+      })(this));
+      app.attach(modal);
+      app.attach(dialog);
+      modal.show();
+      return dialog.show();
+    };
+
+    FontTool.getFont = function(element, selection) {
+      var rules, span, styles;
+      span = this.getFirstSpanTag(element, selection);
+      if (span === false) {
+        return '';
+      }
+      styles = 'span { ' + span.attr('style') + ' }';
+      rules = this.rulesForCssText(styles);
+      return rules.style.fontFamily;
+    };
+
+    FontTool.getFirstSpanTag = function(element, selection) {
+      var c, from, selectedContent, tag, to, _i, _j, _len, _len1, _ref, _ref1, _ref2;
+      _ref = selection.get(), from = _ref[0], to = _ref[1];
+      selectedContent = element.content.slice(from, to);
+      _ref1 = selectedContent.characters;
+      for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+        c = _ref1[_i];
+        if (!c.hasTags('span')) {
+          continue;
+        }
+        _ref2 = c.tags();
+        for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
+          tag = _ref2[_j];
+          if (tag.name() === 'span') {
+            return tag;
+          }
+        }
+        return false;
+      }
+    };
+
+    FontTool.rulesForCssText = function(content) {
+      var doc, rules, styleElement;
+      doc = document.implementation.createHTMLDocument("");
+      styleElement = document.createElement("style");
+      styleElement.textContent = content;
+      doc.body.appendChild(styleElement);
+      rules = styleElement.sheet.cssRules;
+      return rules[0];
+    };
+
+    FontTool.removeSpanFromCssText = function(content) {
+      content = content.replace("span {", "");
+      content = content.replace("}", "");
+      return content;
+    };
+
+    return FontTool;
+
+  })(ContentTools.Tools.Bold);
+
+  FontDialog = (function(_super) {
+    __extends(FontDialog, _super);
+
+    function FontDialog() {
+      return FontDialog.__super__.constructor.apply(this, arguments);
+    }
+
+    FontDialog.prototype.mount = function() {
+      FontDialog.__super__.mount.call(this);
+      this._domInput.setAttribute('name', 'font');
+      this._domInput.setAttribute('placeholder', 'Select your font');
+      this._domElement.removeChild(this._domTargetButton);
+      return this._domElement.removeChild(this._domRelButton);
+    };
+
+    FontDialog.prototype.save = function() {
+      var detail;
+      detail = {
+        font: this._domInput.value.trim()
+      };
+      return this.dispatchEvent(this.createEvent('save', detail));
+    };
+
+    return FontDialog;
+
+  })(ContentTools.LinkDialog);
 
 }).call(this);

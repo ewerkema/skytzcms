@@ -38,6 +38,9 @@ module.exports = (grunt) ->
                         'src/scripts/history.coffee'
                         'src/scripts/styles.coffee'
                         'src/scripts/tools.coffee'
+
+                        # Custom tools
+                        'src/scripts/fonts.coffee'
                     ]
 
             sandbox:
@@ -80,7 +83,7 @@ module.exports = (grunt) ->
         sass:
             options:
                 banner: '/*! <%= pkg.name %> v<%= pkg.version %> by <%= pkg.author.name %> <<%= pkg.author.email %>> (<%= pkg.author.url %>) */'
-                sourcemap: 'none'
+                'no-source-map': ''
 
             build:
                 files:
