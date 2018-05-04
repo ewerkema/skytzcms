@@ -10327,12 +10327,11 @@
         return false;
       }
       span = this.getFirstSpanTag(element, selection);
-      if (span === false) {
+      if (span === void 0 || span === false) {
         return false;
       }
       styles = 'span { ' + span.attr('style') + ' }';
       rules = this.rulesForCssText(styles);
-      console.log(rules);
       return rules.style[this.cssStyle] !== "";
     };
 
@@ -10462,6 +10461,8 @@
 
     ColorTool.icon = 'color';
 
+    ColorTool.tagName = 'span';
+
     ColorTool.cssStyle = 'color';
 
     ColorTool.getDialog = function(element, selection) {
@@ -10484,6 +10485,8 @@
     FontSizeTool.label = 'Tekst grootte';
 
     FontSizeTool.icon = 'font-size';
+
+    FontSizeTool.tagName = 'span';
 
     FontSizeTool.cssStyle = 'fontSize';
 

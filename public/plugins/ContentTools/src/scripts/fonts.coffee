@@ -1,7 +1,5 @@
 class FontTool extends ContentTools.Tools.Bold
 
-  # Insert/Remove a <time> tag.
-
   # Register the tool with the toolshelf
   ContentTools.ToolShelf.stow(@, 'font')
 
@@ -22,12 +20,11 @@ class FontTool extends ContentTools.Tools.Bold
 
     # Store the styles of the span tag (if any)
     span = @getFirstSpanTag(element, selection)
-    if (span == false)
+    if (span == undefined || span == false)
       return false
-      
+
     styles = 'span { ' + span.attr('style') + ' }'
     rules = @rulesForCssText(styles)
-    console.log(rules)
 
     return rules.style[@cssStyle] != ""
 
@@ -172,8 +169,6 @@ class FontTool extends ContentTools.Tools.Bold
 
 class ColorTool extends FontTool
 
-  # Insert/Remove a <time> tag.
-
   # Register the tool with the toolshelf
   ContentTools.ToolShelf.stow(@, 'color')
 
@@ -183,6 +178,7 @@ class ColorTool extends FontTool
 
   # The Bold provides a tagName attribute we can override to make inheriting
   # from the class cleaner.
+  @tagName = 'span'
   @cssStyle = 'color'
 
   @getDialog: (element, selection) ->
@@ -190,8 +186,6 @@ class ColorTool extends FontTool
     return new ColorDialog(@getStyle(element, selection))
 
 class FontSizeTool extends FontTool
-
-  # Insert/Remove a <time> tag.
 
   # Register the tool with the toolshelf
   ContentTools.ToolShelf.stow(@, 'font-size')
@@ -202,6 +196,7 @@ class FontSizeTool extends FontTool
 
   # The Bold provides a tagName attribute we can override to make inheriting
   # from the class cleaner.
+  @tagName = 'span'
   @cssStyle = 'fontSize'
 
   @getDialog: (element, selection) ->
