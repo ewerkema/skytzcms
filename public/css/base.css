@@ -143,3 +143,6 @@ img.align-left {
 @media only screen and (min-width: 763px) {
     .whatspop { display: none !important; }
 }
+
+.cookie-consent { display: flex; position: fixed; width: 100%; bottom: 0; align-items: center; -webkit-align-items: center; justify-content: center; -webkit-justify-content: center; background: rgba(238, 238, 238, 0.75); padding: 10px 0;}
+.cookie-consent button { margin: 0; margin-left: 30px; padding: 10px 20px; }

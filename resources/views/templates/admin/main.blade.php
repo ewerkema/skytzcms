@@ -1,4 +1,3 @@
-
 @extends(isset($template) ? $template : 'templates.admin.empty')
 
 @section('head')

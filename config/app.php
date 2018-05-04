@@ -185,6 +185,7 @@ return [
         /*
          * Application Service Providers...
          */
+        Spatie\CookieConsent\CookieConsentServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
