@@ -5385,7 +5385,7 @@
 }).call(this);
 
 (function() {
-  var AttributeUI, ContentTools, CropMarksUI, FontDialog, FontTool, StyleUI, exports, _EditorApp,
+  var AttributeUI, ColorDialog, ColorTool, ContentTools, CropMarksUI, FontDialog, FontSizeDialog, FontSizeTool, FontTool, StyleDialog, StyleUI, exports, _EditorApp,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -5394,7 +5394,7 @@
   ContentTools = {
     Tools: {},
     CANCEL_MESSAGE: 'Your changes have not been saved, do you really want to lose them?'.trim(),
-    DEFAULT_TOOLS: [['bold', 'italic', 'link', 'align-left', 'align-center', 'align-right'], ['heading', 'subheading', 'subheading3', 'paragraph', 'unordered-list', 'ordered-list', 'table', 'indent', 'unindent', 'line-break', 'font'], ['image', 'video', 'preformatted'], ['undo', 'redo', 'remove']],
+    DEFAULT_TOOLS: [['bold', 'italic', 'link', 'font', 'color', 'font-size', 'align-left', 'align-center', 'align-right'], ['heading', 'subheading', 'subheading3', 'paragraph', 'unordered-list', 'ordered-list', 'table', 'indent', 'unindent', 'line-break'], ['image', 'video', 'preformatted'], ['undo', 'redo', 'remove']],
     DEFAULT_VIDEO_HEIGHT: 300,
     DEFAULT_VIDEO_WIDTH: 400,
     HIGHLIGHT_HOLD_DURATION: 2000,
@@ -10319,6 +10319,23 @@
 
     FontTool.tagName = 'span';
 
+    FontTool.cssStyle = 'fontFamily';
+
+    FontTool.isApplied = function(element, selection) {
+      var rules, span, styles;
+      if (element.content === void 0 || !element.content.length()) {
+        return false;
+      }
+      span = this.getFirstSpanTag(element, selection);
+      if (span === false) {
+        return false;
+      }
+      styles = 'span { ' + span.attr('style') + ' }';
+      rules = this.rulesForCssText(styles);
+      console.log(rules);
+      return rules.style[this.cssStyle] !== "";
+    };
+
     FontTool.apply = function(element, selection, callback) {
       var allowScrolling, app, dialog, domElement, from, measureSpan, modal, rect, selectTag, to, transparent, _ref;
       element.storeState();
@@ -10341,23 +10358,25 @@
       domElement = element.domElement();
       measureSpan = domElement.getElementsByClassName('ct--puesdo-select');
       rect = measureSpan[0].getBoundingClientRect();
-      dialog = new FontDialog(this.getFont(element, selection));
+      dialog = this.getDialog(element, selection);
       dialog.position([rect.left + (rect.width / 2) + window.scrollX, rect.top + (rect.height / 2) + window.scrollY]);
       dialog.addEventListener('save', (function(_this) {
         return function(ev) {
-          var font, rules, span, styles;
-          font = ev.detail().font;
+          var rules, span, style, styles;
+          style = ev.detail().style;
           span = _this.getFirstSpanTag(element, selection);
           styles = 'span { ' + span.attr('style') + ' }';
           rules = _this.rulesForCssText(styles);
           element.content = element.content.unformat(from, to, 'span');
-          if (font) {
-            rules.style.fontFamily = font;
-            font = new HTMLString.Tag('span', {
-              style: _this.removeSpanFromCssText(rules.cssText)
-            });
-            element.content = element.content.format(from, to, font);
+          if (style) {
+            rules.style[_this.cssStyle] = style;
+          } else {
+            rules.style[_this.cssStyle] = "";
           }
+          style = new HTMLString.Tag('span', {
+            style: _this.removeSpanFromCssText(rules.cssText)
+          });
+          element.content = element.content.format(from, to, style);
           element.updateInnerHTML();
           element.taint();
           modal.unmount();
@@ -10374,7 +10393,11 @@
       return dialog.show();
     };
 
-    FontTool.getFont = function(element, selection) {
+    FontTool.getDialog = function(element, selection) {
+      return new FontDialog(this.getStyle(element, selection));
+    };
+
+    FontTool.getStyle = function(element, selection) {
       var rules, span, styles;
       span = this.getFirstSpanTag(element, selection);
       if (span === false) {
@@ -10382,7 +10405,7 @@
       }
       styles = 'span { ' + span.attr('style') + ' }';
       rules = this.rulesForCssText(styles);
-      return rules.style.fontFamily;
+      return rules.style[this.cssStyle];
     };
 
     FontTool.getFirstSpanTag = function(element, selection) {
@@ -10426,6 +10449,83 @@
 
   })(ContentTools.Tools.Bold);
 
+  ColorTool = (function(_super) {
+    __extends(ColorTool, _super);
+
+    function ColorTool() {
+      return ColorTool.__super__.constructor.apply(this, arguments);
+    }
+
+    ContentTools.ToolShelf.stow(ColorTool, 'color');
+
+    ColorTool.label = 'Tekstkleur';
+
+    ColorTool.icon = 'color';
+
+    ColorTool.cssStyle = 'color';
+
+    ColorTool.getDialog = function(element, selection) {
+      return new ColorDialog(this.getStyle(element, selection));
+    };
+
+    return ColorTool;
+
+  })(FontTool);
+
+  FontSizeTool = (function(_super) {
+    __extends(FontSizeTool, _super);
+
+    function FontSizeTool() {
+      return FontSizeTool.__super__.constructor.apply(this, arguments);
+    }
+
+    ContentTools.ToolShelf.stow(FontSizeTool, 'font-size');
+
+    FontSizeTool.label = 'Tekst grootte';
+
+    FontSizeTool.icon = 'font-size';
+
+    FontSizeTool.cssStyle = 'fontSize';
+
+    FontSizeTool.getDialog = function(element, selection) {
+      return new FontSizeDialog(this.getStyle(element, selection));
+    };
+
+    return FontSizeTool;
+
+  })(FontTool);
+
+  StyleDialog = (function(_super) {
+    __extends(StyleDialog, _super);
+
+    function StyleDialog() {
+      return StyleDialog.__super__.constructor.apply(this, arguments);
+    }
+
+    StyleDialog.styleName = '';
+
+    StyleDialog.styleDescription = '';
+
+    StyleDialog.prototype.mount = function() {
+      StyleDialog.__super__.mount.call(this);
+      this._domInput.setAttribute('name', this.styleName);
+      this._domInput.setAttribute('placeholder', this.styleDescription);
+      this._domElement.removeChild(this._domTargetButton);
+      return this._domElement.removeChild(this._domRelButton);
+    };
+
+    StyleDialog.prototype.save = function() {
+      var detail;
+      detail = {
+        style: this._domInput.value.trim()
+      };
+      return this.dispatchEvent(this.createEvent('save', detail));
+    };
+
+    return StyleDialog;
+
+  })(ContentTools.LinkDialog);
+
   FontDialog = (function(_super) {
     __extends(FontDialog, _super);
 
@@ -10433,24 +10533,42 @@
       return FontDialog.__super__.constructor.apply(this, arguments);
     }
 
-    FontDialog.prototype.mount = function() {
-      FontDialog.__super__.mount.call(this);
-      this._domInput.setAttribute('name', 'font');
-      this._domInput.setAttribute('placeholder', 'Select your font');
-      this._domElement.removeChild(this._domTargetButton);
-      return this._domElement.removeChild(this._domRelButton);
-    };
+    FontDialog.styleName = 'font';
 
-    FontDialog.prototype.save = function() {
-      var detail;
-      detail = {
-        font: this._domInput.value.trim()
-      };
-      return this.dispatchEvent(this.createEvent('save', detail));
-    };
+    FontDialog.styleDescription = 'Selecteer de font';
 
     return FontDialog;
 
-  })(ContentTools.LinkDialog);
+  })(StyleDialog);
+
+  ColorDialog = (function(_super) {
+    __extends(ColorDialog, _super);
+
+    function ColorDialog() {
+      return ColorDialog.__super__.constructor.apply(this, arguments);
+    }
+
+    ColorDialog.styleName = 'color';
+
+    ColorDialog.styleDescription = 'Selecteer de tekst kleur';
+
+    return ColorDialog;
+
+  })(StyleDialog);
+
+  FontSizeDialog = (function(_super) {
+    __extends(FontSizeDialog, _super);
+
+    function FontSizeDialog() {
+      return FontSizeDialog.__super__.constructor.apply(this, arguments);
+    }
+
+    FontSizeDialog.styleName = 'font-size';
+
+    FontSizeDialog.styleDescription = 'Selecteer de tekst grootte';
+
+    return FontSizeDialog;
+
+  })(StyleDialog);
 
 }).call(this);

@@ -17,6 +17,9 @@ ContentTools =
             'bold',
             'italic',
             'link',
+            'font',
+            'color',
+            'font-size',
             'align-left',
             'align-center',
             'align-right'
@@ -30,8 +33,7 @@ ContentTools =
             'table',
             'indent',
             'unindent',
-            'line-break',
-            'font'
+            'line-break'
         ], [
             'image',
             'video',

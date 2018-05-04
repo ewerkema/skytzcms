@@ -12,6 +12,24 @@ class FontTool extends ContentTools.Tools.Bold
   # The Bold provides a tagName attribute we can override to make inheriting
   # from the class cleaner.
   @tagName = 'span'
+  @cssStyle = 'fontFamily'
+
+  @isApplied: (element, selection) ->
+    # Return true if the tool is currently applied to the current
+    # element/selection.
+    if element.content is undefined or not element.content.length()
+      return false
+
+    # Store the styles of the span tag (if any)
+    span = @getFirstSpanTag(element, selection)
+    if (span == false)
+      return false
+      
+    styles = 'span { ' + span.attr('style') + ' }'
+    rules = @rulesForCssText(styles)
+    console.log(rules)
+
+    return rules.style[@cssStyle] != ""
 
   @apply: (element, selection, callback) ->
     # Apply the tool to the specified element and selection
@@ -55,7 +73,7 @@ class FontTool extends ContentTools.Tools.Bold
     rect = measureSpan[0].getBoundingClientRect()
 
     # Create the dialog
-    dialog = new FontDialog(@getFont(element, selection))
+    dialog = @getDialog(element, selection)
     dialog.position([
       rect.left + (rect.width / 2) + window.scrollX,
       rect.top + (rect.height / 2) + window.scrollY
@@ -64,7 +82,7 @@ class FontTool extends ContentTools.Tools.Bold
     # Listen for save events against the dialog
     dialog.addEventListener 'save', (ev) =>
       # Add/Update/Remove the <span>
-      font = ev.detail().font
+      style = ev.detail().style
 
       # Store the styles of the span tag (if any)
       span = @getFirstSpanTag(element, selection)
@@ -74,11 +92,14 @@ class FontTool extends ContentTools.Tools.Bold
       # Clear any existing span tag
       element.content = element.content.unformat(from, to, 'span')
 
-      # If specified add the new font
-      if font
-        rules.style.fontFamily = font
-        font = new HTMLString.Tag('span', {style: @removeSpanFromCssText(rules.cssText) })
-        element.content = element.content.format(from, to, font)
+      # If specified add the new style
+      if style
+        rules.style[@cssStyle] = style
+      else
+        rules.style[@cssStyle] = ""
+
+      style = new HTMLString.Tag('span', {style: @removeSpanFromCssText(rules.cssText) })
+      element.content = element.content.format(from, to, style)
 
       element.updateInnerHTML()
       element.taint()
@@ -102,16 +123,19 @@ class FontTool extends ContentTools.Tools.Bold
     modal.show()
     dialog.show()
 
-  @getFont: (element, selection) ->
-    # Return any existing `font` attribute for the element and selection
+  @getDialog: (element, selection) ->
+    # Return the specific dialog of the style
+    return new FontDialog(@getStyle(element, selection))
 
+  @getStyle: (element, selection) ->
+    # Return any existing `style` attribute for the element and selection
     span = @getFirstSpanTag(element, selection)
     if (span == false)
       return ''
 
     styles = 'span { ' + span.attr('style') + ' }'
     rules = @rulesForCssText(styles)
-    return rules.style.fontFamily
+    return rules.style[@cssStyle]
 
   @getFirstSpanTag: (element, selection) ->
     # Find the first character in the selected text that has a `span` tag and
@@ -146,17 +170,58 @@ class FontTool extends ContentTools.Tools.Bold
     content = content.replace("}", "")
     return content
 
-class FontDialog extends ContentTools.LinkDialog
+class ColorTool extends FontTool
+
+  # Insert/Remove a <time> tag.
+
+  # Register the tool with the toolshelf
+  ContentTools.ToolShelf.stow(@, 'color')
+
+  # The tooltip and icon modifier CSS class for the tool
+  @label = 'Tekstkleur'
+  @icon = 'color'
+
+  # The Bold provides a tagName attribute we can override to make inheriting
+  # from the class cleaner.
+  @cssStyle = 'color'
+
+  @getDialog: (element, selection) ->
+    # Return the specific dialog of the style
+    return new ColorDialog(@getStyle(element, selection))
+
+class FontSizeTool extends FontTool
+
+  # Insert/Remove a <time> tag.
+
+  # Register the tool with the toolshelf
+  ContentTools.ToolShelf.stow(@, 'font-size')
+
+  # The tooltip and icon modifier CSS class for the tool
+  @label = 'Tekst grootte'
+  @icon = 'font-size'
+
+  # The Bold provides a tagName attribute we can override to make inheriting
+  # from the class cleaner.
+  @cssStyle = 'fontSize'
+
+  @getDialog: (element, selection) ->
+    # Return the specific dialog of the style
+    return new FontSizeDialog(@getStyle(element, selection))
+
+class StyleDialog extends ContentTools.LinkDialog
 
   # An anchored dialog to support inserting/modifying a <span> tag
+
+  @styleName = ''
+  @styleDescription = ''
 
   mount: () ->
     super()
 
     # Update the name and placeholder for the input field provided by the
     # link dialog.
-    @_domInput.setAttribute('name', 'font')
-    @_domInput.setAttribute('placeholder', 'Select your font')
+    @_domInput.setAttribute('name', @styleName)
+    @_domInput.setAttribute('placeholder', @styleDescription)
 
     # Remove the new window target DOM element
     @_domElement.removeChild(@_domTargetButton)
@@ -165,6 +230,18 @@ class FontDialog extends ContentTools.LinkDialog
   save: () ->
     # Save the font.
     detail = {
-      font: @_domInput.value.trim()
+      style: @_domInput.value.trim()
     }
     @dispatchEvent(@createEvent('save', detail))
+
+class FontDialog extends StyleDialog
+  @styleName = 'font'
+  @styleDescription = 'Selecteer de font'
+
+class ColorDialog extends StyleDialog
+  @styleName = 'color'
+  @styleDescription = 'Selecteer de tekst kleur'
+
+class FontSizeDialog extends StyleDialog
+  @styleName = 'font-size'
+  @styleDescription = 'Selecteer de tekst grootte'
