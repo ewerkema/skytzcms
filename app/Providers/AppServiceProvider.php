@@ -15,6 +15,7 @@ use App\Models\Setting;
 use App\Models\Page;
 use App\Models\Slider;
 use App\Models\Form;
+use App\Models\Social;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
@@ -36,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
         'Module' => Module::class,
         'CustomForm' => Form::class,
         'HtmlBlock' => HtmlBlock::class,
+        'Social' => Social::class,
     );
 
     /**
