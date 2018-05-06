@@ -91,7 +91,7 @@ class FontTool extends ContentTools.Tools.Bold
 
       # If specified add the new style
       if style
-        rules.style[@cssStyle] = style
+        rules.style[@cssStyle] = style.trim()
       else
         rules.style[@cssStyle] = ""
 
@@ -165,6 +165,8 @@ class FontTool extends ContentTools.Tools.Bold
   @removeSpanFromCssText = (content) ->
     content = content.replace("span {", "")
     content = content.replace("}", "")
+    content = content.replace(/\"/g, "'")
+    console.log(content)
     return content
 
 class ColorTool extends FontTool
@@ -205,38 +207,73 @@ class FontSizeTool extends FontTool
 
 class StyleDialog extends ContentTools.LinkDialog
 
-  # An anchored dialog to support inserting/modifying a <span> tag
-
-  @styleName = ''
-  @styleDescription = ''
-
   mount: () ->
     super()
-
-    # Update the name and placeholder for the input field provided by the
-    # link dialog.
-    @_domInput.setAttribute('name', @styleName)
-    @_domInput.setAttribute('placeholder', @styleDescription)
 
     # Remove the new window target DOM element
     @_domElement.removeChild(@_domTargetButton)
     @_domElement.removeChild(@_domRelButton)
+    @_href = false
 
   save: () ->
-    # Save the font.
+    # Save the style.
     detail = {
       style: @_domInput.value.trim()
     }
     @dispatchEvent(@createEvent('save', detail))
 
 class FontDialog extends StyleDialog
-  @styleName = 'font'
-  @styleDescription = 'Selecteer de font'
+
+  mount: () ->
+    super()
+
+    @_domElement.removeChild(@_domInput.parentNode)
+
+    # Create the input element for the link
+    @_domSelect = document.createElement('select')
+    @_domSelect.setAttribute('class', 'ct-anchored-dialog__input')
+    @_domSelect.setAttribute('name', 'font')
+    @_domSelect.setAttribute('type', 'text')
+    @_domElement.prepend(@_domSelect)
+
+    options = ['Arial', 'Arial Black', 'Georgia', 'Times New Roman', 'Helvetica', 'Comic Sans MS', 'Lucida Grande', 'Tahoma', 'Courier New', 'Lucida Console',  'Verdana']
+
+    for option in options
+      @_domOption = document.createElement('option')
+      @_domOption.setAttribute('value', option)
+      @_domOptionContent = document.createTextNode(option)
+      @_domOption.appendChild(@_domOptionContent)
+      @_domSelect.appendChild(@_domOption)
+
+    @_domInput = @_domSelect
 
 class ColorDialog extends StyleDialog
-  @styleName = 'color'
-  @styleDescription = 'Selecteer de tekst kleur'
+
+  mount: () ->
+    super()
+
+    # Update the name and placeholder for the input field provided by the
+    # link dialog.
+    @_domInput.setAttribute('name', 'color')
+    @_domInput.setAttribute('type', 'color')
+    @_domInput.setAttribute('format', 'hex')
+    @_domInput.setAttribute('placeholder', 'Selecteer de tekst kleur')
 
 class FontSizeDialog extends StyleDialog
-  @styleName = 'font-size'
-  @styleDescription = 'Selecteer de tekst grootte'
+
+  mount: () ->
+    super()
+
+    # Update the name and placeholder for the input field provided by the
+    # link dialog.
+    @_domInput.setAttribute('name', 'font-size')
+    @_domInput.setAttribute('placeholder', 'Selecteer de tekst grootte')
+    @_domInput.setAttribute('type', 'number')
+    @_domInput.setAttribute('min', '0')
+
+  save: () ->
+# Save the style.
+    detail = {
+      style: @_domInput.value.trim()+'px'
+    }
+    @dispatchEvent(@createEvent('save', detail))

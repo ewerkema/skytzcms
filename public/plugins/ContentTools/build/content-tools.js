@@ -10368,7 +10368,7 @@
           rules = _this.rulesForCssText(styles);
           element.content = element.content.unformat(from, to, 'span');
           if (style) {
-            rules.style[_this.cssStyle] = style;
+            rules.style[_this.cssStyle] = style.trim();
           } else {
             rules.style[_this.cssStyle] = "";
           }
@@ -10441,6 +10441,8 @@
     FontTool.removeSpanFromCssText = function(content) {
       content = content.replace("span {", "");
       content = content.replace("}", "");
+      content = content.replace(/\"/g, "'");
+      console.log(content);
       return content;
     };
 
@@ -10505,16 +10507,11 @@
       return StyleDialog.__super__.constructor.apply(this, arguments);
     }
 
-    StyleDialog.styleName = '';
-
-    StyleDialog.styleDescription = '';
-
     StyleDialog.prototype.mount = function() {
       StyleDialog.__super__.mount.call(this);
-      this._domInput.setAttribute('name', this.styleName);
-      this._domInput.setAttribute('placeholder', this.styleDescription);
       this._domElement.removeChild(this._domTargetButton);
-      return this._domElement.removeChild(this._domRelButton);
+      this._domElement.removeChild(this._domRelButton);
+      return this._href = false;
     };
 
     StyleDialog.prototype.save = function() {
@@ -10536,9 +10533,26 @@
       return FontDialog.__super__.constructor.apply(this, arguments);
     }
 
-    FontDialog.styleName = 'font';
-
-    FontDialog.styleDescription = 'Selecteer de font';
+    FontDialog.prototype.mount = function() {
+      var option, options, _i, _len;
+      FontDialog.__super__.mount.call(this);
+      this._domElement.removeChild(this._domInput.parentNode);
+      this._domSelect = document.createElement('select');
+      this._domSelect.setAttribute('class', 'ct-anchored-dialog__input');
+      this._domSelect.setAttribute('name', 'font');
+      this._domSelect.setAttribute('type', 'text');
+      this._domElement.prepend(this._domSelect);
+      options = ['Arial', 'Arial Black', 'Georgia', 'Times New Roman', 'Helvetica', 'Comic Sans MS', 'Lucida Grande', 'Tahoma', 'Courier New', 'Lucida Console', 'Verdana'];
+      for (_i = 0, _len = options.length; _i < _len; _i++) {
+        option = options[_i];
+        this._domOption = document.createElement('option');
+        this._domOption.setAttribute('value', option);
+        this._domOptionContent = document.createTextNode(option);
+        this._domOption.appendChild(this._domOptionContent);
+        this._domSelect.appendChild(this._domOption);
+      }
+      return this._domInput = this._domSelect;
+    };
 
     return FontDialog;
 
@@ -10551,9 +10565,13 @@
       return ColorDialog.__super__.constructor.apply(this, arguments);
     }
 
-    ColorDialog.styleName = 'color';
-
-    ColorDialog.styleDescription = 'Selecteer de tekst kleur';
+    ColorDialog.prototype.mount = function() {
+      ColorDialog.__super__.mount.call(this);
+      this._domInput.setAttribute('name', 'color');
+      this._domInput.setAttribute('type', 'color');
+      this._domInput.setAttribute('format', 'hex');
+      return this._domInput.setAttribute('placeholder', 'Selecteer de tekst kleur');
+    };
 
     return ColorDialog;
 
@@ -10566,9 +10584,21 @@
       return FontSizeDialog.__super__.constructor.apply(this, arguments);
     }
 
-    FontSizeDialog.styleName = 'font-size';
+    FontSizeDialog.prototype.mount = function() {
+      FontSizeDialog.__super__.mount.call(this);
+      this._domInput.setAttribute('name', 'font-size');
+      this._domInput.setAttribute('placeholder', 'Selecteer de tekst grootte');
+      this._domInput.setAttribute('type', 'number');
+      return this._domInput.setAttribute('min', '0');
+    };
 
-    FontSizeDialog.styleDescription = 'Selecteer de tekst grootte';
+    FontSizeDialog.prototype.save = function() {
+      var detail;
+      detail = {
+        style: this._domInput.value.trim() + 'px'
+      };
+      return this.dispatchEvent(this.createEvent('save', detail));
+    };
 
     return FontSizeDialog;
 
