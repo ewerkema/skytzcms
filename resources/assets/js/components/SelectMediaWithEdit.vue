@@ -47,9 +47,13 @@
 <script>
     import Pagination from "./Pagination.vue";
     import VueEvents from 'vue-events';
+    import ListBase from './ListBase.vue';
     Vue.use(VueEvents);
 
+
     export default {
+        extends: ListBase,
+
         data(){
             return {
                 selectedImage: false,
@@ -98,7 +102,6 @@
         created() {
             this.$events.$on('changePage', page => this.changePage(page));
             this.$events.$on('resetCurrentPage', () => this.changePage(1));
-            this.loadFromDatabase();
         },
 
         watch: {

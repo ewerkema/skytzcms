@@ -5385,7 +5385,7 @@
 }).call(this);
 
 (function() {
-  var AttributeUI, ContentTools, CropMarksUI, StyleUI, exports, _EditorApp,
+  var AttributeUI, ColorDialog, ColorTool, ContentTools, CropMarksUI, FontDialog, FontSizeDialog, FontSizeTool, FontTool, StyleDialog, StyleUI, exports, _EditorApp,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -5394,7 +5394,7 @@
   ContentTools = {
     Tools: {},
     CANCEL_MESSAGE: 'Your changes have not been saved, do you really want to lose them?'.trim(),
-    DEFAULT_TOOLS: [['bold', 'italic', 'link', 'align-left', 'align-center', 'align-right'], ['heading', 'subheading', 'subheading3', 'paragraph', 'unordered-list', 'ordered-list', 'table', 'indent', 'unindent', 'line-break'], ['image', 'video', 'preformatted'], ['undo', 'redo', 'remove']],
+    DEFAULT_TOOLS: [['bold', 'italic', 'link', 'font', 'color', 'font-size', 'align-left', 'align-center', 'align-right'], ['heading', 'subheading', 'subheading3', 'paragraph', 'unordered-list', 'ordered-list', 'table', 'indent', 'unindent', 'line-break'], ['image', 'video', 'preformatted'], ['undo', 'redo', 'remove']],
     DEFAULT_VIDEO_HEIGHT: 300,
     DEFAULT_VIDEO_WIDTH: 400,
     HIGHLIGHT_HOLD_DURATION: 2000,
@@ -10303,5 +10303,305 @@
     return Remove;
 
   })(ContentTools.Tool);
+
+  FontTool = (function(_super) {
+    __extends(FontTool, _super);
+
+    function FontTool() {
+      return FontTool.__super__.constructor.apply(this, arguments);
+    }
+
+    ContentTools.ToolShelf.stow(FontTool, 'font');
+
+    FontTool.label = 'Font';
+
+    FontTool.icon = 'font';
+
+    FontTool.tagName = 'span';
+
+    FontTool.cssStyle = 'fontFamily';
+
+    FontTool.isApplied = function(element, selection) {
+      var rules, span, styles;
+      if (element.content === void 0 || !element.content.length()) {
+        return false;
+      }
+      span = this.getFirstSpanTag(element, selection);
+      if (span === void 0 || span === false) {
+        return false;
+      }
+      styles = 'span { ' + span.attr('style') + ' }';
+      rules = this.rulesForCssText(styles);
+      return rules.style[this.cssStyle] !== "";
+    };
+
+    FontTool.apply = function(element, selection, callback) {
+      var allowScrolling, app, dialog, domElement, from, measureSpan, modal, rect, selectTag, to, transparent, _ref;
+      element.storeState();
+      selectTag = new HTMLString.Tag('span', {
+        'class': 'ct--puesdo-select'
+      });
+      _ref = selection.get(), from = _ref[0], to = _ref[1];
+      element.content = element.content.format(from, to, selectTag);
+      element.updateInnerHTML();
+      app = ContentTools.EditorApp.get();
+      modal = new ContentTools.ModalUI(transparent = true, allowScrolling = true);
+      modal.addEventListener('click', function() {
+        this.unmount();
+        dialog.hide();
+        element.content = element.content.unformat(from, to, selectTag);
+        element.updateInnerHTML();
+        element.restoreState();
+        return callback(false);
+      });
+      domElement = element.domElement();
+      measureSpan = domElement.getElementsByClassName('ct--puesdo-select');
+      rect = measureSpan[0].getBoundingClientRect();
+      dialog = this.getDialog(element, selection);
+      dialog.position([rect.left + (rect.width / 2) + window.scrollX, rect.top + (rect.height / 2) + window.scrollY]);
+      dialog.addEventListener('save', (function(_this) {
+        return function(ev) {
+          var rules, span, style, styles;
+          style = ev.detail().style;
+          span = _this.getFirstSpanTag(element, selection);
+          styles = 'span { ' + span.attr('style') + ' }';
+          rules = _this.rulesForCssText(styles);
+          element.content = element.content.unformat(from, to, 'span');
+          if (style) {
+            rules.style[_this.cssStyle] = style.trim();
+          } else {
+            rules.style[_this.cssStyle] = "";
+          }
+          style = new HTMLString.Tag('span', {
+            style: _this.removeSpanFromCssText(rules.cssText)
+          });
+          element.content = element.content.format(from, to, style);
+          element.updateInnerHTML();
+          element.taint();
+          modal.unmount();
+          dialog.hide();
+          element.content = element.content.unformat(from, to, selectTag);
+          element.updateInnerHTML();
+          element.restoreState();
+          return callback(true);
+        };
+      })(this));
+      app.attach(modal);
+      app.attach(dialog);
+      modal.show();
+      return dialog.show();
+    };
+
+    FontTool.getDialog = function(element, selection) {
+      return new FontDialog(this.getStyle(element, selection));
+    };
+
+    FontTool.getStyle = function(element, selection) {
+      var rules, span, styles;
+      span = this.getFirstSpanTag(element, selection);
+      if (span === false) {
+        return '';
+      }
+      styles = 'span { ' + span.attr('style') + ' }';
+      rules = this.rulesForCssText(styles);
+      return rules.style[this.cssStyle];
+    };
+
+    FontTool.getFirstSpanTag = function(element, selection) {
+      var c, from, selectedContent, tag, to, _i, _j, _len, _len1, _ref, _ref1, _ref2;
+      _ref = selection.get(), from = _ref[0], to = _ref[1];
+      selectedContent = element.content.slice(from, to);
+      _ref1 = selectedContent.characters;
+      for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+        c = _ref1[_i];
+        if (!c.hasTags('span')) {
+          continue;
+        }
+        _ref2 = c.tags();
+        for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
+          tag = _ref2[_j];
+          if (tag.name() === 'span') {
+            return tag;
+          }
+        }
+        return false;
+      }
+    };
+
+    FontTool.rulesForCssText = function(content) {
+      var doc, rules, styleElement;
+      doc = document.implementation.createHTMLDocument("");
+      styleElement = document.createElement("style");
+      styleElement.textContent = content;
+      doc.body.appendChild(styleElement);
+      rules = styleElement.sheet.cssRules;
+      return rules[0];
+    };
+
+    FontTool.removeSpanFromCssText = function(content) {
+      content = content.replace("span {", "");
+      content = content.replace("}", "");
+      content = content.replace(/\"/g, "'");
+      console.log(content);
+      return content;
+    };
+
+    return FontTool;
+
+  })(ContentTools.Tools.Bold);
+
+  ColorTool = (function(_super) {
+    __extends(ColorTool, _super);
+
+    function ColorTool() {
+      return ColorTool.__super__.constructor.apply(this, arguments);
+    }
+
+    ContentTools.ToolShelf.stow(ColorTool, 'color');
+
+    ColorTool.label = 'Tekstkleur';
+
+    ColorTool.icon = 'color';
+
+    ColorTool.tagName = 'span';
+
+    ColorTool.cssStyle = 'color';
+
+    ColorTool.getDialog = function(element, selection) {
+      return new ColorDialog(this.getStyle(element, selection));
+    };
+
+    return ColorTool;
+
+  })(FontTool);
+
+  FontSizeTool = (function(_super) {
+    __extends(FontSizeTool, _super);
+
+    function FontSizeTool() {
+      return FontSizeTool.__super__.constructor.apply(this, arguments);
+    }
+
+    ContentTools.ToolShelf.stow(FontSizeTool, 'font-size');
+
+    FontSizeTool.label = 'Tekst grootte';
+
+    FontSizeTool.icon = 'font-size';
+
+    FontSizeTool.tagName = 'span';
+
+    FontSizeTool.cssStyle = 'fontSize';
+
+    FontSizeTool.getDialog = function(element, selection) {
+      return new FontSizeDialog(this.getStyle(element, selection));
+    };
+
+    return FontSizeTool;
+
+  })(FontTool);
+
+  StyleDialog = (function(_super) {
+    __extends(StyleDialog, _super);
+
+    function StyleDialog() {
+      return StyleDialog.__super__.constructor.apply(this, arguments);
+    }
+
+    StyleDialog.prototype.mount = function() {
+      StyleDialog.__super__.mount.call(this);
+      this._domElement.removeChild(this._domTargetButton);
+      this._domElement.removeChild(this._domRelButton);
+      return this._href = false;
+    };
+
+    StyleDialog.prototype.save = function() {
+      var detail;
+      detail = {
+        style: this._domInput.value.trim()
+      };
+      return this.dispatchEvent(this.createEvent('save', detail));
+    };
+
+    return StyleDialog;
+
+  })(ContentTools.LinkDialog);
+
+  FontDialog = (function(_super) {
+    __extends(FontDialog, _super);
+
+    function FontDialog() {
+      return FontDialog.__super__.constructor.apply(this, arguments);
+    }
+
+    FontDialog.prototype.mount = function() {
+      var option, options, _i, _len;
+      FontDialog.__super__.mount.call(this);
+      this._domElement.removeChild(this._domInput.parentNode);
+      this._domSelect = document.createElement('select');
+      this._domSelect.setAttribute('class', 'ct-anchored-dialog__input');
+      this._domSelect.setAttribute('name', 'font');
+      this._domSelect.setAttribute('type', 'text');
+      this._domElement.prepend(this._domSelect);
+      options = ['Arial', 'Arial Black', 'Georgia', 'Times New Roman', 'Helvetica', 'Comic Sans MS', 'Lucida Grande', 'Tahoma', 'Courier New', 'Lucida Console', 'Verdana'];
+      for (_i = 0, _len = options.length; _i < _len; _i++) {
+        option = options[_i];
+        this._domOption = document.createElement('option');
+        this._domOption.setAttribute('value', option);
+        this._domOptionContent = document.createTextNode(option);
+        this._domOption.appendChild(this._domOptionContent);
+        this._domSelect.appendChild(this._domOption);
+      }
+      return this._domInput = this._domSelect;
+    };
+
+    return FontDialog;
+
+  })(StyleDialog);
+
+  ColorDialog = (function(_super) {
+    __extends(ColorDialog, _super);
+
+    function ColorDialog() {
+      return ColorDialog.__super__.constructor.apply(this, arguments);
+    }
+
+    ColorDialog.prototype.mount = function() {
+      ColorDialog.__super__.mount.call(this);
+      this._domInput.setAttribute('name', 'color');
+      this._domInput.setAttribute('type', 'color');
+      this._domInput.setAttribute('format', 'hex');
+      return this._domInput.setAttribute('placeholder', 'Selecteer de tekst kleur');
+    };
+
+    return ColorDialog;
+
+  })(StyleDialog);
+
+  FontSizeDialog = (function(_super) {
+    __extends(FontSizeDialog, _super);
+
+    function FontSizeDialog() {
+      return FontSizeDialog.__super__.constructor.apply(this, arguments);
+    }
+
+    FontSizeDialog.prototype.mount = function() {
+      FontSizeDialog.__super__.mount.call(this);
+      this._domInput.setAttribute('name', 'font-size');
+      this._domInput.setAttribute('placeholder', 'Selecteer de tekst grootte');
+      this._domInput.setAttribute('type', 'number');
+      return this._domInput.setAttribute('min', '0');
+    };
+
+    FontSizeDialog.prototype.save = function() {
+      var detail;
+      detail = {
+        style: this._domInput.value.trim() + 'px'
+      };
+      return this.dispatchEvent(this.createEvent('save', detail));
+    };
+
+    return FontSizeDialog;
+
+  })(StyleDialog);
 
 }).call(this);

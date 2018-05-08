@@ -154,7 +154,11 @@
     }
 </style>
 <script>
+    import ListBase from './ListBase.vue';
+
     export default {
+        extends: ListBase,
+
         data(){
             return {
                 articleGroups: [],
@@ -172,12 +176,7 @@
             "editor": require('./vue-html-editor')
         },
 
-        created() {
-            this.loadFromDatabase();
-        },
-
         watch: {
-
             selectedArticleGroup: function (articleGroup) {
                 this.selectedArticles = this.getSelectedArticles(articleGroup);
             },
@@ -209,7 +208,6 @@
         },
 
         methods: {
-
             countArticles: function (articleGroup) {
                 return this.getSelectedArticles(articleGroup).length;
             },

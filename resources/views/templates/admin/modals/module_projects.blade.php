@@ -1,11 +1,11 @@
-@extends('templates.admin.modals.modal', ['target'=>'moduleProjectsModal'])
+@extends('templates.admin.modals.modal', ['target' => 'moduleProjectsModal'])
 
 @section('modal-header')
     <h4 class="modal-title"><strong>Module projecten</strong></h4>
 @overwrite
 
 @section('modal-body')
-    <list-projects></list-projects>
+    <list-projects target="#moduleProjectsModal"></list-projects>
     <div class="clear"></div>
 @overwrite
 

@@ -1,0 +1,1 @@
+<div class="fb-comments" data-href="{{ $social->url }}" data-numposts="5"></div>

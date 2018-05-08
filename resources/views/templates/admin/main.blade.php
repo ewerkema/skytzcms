@@ -1,4 +1,3 @@
-
 @extends(isset($template) ? $template : 'templates.admin.empty')
 
 @section('head')
@@ -73,6 +72,7 @@
             @include('templates.admin.modals.module_albums')
             @include('templates.admin.modals.module_sliders')
             @include('templates.admin.modals.module_html_blocks')
+            @include('templates.admin.modals.module_social')
             @include('templates.admin.modals.module_breadcrumbs')
             @include('templates.admin.modals.module_projects')
             @include('templates.admin.modals.users')

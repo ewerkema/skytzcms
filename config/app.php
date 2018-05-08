@@ -185,6 +185,7 @@ return [
         /*
          * Application Service Providers...
          */
+        Spatie\CookieConsent\CookieConsentServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
@@ -254,6 +255,7 @@ return [
         'Setting' => App\Facades\Setting::class,
         'Session' => Illuminate\Support\Facades\Session::class,
         'Slider' => App\Facades\Slider::class,
+        'Social' => App\Facades\Social::class,
         'Storage' => Illuminate\Support\Facades\Storage::class,
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,

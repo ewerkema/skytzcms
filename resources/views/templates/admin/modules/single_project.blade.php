@@ -4,9 +4,11 @@
     @if (sizeof($project->images) > 0)
         <div class="project-images">
             @foreach($project->images as $image)
-                <a class="project-image project{{ $project->id }}" href="{{ $image->image->photo_url('original') }}" target="_blank">
-                    <img src="/{{ $image->image->path }}" alt="">
-                </a>
+                @if ($image->image != null)
+                    <a class="project-image project{{ $project->id }}" href="{{ $image->image->photo_url('original') }}" target="_blank">
+                        <img src="/{{ $image->image->path }}" alt="">
+                    </a>
+                @endif
             @endforeach
         </div>
     @endif

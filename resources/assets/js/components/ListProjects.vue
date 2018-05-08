@@ -156,7 +156,11 @@
     }
 </style>
 <script>
+    import ListBase from './ListBase.vue';
+
     export default {
+        extends: ListBase,
+
         data(){
             return {
                 projectGroups: [],
@@ -171,10 +175,6 @@
 
         components: {
             "editor": require('./vue-html-editor')
-        },
-
-        created() {
-            this.loadFromDatabase();
         },
 
         watch: {

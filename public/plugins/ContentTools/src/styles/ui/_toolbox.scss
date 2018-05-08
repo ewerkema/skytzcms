@@ -180,10 +180,14 @@
         &--unindent:before       { content: "\ea7c"; }
         &--line-break:before     { content: "\ea6e"; }
         &--image:before          { content: "\e90d"; }
-        &--video:before          { content: "\e912"; }
+        &--video:before          { content: "\ea9d"; }
         &--undo:before           { content: "\e965"; }
         &--redo:before           { content: "\e966"; }
         &--remove:before         { content: "\e9ac"; }
+        &--time:before           { content: "\e94e"; }
+        &--color:before          { content: "\e90b"; }
+        &--font:before           { content: "\ea5c"; }
+        &--font-size:before      { content: "\ea61"; }
 
     } // .ct-tool
 

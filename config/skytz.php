@@ -112,4 +112,5 @@ return [
     */
 
     'recaptcha_private' => env('SKYTZ_RECAPTCHA_PRIVATE', '6Lew7z8UAAAAALnFNRroGZJbqVAXMoXzHknEWliN'),
+
 ];

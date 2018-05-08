@@ -157,7 +157,6 @@
                             '',
                             'success'
                         );
-                        location.reload();
 //                        $.get('/cms/media?page=1', function (data) {
 //                            $('#spinner').hide();
 //                            $('#medialist').html(data);

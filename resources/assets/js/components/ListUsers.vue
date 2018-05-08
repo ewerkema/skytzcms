@@ -114,7 +114,11 @@
     }
 </style>
 <script>
+    import ListBase from './ListBase.vue';
+
     export default {
+        extends: ListBase,
+
         data(){
             return {
                 userGroups: [],
@@ -130,10 +134,6 @@
 
         components: {
             "editor": require('./vue-html-editor')
-        },
-
-        created() {
-            this.loadFromDatabase();
         },
 
         watch: {
@@ -160,7 +160,6 @@
         },
 
         methods: {
-
             submitForm: function () {
                 let request = new Request('/cms/users');
                 request.setForm('#userForm');

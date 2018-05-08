@@ -17,6 +17,9 @@ ContentTools =
             'bold',
             'italic',
             'link',
+            'font',
+            'color',
+            'font-size',
             'align-left',
             'align-center',
             'align-right'
