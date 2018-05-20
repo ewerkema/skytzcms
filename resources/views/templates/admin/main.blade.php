@@ -104,6 +104,7 @@
             @endif
 
         </script>
+
         <script src="/js/app.js"></script>
     @endif
 @stop
