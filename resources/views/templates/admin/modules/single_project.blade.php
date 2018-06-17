@@ -24,23 +24,57 @@
         </script>
     @endif
     <div class="row">
-        <div class="large-6 small-12 left">
-            <div id="projectMap" class="flex-video"></div>
+        @if ($project->address != null)
+            <div class="large-6 small-12 left">
+                <div id="projectMap" class="flex-video"></div>
 
-            <script>
-                let map;
-                function initMap() {
-                    let mapElement = document.getElementById('projectMap');
-                    if (mapElement !== null)
-                        map = new google.maps.Map(mapElement, {
-                            center: {lat: -34.397, lng: 150.644},
-                            zoom: 8
-                        });
-                }
-            </script>
-            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAM2bjbYB9y0pRVKSzIRZUoaFhSyMu07I&callback=initMap" async defer></script>
-        </div>
-        <div class="large-6 small-12 left">
+                <script>
+                    let map;
+                    let infowindow;
+                    function initMap() {
+                        let mapElement = document.getElementById('projectMap');
+                        if (mapElement !== null) {
+                            map = new google.maps.Map(mapElement, {
+                                center: new google.maps.LatLng(0,0),
+                                zoom: 8,
+                                zoomControl: true,
+                                scaleControl: false,
+                                scrollwheel: false,
+                                disableDoubleClickZoom: true,
+                            });
+                            let service = new google.maps.places.PlacesService(map);
+                            let request = {
+                                location: map.getCenter(),
+                                radius: '500',
+                                query: "{{ $project->address }}"
+                            };
+                            service.textSearch(request, callback);
+                            infowindow = new google.maps.InfoWindow();
+                        }
+                    }
+
+                    function callback(results, status) {
+                        if (status === google.maps.places.PlacesServiceStatus.OK) {
+                            map.setCenter(results[0].geometry.location);
+                            let marker = new google.maps.Marker({
+                                map: map,
+                                animation: google.maps.Animation.DROP,
+                                place: {
+                                    placeId: results[0].place_id,
+                                    location: results[0].geometry.location
+                                }
+                            });
+                            google.maps.event.addListener(marker, 'click', function() {
+                                infowindow.setContent(`<div><strong>${results[0].name}</strong><br>${results[0].formatted_address}</div>`);
+                                infowindow.open(map, this);
+                            });
+                        }
+                    }
+                </script>
+                <script src="https://maps.googleapis.com/maps/api/js?key={{ config('skytz.google_maps') }}&libraries=places&callback=initMap" async defer></script>
+            </div>
+        @endif
+        <div class="large-{{ ($project->address == null) ? '12' : '6' }} small-12 left">
             {!! $project->body !!}
         </div>
     </div>
