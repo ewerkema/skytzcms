@@ -84,6 +84,13 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="address" class="col-md-3 control-label">Adres (optioneel)</label>
+
+                    <div class="col-md-8">
+                        <input type="text" id="address" name="address" :value="selectedProject.address" class="form-control" placeholder="Project adres" />
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="summary" class="col-md-3 control-label">Introductie</label>
 
                     <div class="col-md-8">
@@ -204,7 +211,7 @@
                 request.setForm('#projectForm');
                 request.setType('POST');
 
-                request.addFields(['project_group_id', 'title', 'summary', 'body', 'published']);
+                request.addFields(['project_group_id', 'title', 'summary', 'body', 'address', 'published']);
                 request.addArrays(['image_ids']);
                 request.addCheckboxes(['published']);
 

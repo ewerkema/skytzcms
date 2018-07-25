@@ -20,7 +20,7 @@ class ProjectGroup extends Model
      */
     public function projects()
     {
-        return $this->hasMany('App\Models\Project', 'project_group_id')->orderBy('created_at', 'DESC');
+        return $this->hasMany('App\Models\Project', 'project_group_id')->published()->orderBy('created_at', 'DESC');
     }
 
 }

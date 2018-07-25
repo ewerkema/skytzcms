@@ -113,4 +113,14 @@ return [
 
     'recaptcha_private' => env('SKYTZ_RECAPTCHA_PRIVATE', '6Lew7z8UAAAAALnFNRroGZJbqVAXMoXzHknEWliN'),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Google Maps API Token
+    |--------------------------------------------------------------------------
+    |
+    | The Google Maps API token used for maps integration.
+    */
+
+    'google_maps' => env('SKYTZ_GOOGLE_MAPS', 'AIzaSyCqRFNnwFi0WsiVOLBN9fbc4wBppGYq2vM'),
+
 ];

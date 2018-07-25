@@ -20,7 +20,7 @@ class ArticleGroup extends Model
      */
     public function articles()
     {
-        return $this->hasMany('App\Models\Article', 'article_group_id')->orderBy('created_at', 'DESC');
+        return $this->hasMany('App\Models\Article', 'article_group_id')->published()->orderBy('created_at', 'DESC');
     }
 
 }

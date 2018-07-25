@@ -34,7 +34,7 @@
             <div class="col-md-8">
                 <div class="input-group">
                     <span class="input-group-addon" id="page-url">{{ url("/ ") }}</span>
-                    <input type="text" name="slug" class="form-control" aria-describedby="page-url" required autofocus />
+                    <input type="text" name="slug" class="form-control" aria-describedby="page-url" autofocus />
                 </div>
             </div>
         </div>

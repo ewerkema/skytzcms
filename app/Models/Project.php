@@ -15,7 +15,7 @@ class Project extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'summary', 'body', 'published', 'project_group_id',
+        'title', 'summary', 'body', 'address', 'published', 'project_group_id',
     ];
 
     /**
@@ -53,6 +53,17 @@ class Project extends Model
     public function notPublished()
     {
         return !$this->attributes['published'];
+    }
+
+    /**
+     * Returns the published projects.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopePublished($builder)
+    {
+        return $builder->where('published', '=', true);
     }
 
     /**

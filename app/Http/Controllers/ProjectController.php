@@ -39,6 +39,7 @@ class ProjectController extends Controller
             'title' => 'Titel',
             'summary' => 'Introductie voor het project',
             'body' => 'Project beschrijving',
+            'address' => 'Project adres',
             'published' => 'Gepubliceerd',
         ]);
     }
