@@ -50,6 +50,17 @@ class Article extends Model
     }
 
     /**
+     * Returns the published articles.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopePublished($builder)
+    {
+        return $builder->where('published', '=', true);
+    }
+
+    /**
      * Get slug of the current article.
      *
      */
