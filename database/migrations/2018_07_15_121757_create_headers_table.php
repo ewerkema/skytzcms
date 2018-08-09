@@ -50,20 +50,21 @@ class CreateHeadersTable extends Migration
     private function migratePageHeaders()
     {
         Schema::table('pages', function (Blueprint $table) {
-            $table->dropForeign('header_image_id');
+            $table->dropForeign(['header_image_id']);
+            $table->integer('header_id');
         });
 
         $pages = Page::all();
         foreach ($pages as $page) {
             if ($page->header_image_id != null) {
                 $header = $this->createHeaderFromImage("Header ".$page->title, $page->header_image_id);
-                $page->header_image_id = $header->id;
+                $page->header_id = $header->id;
                 $page->save();
             }
         }
 
         Schema::table('pages', function (Blueprint $table) {
-            $table->renameColumn('header_image_id', 'header_id');
+            $table->dropColumn('header_image_id');
         });
     }
 
