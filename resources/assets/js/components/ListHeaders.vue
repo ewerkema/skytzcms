@@ -215,6 +215,7 @@
 
                 if (val) {
                     this.selectedHeader.video = this.selectedHeader.video ? this.selectedHeader.video : '';
+                    this.selectedHeader.slider_id = this.selectedHeader.slider_id ? this.selectedHeader.slider_id : 0;
 
                     if (!this.selectedHeader.image_id && this.selectedHeader.slider_id === 0) {
                         $('#headerTabs a[href="#videoTab"]').tab('show');
