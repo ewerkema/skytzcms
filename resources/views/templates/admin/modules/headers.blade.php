@@ -4,7 +4,7 @@
             <img src="/{{ Media::find($header->image_id)->path }}" alt="">
             @if ($header->content)
                 <div class="text {{ $header->getPosition() }}">
-                    <div class="content">{!! $header->content !!}</div>
+                    <div class="inner">{!! $header->content !!}</div>
                 </div>
             @endif
 
