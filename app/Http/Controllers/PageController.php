@@ -11,6 +11,12 @@ use Input;
 
 class PageController extends Controller
 {
+    public function index()
+    {
+        $pages = Page::all();
+
+        return response()->json($pages);
+    }
 
     /**
      * Get a validator for an incoming registration request.

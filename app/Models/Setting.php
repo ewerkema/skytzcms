@@ -51,6 +51,9 @@ class Setting extends Model
     public function deleteMany($settings)
     {
         foreach ($settings as $name => $value) {
+            if (is_numeric($name))
+                $name = $value;
+
             $setting = Setting::where('name', '=', $name)->first();
 
             if ($setting != null)

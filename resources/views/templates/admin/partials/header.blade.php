@@ -147,6 +147,7 @@
 
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="#" data-toggle="modal" data-target="#websiteModal">Website instellingen</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#headersModal">Header instellingen</a></li>
                                 <li><a href="#" data-toggle="modal" data-target="#accountModal">Account instellingen</a></li>
                                 <li>
                                     <a href="{{ cms_url('/logout') }}"

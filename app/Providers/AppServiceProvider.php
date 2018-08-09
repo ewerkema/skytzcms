@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Header;
 use App\Models\Project;
 use App\Models\ProjectGroup;
 use App\Models\HtmlBlock;
@@ -28,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
         'Article' => Article::class,
         'Album' => Album::class,
         'ArticleGroup' => ArticleGroup::class,
+        'Header' => Header::class,
         'Media' => Media::class,
         'Page' => Page::class,
         'Project' => Project::class,
