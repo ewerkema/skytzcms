@@ -32,6 +32,7 @@ class HeaderController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
+            'position' => 'required|integer',
             'image_id' => 'integer',
             'slider_id' => 'integer',
             'video' => 'url',
@@ -41,6 +42,7 @@ class HeaderController extends Controller
             'open_in_new_tab' => 'required|boolean',
         ], [], [
             'name' => 'Naam',
+            'position' => 'Positie',
             'image_id' => 'Afbeelding',
             'slider_id' => 'Slider',
             'video' => 'Youtube embed url',

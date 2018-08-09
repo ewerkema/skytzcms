@@ -55,8 +55,8 @@
                             <div class="col-md-8">
                                 <div class="input-group input-pointer">
                                     <input type="hidden" name="image_id" id="image_id" v-model="selectedHeader.image_id" class="form-control selected_media_id" @change="resetSliderVideo"/>
-                                    <span class="input-group-addon" id="media-picture" onclick="selectMedia()"><span class="glyphicon glyphicon-picture"></span></span>
-                                    <input type="text" name="image_name" onclick="selectMedia()" :value="selectedHeaderImageName || ''" class="form-control selected_media_name no-border-radius" placeholder="Artikel afbeelding" />
+                                    <span class="input-group-addon" id="media-picture" onclick="selectMediaWithEdit()"><span class="glyphicon glyphicon-picture"></span></span>
+                                    <input type="text" name="image_name" onclick="selectMediaWithEdit()" :value="selectedHeaderImageName || ''" class="form-control selected_media_name no-border-radius" placeholder="Artikel afbeelding" />
                                     <div class="input-group-btn">
                                         <button class="btn btn-default" type="button" @click="removeMedia()"><span class="glyphicon glyphicon-remove"></span></button>
                                     </div>
@@ -69,6 +69,18 @@
 
                             <div class="col-md-8">
                                 <editor name="content" id="content" language="nl-NL" :model.sync="selectedHeader.content"></editor>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="position" class="col-md-3 control-label">Positie tekst</label>
+
+                            <div class="col-md-8">
+                                <select class="form-control" id="position" name="position" v-model="selectedHeader.position">
+                                    <option v-for="(index,position) in positions" :value="index">
+                                        {{ position }}
+                                    </option>
+                                </select>
                             </div>
                         </div>
 
@@ -173,6 +185,7 @@
                 pages: [],
                 selectedHeader: false,
                 selectedHeaderImageName: false,
+                positions: ['Linksboven', 'Links', 'Linksonder', 'Midden boven', 'Midden', 'Midden onder', 'Rightsboven', 'Rechts', 'Rechtsonder'],
             };
         },
 
@@ -201,6 +214,8 @@
                 }
 
                 if (val) {
+                    this.selectedHeader.video = this.selectedHeader.video ? this.selectedHeader.video : '';
+
                     if (!this.selectedHeader.image_id && this.selectedHeader.slider_id === 0) {
                         $('#headerTabs a[href="#videoTab"]').tab('show');
                     }
@@ -223,7 +238,7 @@
                 request.setForm('#headerForm');
                 request.setType('POST');
 
-                request.addFields(['name', 'image_id', 'slider_id', 'video', 'content', 'link_to_page', 'link_to_url']);
+                request.addFields(['name', 'image_id', 'slider_id', 'video', 'content', 'link_to_page', 'link_to_url', 'position']);
                 request.addCheckboxes(['open_in_new_tab']);
 
                 if (this.selectedHeader.id != undefined) {
@@ -254,12 +269,15 @@
             },
 
             validateYoutubeUrl: function(val) {
-                if (!this.validYoutubeUrl(val) && val !== '') {
+                let validUrl = this.validYoutubeUrl(val);
+                if (!validUrl && val !== '') {
                     swal({
                         title: 'Onjuiste url',
                         text: 'De opgegeven url is een onjuiste youtube embed url.',
                         type: 'warning',
                     })
+                } else {
+                    this.selectedHeader.video = validUrl;
                 }
             },
 
@@ -268,8 +286,7 @@
                     let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
                     let match = url.match(regExp);
                     if (match && match[2].length === 11) {
-                        let embedUrl = 'https://www.youtube.com/embed/' + match[2] + '?autoplay=0';
-                        return true;
+                        return `https://www.youtube.com/embed/${match[2]}?autoplay=0`;
                     } else {
                         return false;
                     }
@@ -279,6 +296,7 @@
             createHeader: function () {
                 this.selectedHeader = {
                     'name': '',
+                    'position': 0,
                     'image_id': false,
                     'slider_id': false,
                     'video': '',
@@ -379,6 +397,7 @@
 
             resetImageVideo: function() {
                 this.selectedHeader.image_id = 0;
+                this.selectedHeader.position = 0;
                 this.selectedHeader.content = '';
                 this.selectedHeader.link_to_page = 0;
                 this.selectedHeader.link_to_url = '';
@@ -388,6 +407,7 @@
 
             resetImageSlider: function() {
                 this.selectedHeader.image_id = 0;
+                this.selectedHeader.position = 0;
                 this.selectedHeader.content = '';
                 this.selectedHeader.link_to_page = 0;
                 this.selectedHeader.link_to_url = '';
