@@ -76,30 +76,16 @@
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="websiteHeaderTab">
-                <p>Voeg een afbeelding <strong>of</strong> slider toe aan alle pagina's. Als een pagina een eigen header heeft ingesteld, wordt deze gebruikt.</p>
+                <p>Voeg een header toe aan alle pagina's. Als een pagina een eigen header heeft ingesteld, wordt deze gebruikt.</p>
                 <div class="form-group">
-                    <label for="header_image" class="col-md-3 control-label">Header afbeelding</label>
+                    <label for="header_id2" class="col-md-3 control-label">Header</label>
 
                     <div class="col-md-8">
-                        <div class="input-group input-pointer">
-                            <input type="hidden" name="header_image" value="{{ $settings['header_image']->value }}" class="form-control selected_media_id" />
-                            <span class="input-group-addon" id="media-picture" onclick="selectMediaWithEdit()"><span class="glyphicon glyphicon-picture"></span></span>
-                            <input type="text" name="header_image_name" onclick="selectMediaWithEdit()" value="{{ ($settings['header_image']->value) ? Media::findOrFail($settings['header_image']->value)->name : "" }}" class="form-control selected_media_name" placeholder="Header afbeelding" autofocus />
-                            <div class="input-group-btn">
-                                <button class="btn btn-default removeMedia" type="button"><span class="glyphicon glyphicon-remove"></span></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="header_slider" class="col-md-3 control-label">Slider</label>
-
-                    <div class="col-md-8">
-                        <select class="form-control" id="header_slider" name="header_slider">
-                            <option value="0" {{ (!$settings['header_slider']->value) ? "selected" : "" }}>Geen slider</option>
-                            @foreach (Slider::all() as $slider)
-                                <option value="{{ $slider->id }}" {{ ($settings['header_slider']->value == $slider->id) ? "selected" : ""}}>
-                                    {{ $slider->name }}
+                        <select class="form-control" id="header_id2" name="header_id">
+                            <option value="0" {{ (!$settings['header_id']->value) ? "selected" : "" }}>Geen header</option>
+                            @foreach (Header::all() as $header)
+                                <option value="{{ $header->id }}" {{ ($settings['header_id']->value == $header->id) ? "selected" : ""}}>
+                                    {{ $header->name }}
                                 </option>
                             @endforeach
                         </select>
@@ -160,12 +146,6 @@
             $('#selectMediaModal').modal('toggle');
         }
 
-        $('.removeMedia').click(function() {
-            $(this).closest('.input-group').find('[name=header_image_id]').val(0);
-            $(this).closest('.input-group').find('[name=header_image_name]').val("");
-            console.log($(this).closest('.input-group').find('[name=header_image_id]'));
-        });
-
         $('#websiteTabs a').click(function (e) {
             e.preventDefault();
             $(this).tab('show');
@@ -182,8 +162,7 @@
             'twitter_page',
             'youtube_page',
             'googleplus_page',
-            'header_slider',
-            'header_image',
+            'header_id',
             'whatsapp_number',
             'whatsapp_display_number',
             'whatsapp_text',

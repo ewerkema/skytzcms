@@ -83,17 +83,17 @@
         </div>
         <div role="tabpanel" class="tab-pane" id="headerTab">
             <div class="form-group">
-                <label for="header_image" class="col-md-3 control-label">Pagina header</label>
+                <label for="header_id" class="col-md-3 control-label">Pagina header</label>
 
                 <div class="col-md-8">
-                    <div class="input-group input-pointer">
-                        <input type="hidden" name="header_image_id" value="{{ $currentPage->header_image_id }}" class="form-control selected_media_id" />
-                        <span class="input-group-addon" id="media-picture" onclick="selectMediaWithEdit()"><span class="glyphicon glyphicon-picture"></span></span>
-                        <input type="text" name="header_image_name" onclick="selectMediaWithEdit()" value="{{ ($currentPage->header_image_id) ? Media::find($currentPage->header_image_id)->name : "" }}" class="form-control selected_media_name no-border-radius" placeholder="Pagina header" autofocus />
-                        <div class="input-group-btn">
-                            <button class="btn btn-default removeMedia" type="button"><span class="glyphicon glyphicon-remove"></span></button>
-                        </div>
-                    </div>
+                    <select class="form-control" id="header_id" name="header_id">
+                        <option value="0">Geen header</option>
+                        @foreach (Header::all() as $header)
+                            <option value="{{ $header->id }}" {{ ($header->id == $currentPage->header_id) ? "selected" : "" }}>
+                                {{ $header->name }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
         </div>
@@ -118,7 +118,7 @@
         request.setType('PATCH');
         request.setForm('#pageForm');
 
-        request.addFields(['title', 'meta_title', 'meta_desc', 'meta_keywords', 'parent_id', 'header_image_id']);
+        request.addFields(['title', 'meta_title', 'meta_desc', 'meta_keywords', 'parent_id', 'header_id']);
         request.addCheckboxes(['menu']);
         request.addField('slug', 'text', 'index');
 

@@ -73,9 +73,6 @@ class PageController extends Controller
         $input = $request->all();
         $this->validator($input)->validate();
 
-        if (!$input['header_image_id'])
-            $input['header_image_id'] = NULL;
-
         $input['order'] = Page::all()->max('order')+1;
 
         $input['content'] = array();
@@ -237,9 +234,6 @@ class PageController extends Controller
     {
         $input = $request->all();
         $this->validator($input, $page->id)->validate();
-
-        if (!$input['header_image_id'])
-            $input['header_image_id'] = NULL;
 
         if (!$page->update($input))
             return response()->json(['message' => 'Updaten van de pagina is niet gelukt.'], 500);
