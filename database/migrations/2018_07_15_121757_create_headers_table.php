@@ -49,6 +49,10 @@ class CreateHeadersTable extends Migration
      */
     private function migratePageHeaders()
     {
+        Schema::table('pages', function (Blueprint $table) {
+            $table->dropForeign('header_image_id');
+        });
+
         $pages = Page::all();
         foreach ($pages as $page) {
             if ($page->header_image_id != null) {
