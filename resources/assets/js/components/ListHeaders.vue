@@ -214,9 +214,6 @@
                 }
 
                 if (val) {
-                    this.selectedHeader.video = this.selectedHeader.video ? this.selectedHeader.video : '';
-                    this.selectedHeader.slider_id = this.selectedHeader.slider_id ? this.selectedHeader.slider_id : 0;
-
                     if (!this.selectedHeader.image_id && this.selectedHeader.slider_id === 0) {
                         $('#headerTabs a[href="#videoTab"]').tab('show');
                     }
@@ -314,6 +311,10 @@
             },
 
             editHeader: function (header) {
+                header.video = header.video ? header.video : '';
+                header.slider_id = header.slider_id ? header.slider_id : 0;
+                header.link_to_page = header.link_to_page ? header.link_to_page : 0;
+                header.open_in_new_tab = header.open_in_new_tab ? header.open_in_new_tab : 0;
                 this.selectedHeader = header;
             },
 
