@@ -26,7 +26,6 @@ Route::group(['prefix' => 'cms'], function() {
     Route::post('pages/publish', array('as' => 'pages.publish', 'uses' => 'PageController@publish'));
     Route::resource('pages', 'PageController');
 
-
     Route::resource('users', 'UserController');
     Route::patch('settings', 'SettingController@update');
     Route::resource('media', 'MediaController');

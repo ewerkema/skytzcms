@@ -1,7 +1,7 @@
 @if ($header = Header::find($id))
     @if ($header->image_id)
         <div class="image header-image">
-            <img src="/{{ Media::find($header->image_id)->path }}" alt="">
+            @include('templates.admin.partials.image', ['image_id' => $header->image_id])
             @if ($header->content)
                 <div class="text {{ $header->getPosition() }}">
                     <div class="inner">{!! $header->content !!}</div>

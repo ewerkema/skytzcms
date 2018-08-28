@@ -6,7 +6,9 @@
                     @if (strlen($article->summary) > 0)
                         <div class="portlet">
                             <div class="image small-3">
-                                <a href="{{ $article->getLink() }}"><img src="/{{ Media::find($article->image_id)->path }}" alt=""></a>
+                                <a href="{{ $article->getLink() }}">
+                                    @include('templates.admin.partials.image', ['image_id' => $article->image_id])
+                                </a>
                             </div>
                             <div class="text small-9">
                                 <h3 class="newsheader">{{ $article->title }}</h3>
@@ -18,7 +20,9 @@
                         </div>
                     @else
                         <div class="image small-4">
-                            <a href="{{ $article->getLink() }}"><img src="/{{ Media::find($article->image_id)->path }}" alt=""></a>
+                            <a href="{{ $article->getLink() }}">
+                                @include('templates.admin.partials.image', ['image_id' => $article->image_id])
+                            </a>
                             <h3 class="newsheader block"><a href="{{ $article->getLink() }}">{{ $article->title }}</a></h3>
                         </div>
                     @endif

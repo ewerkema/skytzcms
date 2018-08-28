@@ -3,7 +3,7 @@
     <p><i>Gepubliceerd: {{ $article->created_at->diffForHumans() }} ({{ $article->created_at->toDateString() }})</i></p>
     @if ($article->image_id)
         <div class="image">
-            <img src="/{{ Media::find($article->image_id)->path }}" alt="">
+            @include('templates.admin.partials.image', ['image_id' => $article->image_id])
         </div>
     @endif
     {!! $article->body !!}
