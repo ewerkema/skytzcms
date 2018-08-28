@@ -47,7 +47,9 @@ class MediaController extends Controller
         $name = Input::get('name');
 
         foreach($name as $filename) {
-            $this->createMedia($filename);
+            if (!$this->createMedia($filename)) {
+                return Response::json(['status' => 'error', 'message' => "De afbeelding $filename bestaat al!"]);
+            }
         }
 
         return Response::json(['status'=>'success','msg'=>'Media toegevoegd!']);
@@ -57,10 +59,13 @@ class MediaController extends Controller
      * Create media from filename.
      *
      * @param $filename
-     * @return Media
+     * @return Media|bool
      */
     public function createMedia($filename)
     {
+        if ($this->mediaExists($filename))
+            return false;
+
         $media = new Media;
         $media->name = $filename;
         $media->description = '';
@@ -70,6 +75,22 @@ class MediaController extends Controller
         $media->save();
 
         return $media;
+    }
+
+    /**
+     * Returns whether the filename already exists in database.
+     *
+     * @param string $filename
+     * @return bool
+     */
+    public function mediaExists($filename)
+    {
+        if (File::extension($filename)!='docx' && File::extension($filename)!='pdf' && File::extension($filename)!='doc')
+            $path = 'images/'.$filename;
+        else
+            $path = 'docs'.$filename;
+
+        return Media::where('path', $path)->exists();
     }
 
     /**
