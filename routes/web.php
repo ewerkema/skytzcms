@@ -47,6 +47,8 @@ Route::group(['prefix' => 'cms'], function() {
     Route::resource('projectGroups', 'ProjectGroupController');
     Route::resource('socials', 'SocialController');
     Route::resource('headers', 'HeaderController');
+    Route::resource('folders', 'FolderController');
+    Route::resource('folders.media', 'FolderMediaController');
 //
     Route::get('/{slug}', array('as' => 'page.show', 'uses' => 'TemplateController@show'));
     Route::get('/{slug}/{childSlug}', array('as' => 'page.show', 'uses' => 'TemplateController@show'));

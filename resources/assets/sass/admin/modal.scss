@@ -19,6 +19,23 @@
         overflow-y: auto;
     }
 
+    .modal-dialog.modal-full-screen {
+        width: calc(100% - 30px);
+        height: calc(100% - 30px);
+        margin: 15px;
+        padding: 0;
+
+        .modal-content {
+            height: auto;
+            min-height: 100%;
+            border-radius: 0;
+        }
+
+        .modal-body {
+            max-height: 100%;
+        }
+    }
+
     .flex {
         display: flex;
     }
@@ -28,26 +45,40 @@
     margin-top: 15px;
 }
 
+#folderlist {
+    margin-top: 15px;
+}
+
 #mediaModal {
     overflow-y: auto;
-    .media-image-gallery{
+    .flex-row {
+        @include display-flex();
+        @include justify-content(flex-start);
+        @include flex-wrap(wrap);
+    }
+    .item {
         display: block;
+        margin: 5px;
+        position: relative;
+        max-width: 150px;
+        @include flex-basis(auto);
+        @include flex-grow(1);
         .thumbnail{
-            display: inline-block;
-            position: relative;
-            width: 100%;
             padding: 10px;
-            height: 250px;
             overflow: hidden;
-            img{
+            img {
                 margin-bottom: 10px;
                 width: 100%;
             }
             p{
                 text-align: center;
                 font-size: 14px;
+                margin-bottom: 0;
                 line-height: 24px;
                 word-break: break-all;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
         }
         .thumbnail.selected {
@@ -56,8 +87,8 @@
         }
         .trash{
             position: absolute;
-            top: 12px;
-            right: 27px;
+            top: 10px;
+            right: 10px;
             display: block;
             a{
                 color: #fff;

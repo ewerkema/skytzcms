@@ -21,13 +21,7 @@ class MediaController extends Controller
     public function index()
     {
         if (!isset($_GET['page'])) {
-            $media = Media::all();
-
-            foreach ($media as $index => $item) {
-                $item['thumbnail_url'] = $item->photo_url('thumbnail');
-                $item['original_url'] = $item->photo_url('original');
-                $media[$index] = $item;
-            }
+            $media = Input::get('filterFolder') ? Media::withoutFolder()->get() : Media::all();
 
             return Response::json($media);
         }

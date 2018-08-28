@@ -13,8 +13,20 @@ class Media extends Model
     protected $table = 'media';
 
     protected $fillable = [
-        'name', 'description', 'path', 'mime', 'extension',
+        'name', 'description', 'path', 'mime', 'extension', 'folder_id',
     ];
+
+    protected $appends = ['thumbnail_url', 'original_url'];
+
+    public function getThumbnailUrlAttribute()
+    {
+        return $this->photo_url('thumbnail');
+    }
+
+    public function getOriginalUrlAttribute()
+    {
+        return $this->photo_url('original');
+    }
 
     public function sliders()
     {
@@ -29,6 +41,22 @@ class Media extends Model
     public function pages()
     {
         return $this->hasMany('App\Models\Page', 'header_id');
+    }
+
+    public function folder()
+    {
+        return $this->belongsTo('App\Models\Folder');
+    }
+
+    /**
+     * Scope a query to only include media without folder.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeWithoutFolder($query)
+    {
+        return $query->whereNull('folder_id');
     }
 
     /**
