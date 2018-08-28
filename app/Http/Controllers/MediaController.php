@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Header;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use Image;
@@ -147,9 +148,14 @@ class MediaController extends Controller
      */
     public function checkGlobalHeader($media)
     {
-        $setting = Setting::where('name', 'header_image')->first();
+        $setting = Setting::where('name', 'header_id')->first();
 
-        if ($setting->value == $media->id) {
+        if (!$setting->value)
+            return;
+
+        $header = Header::find($setting->value);
+
+        if ($header->image_id == $media->id) {
             $setting->value = 0;
             $setting->save();
         }

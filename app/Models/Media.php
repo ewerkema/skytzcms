@@ -28,7 +28,7 @@ class Media extends Model
 
     public function pages()
     {
-        return $this->hasMany('App\Models\Page', 'header_image_id');
+        return $this->hasMany('App\Models\Page', 'header_id');
     }
 
     /**
