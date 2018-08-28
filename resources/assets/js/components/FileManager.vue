@@ -202,6 +202,7 @@
                     },
                     success: function(data) {
                         self.folders.push(data);
+                        self.initDragAndDrop();
                     },
                     error: this.handleError
                 });

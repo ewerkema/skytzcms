@@ -56,7 +56,7 @@
                                 <div class="input-group input-pointer">
                                     <input type="hidden" name="image_id" id="image_id" v-model="selectedHeader.image_id" class="form-control selected_media_id" @change="resetSliderVideo"/>
                                     <span class="input-group-addon" id="media-picture" onclick="selectMediaWithEdit()"><span class="glyphicon glyphicon-picture"></span></span>
-                                    <input type="text" name="image_name" onclick="selectMediaWithEdit()" :value="selectedHeaderImageName || ''" class="form-control selected_media_name no-border-radius" placeholder="Artikel afbeelding" />
+                                    <input type="text" name="image_name" onclick="selectMediaWithEdit()" :value="selectedHeaderImageName || ''" class="form-control selected_media_name no-border-radius" placeholder="Afbeelding" />
                                     <div class="input-group-btn">
                                         <button class="btn btn-default" type="button" @click="removeMedia()"><span class="glyphicon glyphicon-remove"></span></button>
                                     </div>
