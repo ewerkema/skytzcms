@@ -39,9 +39,10 @@ class MediaController extends Controller
     public function store(Request $request)
     {
         $name = Input::get('name');
+        $folderId = Input::get('folder_id');
 
         foreach($name as $filename) {
-            if (!$this->createMedia($filename)) {
+            if (!$this->createMedia($filename, $folderId)) {
                 return Response::json(['status' => 'error', 'message' => "De afbeelding $filename bestaat al!"]);
             }
         }
@@ -53,15 +54,19 @@ class MediaController extends Controller
      * Create media from filename.
      *
      * @param $filename
+     * @param bool $folderId
      * @return Media|bool
      */
-    public function createMedia($filename)
+    public function createMedia($filename, $folderId = false)
     {
         if ($this->mediaExists($filename))
             return false;
 
         $media = new Media;
         $media->name = $filename;
+        if ($folderId != false)
+            $media->folder_id = $folderId;
+
         $media->description = '';
         $media->extension = File::extension($filename);
         $media->mime = '';

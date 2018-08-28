@@ -83,6 +83,7 @@
 
         watch: {
             selectedFolder: function(value) {
+                $('#folder_id').val(value ? value : 0);
                 this.initDragAndDrop();
             },
         },

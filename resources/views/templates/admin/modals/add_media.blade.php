@@ -12,6 +12,7 @@
             <div class="modal-body">
                 <div id="container">
                     <div id="filelist"></div>
+                    <input type="hidden" name="folder_id" value="0" id="folder_id">
                     <br/>
                     <div class="upload-button">
                         <div id='pickfiles' class="btn btn-primary btn-cons m-b-10">
