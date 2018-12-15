@@ -39,6 +39,10 @@
                 <p v-if="sortedImages.length === 0">Er zijn geen afbeeldingen of andere documenten gevonden.</p>
             </div>
         </div>
+
+        <form action="#">
+            <input type="hidden" name="folder" id="selectedFolderFileManager" :value="selectedFolder">
+        </form>
     </div>
 </template>
 

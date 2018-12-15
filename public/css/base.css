@@ -151,6 +151,10 @@ img.align-left {
     position: relative;
 }
 
+.header-image img {
+    width: 100%;
+}
+
 .header-image .link {
     position: absolute;
     left: 0;

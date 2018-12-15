@@ -146,7 +146,7 @@
             $.ajax({
                 type: "POST",
                 url: url,
-                data: $("#media-form").serialize(),
+                data: $("#media-form").serialize()+'&folder_id='+$('#selectedFolderFileManager').val(),
                 success: function (data) {
                     $('#spinner1').hide();
                     $('#filelist').html('');
