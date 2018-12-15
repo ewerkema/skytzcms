@@ -1,5 +1,5 @@
 <div class="modal {{ isset($animation) ? $animation : 'fade' }}" data-backdrop="{{ isset($backdrop) ? $backdrop : '' }}" tabindex="-1" role="dialog" id="{{ $target }}" aria-labelledby="{{ $target }}">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog {{ (isset($fullscreen) && $fullscreen) ? "modal-full-screen" : "modal-lg" }}" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>

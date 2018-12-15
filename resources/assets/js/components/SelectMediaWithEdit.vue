@@ -1,19 +1,28 @@
 <template>
     <div class="select-media-with-edit">
+        <button v-on:click="selectedFolder = false" class="btn btn-primary" v-show="selectedFolder && !selectedImage" style="margin-bottom: 15px;"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp; Ga terug</button>
+        <div class="flex-row" v-if="!selectedFolder && !selectedImage">
+            <div class="item" v-for="folder in sortedFolders" :data-id="folder.id">
+                <div class="thumbnail">
+                    <a v-on:click="selectedFolder = folder.id">
+                        <img :src="'../folder.png'" alt="Folder">
+                    </a>
+                    <p>{{ folder.name }}</p>
+                </div>
+            </div>
+        </div>
         <div class="selectMedia" v-if="!selectedImage">
             <div class="bootstrap-row album-row">
                 <div class="album-image"
-                     v-for="image in currentImages"
+                     v-for="image in sortedImages"
                      v-on:click="selectImage(image)"
-                     :class="[{selected: image.id == selectedImage.id }, 'col-md-3']"
+                     :class="[{selected: image.id == selectedImage.id }, 'col-md-1']"
                 >
                     <img :src="imagePath(image.path)" :id="'select_image_'+image.id" />
                     <span class="glyphicon glyphicon-ok add"></span>
                 </div>
             </div>
             <p v-if="images.length == 0">Er zijn geen afbeeldingen gevonden.</p>
-
-            <pagination :total="images.length" :per_page="per_page" :current_page="current_page"></pagination>
         </div>
         <div id="jcropEdit" v-else>
             <p>Klik op de afbeelding om hem bij te snijden.</p>
@@ -45,7 +54,6 @@
     }
 </style>
 <script>
-    import Pagination from "./Pagination.vue";
     import VueEvents from 'vue-events';
     import ListBase from './ListBase.vue';
     Vue.use(VueEvents);
@@ -56,6 +64,7 @@
 
         data(){
             return {
+                folderUrl: '/cms/folders',
                 selectedImage: false,
                 selectedPage: 0,
                 totalPages: 0,
@@ -64,57 +73,22 @@
                 coordinates: [],
                 images: [],
                 zoomFactor: 1,
+                selectedFolder: false,
+                folders: [],
             };
         },
 
-        components: {
-            Pagination,
-        },
-
         computed: {
-            total: function() {
-                return this.images.length;
+            sortedImages: function() {
+                return _.orderBy(this.selectedFolder ? this.getFolderMedia(this.selectedFolder) : this.images, [image => image.name.toLowerCase()]);
             },
 
-            to: function() {
-                return Math.min(this.current_page * this.per_page, this.total);
-            },
-
-            from: function() {
-                return Math.min(this.total, (this.current_page - 1) * this.per_page + 1);
-            },
-
-            currentImages: function() {
-                return this.images.slice(
-                    Math.min((this.current_page - 1) * this.per_page, this.images.length),
-                    this.current_page * this.per_page
-                );
-            }
-        },
-
-        filters: {
-            limitPage: function(arr) {
-                var imagesPerPage = this.imagesPerRow * 2;
-                return arr.slice(this.selectedPage * imagesPerPage, (this.selectedPage + 1) * imagesPerPage);
-            }
-        },
-
-        created() {
-            this.$events.$on('changePage', page => this.changePage(page));
-            this.$events.$on('resetCurrentPage', () => this.changePage(1));
-        },
-
-        watch: {
-            images: function (data) {
-               this.totalPages = Math.floor(data.length / (this.imagesPerRow * 2));
+            sortedFolders: function() {
+                return _.orderBy(this.folders, [folder => folder.name.toLowerCase()]);
             }
         },
 
         methods: {
-            changePage: function (page) {
-                this.current_page = page;
-            },
-
             imagePath: function(path) {
                 return '/'+path;
             },
@@ -150,6 +124,7 @@
 
             loadFromDatabase: function() {
                 this.loadImages();
+                this.loadFolders();
             },
 
             sendImage: function() {
@@ -174,6 +149,13 @@
                 });
             },
 
+            loadFolders: function() {
+                let self = this;
+                $.get(this.folderUrl, function (data) {
+                    self.folders = data;
+                });
+            },
+
             isImage: function (image) {
                 var extensions = ['jpg', 'png', 'tif', 'jpeg', 'gif'];
                 return _.includes(extensions, image.extension.toLowerCase());
@@ -184,7 +166,13 @@
                 return _.filter(images, function (image) {
                     return _this.isImage(image);
                 });
-            }
+            },
+
+            getFolderMedia: function (folderId) {
+                let index = _.findIndex(this.folders, folder => folder.id === folderId);
+
+                return index !== -1 ? this.folders[index].media : [];
+            },
 
         },
 

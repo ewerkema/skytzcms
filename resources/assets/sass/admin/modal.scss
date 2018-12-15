@@ -49,7 +49,7 @@
     margin-top: 15px;
 }
 
-#mediaModal {
+#mediaModal, #selectMediaModal, #selectMediaWithEditModal {
     overflow-y: auto;
     .flex-row {
         @include display-flex();
