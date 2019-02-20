@@ -14,6 +14,6 @@
 
 <script>
     $(document).ready(function(){
-        $(".group{{ $id }}").colorbox({rel:'group{{ $id }}', maxWidth:'50%', fixed: true});
+        $(".group{{ $id }}").colorbox({rel:'group{{ $id }}', maxWidth:'50%', maxHeight:'100%', fixed: true});
     });
 </script>
