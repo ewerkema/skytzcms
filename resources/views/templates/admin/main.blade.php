@@ -74,6 +74,7 @@
             @include('templates.admin.modals.module_html_blocks')
             @include('templates.admin.modals.module_social')
             @include('templates.admin.modals.module_breadcrumbs')
+            @include('templates.admin.modals.module_albums_overview')
             @include('templates.admin.modals.module_projects')
             @include('templates.admin.modals.headers')
             @include('templates.admin.modals.users')

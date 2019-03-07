@@ -108,7 +108,7 @@
 
                             <ul class="dropdown-menu" role="menu">
                                 @foreach ($modules as $module)
-                                    <li><a href="#" data-toggle="modal" data-target="#module{{ ucfirst($module->template) }}Modal">Module {{ $module->name }}</a></li>
+                                    <li><a href="#" data-toggle="modal" data-target="#module{{ ucfirst(camel_case(str_replace("_", " ", $module->template))) }}Modal">Module {{ $module->name }}</a></li>
                                 @endforeach
                             </ul>
                         </li>

@@ -48,6 +48,41 @@ class Album extends Model
     }
 
     /**
+     * Search albums and return where slug is equal.
+     *
+     */
+    public static function whereSlug($slug)
+    {
+        $albums = Album::all();
+
+        $findAlbum = null;
+        foreach ($albums as $album) {
+            if ($album->getSlug() == $slug) {
+                $findAlbum = $album;
+            }
+        }
+
+        return $findAlbum;
+    }
+
+    /**
+     * Get slug of the current album.
+     *
+     */
+    public function getSlug()
+    {
+        return str_slug($this->attributes['name']);
+    }
+
+    /**
+     * Get full link to the album.
+     */
+    public function getLink()
+    {
+        return "?album=".$this->getSlug();
+    }
+
+    /**
      * Define relationships.
      */
     public function media()

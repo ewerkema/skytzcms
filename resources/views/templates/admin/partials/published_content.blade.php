@@ -2,8 +2,9 @@
     @include('templates.admin.modules.single_article')
 @elseif (isset($project) && $project)
     @include('templates.admin.modules.single_project')
+@elseif (isset($album) && $album)
+    @include('templates.admin.modules.single_album')
 @else
-
     <div class="page-content" data-page="{{ $currentPage->id }}">
 
         @foreach ($currentPage->getPublishedContent() as $row)

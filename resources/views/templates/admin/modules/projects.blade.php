@@ -5,7 +5,6 @@
                 @if ($project->images->count())
                     @if (strlen($project->summary) > 0)
                         <div class="portlet">
-                            <div class="image small-3">
                                 <a href="{{ $project->getLink() }}">
                                     @include('templates.admin.partials.image', ['image_id' => $project->images[0]->image_id])
                                 </a>

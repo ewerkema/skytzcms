@@ -41,6 +41,24 @@ img.align-left {
 
 .album { display: flex; flex-wrap: wrap; }
 .album .image { flex: 1 1 auto; width: 25%; }
+.album.album-overview {
+    justify-content: center;
+}
+
+.album.album-overview .portlet {
+    max-width: 150px;
+    margin: 0 5px;
+}
+
+.album.album-overview img {
+    max-width: 150px;
+    max-height: 150px;
+}
+
+.album.album-overview p {
+    text-align: center;
+    padding: 0 5px;
+}
 
 .block {
     word-wrap: break-word;
@@ -48,6 +66,7 @@ img.align-left {
 
 @media only screen and (max-width: 40em) {
     .album .image { width: 50%; }
+    .album.album-overview { justify-content: center; }
 }
 
 .news .image {

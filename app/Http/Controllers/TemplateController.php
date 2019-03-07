@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Album;
 use App\Models\Article;
 use App\Models\Page;
-use App\Http\Requests;
 use App\Models\Project;
 use Illuminate\Support\Facades\View;
-use Session;
 
 class TemplateController extends Controller
 {
@@ -28,6 +27,7 @@ class TemplateController extends Controller
 
         $article = $this->getArticle();
         $project = $this->getProject();
+        $album = $this->getAlbum();
 
         if (!$page)
             abort(404);
@@ -37,6 +37,7 @@ class TemplateController extends Controller
                 'currentPage' => $page,
                 'article' => $article,
                 'project' => $project,
+                'album' => $album,
                 'template' => 'templates.'.config('skytz.template').'.index',
             ]);
         }
@@ -45,6 +46,7 @@ class TemplateController extends Controller
             'currentPage' => $page,
             'article' => $article,
             'project' => $project,
+            'album' => $album,
         ]);
     }
 
@@ -63,6 +65,16 @@ class TemplateController extends Controller
         $project = false;
         if (isset($_GET['project'])) {
             $project = Project::whereSlug(str_slug($_GET['project']));
+        }
+
+        return $project;
+    }
+
+    public function getAlbum()
+    {
+        $project = false;
+        if (isset($_GET['album'])) {
+            $project = Album::whereSlug(str_slug($_GET['album']));
         }
 
         return $project;
