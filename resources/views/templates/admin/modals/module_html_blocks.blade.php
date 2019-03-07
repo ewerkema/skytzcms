@@ -1,4 +1,4 @@
-@extends('templates.admin.modals.modal', ['target' => 'moduleHtml_blocksModal'])
+@extends('templates.admin.modals.modal', ['target' => 'moduleHtmlBlocksModal'])
 
 @section('modal-header')
     <h4 class="modal-title"><strong>Module HTML Blokken</strong></h4>

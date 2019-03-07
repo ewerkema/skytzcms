@@ -41,6 +41,24 @@ img.align-left {
 
 .album { display: flex; flex-wrap: wrap; }
 .album .image { flex: 1 1 auto; width: 25%; }
+.album.album-overview {
+    justify-content: center;
+}
+
+.album.album-overview .portlet {
+    max-width: 150px;
+    margin: 0 5px;
+}
+
+.album.album-overview img {
+    max-width: 150px;
+    max-height: 150px;
+}
+
+.album.album-overview p {
+    text-align: center;
+    padding: 0 5px;
+}
 
 .block {
     word-wrap: break-word;
@@ -48,6 +66,7 @@ img.align-left {
 
 @media only screen and (max-width: 40em) {
     .album .image { width: 50%; }
+    .album.album-overview { justify-content: center; }
 }
 
 .news .image {
@@ -146,3 +165,82 @@ img.align-left {
 
 .cookie-consent { display: flex; position: fixed; width: 100%; bottom: 0; align-items: center; -webkit-align-items: center; justify-content: center; -webkit-justify-content: center; background: rgba(238, 238, 238, 0.75); padding: 10px 0;}
 .cookie-consent button { margin: 0; margin-left: 30px; padding: 10px 20px; }
+
+.header-image {
+    position: relative;
+}
+
+.header-image img {
+    width: 100%;
+}
+
+.header-image .link {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 11;
+}
+
+.header-image .link a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.header-image .text {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 10px;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.header-image .text.left-top {
+     align-items: flex-start;
+     justify-content: flex-start;
+ }
+
+.header-image .text.left-center {
+     align-items: center;
+     justify-content: flex-start;
+ }
+
+.header-image .text.left-bottom {
+     align-items: flex-end;
+     justify-content: flex-start;
+ }
+
+.header-image .text.center-top {
+     align-items: flex-start;
+     justify-content: center;
+ }
+
+.header-image .text.center {
+     align-items: center;
+     justify-content: center;
+ }
+
+.header-image .text.center-bottom {
+     align-items: flex-end;
+     justify-content: center;
+ }
+
+.header-image .text.right-top {
+     align-items: flex-start;
+     justify-content: flex-end;
+ }
+
+.header-image .text.right-center {
+     align-items: center;
+     justify-content: flex-end;
+ }
+
+.header-image .text.right-bottom {
+     align-items: flex-end;
+     justify-content: flex-end;
+}

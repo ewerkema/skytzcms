@@ -26,7 +26,6 @@ Route::group(['prefix' => 'cms'], function() {
     Route::post('pages/publish', array('as' => 'pages.publish', 'uses' => 'PageController@publish'));
     Route::resource('pages', 'PageController');
 
-
     Route::resource('users', 'UserController');
     Route::patch('settings', 'SettingController@update');
     Route::resource('media', 'MediaController');
@@ -46,6 +45,9 @@ Route::group(['prefix' => 'cms'], function() {
     Route::resource('projects', 'ProjectController');
     Route::resource('projectGroups', 'ProjectGroupController');
     Route::resource('socials', 'SocialController');
+    Route::resource('headers', 'HeaderController');
+    Route::resource('folders', 'FolderController');
+    Route::resource('folders.media', 'FolderMediaController');
 //
     Route::get('/{slug}', array('as' => 'page.show', 'uses' => 'TemplateController@show'));
     Route::get('/{slug}/{childSlug}', array('as' => 'page.show', 'uses' => 'TemplateController@show'));

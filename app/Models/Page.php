@@ -11,7 +11,7 @@ class Page extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'slug', 'title', 'content', 'published_content', 'meta_title', 'meta_desc', 'meta_keywords', 'menu', 'parent_id', 'order', 'header_image_id', 'pagehits',
+        'slug', 'title', 'content', 'published_content', 'meta_title', 'meta_desc', 'meta_keywords', 'menu', 'parent_id', 'order', 'header_id', 'pagehits',
     ];
 
     protected $dates = ['deleted_at'];
@@ -20,7 +20,7 @@ class Page extends Model
         'content' => 'array',
         'published_content' => 'array',
         'parent_id' => 'int|null',
-        'header_image_id' => 'int|null',
+        'header_id' => 'int|null',
         'order' => 'int',
     ];
 
@@ -44,7 +44,7 @@ class Page extends Model
      */
     public function header()
     {
-        return $this->belongsTo('App\Models\Media', 'header_image_id');
+        return $this->belongsTo('App\Models\Header', 'header_id');
     }
 
     public function subpages()

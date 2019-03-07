@@ -5,8 +5,9 @@
                 @if ($project->images->count())
                     @if (strlen($project->summary) > 0)
                         <div class="portlet">
-                            <div class="image small-3">
-                                <a href="{{ $project->getLink() }}"><img src="/{{ Media::find($project->images[0]->image_id)->path }}" alt=""></a>
+                                <a href="{{ $project->getLink() }}">
+                                    @include('templates.admin.partials.image', ['image_id' => $project->images[0]->image_id])
+                                </a>
                             </div>
                             <div class="text small-9">
                                 <h3 class="newsheader">{{ $project->title }}</h3>
@@ -18,7 +19,9 @@
                         </div>
                     @else
                         <div class="image small-4">
-                            <a href="{{ $project->getLink() }}"><img src="/{{ Media::find($project->images[0]->image_id)->path }}" alt=""></a>
+                            <a href="{{ $project->getLink() }}">
+                                @include('templates.admin.partials.image', ['image_id' => $project->images[0]->image_id])
+                            </a>
                             <h3 class="newsheader block"><a href="{{ $project->getLink() }}">{{ $project->title }}</a></h3>
                         </div>
                     @endif

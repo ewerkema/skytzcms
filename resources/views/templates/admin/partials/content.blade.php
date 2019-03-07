@@ -9,7 +9,7 @@
 
     function enableImagePopup() {
         $(popupImages).each(function(){
-            let anchor = $('<a/>').attr({'href': this.src}).colorbox({rel: 'group', maxWidth:'50%', fixed: true});
+            let anchor = $('<a/>').attr({'href': this.src}).colorbox({rel: 'group', maxWidth:'50%', maxHeight:'100%', fixed: true});
             $(this).wrap(anchor);
         });
     }

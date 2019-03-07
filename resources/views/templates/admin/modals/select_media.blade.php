@@ -1,4 +1,4 @@
-@extends('templates.admin.modals.modal', ['target' => 'selectMediaModal'])
+@extends('templates.admin.modals.modal', ['target' => 'selectMediaModal', 'fullscreen' => true])
 
 @section('modal-header')
     <h4 class="modal-title"><strong>Selecteer afbeelding</strong></h4>

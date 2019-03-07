@@ -232,6 +232,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Gate' => Illuminate\Support\Facades\Gate::class,
         'Hash' => Illuminate\Support\Facades\Hash::class,
+        'Header' => App\Facades\Header::class,
         'Html'      => Collective\Html\HtmlFacade::class,
         'HtmlBlock' => App\Facades\HtmlBlock::class,
         'ImportTable' => App\Facades\ImportTable::class,

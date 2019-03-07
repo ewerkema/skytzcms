@@ -132,7 +132,7 @@ class FormController extends Controller
         if ($form->recaptcha && ($error = $this->checkRecaptcha($input)) !== true) {
             if (strpos($error, 'g-recaptcha-response') !== false) {
                 $message = "Verifieer dat u geen robot ben door op de \"Ik ben geen robot\" knop te drukken.";
-            } else if (strpos($error, 'timeout-or-duplicate')) {
+            } else if (strpos($error, 'timeout-or-duplicate') !== false) {
                 $message = "Verifieer opnieuw dat u geen robot ben door op de \"Ik ben geen robot\" knop te drukken (timeout).";
             } else {
                 $message = 'Het verzenden van het formulier is niet gelukt, probeer het opnieuw. Blijft deze foutmelding zich voordoen? Neem dan contact op met '. $form->email . '. Vermeld daarbij de volgende foutmelding: ' . $error;

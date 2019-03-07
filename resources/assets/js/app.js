@@ -15,10 +15,12 @@ Vue.use(require('vue-moment'), {
 });
 
 Vue.component('example', require('./components/Example.vue'));
+Vue.component('file-manager', require('./components/FileManager.vue'));
 Vue.component('list-articles', require('./components/ListArticles.vue'));
 Vue.component('list-albums', require('./components/ListAlbums.vue'));
 Vue.component('list-sliders', require('./components/ListSliders.vue'));
 Vue.component('list-forms', require('./components/ListForms.vue'));
+Vue.component('list-headers', require('./components/ListHeaders.vue'));
 Vue.component('list-media', require('./components/ListMedia.vue'));
 Vue.component('list-html-blocks', require('./components/ListHtmlBlocks.vue'));
 Vue.component('list-projects', require('./components/ListProjects.vue'));

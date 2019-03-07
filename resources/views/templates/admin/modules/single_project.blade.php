@@ -84,6 +84,6 @@
 
 <script>
     $(document).ready(function(){
-        $(".project{{ $project->id }}").colorbox({rel:'project{{ $project->id }}', maxWidth:'50%', fixed: true});
+        $(".project{{ $project->id }}").colorbox({rel:'project{{ $project->id }}', maxWidth:'50%', maxHeight:'100%', fixed: true});
     });
 </script>

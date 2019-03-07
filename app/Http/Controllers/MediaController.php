@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Header;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use Image;
@@ -20,13 +21,7 @@ class MediaController extends Controller
     public function index()
     {
         if (!isset($_GET['page'])) {
-            $media = Media::all();
-
-            foreach ($media as $index => $item) {
-                $item['thumbnail_url'] = $item->photo_url('thumbnail');
-                $item['original_url'] = $item->photo_url('original');
-                $media[$index] = $item;
-            }
+            $media = Input::get('filterFolder') ? Media::withoutFolder()->get() : Media::all();
 
             return Response::json($media);
         }
@@ -44,9 +39,12 @@ class MediaController extends Controller
     public function store(Request $request)
     {
         $name = Input::get('name');
+        $folderId = Input::get('folder_id');
 
         foreach($name as $filename) {
-            $this->createMedia($filename);
+            if (!$this->createMedia($filename, $folderId)) {
+                return Response::json(['status' => 'error', 'message' => "De afbeelding $filename bestaat al!"]);
+            }
         }
 
         return Response::json(['status'=>'success','msg'=>'Media toegevoegd!']);
@@ -56,12 +54,19 @@ class MediaController extends Controller
      * Create media from filename.
      *
      * @param $filename
-     * @return Media
+     * @param bool $folderId
+     * @return Media|bool
      */
-    public function createMedia($filename)
+    public function createMedia($filename, $folderId = false)
     {
+        if ($this->mediaExists($filename))
+            return false;
+
         $media = new Media;
         $media->name = $filename;
+        if ($folderId != false)
+            $media->folder_id = $folderId;
+
         $media->description = '';
         $media->extension = File::extension($filename);
         $media->mime = '';
@@ -69,6 +74,22 @@ class MediaController extends Controller
         $media->save();
 
         return $media;
+    }
+
+    /**
+     * Returns whether the filename already exists in database.
+     *
+     * @param string $filename
+     * @return bool
+     */
+    public function mediaExists($filename)
+    {
+        if (File::extension($filename)!='docx' && File::extension($filename)!='pdf' && File::extension($filename)!='doc')
+            $path = 'images/'.$filename;
+        else
+            $path = 'docs'.$filename;
+
+        return Media::where('path', $path)->exists();
     }
 
     /**
@@ -147,9 +168,14 @@ class MediaController extends Controller
      */
     public function checkGlobalHeader($media)
     {
-        $setting = Setting::where('name', 'header_image')->first();
+        $setting = Setting::where('name', 'header_id')->first();
 
-        if ($setting->value == $media->id) {
+        if (!$setting->value)
+            return;
+
+        $header = Header::find($setting->value);
+
+        if ($header->image_id == $media->id) {
             $setting->value = 0;
             $setting->save();
         }

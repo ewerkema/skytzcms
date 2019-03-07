@@ -15,17 +15,17 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="header_image" class="col-md-3 control-label">Pagina header</label>
+            <label for="header_id3" class="col-md-3 control-label">Pagina header</label>
 
             <div class="col-md-8">
-                <div class="input-group input-pointer">
-                    <input type="hidden" name="header_image_id" value="0" class="form-control selected_media_id" />
-                    <span class="input-group-addon" id="media-picture" onclick="selectMediaWithEdit()"><span class="glyphicon glyphicon-picture"></span></span>
-                    <input type="text" name="header_image_name" onclick="selectMediaWithEdit()" aria-label="Header afbeelding" class="form-control selected_media_name" placeholder="Pagina header" autofocus />
-                    <div class="input-group-btn">
-                        <button class="btn btn-default removeMedia" type="button"><span class="glyphicon glyphicon-remove"></span></button>
-                    </div>
-                </div>
+                <select class="form-control" id="header_id3" name="header_id">
+                    <option value="0">Geen header</option>
+                    @foreach (Header::all() as $header)
+                        <option value="{{ $header->id }}" {{ ($header->id == $currentPage->header_id) ? "selected" : "" }}>
+                            {{ $header->name }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
         </div>
         <div class="form-group">
@@ -89,7 +89,7 @@
         request.setType('POST');
         request.setForm('#newPageForm');
 
-        request.addFields(['title', 'meta_title', 'meta_desc', 'parent_id', 'header_image_id']);
+        request.addFields(['title', 'meta_title', 'meta_desc', 'parent_id', 'header_id']);
         request.addField('slug', 'text', 'index');
         request.addField('menu', 'checkbox');
 
