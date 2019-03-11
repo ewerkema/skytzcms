@@ -21,19 +21,19 @@ pre {
     border-radius: 4px;
 }
 
-img {
+.page-content img {
     clear: both;
     display: block;
     margin: 0 auto;
 }
 
-img.align-right {
+.page-content img.align-right {
     float: right;
     padding-left: 15px;
     padding-bottom: 15px;
 }
 
-img.align-left {
+.page-content img.align-left {
     float: left;
     padding-right: 15px;
     padding-bottom: 15px;
