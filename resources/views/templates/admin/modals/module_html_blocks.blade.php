@@ -5,7 +5,7 @@
 @overwrite
 
 @section('modal-body')
-    <list-html-blocks target="#moduleHtml_blocksModal"></list-html-blocks>
+    <list-html-blocks target="#moduleHtmlBlocksModal"></list-html-blocks>
     <div class="clear"></div>
 @overwrite
 
