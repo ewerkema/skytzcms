@@ -14,7 +14,6 @@ Vue.use(require('vue-moment'), {
     moment: moment
 });
 
-Vue.component('example', require('./components/Example.vue'));
 Vue.component('file-manager', require('./components/FileManager.vue'));
 Vue.component('list-articles', require('./components/ListArticles.vue'));
 Vue.component('list-albums', require('./components/ListAlbums.vue'));
@@ -26,8 +25,7 @@ Vue.component('list-html-blocks', require('./components/ListHtmlBlocks.vue'));
 Vue.component('list-projects', require('./components/ListProjects.vue'));
 Vue.component('list-users', require('./components/ListUsers.vue'));
 Vue.component('list-social', require('./components/ListSocial.vue'));
-Vue.component('select-media', require('./components/SelectMedia.vue'));
-Vue.component('select-media-with-edit', require('./components/SelectMediaWithEdit.vue'));
+Vue.component('insert-image', require('./components/InsertImage.vue'));
 Vue.component('select-module', require('./components/SelectModule.vue'));
 
 $.ajaxSetup({

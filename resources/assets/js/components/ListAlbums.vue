@@ -34,7 +34,7 @@
                          v-for="image in row"
                          v-on:click="removeImage(selectedAlbum, image)"
                     >
-                        <img :src="imagePath(image.path)" />
+                        <img :src="image.thumbnail_url" />
                         <span class="glyphicon glyphicon-remove hover remove"></span>
                     </div>
                 </div>
@@ -48,27 +48,7 @@
             </div>
         </div>
         <div class="editForm" v-if="addImages">
-            <form action="#" class="form-horizontal" id="AlbumForm" v-on:submit.prevent>
-                <div class="alert form-message" role="alert" style="display: none;"></div>
-                <div class="bootstrap-row album-row" v-for="row in currentImages | chunk 4">
-                    <div class="col-md-3 album-image"
-                         v-for="image in row"
-                         v-on:click="selectImage(image)"
-                         :class="{selected: isSelected(image) }"
-                    >
-                        <img :src="imagePath(image.path)" />
-                        <span class="glyphicon glyphicon-ok add"></span>
-                    </div>
-                </div>
-                <p v-if="images.length == 0">Er zijn geen afbeeldingen (meer) gevonden.</p>
-                <pagination :total="images.length" :per_page="per_page" :current_page="current_page"></pagination>
-                <div class="form-group">
-                    <div class="col-md-8 col-md-offset-3">
-                        <button form="albumForm" class="btn btn-success right" v-on:click="submitForm()">Afbeeldingen toevoegen</button>
-                        <button class="btn btn-default right" v-on:click.prevent="addImages = false">Annuleren</button>
-                    </div>
-                </div>
-            </form>
+            <select-media :multiple="true" :omit-images="selectedAlbum.media" @send-images="storeImages" @cancel="addImages = false"></select-media>
         </div>
         <div class="editForm" v-if="changeOrder">
             <form action="#" class="form-horizontal" id="ChangeAlbumOrder" v-on:submit.prevent>
@@ -77,14 +57,14 @@
                 <ul class="albumSortable sortable">
                     <li class="menu-item" :id="'image_' + image.id" :data-id="image.id" v-for="image in selectedAlbum.media">
                         <div>
-                            <span class="glyphicon glyphicon-move"></span> <img :src="imagePath(image.path)" />
+                            <span class="glyphicon glyphicon-move"></span> <img :src="image.thumbnail_url" />
                         </div>
                     </li>
                 </ul>
-                <p v-if="selectedAlbum.media.length == 0">Er zijn geen afbeeldingen in dit album.</p>
+                <p v-if="selectedAlbum.media.length === 0">Er zijn geen afbeeldingen in dit album.</p>
                 <div class="form-group">
                     <div class="col-md-8 col-md-offset-3">
-                        <button form="albumForm" class="btn btn-success right" v-on:click="updateOrder()">Volgorde opslaan</button>
+                        <button class="btn btn-success right" v-on:click="updateOrder()">Volgorde opslaan</button>
                         <button class="btn btn-default right" v-on:click.prevent="changeOrder = false">Annuleren</button>
                     </div>
                 </div>
@@ -169,10 +149,8 @@
 
 </style>
 <script>
-    import Pagination from "./Pagination.vue";
-    import VueEvents from 'vue-events';
     import ListBase from './ListBase.vue';
-    Vue.use(VueEvents);
+    import SelectMedia from './SelectMedia.vue';
 
     export default {
         extends: ListBase,
@@ -193,43 +171,10 @@
         },
 
         components: {
-            Pagination,
-        },
-
-        computed: {
-            total: function() {
-                return this.images.length;
-            },
-
-            to: function() {
-                return Math.min(this.current_page * this.per_page, this.total);
-            },
-
-            from: function() {
-                return Math.min(this.total, (this.current_page - 1) * this.per_page + 1);
-            },
-
-            currentImages: function() {
-                return this.images.slice(
-                    Math.min((this.current_page - 1) * this.per_page, this.images.length),
-                    this.current_page * this.per_page
-                );
-            }
-        },
-
-        created() {
-            this.$events.$on('changePage', page => this.changePage(page));
-            this.$events.$on('resetCurrentPage', () => this.changePage(1));
+            SelectMedia,
         },
 
         watch: {
-            addImages: function (active) {
-                this.images = [];
-                this.selectedImages = [];
-                if (active) {
-                    this.loadImages();
-                }
-            },
             changeOrder: function (open) {
                 if (open) {
                     $('.albumSortable').nestedSortable({
@@ -246,10 +191,6 @@
         },
 
         methods: {
-            changePage: function (page) {
-                this.current_page = page;
-            },
-
             imagePath: function(path) {
                 return '/'+path;
             },
@@ -258,37 +199,25 @@
                 return album.media.length;
             },
 
-            selectImage: function (image) {
-                if (this.isSelected(image)) {
-                    this.selectedImages.$remove(image.id);
-                } else {
-                    this.selectedImages.push(image.id);
-                }
-            },
-
-            isSelected: function (image) {
-                return _.includes(this.selectedImages, image.id);
-            },
-
-            submitForm: function () {
-                var _this = this;
+            storeImages: function (images) {
+                let self = this;
                 $.ajax({
                     url: '/cms/albums/'+this.selectedAlbum.id+'/media',
                     type: 'POST',
                     data: {
-                        media: _this.selectedImages
+                        media: images
                     },
                     success: function (data) {
-                        _this.addImages = false;
-                        _this.loadAlbums(_this.selectedAlbum.id);
+                        self.addImages = false;
+                        self.loadAlbums(self.selectedAlbum.id);
                     }
                 });
             },
 
             updateOrder: function() {
-                var _this = this;
-                var sortedArray = $('.albumSortable').nestedSortable('toArray');
-                var sorted = [];
+                let self = this;
+                let sortedArray = $('.albumSortable').nestedSortable('toArray');
+                let sorted = [];
                 _.each(sortedArray, function (image) {
                         if (image.id !== undefined)
                     sorted.push(image.id);
@@ -301,8 +230,8 @@
                         order: sorted
                     },
                     success: function (data) {
-                        _this.changeOrder = false;
-                        _this.loadAlbums(_this.selectedAlbum.id);
+                        self.changeOrder = false;
+                        self.loadAlbums(self.selectedAlbum.id);
 
                         swal({
                             title: "Success!",
@@ -315,7 +244,7 @@
             },
 
             createAlbum: function() {
-                var value = $('[name=album]').val();
+                let value = $('[name=album]').val();
 
                 if (value == "") {
                     this.newAlbumError = true;
@@ -326,7 +255,7 @@
                 this.newAlbumError = false;
                 this.newAlbum = false;
 
-                var _this = this;
+                let self = this;
                 $.ajax({
                     url: '/cms/albums',
                     type: 'POST',
@@ -335,18 +264,18 @@
                         colorbox: 1
                     },
                     success: function(data) {
-                        _this.albums.push(data);
+                        self.albums.push(data);
                         data.media = [];
-                        _this.selectedAlbum = data;
+                        self.selectedAlbum = data;
                     },
                     error: function(data) {
-                        var errors = data.responseJSON;
-                        var errorMessage = "";
+                        let errors = data.responseJSON;
+                        let errorMessage = "";
 
                         if (errors === undefined)
                             errorMessage += "Er ging iets fout, we zullen er zo spoedig mogelijk naar kijken.";
                         else {
-                            for (var error in errors) {
+                            for (let error in errors) {
                                 errorMessage += errors[error]+"\n";
                             }
                         }
@@ -356,7 +285,7 @@
             },
 
             removeAlbum: function (album) {
-                var _this = this;
+                let self = this;
                 swal({
                     title: "Album verwijderen?",
                     text: "Deze wijzigingen kunnen niet meer ongedaan worden.",
@@ -365,12 +294,12 @@
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "Ja, verwijder dit album",
                 }).then(function(){
-                    _this.doRemoveAlbum(album);
+                    self.doRemoveAlbum(album);
                 }).done();
             },
 
             removeImage: function (album, image) {
-                var _this = this;
+                let self = this;
                 $.ajax({
                     url: '/cms/albums/'+album.id+'/media/'+image.id,
                     type: 'POST',
@@ -378,13 +307,13 @@
                         _method: 'DELETE'
                     },
                     success: function (result) {
-                        _this.selectedAlbum.media.$remove(image);
+                        self.selectedAlbum.media.$remove(image);
                     }
                 });
             },
 
             doRemoveAlbum: function (album) {
-                var _this = this;
+                let self = this;
                 $.ajax({
                     url: '/cms/albums/'+album.id,
                     type: 'POST',
@@ -392,8 +321,8 @@
                         _method: 'DELETE'
                     },
                     success: function(result) {
-                        _this.albums.$remove(album);
-                        _this.selectedAlbum = _.head(_this.albums);
+                        self.albums.$remove(album);
+                        self.selectedAlbum = _.head(self.albums);
                     }
                 });
             },
@@ -403,38 +332,14 @@
             },
 
             loadAlbums: function(selectedAlbumId) {
-                var _this = this;
+                let self = this;
                 $.get('/cms/albums', function (data) {
                     if (data.length != 0) {
-                        _this.albums = data;
-                        _this.selectedAlbum = selectedAlbumId ? _.find(data, ['id', selectedAlbumId]) : _.head(data);
+                        self.albums = data;
+                        self.selectedAlbum = selectedAlbumId ? _.find(data, ['id', selectedAlbumId]) : _.head(data);
                     }
                 });
             },
-
-            loadImages: function() {
-                var _this = this;
-                $.get('/cms/media', function (data) {
-                     _this.images = _this.filterImages(data);
-                });
-            },
-
-            isImage: function (image) {
-                var extensions = ['jpg', 'png', 'tif', 'jpeg', 'gif'];
-                return _.includes(extensions, image.extension.toLowerCase());
-            },
-
-            imageExistsInSelectedAlbum: function (image) {
-                return _.find(this.selectedAlbum.media, ['id', image.id]);
-            },
-
-            filterImages: function (images) {
-                var _this = this;
-                return _.filter(images, function (image) {
-                    return _this.isImage(image) && !_this.imageExistsInSelectedAlbum(image);
-                });
-            }
-
         },
     }
 </script>

@@ -207,7 +207,7 @@
             },
 
             submitForm: function () {
-                var request = new Request('/cms/projects');
+                let request = new Request('/cms/projects');
                 request.setForm('#projectForm');
                 request.setType('POST');
 
@@ -220,11 +220,11 @@
                     request.addToUrl(this.selectedProject.id);
                 }
 
-                var _this = this;
+                let self = this;
                 request.send(function(data) {
-                    _this.selectedProject = false;
-                    _this.loadProjects();
-                    _this.selectedProjectGroup = data.project_group_id;
+                    self.selectedProject = false;
+                    self.loadProjects();
+                    self.selectedProjectGroup = data.project_group_id;
                     if (request.getType() == 'POST') {
                         swal({
                             title: "Project opgeslagen!",
@@ -256,7 +256,7 @@
             },
 
             createProjectGroup: function() {
-                var value = $('[name=project_group]').val();
+                let value = $('[name=project_group]').val();
 
                 if (value == "") {
                     this.newProjectGroupError = true;
@@ -267,14 +267,14 @@
                 this.newProjectGroupError = false;
                 this.newProjectGroup = false;
 
-                var _this = this;
+                let self = this;
                 $.ajax({
                     url: '/cms/projectGroups',
                     type: 'POST',
                     data: { title: value },
                     success: function(data) {
-                        _this.projectGroups.push(data);
-                        _this.selectedProjectGroup = data.id;
+                        self.projectGroups.push(data);
+                        self.selectedProjectGroup = data.id;
                     },
                     error: function() {
                         alert("Er ging iets fout, probeer het later opnieuw");
@@ -284,7 +284,6 @@
 
             editProject: function (project) {
                 this.selectedProject = project;
-                console.log(project);
             },
 
             cancelEdit: function(event) {
@@ -322,7 +321,7 @@
             },
 
             removeProject: function (projectId) {
-                var _this = this;
+                let self = this;
                 swal({
                     title: "Project verwijderen?",
                     type: "warning",
@@ -330,12 +329,12 @@
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "Ja, verwijder dit project",
                 }).then(function(){
-                    _this.doRemoveProject(projectId);
+                    self.doRemoveProject(projectId);
                 }).done();
             },
 
             removeProjectGroup: function (projectGroupId) {
-                var _this = this;
+                let self = this;
                 swal({
                     title: "Project groep verwijderen?",
                     text: "Alle bijbehorende projecten zullen ook verwijderd worden. Deze wijzigingen kunnen niet meer ongedaan worden.",
@@ -344,12 +343,12 @@
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "Ja, verwijder deze project groep",
                 }).then(function(){
-                    _this.doRemoveProjectGroup(projectGroupId);
+                    self.doRemoveProjectGroup(projectGroupId);
                 }).done();
             },
 
             doRemoveProject: function (projectId) {
-                var _this = this;
+                let self = this;
                 $.ajax({
                     url: '/cms/projects/'+projectId,
                     type: 'POST',
@@ -357,13 +356,13 @@
                         _method: 'DELETE'
                     },
                     success: function(result) {
-                        _this.projects.$remove(_.find(_this.projects, ['id', projectId]));
+                        self.projects.$remove(_.find(self.projects, ['id', projectId]));
                     }
                 });
             },
 
             doRemoveProjectGroup: function (projectGroupId) {
-                var _this = this;
+                let self = this;
                 $.ajax({
                     url: '/cms/projectGroups/'+projectGroupId,
                     type: 'POST',
@@ -371,8 +370,8 @@
                         _method: 'DELETE'
                     },
                     success: function(result) {
-                        _this.projectGroups.$remove(_.find(_this.projectGroups, ['id', projectGroupId]));
-                        _this.selectedProjectGroup = _.head(_this.projectGroups) ? _.head(_this.projectGroups).id : false;
+                        self.projectGroups.$remove(_.find(self.projectGroups, ['id', projectGroupId]));
+                        self.selectedProjectGroup = _.head(self.projectGroups) ? _.head(self.projectGroups).id : false;
                     }
                 });
             },
@@ -383,18 +382,18 @@
             },
 
             loadProjects: function() {
-                var _this = this;
+                let self = this;
                 $.get('/cms/projects', function (data) {
-                    _this.projects = data;
+                    self.projects = data;
                 });
             },
 
             loadProjectGroups: function() {
-                var _this = this;
+                let self = this;
                 $.get('/cms/projectGroups', function (data) {
                     if (data.length != 0) {
-                        _this.projectGroups = data;
-                        _this.selectedProjectGroup = _.head(data).id;
+                        self.projectGroups = data;
+                        self.selectedProjectGroup = _.head(data).id;
                     }
                 });
             }

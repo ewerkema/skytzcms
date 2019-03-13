@@ -1,11 +1,11 @@
-@extends('templates.admin.modals.modal', ['target' => 'selectMediaModal', 'fullscreen' => true])
+@extends('templates.admin.modals.modal', ['target' => 'selectMediaModal'])
 
 @section('modal-header')
     <h4 class="modal-title"><strong>Selecteer afbeelding</strong></h4>
 @overwrite
 
 @section('modal-body')
-    <select-media target="#selectMediaModal"></select-media>
+    <insert-image target="#selectMediaModal"></insert-image>
 @overwrite
 
 @section('modal-footer')
