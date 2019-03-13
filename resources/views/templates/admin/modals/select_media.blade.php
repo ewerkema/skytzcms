@@ -5,7 +5,7 @@
 @overwrite
 
 @section('modal-body')
-    <select-media target="#selectMediaModal"></select-media>
+    <insert-image target="#selectMediaModal"></insert-image>
 @overwrite
 
 @section('modal-footer')

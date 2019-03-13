@@ -47,7 +47,7 @@
             </div>
         </div>
         <div class="editForm" v-if="addImages">
-            <select-media-multiple :omit-images="selectedSlider.media"></select-media-multiple>
+            <select-media :multiple="true" :omit-images="selectedSlider.media" @send-images="storeImages" @cancel="addImages = false"></select-media>
         </div>
     </div>
 </template>
@@ -70,10 +70,8 @@
     }
 </style>
 <script>
-    import VueEvents from 'vue-events';
     import ListBase from './ListBase.vue';
-    import SelectMediaMultiple from './SelectMediaMultiple.vue';
-    Vue.use(VueEvents);
+    import SelectMedia from './SelectMedia.vue';
 
 
     export default {
@@ -90,12 +88,7 @@
         },
 
         components: {
-            SelectMediaMultiple
-        },
-
-        created() {
-            this.$events.$on('sendImages', images => this.storeImages(images));
-            this.$events.$on('cancelSelectImages', () => this.addImages = false);
+            SelectMedia
         },
 
         methods: {
@@ -104,7 +97,7 @@
             },
 
             storeImages: function (images) {
-                let _this = this;
+                let self = this;
                 $.ajax({
                     url: '/cms/sliders/'+this.selectedSlider.id+'/media',
                     type: 'POST',
@@ -112,8 +105,8 @@
                         media: images
                     },
                     success: function (data) {
-                        _this.addImages = false;
-                        _this.loadSliders(_this.selectedSlider.id);
+                        self.addImages = false;
+                        self.loadSliders(self.selectedSlider.id);
                     }
                 });
             },
@@ -130,7 +123,7 @@
                 this.newSliderError = false;
                 this.newSlider = false;
 
-                let _this = this;
+                let self = this;
                 $.ajax({
                     url: '/cms/sliders',
                     type: 'POST',
@@ -139,9 +132,9 @@
                         colorbox: 1
                     },
                     success: function(data) {
-                        _this.sliders.push(data);
+                        self.sliders.push(data);
                         data.media = [];
-                        _this.selectedSlider = data;
+                        self.selectedSlider = data;
                     },
                     error: function(data) {
                         let errors = data.responseJSON;
@@ -160,7 +153,7 @@
             },
 
             removeSlider: function (slider) {
-                let _this = this;
+                let self = this;
                 swal({
                     title: "Slider verwijderen?",
                     text: "Deze wijzigingen kunnen niet meer ongedaan worden.",
@@ -169,12 +162,12 @@
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "Ja, verwijder deze slider",
                 }).then(function(){
-                    _this.doRemoveSlider(slider);
+                    self.doRemoveSlider(slider);
                 }).done();
             },
 
             removeImage: function (slider, image) {
-                let _this = this;
+                let self = this;
                 $.ajax({
                     url: '/cms/sliders/'+slider.id+'/media/'+image.id,
                     type: 'POST',
@@ -182,13 +175,13 @@
                         _method: 'DELETE'
                     },
                     success: function (result) {
-                        _this.selectedSlider.media.$remove(image);
+                        self.selectedSlider.media.$remove(image);
                     }
                 });
             },
 
             doRemoveSlider: function (slider) {
-                let _this = this;
+                let self = this;
                 $.ajax({
                     url: '/cms/sliders/'+slider.id,
                     type: 'POST',
@@ -196,8 +189,8 @@
                         _method: 'DELETE'
                     },
                     success: function(result) {
-                        _this.sliders.$remove(slider);
-                        _this.selectedSlider = _.head(_this.sliders);
+                        self.sliders.$remove(slider);
+                        self.selectedSlider = _.head(self.sliders);
                     }
                 });
             },
@@ -207,11 +200,11 @@
             },
 
             loadSliders: function(selectedSliderId) {
-                let _this = this;
+                let self = this;
                 $.get('/cms/sliders', function (data) {
                     if (data.length != 0) {
-                        _this.sliders = data;
-                        _this.selectedSlider = (selectedSliderId) ? _.find(data, ['id', selectedSliderId]) : _.head(data);
+                        self.sliders = data;
+                        self.selectedSlider = (selectedSliderId) ? _.find(data, ['id', selectedSliderId]) : _.head(data);
                     }
                 });
             },

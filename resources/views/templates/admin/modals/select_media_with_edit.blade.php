@@ -5,7 +5,7 @@
 @overwrite
 
 @section('modal-body')
-    <select-media-with-edit target="#selectMediaWithEditModal"></select-media-with-edit>
+    <insert-image :enable-edit="true" target="#selectMediaWithEditModal"></insert-image>
 @overwrite
 
 @section('modal-footer')

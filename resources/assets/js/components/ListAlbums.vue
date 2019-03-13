@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="editForm" v-if="addImages">
-            <select-media-multiple :omit-images="selectedAlbum.media"></select-media-multiple>
+            <select-media :multiple="true" :omit-images="selectedAlbum.media" @send-images="storeImages" @cancel="addImages = false"></select-media>
         </div>
         <div class="editForm" v-if="changeOrder">
             <form action="#" class="form-horizontal" id="ChangeAlbumOrder" v-on:submit.prevent>
@@ -61,10 +61,10 @@
                         </div>
                     </li>
                 </ul>
-                <p v-if="selectedAlbum.media.length == 0">Er zijn geen afbeeldingen in dit album.</p>
+                <p v-if="selectedAlbum.media.length === 0">Er zijn geen afbeeldingen in dit album.</p>
                 <div class="form-group">
                     <div class="col-md-8 col-md-offset-3">
-                        <button form="albumForm" class="btn btn-success right" v-on:click="updateOrder()">Volgorde opslaan</button>
+                        <button class="btn btn-success right" v-on:click="updateOrder()">Volgorde opslaan</button>
                         <button class="btn btn-default right" v-on:click.prevent="changeOrder = false">Annuleren</button>
                     </div>
                 </div>
@@ -149,10 +149,8 @@
 
 </style>
 <script>
-    import VueEvents from 'vue-events';
     import ListBase from './ListBase.vue';
-    import SelectMediaMultiple from './SelectMediaMultiple.vue';
-    Vue.use(VueEvents);
+    import SelectMedia from './SelectMedia.vue';
 
     export default {
         extends: ListBase,
@@ -173,12 +171,7 @@
         },
 
         components: {
-            SelectMediaMultiple,
-        },
-
-        created() {
-            this.$events.$on('sendImages', images => this.storeImages(images));
-            this.$events.$on('cancelSelectImages', () => this.addImages = false);
+            SelectMedia,
         },
 
         watch: {
