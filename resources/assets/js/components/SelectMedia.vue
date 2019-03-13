@@ -37,7 +37,7 @@
                 </label>
             </div>
         </div>
-        <div id="jcropEdit" v-else>
+        <div id="jcropEdit" v-else style="margin-bottom: 15px;">
             <p>Klik op de afbeelding om hem bij te snijden.</p>
             <img v-on:click="startEdit()" :src="imagePath(selectedImage.path)" alt="" id="jcropEditImage">
         </div>
@@ -45,8 +45,9 @@
 
         <div class="clear"></div>
         <div class="form-group">
-            <div class="col-md-8 col-md-offset-3">
+            <div class="col-md-12">
                 <button class="btn btn-success right" v-on:click="sendImages()" :disabled="selectedImages.length === 0 || (coordinates.length === 0 && enableEdit)">{{ this.multiple ? `${selectedImages.length} Afbeeldingen toevoegen` : 'Geselecteerde afbeelding gebruiken' }}</button>
+                <button class="btn btn-danger right" style="margin-right:5px;"  v-on:click="selectedImages = []" v-if="this.enableEdit && selectedImages.length > 0">Bijsnijden annuleren</button>
                 <button class="btn btn-default right" style="margin-right:5px;" v-on:click="cancelSelectImages()">Annuleren</button>
             </div>
         </div>
@@ -94,6 +95,7 @@
                 openInPopup: false,
                 folders: [],
                 selectedImages: [],
+                allImages: [],
                 images: [],
                 sortBy: 'created_at',
                 order: 'desc',
@@ -132,6 +134,10 @@
                 $.get('/cms/media?filterFolder=true', function (data) {
                     self.images = self.filterImages(data);
                 });
+
+                $.get('/cms/media', function (data) {
+                    self.allImages = self.filterImages(data);
+                })
             },
 
             loadFolders: function() {
@@ -179,7 +185,7 @@
             },
 
             findImage: function (id) {
-                return _.find(this.images, ['id', id])
+                return _.find(this.allImages, ['id', id])
             },
 
             imageShouldBeOmitted: function (image) {
