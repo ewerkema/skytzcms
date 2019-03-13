@@ -10,7 +10,7 @@
                     <div class="col-md-2" v-for="folder in row" :data-id="folder.id">
                         <div class="thumbnail">
                             <a v-on:click="selectedFolder = folder.id">
-                                <img :src="'../folder.png'" alt="Folder">
+                                <img src="/folder.png" alt="Folder">
                             </a>
                             <p>{{ folder.name }}</p>
                         </div>

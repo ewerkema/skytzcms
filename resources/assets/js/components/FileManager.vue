@@ -15,7 +15,7 @@
                 <div class="item" v-for="folder in sortedFolders" :data-id="folder.id">
                     <div class="thumbnail">
                         <a v-on:click="selectedFolder = folder.id">
-                            <img :src="'../folder.png'" alt="Folder">
+                            <img src="/folder.png" alt="Folder">
                         </a>
                         <p><a target="_blank" v-on:click="renameFolder(folder)" title="Rename folder">{{ folder.name }}</a></p>
                     </div>
