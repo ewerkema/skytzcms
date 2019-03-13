@@ -16,10 +16,10 @@
                 <div class="album-image"
                      v-for="image in sortedImages"
                      v-on:click="selectImage(image)"
-                     :class="[{selected: image.id == selectedImage.id }, 'col-md-1']"
+                     :class="[{selected: image.id == selectedImage.id }, 'col-md-2']"
                 >
 
-                    <img :src="imagePath(image.path)" :id="'select_image_'+image.id" />
+                    <img :src="image.thumbnail_url" :id="'select_image_'+image.id" />
                     <span class="glyphicon glyphicon-ok add"></span>
                 </div>
             </div>
@@ -61,10 +61,6 @@
                 folderUrl: '/cms/folders',
                 selectedImage: false,
                 openInPopup: false,
-                selectedPage: 0,
-                totalPages: 0,
-                per_page: 8,
-                current_page: 1,
                 images: [],
                 selectedFolder: false,
                 folders: [],
@@ -139,8 +135,6 @@
 
                 return index !== -1 ? this.folders[index].media : [];
             },
-
         },
-
     }
 </script>

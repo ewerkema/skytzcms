@@ -16,9 +16,9 @@
                 <div class="album-image"
                      v-for="image in sortedImages"
                      v-on:click="selectImage(image)"
-                     :class="[{selected: image.id == selectedImage.id }, 'col-md-1']"
+                     :class="[{selected: image.id == selectedImage.id }, 'col-md-2']"
                 >
-                    <img :src="imagePath(image.path)" :id="'select_image_'+image.id" />
+                    <img :src="image.thumbnail_url" :id="'select_image_'+image.id" />
                     <span class="glyphicon glyphicon-ok add"></span>
                 </div>
             </div>
