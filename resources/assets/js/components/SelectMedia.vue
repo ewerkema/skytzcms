@@ -157,6 +157,8 @@
                 } else {
                     this.$emit('send-image', this.selectedImage, this.openInPopup, this.coordinates);
                 }
+
+                this.selectedImages = [];
             },
 
             cancelSelectImages: function() {
