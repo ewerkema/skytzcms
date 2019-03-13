@@ -1,6 +1,9 @@
 <template>
     <div>
-        <button v-on:click="selectedFolder = false" class="btn btn-primary" v-show="selectedFolder" style="margin-bottom: 15px;"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp; Ga terug</button>
+        <div class="buttons" style="margin-bottom:15px;">
+            <button v-on:click="selectedFolder = false" class="btn btn-primary" v-show="selectedFolder"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp; Ga terug</button>
+            <image-filters></image-filters>
+        </div>
         <div v-if="!selectedFolder">
             <div class="bootstrap-row media-row" v-for="row in sortedFolders | chunk 6">
                 <div class="col-md-2" v-for="folder in row" :data-id="folder.id">
@@ -42,11 +45,16 @@
 </style>
 
 <script>
+    import ImageFilters from './ImageFilters.vue';
     import VueEvents from 'vue-events';
     Vue.use(VueEvents);
 
     export default {
         props: ['omitImages'],
+
+        components: {
+            ImageFilters,
+        },
 
         data() {
             return {
@@ -55,12 +63,14 @@
                 folders: [],
                 selectedImages: [],
                 images: [],
+                sortBy: 'created_at',
+                order: 'desc',
             }
         },
 
         computed: {
             sortedImages: function() {
-                return _.orderBy(this.selectedFolder ? this.getFolderMedia(this.selectedFolder) : this.images, [image => image.name.toLowerCase()]);
+                return _.orderBy(this.selectedFolder ? this.getFolderMedia(this.selectedFolder) : this.images, [image => image[this.sortBy].toLowerCase()], [this.order]);
             },
 
             sortedFolders: function() {
@@ -71,6 +81,11 @@
         created() {
             this.loadImages();
             this.loadFolders();
+
+            this.$events.$on('setSort', (sortBy, order)  => {
+                this.sortBy = sortBy;
+                this.order = order;
+            });
         },
 
         methods: {

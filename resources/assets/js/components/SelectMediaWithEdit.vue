@@ -1,6 +1,9 @@
 <template>
     <div class="select-media-with-edit">
-        <button v-on:click="selectedFolder = false" class="btn btn-primary" v-show="selectedFolder && !selectedImage" style="margin-bottom: 15px;"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp; Ga terug</button>
+        <div class="buttons" style="margin-bottom:15px;">
+            <button v-on:click="selectedFolder = false" class="btn btn-primary" v-show="selectedFolder"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp; Ga terug</button>
+            <image-filters></image-filters>
+        </div>
         <div class="flex-row" v-if="!selectedFolder && !selectedImage">
             <div class="item" v-for="folder in sortedFolders" :data-id="folder.id">
                 <div class="thumbnail">
@@ -54,6 +57,7 @@
     }
 </style>
 <script>
+    import ImageFilters from './ImageFilters.vue';
     import VueEvents from 'vue-events';
     import ListBase from './ListBase.vue';
     Vue.use(VueEvents);
@@ -61,6 +65,10 @@
 
     export default {
         extends: ListBase,
+
+        components: {
+            ImageFilters,
+        },
 
         data(){
             return {
@@ -75,12 +83,14 @@
                 zoomFactor: 1,
                 selectedFolder: false,
                 folders: [],
+                sortBy: 'created_at',
+                order: 'desc',
             };
         },
 
         computed: {
             sortedImages: function() {
-                return _.orderBy(this.selectedFolder ? this.getFolderMedia(this.selectedFolder) : this.images, [image => image.name.toLowerCase()]);
+                return _.orderBy(this.selectedFolder ? this.getFolderMedia(this.selectedFolder) : this.images, [image => image[this.sortBy].toLowerCase()], [this.order]);
             },
 
             sortedFolders: function() {

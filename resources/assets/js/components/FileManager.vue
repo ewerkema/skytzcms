@@ -9,6 +9,8 @@
             <button v-on:click="selectedFolder = false" class="btn btn-primary" v-show="selectedFolder"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp; Ga terug</button>
             <button class="btn btn-success" v-show="selectedFolder" :disabled="!isDragging" id="removeFromFolder"><span class="glyphicon glyphicon-folder-close"></span>&nbsp; Verwijder uit folder (sleep hierover)</button>
 
+            <image-filters></image-filters>
+
             <div class="flex-row" id="folderlist" v-if="!selectedFolder">
                 <div class="item" v-for="folder in sortedFolders" :data-id="folder.id">
                     <div class="thumbnail">
@@ -50,6 +52,7 @@
     import Pagination from "./Pagination.vue";
     import VueEvents from 'vue-events';
     import ListBase from './ListBase.vue';
+    import ImageFilters from './ImageFilters.vue';
     Vue.use(VueEvents);
 
 
@@ -69,11 +72,14 @@
                 minimalDraggingDistance: 20,
                 startDraggingPosition: [],
                 currentDraggingPosition: [],
+                sortBy: 'created_at',
+                order: 'desc',
             }
         },
 
         components: {
             Pagination,
+            ImageFilters,
         },
 
         created() {
@@ -82,6 +88,11 @@
 
             $('#mediaModal').on('shown.bs.modal', function() {
                 $(document).off('focusin.modal');
+            });
+
+            this.$events.$on('setSort', (sortBy, order)  => {
+                this.sortBy = sortBy;
+                this.order = order;
             });
         },
 
@@ -98,7 +109,7 @@
             },
 
             sortedImages: function() {
-                return _.orderBy(this.selectedFolder ? this.getFolderMedia(this.selectedFolder) : this.images, [image => image.name.toLowerCase()]);
+                return _.orderBy(this.selectedFolder ? this.getFolderMedia(this.selectedFolder) : this.images, [image => image[this.sortBy].toLowerCase()], [this.order]);
             },
 
             sortedFolders: function() {
