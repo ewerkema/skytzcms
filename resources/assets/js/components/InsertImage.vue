@@ -41,6 +41,7 @@
                     if (window.parent.CustomMediaManager !== undefined && window.parent.CustomMediaManager.active) {
                         $(replaceImage)
                             .attr('src', this.imagePath(image.path))
+                            .unbind()
                             .load(() => {
                                 window.parent.CustomMediaManager._insertImage(this.imagePath(image.path), $(replaceImage).get(0).naturalWidth, $(replaceImage).get(0).naturalHeight, openInPopup);
                             });
