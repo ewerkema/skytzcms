@@ -41,13 +41,18 @@ class MediaController extends Controller
         $name = Input::get('name');
         $folderId = Input::get('folder_id');
 
-        foreach($name as $filename) {
-            if (!$this->createMedia($filename, $folderId)) {
-                return Response::json(['status' => 'error', 'message' => "De afbeelding $filename bestaat al!"]);
+        foreach ($name as $filename) {
+            if ($this->mediaExists($filename)) {
+                $type = $this->isDocument($filename) ? "Het document" : "De afbeelding";
+                return Response::json(['status' => 'error', 'message' => "$type $filename bestaat al!"]);
             }
         }
 
-        return Response::json(['status'=>'success','msg'=>'Media toegevoegd!']);
+        foreach($name as $filename) {
+            $this->createMedia($filename, $folderId);
+        }
+
+        return Response::json(['status' => 'success', 'msg' => 'Media toegevoegd!']);
     }
 
     /**
@@ -84,12 +89,23 @@ class MediaController extends Controller
      */
     public function mediaExists($filename)
     {
-        if (File::extension($filename)!='docx' && File::extension($filename)!='pdf' && File::extension($filename)!='doc')
-            $path = 'images/'.$filename;
+        if ($this->isDocument($filename))
+            $path = 'docs/'.$filename;
         else
-            $path = 'docs'.$filename;
+            $path = 'images/'.$filename;
 
         return Media::where('path', $path)->exists();
+    }
+
+    /**
+     * Returns whether the current media item is a document
+     *
+     * @param $filename
+     * @return boolean
+     */
+    private function isDocument($filename)
+    {
+        return in_array(File::extension($filename), ['pdf', 'doc', 'docx']);
     }
 
     /**
