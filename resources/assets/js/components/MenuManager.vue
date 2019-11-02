@@ -141,7 +141,6 @@
                         placeholder: 'placeholder',
                         forcePlaceholderSize: true,
                         relocate: function() {
-                            console.log("Relocate detected");
                             _this.saveOrder();
                         }
                     });

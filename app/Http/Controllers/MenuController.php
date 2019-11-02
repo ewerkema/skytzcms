@@ -139,6 +139,10 @@ class MenuController extends Controller
     public function destroy($id)
     {
         $menuItem = MenuItem::findOrFail($id);
+        $menuItem->subItems->each(function (MenuItem $menuItem) {
+            $menuItem->delete();
+        });
+
         $menuItem->delete();
 
         Cache::flush();
