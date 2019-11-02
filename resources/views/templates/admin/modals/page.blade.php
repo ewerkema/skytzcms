@@ -33,30 +33,6 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
-                {!! Form::label('menu', 'Weergeven in menu', ['class' => 'col-md-3 control-label']) !!}
-
-                <div class="col-md-8">
-                    <label class="Switch">
-                        {!! Form::checkbox('menu', 'menu', $currentPage->menu) !!}
-                        <div class="Switch__slider"></div>
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="parent_id2" class="col-md-3 control-label">Weergeven in submenu van</label>
-
-                <div class="col-md-8">
-                    <select class="form-control" id="parent_id2" name="parent_id">
-                        <option value="" {{ (!$currentPage->parent_id) ? "selected" : "" }}>Geen submenu</option>
-                        @foreach (Page::getMenuWithoutSubpages() as $page)
-                            <option value="{{ $page->id }}" {{ ($page->id == $currentPage->parent_id) ? "selected" : "" }}>
-                                {{ $page->title }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
         </div>
         <div role="tabpanel" class="tab-pane" id="seoTab">
             <div class="form-group">
@@ -118,8 +94,7 @@
         request.setType('PATCH');
         request.setForm('#pageForm');
 
-        request.addFields(['title', 'meta_title', 'meta_desc', 'meta_keywords', 'parent_id', 'header_id']);
-        request.addCheckboxes(['menu']);
+        request.addFields(['title', 'meta_title', 'meta_desc', 'meta_keywords', 'header_id']);
         request.addField('slug', 'text', 'index');
 
         request.onSubmit(function(data) {
@@ -129,24 +104,6 @@
             }
 
             window.location.href = '{{ cms_url("/") }}/'+data['redirectTo'];
-        });
-
-        var subpageSelect = $('[name=parent_id]');
-        var visibleInMenu = $('[name=menu]');
-
-        subpageSelect.change(function() {
-            var value = $(this).val();
-
-            if (value) {
-                visibleInMenu.prop('checked', true);
-            }
-        });
-
-        visibleInMenu.change(function() {
-            var checked = $(this).is(":checked");
-
-            if (!checked)
-                subpageSelect.val(subpageSelect.find('option:first').val());
         });
 
         $('#deletePage').click(function() {

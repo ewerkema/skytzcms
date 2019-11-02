@@ -161,6 +161,13 @@
       color: #152e45;
     }
 
+    @media (max-width: $screen-sm-max) {
+      .navbar-nav {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+    }
+
     .navbar-wide > li > a {
       padding-left: $small-size*2;
       padding-right: $small-size*2;
@@ -168,6 +175,12 @@
 
     .navbar-toggle {
       z-index:1000;
+    }
+
+    @media (max-width: $screen-sm-max) {
+      .navbar-toggle {
+        padding: 4px 10px;
+      }
     }
 
      // Header
@@ -180,17 +193,42 @@
         @include display-box();
 
         .flex-left {
-          @include display-flex-child();
-          justify-content: flex-start;
-        }
+           @include display-flex-child();
+           justify-content: flex-start;
+         }
 
         .flex-center {
           @include display-flex-child();
           justify-content: center;
         }
+
         .flex-right {
           @include display-flex-child();
           justify-content: flex-end;
+        }
+
+        @media (max-width: $screen-sm-max) {
+          @include justify-content(space-between);
+
+          .flex-left-sm {
+            @include justify-content(flex-start);
+          }
+
+          .flex-center-sm {
+            @include justify-content(center);
+          }
+
+          .flex-space-around-sm {
+            @include justify-content(space-around);
+          }
+
+          .flex-space-between-sm {
+            @include justify-content(space-between);
+          }
+
+          .flex-right-sm {
+            @include justify-content(flex-end);
+          }
         }
       }
 
@@ -219,6 +257,11 @@
           float: left;
           height: 50px;
           width: 1px;
+        }
+
+        @media (max-width: $screen-sm-max) {
+          flex: 0 0 100% !important;
+          padding-left: 0;
         }
       }
     }
@@ -362,4 +405,18 @@
 
   .slider-image:hover .hover, .slider-image.selected .glyphicon {
     display: block;
+  }
+
+  .menu-manager {
+    .row {
+      margin-bottom: 15px;
+    }
+
+    .flex-between {
+      @include display-flex-child();
+      @include justify-content(space-between);
+    }
+  }
+
+  .sortable-menu {
   }

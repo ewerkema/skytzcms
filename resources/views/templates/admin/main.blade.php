@@ -30,6 +30,7 @@
 
         window.headerWidth = "{{ config('skytz.header_width') }}";
         window.headerHeight = "{{ config('skytz.header_height') }}";
+        window.baseUrl = "{{ url("") }}";
     </script>
 @stop
 
@@ -62,10 +63,10 @@
 
         @include('templates.admin.modals.newpage')
         @include('templates.admin.modals.account')
-        @include('templates.admin.modals.sortMenu')
         @include('templates.admin.modals.website', ['settings' => Setting::all()->keyBy('name')])
 
         <div id="vue-app">
+            @include('templates.admin.modals.menu')
             @include('templates.admin.modals.media')
             @include('templates.admin.modals.module_forms', ['settings' => Setting::all()->keyBy('name')])
             @include('templates.admin.modals.module_articles')

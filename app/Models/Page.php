@@ -11,7 +11,7 @@ class Page extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'slug', 'title', 'content', 'published_content', 'meta_title', 'meta_desc', 'meta_keywords', 'menu', 'parent_id', 'order', 'header_id', 'pagehits',
+        'slug', 'title', 'content', 'published_content', 'meta_title', 'meta_desc', 'meta_keywords', 'header_id', 'pagehits',
     ];
 
     protected $dates = ['deleted_at'];
@@ -19,9 +19,7 @@ class Page extends Model
     protected $casts = [
         'content' => 'array',
         'published_content' => 'array',
-        'parent_id' => 'int|null',
         'header_id' => 'int|null',
-        'order' => 'int',
     ];
 
     /**
@@ -47,34 +45,15 @@ class Page extends Model
         return $this->belongsTo('App\Models\Header', 'header_id');
     }
 
-    public function subpages()
-    {
-        return $this->hasMany('App\Models\Page', 'parent_id')->orderBy('order');
-    }
-
-    public function parent()
-    {
-        return $this->hasOne('App\Models\Page', 'id', 'parent_id');
-    }
-
-    /**
-     * Check for empty input parent page and cast to NULL if true.
-     *
-     * @param $value
-     */
-    public function setParentIdAttribute($value)
-    {
-        $this->attributes['parent_id'] = (empty($value) || !$value) ? NULL : $value;
-    }
-
     /**
      * Get slug of the current page.
      *
+     * @param Page|null $parent
+     * @return string
      */
-    public function getSlug()
+    public function getSlug($parent = null)
     {
-        if ($this->hasParent()) {
-            $parent = $this->parent()->first();
+        if ($parent != null) {
             return $parent->slug . '/' . $this->attributes['slug'];
         }
 
@@ -82,35 +61,14 @@ class Page extends Model
     }
 
     /**
-     * Boolean check whether this page has a parent.
-     */
-    public function hasParent()
-    {
-        return $this->parent_id != 0;
-    }
-
-    /**
-     * Get list of menu items with subpages
+     * Get the URL of the current page.
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @param null $parent
+     * @return string
      */
-    public function getMenuWithSubpages()
+    public function getUrl($parent = null)
     {
-        return Cache::remember('menu-pages-with-subpages', 60, function () {
-            return $this->with('subpages')->get()->where('menu', 1)->where('parent_id', NULL)->sortBy('order');
-        });
-    }
-
-    /**
-     * Get list of menu items without subpages
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function getMenuWithoutSubpages()
-    {
-        return Cache::remember('menu-pages-without-subpages', 60, function () {
-            return $this->all()->where('menu', 1)->where('parent_id', NULL)->sortBy('order');
-        });
+        return page_url($this->getSlug($parent));
     }
 
     /**
@@ -121,7 +79,9 @@ class Page extends Model
     public function getMenu()
     {
         return Cache::remember('menu-pages', 60, function() {
-            return $this->all()->where('menu', 1)->sortBy('order');
+            return Page::all()->filter(function(Page $page) {
+                return $page->menuItems->count() > 0;
+            })->sortBy('title');
         });
     }
 
@@ -133,7 +93,9 @@ class Page extends Model
     public function getNonMenu()
     {
         return Cache::remember('non-menu-pages', 60, function() {
-            return $this->all()->where('menu', 0)->sortBy('title');
+            return Page::all()->filter(function(Page $page) {
+                return $page->menuItems->count() == 0;
+            })->sortBy('title');
         });
     }
 
@@ -193,5 +155,15 @@ class Page extends Model
         }
 
         return $content;
+    }
+
+    /**
+     * Return the menu items of the current page.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function menuItems()
+    {
+        return $this->hasMany('App\Models\MenuItem', 'page_id', 'id');
     }
 }

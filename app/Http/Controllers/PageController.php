@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MenuItem;
 use App\Models\Page;
 use Cache;
 use Illuminate\Http\Request;
 use Validator;
-use Response;
-use Input;
 
 class PageController extends Controller
 {
     public function index()
     {
-        $pages = Page::all();
+        $pages = Page::withCount('menuItems')->get();
 
         return response()->json($pages);
     }
@@ -32,33 +31,11 @@ class PageController extends Controller
             'title' => 'required|max:255',
             'meta_title' => 'required|max:255',
             'meta_desc' => 'max:255',
-            'menu' => 'required|boolean',
-            'parent_id' => 'exists:pages,id',
         ], [], [
             'slug' => 'Pagina link (URL)',
             'title' => 'Pagina naam',
             'meta_title' => 'Pagina titel',
             'meta_desc' => 'Pagina beschrijving',
-            'menu' => 'Weergeven in menu',
-            'parent_id' => 'Pagina voor het submenu',
-        ]);
-    }
-
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array $data
-     * @param int $id
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validatorOrder(array $data, $id = 0)
-    {
-        return Validator::make($data, [
-            'order' => 'integer',
-            'parent_id' => 'exists:pages,id',
-        ], [], [
-            'order' => 'Volgorde voor de pagina',
-            'parent_id' => 'Pagina voor het submenu',
         ]);
     }
 
@@ -72,8 +49,6 @@ class PageController extends Controller
     {
         $input = $request->all();
         $this->validator($input)->validate();
-
-        $input['order'] = Page::all()->max('order')+1;
 
         $input['content'] = array();
         $input['published_content'] = array();
@@ -192,38 +167,6 @@ class PageController extends Controller
     }
 
     /**
-     * Update the the order and parent id in storage.
-     *
-     * @param  Request $request
-     * @param  Page $page
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function updateOrder(Request $request)
-    {
-        $input = $request->all();
-
-        foreach ($input['pages'] as $order => $data) {
-            if (isset($data['id'])) {
-                $page = Page::find($data['id']);
-
-                $page->order = $order;
-                $page->parent_id = $data['parent_id'];
-
-                if (!$page->save())
-                    return response()->json(['message' => 'Updaten van de pagina volgorde is niet gelukt.'], 500);
-            }
-        }
-
-        Cache::flush();
-
-        session()->flash('flash_message', 'De volgorde van de pagina\'s is succesvol aangepast');
-        session()->flash('flash_title', 'Volgorde aangepast');
-
-        return response()->json(['success' => 'Updaten van de volgorde is gelukt.']);
-
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  Request $request
@@ -273,9 +216,13 @@ class PageController extends Controller
     public function destroy($id)
     {
         $page = Page::find($id);
-        $page->subpages()->getResults()->each(function ($page) {
-            $page->parent_id = NULL;
-            $page->save();
+        $menuItems = MenuItem::where('page_id', $id)->get();
+        $menuItems->each(function ($menuItem) {
+            $menuItem->subItems()->getResults()->each(function ($menuItem) {
+                $menuItem->update(['parent_id' => null]);
+            });
+
+            $menuItem->delete();
         });
         $page->delete();
 

@@ -8,10 +8,10 @@
     <form action="#" class="form-horizontal" id="newPageForm">
         <div class="alert form-message" role="alert" style="display: none;"></div>
         <div class="form-group">
-            <label for="title" class="col-md-3 control-label">Pagina naam</label>
+            <label for="newPageTitle" class="col-md-3 control-label">Pagina naam</label>
 
             <div class="col-md-8">
-                <input type="text" name="title" class="form-control" placeholder="Pagina naam" required autofocus />
+                <input type="text" name="title" class="form-control" placeholder="Pagina naam" id="newPageTitle" required autofocus />
             </div>
         </div>
         <div class="form-group">
@@ -29,12 +29,12 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="slug" class="col-md-3 control-label">Pagina link</label>
+            <label for="newPageSlug" class="col-md-3 control-label">Pagina link</label>
 
             <div class="col-md-8">
                 <div class="input-group">
                     <span class="input-group-addon" id="page-url">{{ url("/ ") }}</span>
-                    <input type="text" name="slug" class="form-control" aria-describedby="page-url" autofocus />
+                    <input type="text" name="slug" class="form-control" id="newPageSlug" aria-describedby="page-url" autofocus />
                 </div>
             </div>
         </div>
@@ -52,30 +52,6 @@
                 <textarea name="meta_desc" class="form-control" placeholder="Pagina beschrijving" autofocus></textarea>
             </div>
         </div>
-        <div class="form-group">
-            <label for="menu" class="col-md-3 control-label">Weergeven in menu</label>
-
-            <div class="col-md-8">
-                <label class="Switch">
-                    <input type="checkbox" name="menu">
-                    <div class="Switch__slider"></div>
-                </label>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="parent_id" class="col-md-3 control-label">Weergeven in submenu van</label>
-
-            <div class="col-md-8">
-                <select class="form-control" id="parent_id" name="parent_id">
-                    <option value="" selected>Geen submenu</option>
-                    @foreach (Page::getMenuWithoutSubpages() as $page)
-                        <option value="{{ $page->id }}">
-                            {{ $page->title }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
     </form>
 @overwrite
 
@@ -89,9 +65,8 @@
         request.setType('POST');
         request.setForm('#newPageForm');
 
-        request.addFields(['title', 'meta_title', 'meta_desc', 'parent_id', 'header_id']);
+        request.addFields(['title', 'meta_title', 'meta_desc', 'header_id']);
         request.addField('slug', 'text', 'index');
-        request.addField('menu', 'checkbox');
 
         request.onSubmit(function(data) {
             if (data['redirectTo'] === undefined) {
@@ -102,21 +77,34 @@
             window.location.href = '{{ cms_url("/") }}/'+data['redirectTo'];
         });
 
-        var subpageSelect = $('[name=parent_id]');
-        var visibleInMenu = $('[name=menu]');
 
-        subpageSelect.change(function() {
-            var value = $(this).val();
-
-            if (value)
-                visibleInMenu.prop('checked', true);
+        let slugActive = true;
+        $('#newPageForm #newPageTitle').on('input', function() {
+            if (slugActive) {
+                $('#newPageForm #newPageSlug').val(toSlug($(this).val()));
+            }
         });
 
-        visibleInMenu.change(function() {
-            var checked = $(this).is(":checked");
+        $('#newPageForm #newPageSlug').keypress(function() {
+            slugActive = false;
+        });
 
-            if (!checked)
-                subpageSelect.val(subpageSelect.find('option:first').val());
-        })
+        function toSlug(str) {
+            str = str.replace(/^\s+|\s+$/g, ''); // trim
+            str = str.toLowerCase();
+
+            // remove accents, swap ñ for n, etc
+            let from = "ãàáäâẽèéëêìíïîõòóöôùúüûñç·/_,:;";
+            let to   = "aaaaaeeeeeiiiiooooouuuunc------";
+            for (let i=0, l=from.length ; i<l ; i++) {
+                str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+            }
+
+            str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+                .replace(/\s+/g, '-') // collapse whitespace and replace by -
+                .replace(/-+/g, '-'); // collapse dashes
+
+            return str;
+        }
     </script>
 @overwrite

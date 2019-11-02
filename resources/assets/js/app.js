@@ -15,6 +15,7 @@ Vue.use(require('vue-moment'), {
 });
 
 Vue.component('file-manager', require('./components/FileManager.vue'));
+Vue.component('menu-manager', require('./components/MenuManager.vue'));
 Vue.component('list-articles', require('./components/ListArticles.vue'));
 Vue.component('list-albums', require('./components/ListAlbums.vue'));
 Vue.component('list-sliders', require('./components/ListSliders.vue'));

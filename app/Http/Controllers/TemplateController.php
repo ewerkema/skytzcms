@@ -19,11 +19,7 @@ class TemplateController extends Controller
 
     public function show($slug = 'index', $childSlug = false)
     {
-        if ($childSlug && Page::whereSlug($slug)->count()) {
-            $page = Page::whereSlug($slug)->first()->subpages()->whereSlug($childSlug)->first();
-        } else {
-            $page = Page::whereSlug($slug)->where('parent_id', NULL)->first();
-        }
+        $page = Page::whereSlug($childSlug ? $childSlug : $slug)->first();
 
         $article = $this->getArticle();
         $project = $this->getProject();

@@ -4,12 +4,14 @@
             <p>Klik op de afbeelding om meerdere media te selecteren om te verwijderen.</p>
             <button v-on:click="deleteMedia()" class="btn btn-danger" v-show="selectedImages.length > 0">Alle {{ selectedImages.length }} media verwijderen</button>
             <button v-on:click="selectedImages = []" class="btn btn-default" v-show="selectedImages.length > 0">Selectie annuleren</button>
-            <button v-on:click="addFolder()" class="btn btn-primary" v-show="!selectedFolder"><span class="glyphicon glyphicon-folder-open"></span>&nbsp; Nieuwe folder</button>
+            <button v-on:click="addFolder()" class="btn btn-primary" v-show="!selectedFolder"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;<span class="hidden-xs">Nieuwe folder</span></button>
 
-            <button v-on:click="selectedFolder = false" class="btn btn-primary" v-show="selectedFolder"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp; Ga terug</button>
-            <button class="btn btn-success" v-show="selectedFolder" :disabled="!isDragging" id="removeFromFolder"><span class="glyphicon glyphicon-folder-close"></span>&nbsp; Verwijder uit folder (sleep hierover)</button>
+            <button v-on:click="selectedFolder = false" class="btn btn-primary" v-show="selectedFolder"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span class="hidden-xs">Ga terug</span></button>
+            <button class="btn btn-success" v-show="selectedFolder" :disabled="!isDragging" id="removeFromFolder"><span class="glyphicon glyphicon-folder-close"></span>&nbsp; <span class="hidden-xs">Verwijder uit folder (sleep hierover)</span></button>
 
             <image-filters></image-filters>
+
+            <button href="#" data-toggle="modal" data-target="#uploadMediaModal" class="btn btn-success pull-right"><span class="glyphicon glyphicon-upload"></span> <span class="hidden-xs">Media uploaden</span></button>
 
             <div class="flex-row" id="folderlist" v-if="!selectedFolder">
                 <div class="item" v-for="folder in sortedFolders" :data-id="folder.id">
