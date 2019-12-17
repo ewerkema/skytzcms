@@ -199,8 +199,7 @@ class PageController extends Controller
     {
         $pages = Page::all();
         foreach ($pages as $page) {
-            $page->published_content = $page->content;
-            $page->save();
+            $page->publish();
         }
 
         return response()->json(['message' => 'Alle pagina\'s zijn gepubliceerd.']);
@@ -208,10 +207,24 @@ class PageController extends Controller
     }
 
     /**
+     * Publish the selected page.
+     *
+     * @param Page $page
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function publishPage(Page $page)
+    {
+        $page->publish();
+
+        return response()->json(['message' => 'Pagina is succesvol gepubliceerd.']);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy($id)
     {

@@ -23,6 +23,7 @@ Route::group(['prefix' => 'cms'], function() {
     Route::patch('pages/{page}/grid', array('as' => 'pages.updategrid', 'uses' => 'PageController@updateGrid'));
     Route::patch('pages/{page}/content', array('as' => 'pages.updatecontent', 'uses' => 'PageController@updateContent'));
     Route::post('pages/publish', array('as' => 'pages.publish', 'uses' => 'PageController@publish'));
+    Route::post('pages/{page}/publish', array('as' => 'pages.publishPage', 'uses' => 'PageController@publishPage'));
     Route::resource('pages', 'PageController');
 
     Route::resource('users', 'UserController');

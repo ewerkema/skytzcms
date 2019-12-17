@@ -46,6 +46,16 @@ class Page extends Model
     }
 
     /**
+     * Publish the page.
+     *
+     * @return void
+     */
+    public function publish()
+    {
+        $this->update(['published_content' => $this->content]);
+    }
+
+    /**
      * Get slug of the current page.
      *
      * @param Page|null $parent

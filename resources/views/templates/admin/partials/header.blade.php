@@ -137,6 +137,7 @@
                     @if (Auth::guest())
                         <li><a href="{{ cms_url('/login') }}">Inloggen</a></li>
                     @else
+                        <li class="publish"><a href="#" onclick="publishPage()"><span class="glyphicon glyphicon-cloud"></span> Publiceer pagina</a></li>
                         <li class="publish"><a href="#" onclick="publishWebsite()"><span class="glyphicon glyphicon-globe"></span> Publiceer website</a></li>
                         <li class="visible-xs">
                             <a href="{{ cms_url('/logout') }}"
