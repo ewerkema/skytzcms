@@ -79,10 +79,10 @@
     }
 </style>
 <script>
-    import ListBase from './ListBase.vue';
+    import AutoloadModal from './AutoloadModal.vue';
 
     export default {
-        extends: ListBase,
+        extends: AutoloadModal,
 
         data(){
             return {

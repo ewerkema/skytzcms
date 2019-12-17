@@ -53,13 +53,13 @@
 <script>
     import Pagination from "./Pagination.vue";
     import VueEvents from 'vue-events';
-    import ListBase from './ListBase.vue';
+    import AutoloadModal from './AutoloadModal.vue';
     import ImageFilters from './ImageFilters.vue';
     Vue.use(VueEvents);
 
 
     export default {
-        extends: ListBase,
+        extends: AutoloadModal,
 
         data() {
             return {
