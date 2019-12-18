@@ -143,7 +143,7 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#" data-toggle="modal" onclick="publishPage()">Huidge pagina</a></li>
+                                <li><a href="#" data-toggle="modal" onclick="publishPage()">Huidige pagina</a></li>
                                 <li><a href="#" data-toggle="modal" onclick="publishWebsite()">Volledige website</a></li>
                             </ul>
                         </li>
