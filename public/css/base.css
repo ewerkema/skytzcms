@@ -244,3 +244,19 @@ pre {
      align-items: flex-end;
      justify-content: flex-end;
 }
+
+.ql-align-left {
+    text-align: left;
+}
+
+.ql-align-right {
+    text-align: right;
+}
+
+.ql-align-justify {
+    text-align: justify;
+}
+
+.ql-align-center {
+    text-align: center;
+}

@@ -6,7 +6,7 @@
                 <image-filters></image-filters>
             </div>
             <div v-if="!selectedFolder">
-                <div class="bootstrap-row media-row" v-for="row in sortedFolders | chunk 6">
+                <div class="bootstrap-row media-row" v-for="row in chunkedSortedFolders">
                     <div class="col-md-2" v-for="folder in row" :data-id="folder.id">
                         <div class="thumbnail">
                             <a v-on:click="selectedFolder = folder.id">
@@ -17,7 +17,7 @@
                     </div>
                 </div>
             </div>
-            <div class="bootstrap-row media-row" v-for="row in sortedImages | chunk 6">
+            <div class="bootstrap-row media-row" v-for="row in chunkedSortedImages">
                 <div class="col-md-2 slider-image"
                      v-for="image in row"
                      v-on:click="selectImage(image)"
@@ -63,9 +63,12 @@
 </style>
 
 <script>
+    import AutoloadModal from './AutoloadModal';
     import ImageFilters from './ImageFilters.vue';
 
     export default {
+        extends: AutoloadModal,
+
         props: {
             omitImages: {
                 type: Array,
@@ -109,8 +112,16 @@
                 return _.orderBy(this.selectedFolder ? this.getFolderMedia(this.selectedFolder) : this.images, [image => image[this.sortBy].toLowerCase()], [this.order]);
             },
 
+            chunkedSortedImages: function() {
+                return _.chunk(this.sortedImages, 6);
+            },
+
             sortedFolders: function() {
                 return _.orderBy(this.folders, [folder => folder.name.toLowerCase()]);
+            },
+
+            chunkedSortedFolders: function() {
+                return _.chunk(this.sortedFolders, 6);
             },
 
             selectedImage: function () {
@@ -119,9 +130,6 @@
         },
 
         created() {
-            this.loadImages();
-            this.loadFolders();
-
             this.$events.$on('setSort', (sortBy, order)  => {
                 this.sortBy = sortBy;
                 this.order = order;
@@ -129,6 +137,11 @@
         },
 
         methods: {
+            loadFromDatabase: function() {
+                this.loadImages();
+                this.loadFolders();
+            },
+
             loadImages: function() {
                 let self = this;
                 $.get('/cms/media?filterFolder=true', function (data) {
@@ -171,7 +184,8 @@
                 }
 
                 if (this.isSelected(image)) {
-                    this.selectedImages.$remove(image.id);
+                    let index = this.selectedImages.indexOf(image.id);
+                    this.selectedImages.splice(index, 1);
                 } else {
                     this.selectedImages.push(image.id);
                 }

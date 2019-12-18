@@ -27,10 +27,7 @@
 
 <script>
     import Pagination from "./Pagination.vue";
-    import VueEvents from 'vue-events';
     import AutoloadModal from './AutoloadModal.vue';
-    Vue.use(VueEvents);
-
 
     export default {
         extends: AutoloadModal,
@@ -92,7 +89,8 @@
                 if (!this.isSelected(id)) {
                     this.selectedImages.push(id);
                 } else {
-                    this.selectedImages.$remove(id);
+                    let index = this.selectedImages.indexOf(id);
+                    this.selectedImages.splice(index, 1);
                 }
             },
 

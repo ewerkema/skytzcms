@@ -11,7 +11,6 @@
 
     <!-- Larevel -->
     @yield('head')
-
 </head>
 <body>
 

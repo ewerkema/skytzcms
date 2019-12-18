@@ -5,7 +5,7 @@
         'fade':effect === 'fade',
         'zoom':effect === 'zoom'
         }"
-        id="{{target}}" aria-labelledby="{{target}}"
+        :id="target" :aria-labelledby="target"
     >
         <div role="document" v-bind:class="{'modal-dialog':true,'modal-lg':large,'modal-sm':small}">
             <div class="modal-content">

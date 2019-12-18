@@ -29,7 +29,7 @@
                 </ul>
             </div>
             <div class="col-md-8" v-if="selectedAlbum">
-                <div class="bootstrap-row album-row" v-for="row in selectedAlbum.media | chunk 4">
+                <div class="bootstrap-row album-row" v-for="row in chunkedMedia">
                     <div class="col-md-3 album-image"
                          v-for="image in row"
                          v-on:click="removeImage(selectedAlbum, image)"
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <p v-if="!hasImages(selectedAlbum)">Er zijn geen afbeeldingen gevonden.</p>
-                <button class="btn btn-success right" v-on:click="addImages = true">Afbeeldingen toevoegen</button>
+                <button class="btn btn-success right" @click.prevent="enableAddImages">Afbeeldingen toevoegen</button>
                 <button class="btn btn-default right" v-on:click="changeOrder = true">Volgorde aanpassen <span class="glyphicon glyphicon-sort"></span></button>
                 <button class="btn btn-danger right" v-on:click="removeAlbum(selectedAlbum)">Verwijder dit album</button>
             </div>
@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="editForm" v-if="addImages">
-            <select-media :multiple="true" :omit-images="selectedAlbum.media" @send-images="storeImages" @cancel="addImages = false"></select-media>
+            <select-media :multiple="true" :omit-images="selectedAlbum.media" @send-images="storeImages" @cancel="addImages = false" ref="selectMedia"></select-media>
         </div>
         <div class="editForm" v-if="changeOrder">
             <form action="#" class="form-horizontal" id="ChangeAlbumOrder" v-on:submit.prevent>
@@ -177,16 +177,24 @@
         watch: {
             changeOrder: function (open) {
                 if (open) {
-                    $('.albumSortable').nestedSortable({
-                        listType: 'ul',
-                        handle: 'div',
-                        items: 'li',
-                        toleranceElement: '> div',
-                        maxLevels: 1,
-                        placeholder: 'placeholder',
-                        forcePlaceholderSize: true
-                    });
+                    setTimeout(() => {
+                        $('.albumSortable').nestedSortable({
+                            listType: 'ul',
+                            handle: 'div',
+                            items: 'li',
+                            toleranceElement: '> div',
+                            maxLevels: 1,
+                            placeholder: 'placeholder',
+                            forcePlaceholderSize: true
+                        });
+                    }, 500);
                 }
+            }
+        },
+
+        computed: {
+            chunkedMedia() {
+                return _.chunk(this.selectedAlbum.media, 4);
             }
         },
 
@@ -197,6 +205,17 @@
 
             hasImages: function (album) {
                 return album.media.length;
+            },
+
+            enableAddImages: function() {
+                this.addImages = true;
+                this.$nextTick(() => {
+                    this.loadImages();
+                })
+            },
+
+            loadImages: function() {
+                this.$refs.selectMedia.loadFromDatabase();
             },
 
             storeImages: function (images) {
@@ -307,7 +326,8 @@
                         _method: 'DELETE'
                     },
                     success: function (result) {
-                        self.selectedAlbum.media.$remove(image);
+                        let index = self.selectedAlbum.media.indexOf(image);
+                        self.selectedAlbum.media.splice(index, 1);
                     }
                 });
             },
@@ -321,7 +341,8 @@
                         _method: 'DELETE'
                     },
                     success: function(result) {
-                        self.albums.$remove(album);
+                        let index = self.albums.indexOf(album);
+                        self.albums.splice(index, 1);
                         self.selectedAlbum = _.head(self.albums);
                     }
                 });

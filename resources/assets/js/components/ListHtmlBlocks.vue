@@ -94,7 +94,6 @@
         },
 
         methods: {
-
             getHtmlBlock: function(htmlBlockId) {
                 return _.find(this.htmlBlocks, ['id', htmlBlockId]);
             },
@@ -107,9 +106,9 @@
 
                 request.addFields(['html', 'name']);
 
-                let _this = this;
+                let self = this;
                 request.send(function(data) {
-                    _this.htmlBlocks[_.findIndex(_this.htmlBlocks, function(htmlBlock) { return htmlBlock.id == data.id })] = data;
+                    self.htmlBlocks[_.findIndex(self.htmlBlocks, (htmlBlock) => htmlBlock.id === data.id)] = data;
                     swal({
                         title: "Html blok aangepast!",
                         text: 'Html blok is succesvol aangepast.',
@@ -131,14 +130,14 @@
                 this.newHtmlBlockError = false;
                 this.newHtmlBlock = false;
 
-                let _this = this;
+                let self = this;
                 $.ajax({
                     url: '/cms/htmlBlocks',
                     type: 'POST',
                     data: { name: value },
                     success: function(data) {
-                        _this.htmlBlocks.push(data);
-                        _this.selectedHtmlBlock = data.id;
+                        self.htmlBlocks.push(data);
+                        self.selectedHtmlBlock = data.id;
                     },
                     error: function() {
                         alert("Er ging iets fout, probeer het later opnieuw");
@@ -147,7 +146,7 @@
             },
 
             removeHtmlBlock: function (htmlBlockId) {
-                let _this = this;
+                let self = this;
                 swal({
                     title: "Html block verwijderen?",
                     type: "warning",
@@ -155,12 +154,12 @@
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "Ja, verwijder dit blok",
                 }).then(function(){
-                    _this.doRemoveHtmlBlock(htmlBlockId);
+                    self.doRemoveHtmlBlock(htmlBlockId);
                 }).done();
             },
 
             doRemoveHtmlBlock: function (htmlBlockId) {
-                let _this = this;
+                let self = this;
                 $.ajax({
                     url: '/cms/htmlBlocks/'+htmlBlockId,
                     type: 'POST',
@@ -168,8 +167,9 @@
                         _method: 'DELETE'
                     },
                     success: function(result) {
-                        _this.htmlBlocks.$remove(_.find(_this.htmlBlocks, ['id', htmlBlockId]));
-                        _this.selectedHtmlBlock = (_.head(_this.htmlBlocks) !== undefined) ? _.head(_this.htmlBlocks).id : false;
+                        let index = _.findIndex(self.htmlBlocks, htmlBlock => htmlBlock.id === htmlBlockId);
+                        self.htmlBlocks.splice(index, 1);
+                        self.selectedHtmlBlock = (_.head(self.htmlBlocks) !== undefined) ? _.head(self.htmlBlocks).id : false;
                     }
                 });
             },
@@ -179,11 +179,11 @@
             },
 
             loadHtmlBlocks: function() {
-                let _this = this;
+                let self = this;
                 $.get('/cms/htmlBlocks', function (data) {
                     if (data.length != 0) {
-                        _this.htmlBlocks = data;
-                        _this.selectedHtmlBlock = _.head(data).id;
+                        self.htmlBlocks = data;
+                        self.selectedHtmlBlock = _.head(data).id;
                     }
                 });
             }
@@ -191,11 +191,9 @@
         },
 
         filters: {
-
             truncate: function(string, value) {
                 return (string.length > value) ? string.substring(0, value) + '...' : string;
             }
-
         }
     }
 </script>

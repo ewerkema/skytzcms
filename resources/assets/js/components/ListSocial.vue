@@ -2,40 +2,40 @@
     <div class='list-social'>
         <div class="sidebar col-md-4">
             <ul class="list-group">
-                <a href="#" class="list-group-item"
+                <a class="list-group-item"
                    v-for="social in socials"
-                   :class="{ active: (social.id == selectedSocial) }"
-                   v-on:click="selectedSocial = social.id"
+                   :class="{ active: (social.id == selectedSocial.id) }"
+                   @click.prevent="selectedSocial = social"
                 >
                     {{ social.name }}
                 </a>
-                <a href="#" class="list-group-item add-item"
-                   v-on:click="newSocial = true"
+                <a class="list-group-item add-item"
+                   @click.prevent="newSocial = true"
                    v-if="!newSocial"
                 >
                     Voeg social media item toe
                     <span class="glyphicon glyphicon-plus"></span>
                 </a>
-                <a href="#" class="list-group-item add-item"
+                <a class="list-group-item add-item"
                    v-if="newSocial"
                    :class="{ 'has-error': newSocialError }"
                 >
                     <input type="text" name="social_name" class="form-control" @keyup.enter="createSocial()" placeholder="Social media item naam" />
-                    <button class="btn btn-default" v-on:click="newSocial = false">Annuleren</button>
-                    <button class="btn btn-success right" v-on:click="createSocial()">Opslaan</button>
+                    <button class="btn btn-default" @click="newSocial = false">Annuleren</button>
+                    <button class="btn btn-success right" @click="createSocial()">Opslaan</button>
                 </a>
             </ul>
         </div>
-        <div class="col-md-8" v-if="selectedSocial && getSocial(selectedSocial)">
-            <form action="#" class="form-horizontal editForm" id="socialForm" v-on:submit.prevent>
+        <div class="col-md-8" v-if="editMode()">
+            <form action="#" class="form-horizontal editForm" id="socialForm" @submit.prevent>
                 <div class="alert form-message" role="alert" style="display: none;"></div>
                 <div class="form-group">
                     <label for="type" class="col-md-3 control-label">Type</label>
 
                     <div class="col-md-8">
-                        <select class="form-control" id="type" name="type">
-                            <option value="" :selected="!getSocial(selectedSocial).type" disabled>Selecteer een social media type</option>
-                            <option v-for="(type,name) in socialMediaTypes" :value="type" :selected="getSocial(selectedSocial).type === type">
+                        <select class="form-control" id="type" name="type" v-model="selectedSocial.type">
+                            <option value="" disabled>Selecteer een social media type</option>
+                            <option v-for="(name, type) in socialMediaTypes" :value="type">
                                 {{ name }}
                             </option>
                         </select>
@@ -45,20 +45,20 @@
                     <label for="name" class="col-md-3 control-label">Naam</label>
 
                     <div class="col-md-8">
-                        <input type="text" id="name" name="name" :value="getSocial(selectedSocial).name" class="form-control" placeholder="Naam" />
+                        <input type="text" id="name" name="name" v-model="selectedSocial.name" class="form-control" placeholder="Naam" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="url" class="col-md-3 control-label">URL</label>
 
                     <div class="col-md-8">
-                        <input type="text" id="url" name="url" :value="getSocial(selectedSocial).url" class="form-control" placeholder="URL" required />
+                        <input type="text" id="url" name="url" v-model="selectedSocial.url" class="form-control" placeholder="URL" required />
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-8 col-md-offset-3">
-                        <button form="socialForm" class="btn btn-success right" v-on:click="submitForm()">Social media item opslaan</button>
-                        <button class="btn btn-danger right" v-on:click="removeSocial(selectedSocial)">Verwijder social media item</button>
+                        <button form="socialForm" class="btn btn-success right" @click="submitForm()">Social media item opslaan</button>
+                        <button class="btn btn-danger right" @click="removeSocial">Verwijder social media item</button>
                     </div>
                 </div>
             </form>
@@ -101,29 +101,28 @@
         data(){
             return {
                 socials: [],
-                selectedSocial: false,
+                selectedSocial: {},
                 newSocial: false,
                 newSocialError: false,
             };
         },
 
         methods: {
-
-            getSocial: function(socialId) {
-                return _.find(this.socials, ['id', socialId]);
+            editMode() {
+                return !_.isEmpty(this.selectedSocial);
             },
 
             submitForm: function () {
                 let request = new Request('/cms/socials');
                 request.setForm('#socialForm');
                 request.setType('PATCH');
-                request.addToUrl(this.selectedSocial);
+                request.addToUrl(this.selectedSocial.id);
 
                 request.addFields(['type', 'name', 'url']);
 
-                let _this = this;
+                let self = this;
                 request.send(function(data) {
-                    _this.socials[_.findIndex(_this.socials, function(social) { return social.id == data.id })] = data;
+                    self.socials[_.findIndex(self.socials, o => o.id === data.id)] = data;
                     swal({
                         title: "Social media item aangepast!",
                         text: 'Social media item is succesvol aangepast.',
@@ -145,14 +144,14 @@
                 this.newSocialError = false;
                 this.newSocial = false;
 
-                let _this = this;
+                let self = this;
                 $.ajax({
                     url: '/cms/socials',
                     type: 'POST',
                     data: { name: value },
                     success: function(data) {
-                        _this.socials.push(data);
-                        _this.selectedSocial = data.id;
+                        self.socials.push(data);
+                        self.selectedSocial = data;
                     },
                     error: function() {
                         alert("Er ging iets fout, probeer het later opnieuw");
@@ -160,8 +159,8 @@
                 });
             },
 
-            removeSocial: function (socialId) {
-                let _this = this;
+            removeSocial: function () {
+                let self = this;
                 swal({
                     title: "Social media item verwijderen?",
                     type: "warning",
@@ -169,12 +168,13 @@
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "Ja, verwijder dit social media item",
                 }).then(function(){
-                    _this.doRemoveSocial(socialId);
+                    self.doRemoveSocial();
                 }).done();
             },
 
-            doRemoveSocial: function (socialId) {
-                let _this = this;
+            doRemoveSocial: function () {
+                let socialId = this.selectedSocial.id;
+                let self = this;
                 $.ajax({
                     url: '/cms/socials/'+socialId,
                     type: 'POST',
@@ -182,8 +182,9 @@
                         _method: 'DELETE'
                     },
                     success: function(result) {
-                        _this.socials.$remove(_.find(_this.socials, ['id', socialId]));
-                        _this.selectedSocial = (_.head(_this.socials) !== undefined) ? _.head(_this.socials).id : false;
+                        let index = _.findIndex(self.socials, o => o.id === socialId);
+                        self.socials.splice(index, 1);
+                        self.selectedSocial = (_.head(self.socials) !== undefined) ? _.head(self.socials) : false;
                     }
                 });
             },
@@ -193,11 +194,11 @@
             },
 
             loadSocials: function() {
-                let _this = this;
+                let self = this;
                 $.get('/cms/socials', function (data) {
                     if (data.length != 0) {
-                        _this.socials = data;
-                        _this.selectedSocial = _.head(data).id;
+                        self.socials = data;
+                        self.selectedSocial = _.head(data);
                     }
                 });
             }
@@ -205,11 +206,9 @@
         },
 
         filters: {
-
             truncate: function(string, value) {
                 return (string.length > value) ? string.substring(0, value) + '...' : string;
             }
-
         }
     }
 </script>

@@ -14,20 +14,40 @@ Vue.use(require('vue-moment'), {
     moment: moment
 });
 
-Vue.component('file-manager', require('./components/FileManager.vue'));
-Vue.component('menu-manager', require('./components/MenuManager.vue'));
-Vue.component('list-articles', require('./components/ListArticles.vue'));
-Vue.component('list-albums', require('./components/ListAlbums.vue'));
-Vue.component('list-sliders', require('./components/ListSliders.vue'));
-Vue.component('list-forms', require('./components/ListForms.vue'));
-Vue.component('list-headers', require('./components/ListHeaders.vue'));
-Vue.component('list-media', require('./components/ListMedia.vue'));
-Vue.component('list-html-blocks', require('./components/ListHtmlBlocks.vue'));
-Vue.component('list-projects', require('./components/ListProjects.vue'));
-Vue.component('list-users', require('./components/ListUsers.vue'));
-Vue.component('list-social', require('./components/ListSocial.vue'));
-Vue.component('insert-image', require('./components/InsertImage.vue'));
-Vue.component('select-module', require('./components/SelectModule.vue'));
+import VueEvents from 'vue-events';
+Vue.use(VueEvents);
+
+require('./forms');
+
+import FileManager from './components/FileManager';
+import MenuManager from './components/MenuManager';
+import ListArticles from './components/ListArticles';
+import ListAlbums from './components/ListAlbums';
+import ListSliders from './components/ListSliders';
+import ListForms from './components/ListForms';
+import ListHeaders from './components/ListHeaders';
+import ListMedia from './components/ListMedia';
+import ListHtmlBlocks from './components/ListHtmlBlocks';
+import ListProjects from './components/ListProjects';
+import ListUsers from './components/ListUsers';
+import ListSocial from './components/ListSocial';
+import InsertImage from './components/InsertImage';
+import SelectModule from './components/SelectModule';
+
+Vue.component('file-manager', FileManager);
+Vue.component('menu-manager', MenuManager);
+Vue.component('list-articles', ListArticles);
+Vue.component('list-albums', ListAlbums);
+Vue.component('list-sliders', ListSliders);
+Vue.component('list-forms', ListForms);
+Vue.component('list-headers', ListHeaders);
+Vue.component('list-media', ListMedia);
+Vue.component('list-html-blocks', ListHtmlBlocks);
+Vue.component('list-projects', ListProjects);
+Vue.component('list-users', ListUsers);
+Vue.component('list-social', ListSocial);
+Vue.component('insert-image', InsertImage);
+Vue.component('select-module', SelectModule);
 
 $.ajaxSetup({
     headers: {
@@ -53,4 +73,36 @@ Vue.filter('truncate', function (value, length) {
 
 const app = new Vue({
     el: '#vue-app',
+
+    created() {
+        $('#websiteTabs a').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        });
+    },
+
+    methods: {
+        saveLayoutMenu: function () {
+            let array = $('.sortable').nestedSortable('toArray');
+            $.ajax({
+                url: '/cms/pages/order',
+                type: 'POST',
+                data: {
+                    _method: 'PATCH',
+                    pages: array
+                },
+                success: function() {
+                    location.reload();
+                }
+            });
+        },
+
+        selectMedia: function() {
+            $('#selectMediaModal').modal('toggle');
+        },
+
+        selectMediaWithEdit: function() {
+            $('#selectMediaWithEditModal').modal('toggle');
+        }
+    }
 });

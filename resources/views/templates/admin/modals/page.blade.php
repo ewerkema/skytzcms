@@ -1,4 +1,4 @@
-@extends('templates.admin.modals.modal', ['target'=>'pageModal'])
+@extends('templates.admin.modals.modal', ['target' => 'pageModal'])
 
 @section('modal-header')
     <h4 class="modal-title"><strong>Pagina instellingen:</strong> {{ $currentPage->meta_title }}</h4>
@@ -81,58 +81,4 @@
 @section('modal-footer')
     <button id="deletePage" class="btn btn-danger left">Verwijder pagina</button>
     <button type="submit" form="pageForm" class="btn btn-primary">Opslaan</button>
-@overwrite
-
-@section('javascript')
-    <script type="text/javascript">
-        function selectMediaWithEdit() {
-            $('#selectMediaWithEditModal').modal('toggle');
-        }
-
-
-        var request = new Request('{{ cms_url('pages/'.$currentPage->id) }}');
-        request.setType('PATCH');
-        request.setForm('#pageForm');
-
-        request.addFields(['title', 'meta_title', 'meta_desc', 'meta_keywords', 'header_id']);
-        request.addField('slug', 'text', 'index');
-
-        request.onSubmit(function(data) {
-            if (data['redirectTo'] === undefined) {
-                request.getForm().find('.form-message').addClass("alert-danger").html("Er is iets onverwachts gebeurd, probeer het later opnieuw.").show();
-                return;
-            }
-
-            window.location.href = '{{ cms_url("/") }}/'+data['redirectTo'];
-        });
-
-        $('#deletePage').click(function() {
-            swal({
-                title: "Weet je het zeker?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Ja, verwijder deze pagina",
-            }).then(function(){
-                $.ajax({
-                    url: '{{ cms_url('pages/'.$currentPage->id) }}',
-                    type: 'POST',
-                    data: {
-                        _method: 'DELETE'
-                    },
-                    success: function(data) {
-                        if (data['redirectTo'] === undefined) {
-                            request.getForm().find('.form-message').addClass("alert-danger").html("Er is iets onverwachts gebeurd, probeer het later opnieuw.").show();
-                            return;
-                        }
-
-                        window.location.href = data['redirectTo'];
-                    },
-                    error: function (errorData) {
-                        request.showError(errorData)
-                    }
-                });
-            }).done();
-        });
-    </script>
 @overwrite

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <select-media :enable-open-in-popup="true" :enable-edit="enableEdit" @cancel="closeModal" @send-image="sendImage"></select-media>
+        <select-media :enable-open-in-popup="true" :enable-edit="enableEdit" :target="target" @cancel="closeModal" @send-image="sendImage"></select-media>
         <img id="replace_image" src="//:0" alt="" style="visibility: hidden">
     </div>
 </template>
@@ -28,10 +28,10 @@
         methods: {
             sendImage: function(image, openInPopup, coordinates) {
                 if (this.enableEdit) {
+                    let self = this;
                     $.post('/cms/media/' + image.id + '/header', coordinates)
                         .done(function (image) {
-                            $('.selected_media_id').val(image.id).trigger('change');
-                            $('.selected_media_name').val(image.name);
+                            self.updateImage(image, openInPopup);
                         })
                         .error(function () {
                             alert("Er ging iets fout bij het bijsnijden van de foto, neem contact op met de admin!")
@@ -46,12 +46,17 @@
                                 window.parent.CustomMediaManager._insertImage(this.imagePath(image.path), $(replaceImage).get(0).naturalWidth, $(replaceImage).get(0).naturalHeight, openInPopup);
                             });
                     } else {
-                        $('.selected_media_id').val(image.id).trigger('change');
-                        $('.selected_media_name').val(image.name);
+                        this.updateImage(image, openInPopup);
                     }
                 }
 
                 this.closeModal();
+            },
+
+            updateImage: function(image, openInPopup) {
+                $('.selected_media_id').val(image.id).trigger('change');
+                $('.selected_media_name').val(image.name);
+                this.$root.$emit('insert-image', image, openInPopup);
             },
 
             imagePath: function(path) {

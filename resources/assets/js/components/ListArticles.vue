@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="!selectedArticle" class='list-articles'>
+        <div v-if="!editMode()" class='list-articles'>
             <div class="sidebar col-md-4">
                 <ul class="list-group">
                     <a href="#" class="list-group-item"
@@ -36,10 +36,10 @@
                         <th>Publiceer datum</th>
                         <th></th>
                     </tr>
-                    <tr v-for="(i, article) in selectedArticles">
+                    <tr v-for="(article, i) in selectedArticles">
                         <td>{{ i+1 }}</td>
-                        <td>{{ article.title | truncate 30 }}</td>
-                        <td>{{ article.created_at | moment "dddd, D MMMM YYYY" | capitalize }}</td>
+                        <td>{{ article.title | truncate(30) }}</td>
+                        <td>{{ article.created_at | moment("dddd, D MMMM YYYY") | capitalize }}</td>
                         <td>
                             <a href="#" v-on:click="editArticle(article)">
                                 <span class="glyphicon glyphicon-pencil"></span>
@@ -61,7 +61,7 @@
                 <p>Er is geen nieuwsgroep geselecteerd.</p>
             </div>
         </div>
-        <div class="editForm" v-if="selectedArticle">
+        <div class="editForm" v-if="editMode()">
             <form action="#" class="form-horizontal" id="articleForm" v-on:submit.prevent>
                 <div class="alert form-message" role="alert" style="display: none;"></div>
                 <div class="form-group">
@@ -80,14 +80,14 @@
                     <label for="title" class="col-md-3 control-label">Titel</label>
 
                     <div class="col-md-8">
-                        <input type="text" id="title" name="title" :value="selectedArticle.title" class="form-control" placeholder="Titel" required />
+                        <input type="text" id="title" name="title" v-model="selectedArticle.title" class="form-control" placeholder="Titel" required />
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="summary" class="col-md-3 control-label">Introductie</label>
 
                     <div class="col-md-8">
-                        <textarea type="text" id="summary" name="summary" placeholder="Introductie">{{ selectedArticle.summary }}</textarea>
+                        <textarea type="text" id="summary" name="summary" placeholder="Introductie" v-model="selectedArticle.summary"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -95,11 +95,11 @@
 
                     <div class="col-md-8">
                         <div class="input-group input-pointer">
-                            <input type="hidden" name="image_id" id="image_id" :value="selectedArticle.image_id || 0" class="form-control selected_media_id" />
-                            <span class="input-group-addon" id="media-picture" onclick="selectMedia()"><span class="glyphicon glyphicon-picture"></span></span>
-                            <input type="text" name="image_name" onclick="selectMedia()" :value="selectedArticleImageName || ''" class="form-control selected_media_name no-border-radius" placeholder="Artikel afbeelding" />
+                            <input type="hidden" name="image_id" id="image_id" v-model="selectedArticle.image_id" class="form-control" />
+                            <span class="input-group-addon" id="media-picture" @click="$root.selectMedia()"><span class="glyphicon glyphicon-picture"></span></span>
+                            <input type="text" name="image_name" @click="$root.selectMedia()" v-model="selectedArticle.image_name" class="form-control no-border-radius" placeholder="Artikel afbeelding" />
                             <div class="input-group-btn">
-                                <button class="btn btn-default" type="button" v-on:click="removeMedia()"><span class="glyphicon glyphicon-remove"></span></button>
+                                <button class="btn btn-default" type="button" @click="removeMedia()"><span class="glyphicon glyphicon-remove"></span></button>
                             </div>
                         </div>
                     </div>
@@ -108,7 +108,8 @@
                     <label for="body" class="col-md-3 control-label">Artikel</label>
 
                     <div class="col-md-8">
-                        <editor name="body" id="body" language="nl-NL" :model.sync="selectedArticle.body"></editor>
+                        <vue-editor @text-change="onTextChange" v-model="content"></vue-editor>
+                        <input type="hidden" name="body" id="body" v-model="selectedArticle.body">
                     </div>
                 </div>
                 <div class="form-group">
@@ -116,7 +117,7 @@
 
                     <div class="col-md-8">
                         <label class="Switch">
-                            <input type="checkbox" name="published" id="published" :checked="selectedArticle.published">
+                            <input type="checkbox" name="published" id="published" v-model="selectedArticle.published">
                             <div class="Switch__slider"></div>
                         </label>
                     </div>
@@ -155,6 +156,7 @@
 </style>
 <script>
     import AutoloadModal from './AutoloadModal.vue';
+    import { VueEditor } from 'vue2-editor';
 
     export default {
         extends: AutoloadModal,
@@ -163,18 +165,17 @@
             return {
                 articleGroups: [],
                 articles: [],
-                selectedArticleGroup: false,
+                selectedArticleGroup: {},
                 selectedArticles: [],
-                selectedArticle: false,
+                selectedArticle: {},
                 newArticleGroup: false,
                 newArticleGroupError: false,
-                selectedArticleImageName: false
+                selectedArticleImageName: "",
+                content: '',
             };
         },
 
-        components: {
-            "editor": require('./vue-html-editor')
-        },
+        components: { VueEditor },
 
         watch: {
             selectedArticleGroup: function (articleGroup) {
@@ -186,13 +187,16 @@
             },
 
             selectedArticle: function (val) {
-                if (val && val.image_id) {
-                    let _this = this;
+                if (!this.editMode()) return;
+
+                if (val.image_id) {
+                    let self = this;
                     $.ajax({
                         url: '/cms/media/'+val.image_id,
                         type: 'GET',
                         success: function(data) {
-                            _this.selectedArticleImageName = data.name;
+                            self.selectedArticle.image_name = data.name;
+                            self.$forceUpdate();
                         },
                         error: function() {
                             alert("Er ging iets fout, probeer het later opnieuw");
@@ -200,11 +204,16 @@
                     });
 
                 } else {
-                    this.selectedArticleImageName = false;
+                    this.selectedArticle.image_name = "";
                 }
-
             }
+        },
 
+        mounted() {
+            this.$root.$on('insert-image', (image) => {
+                this.selectedArticle.image_id = image.id;
+                this.selectedArticle.image_name = image.name;
+            });
         },
 
         methods: {
@@ -214,6 +223,10 @@
 
             getSelectedArticles: function (articleGroup) {
                 return _.filter(this.articles, ['article_group_id', articleGroup.id]);
+            },
+
+            editMode: function() {
+                return !_.isEmpty(this.selectedArticle);
             },
 
             submitForm: function () {
@@ -229,10 +242,10 @@
                     request.addToUrl(this.selectedArticle.id);
                 }
 
-                let _this = this;
+                let self = this;
                 request.send(function() {
-                    _this.selectedArticle = false;
-                    _this.loadArticles();
+                    self.selectedArticle = false;
+                    self.loadArticles();
                     if (request.getType() == 'POST') {
                         swal({
                             title: "Artikel opgslagen!",
@@ -252,8 +265,8 @@
             },
 
             createArticle: function () {
-                this.selectedArticle = ['article_group_id', 'title', 'summary', 'body', 'published'];
-                this.selectedArticle.published = true;
+                this.selectedArticle = {'article_group_id': 0, 'title': '', 'summary': '', 'body': '', 'published': true, 'image_id': 0, 'image_name': ''};
+                this.content = '';
 
                 if (this.selectedArticleGroup)
                     this.selectedArticle.article_group_id = this.selectedArticleGroup.id;
@@ -271,14 +284,14 @@
                 this.newArticleGroupError = false;
                 this.newArticleGroup = false;
 
-                let _this = this;
+                let self = this;
                 $.ajax({
                     url: '/cms/articleGroups',
                     type: 'POST',
                     data: { title: value },
                     success: function(data) {
-                        _this.articleGroups.push(data);
-                        _this.selectedArticleGroup = data;
+                        self.articleGroups.push(data);
+                        self.selectedArticleGroup = data;
                     },
                     error: function() {
                         alert("Er ging iets fout, probeer het later opnieuw");
@@ -286,22 +299,27 @@
                 });
             },
 
+            onTextChange: function () {
+                this.selectedArticle.body = this.content;
+            },
+
             editArticle: function (article) {
+                this.content = article.body;
                 this.selectedArticle = article;
             },
 
             cancelEdit: function(event) {
-                if (event) event.preventDefault()
+                if (event) event.preventDefault();
                 this.selectedArticle = false;
             },
 
             removeMedia: function() {
                 this.selectedArticle.image_id = 0;
-                this.selectedArticleImageName = false;
+                this.selectedArticle.image_name = "";
             },
 
             removeArticle: function (article) {
-                let _this = this;
+                let self = this;
                 swal({
                     title: "Artikel verwijderen?",
                     type: "warning",
@@ -309,12 +327,12 @@
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "Ja, verwijder dit artikel",
                 }).then(function(){
-                    _this.doRemoveArticle(article);
+                    self.doRemoveArticle(article);
                 }).done();
             },
 
             removeArticleGroup: function (articleGroup) {
-                let _this = this;
+                let self = this;
                 swal({
                     title: "Nieuwsgroep verwijderen?",
                     text: "Alle bijbehorende artikelen zullen ook verwijderd worden. Deze wijzigingen kunnen niet meer ongedaan worden.",
@@ -323,12 +341,12 @@
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "Ja, verwijder deze nieuwsgroep",
                 }).then(function(){
-                    _this.doRemoveArticleGroup(articleGroup);
+                    self.doRemoveArticleGroup(articleGroup);
                 }).done();
             },
 
             doRemoveArticle: function (article) {
-                let _this = this;
+                let self = this;
                 $.ajax({
                     url: '/cms/articles/'+article.id,
                     type: 'POST',
@@ -336,13 +354,14 @@
                         _method: 'DELETE'
                     },
                     success: function(result) {
-                        _this.articles.$remove(article);
+                        let index = self.articles.indexOf(article);
+                        self.articles.splice(index, 1);
                     }
                 });
             },
 
             doRemoveArticleGroup: function (articleGroup) {
-                let _this = this;
+                let self = this;
                 $.ajax({
                     url: '/cms/articleGroups/'+articleGroup.id,
                     type: 'POST',
@@ -350,8 +369,9 @@
                         _method: 'DELETE'
                     },
                     success: function(result) {
-                        _this.articleGroups.$remove(articleGroup);
-                        _this.selectedArticleGroup = _.head(_this.articleGroups) ? _.head(_this.articleGroups) : false;
+                        let index = self.articleGroups.indexOf(articleGroup);
+                        self.articleGroups.splice(index, 1);
+                        self.selectedArticleGroup = _.head(self.articleGroups) ? _.head(self.articleGroups) : false;
                     }
                 });
             },
@@ -362,18 +382,18 @@
             },
 
             loadArticles: function() {
-                let _this = this;
+                let self = this;
                 $.get('/cms/articles', function (data) {
-                    _this.articles = data;
+                    self.articles = data;
                 });
             },
 
             loadArticleGroups: function() {
-                let _this = this;
+                let self = this;
                 $.get('/cms/articleGroups', function (data) {
                     if (data.length != 0) {
-                        _this.articleGroups = data;
-                        _this.selectedArticleGroup = _.head(data);
+                        self.articleGroups = data;
+                        self.selectedArticleGroup = _.head(data);
                     }
                 });
             }

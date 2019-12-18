@@ -6,7 +6,7 @@
     export default {
         props: ['target'],
 
-        created() {
+        mounted() {
             let self = this;
             $(this.target).on('shown.bs.modal', function (e) {
                 self.loadFromDatabase();

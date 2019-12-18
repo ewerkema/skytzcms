@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class='list-headers' v-if="!selectedHeader">
+        <div class='list-headers' v-if="!editMode()">
             <div class="col-md-12">
                 <table class="table">
                     <tr>
@@ -9,15 +9,15 @@
                         <th>Aanmaak datum</th>
                         <th></th>
                     </tr>
-                    <tr v-for="(i, header) in headers">
+                    <tr v-for="(header, i) in headers">
                         <td>{{ i+1 }}</td>
-                        <td>{{ header.name | truncate 30 }}</td>
-                        <td>{{ header.created_at | moment "dddd, D MMMM YYYY" | capitalize }}</td>
+                        <td>{{ header.name | truncate(30) }}</td>
+                        <td>{{ header.created_at | moment("dddd, D MMMM YYYY") | capitalize }}</td>
                         <td>
-                            <a href="#" v-on:click="editHeader(header)">
+                            <a href="#" @click="editHeader(header)">
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </a>
-                            <a href="#" v-on:click="removeHeader(header.id)" class="right">
+                            <a href="#" @click="removeHeader(header.id)" class="right">
                                 <span class="glyphicon glyphicon-remove"></span>
                             </a>
                         </td>
@@ -27,11 +27,11 @@
                     </tr>
                 </table>
 
-                <button class="btn btn-success right" v-on:click="createHeader()">Nieuw header</button>
+                <button class="btn btn-success right" @click="createHeader()">Nieuw header</button>
             </div>
         </div>
-        <div class="editForm" v-if="selectedHeader">
-            <form action="#" class="form-horizontal" id="headerForm" v-on:submit.prevent>
+        <div class="editForm" v-if="editMode()">
+            <form action="#" class="form-horizontal" id="headerForm" @submit.prevent>
                 <div class="alert form-message" role="alert" style="display: none;"></div>
                 <div class="form-group">
                     <label for="name" class="col-md-3 control-label">Naam</label>
@@ -54,9 +54,9 @@
 
                             <div class="col-md-8">
                                 <div class="input-group input-pointer">
-                                    <input type="hidden" name="image_id" id="image_id" v-model="selectedHeader.image_id" class="form-control selected_media_id" @change="resetSliderVideo"/>
-                                    <span class="input-group-addon" id="media-picture" onclick="selectMediaWithEdit()"><span class="glyphicon glyphicon-picture"></span></span>
-                                    <input type="text" name="image_name" onclick="selectMediaWithEdit()" :value="selectedHeaderImageName || ''" class="form-control selected_media_name no-border-radius" placeholder="Afbeelding" />
+                                    <input type="hidden" name="image_id" id="image_id" v-model="selectedHeader.image_id" class="form-control" @change="resetSliderVideo"/>
+                                    <span class="input-group-addon" id="media-picture" @click="$root.selectMediaWithEdit()"><span class="glyphicon glyphicon-picture"></span></span>
+                                    <input type="text" name="image_name" @click="$root.selectMediaWithEdit()" v-model="selectedHeader.image_name" class="form-control no-border-radius" placeholder="Afbeelding" />
                                     <div class="input-group-btn">
                                         <button class="btn btn-default" type="button" @click="removeMedia()"><span class="glyphicon glyphicon-remove"></span></button>
                                     </div>
@@ -68,7 +68,8 @@
                             <label for="content" class="col-md-3 control-label">Tekst over afbeelding</label>
 
                             <div class="col-md-8">
-                                <editor name="content" id="content" language="nl-NL" :model.sync="selectedHeader.content"></editor>
+                                <vue-editor v-model="content" @text-change="onTextChange"></vue-editor>
+                                <input type="hidden" name="content" id="content" v-model="selectedHeader.content">
                             </div>
                         </div>
 
@@ -77,7 +78,7 @@
 
                             <div class="col-md-8">
                                 <select class="form-control" id="position" name="position" v-model="selectedHeader.position">
-                                    <option v-for="(index,position) in positions" :value="index">
+                                    <option v-for="(position, index) in positions" :value="index">
                                         {{ position }}
                                     </option>
                                 </select>
@@ -142,8 +143,8 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-8 col-md-offset-3">
-                        <button form="headerForm" class="btn btn-success right" v-on:click="submitForm()">Header opslaan</button>
-                        <button class="btn btn-default right" v-on:click="cancelEdit($event)">Annuleren</button>
+                        <button form="headerForm" class="btn btn-success right" @click="submitForm()">Header opslaan</button>
+                        <button class="btn btn-default right" @click="cancelEdit">Annuleren</button>
                     </div>
                 </div>
             </form>
@@ -174,6 +175,7 @@
 </style>
 <script>
     import AutoloadModal from './AutoloadModal.vue';
+    import { VueEditor } from 'vue2-editor';
 
     export default {
         extends: AutoloadModal,
@@ -183,37 +185,42 @@
                 headers: [],
                 sliders: [],
                 pages: [],
-                selectedHeader: false,
-                selectedHeaderImageName: false,
-                positions: ['Linksboven', 'Links', 'Linksonder', 'Midden boven', 'Midden', 'Midden onder', 'Rightsboven', 'Rechts', 'Rechtsonder'],
+                selectedHeader: {},
+                content: "",
+                positions: ['Linksboven', 'Links', 'Linksonder', 'Midden boven', 'Midden', 'Midden onder', 'Rechtsboven', 'Rechts', 'Rechtsonder'],
             };
         },
 
-        components: {
-            "editor": require('./vue-html-editor')
+        components: { VueEditor },
+
+        mounted() {
+            this.$root.$on('insert-image', (image) => {
+                this.selectedHeader.image_id = image.id;
+                this.selectedHeader.image_name = image.name;
+            });
         },
 
         watch: {
-
             selectedHeader: function (val) {
                 if (val && val.image_id) {
-                    let _this = this;
+                    let self = this;
                     $.ajax({
                         url: '/cms/media/'+val.image_id,
                         type: 'GET',
                         success: function(data) {
-                            _this.selectedHeaderImageName = data.name;
+                            self.selectedHeader.image_name = data.name;
+                            self.$forceUpdate();
                         },
                         error: function() {
                             alert("Er ging iets fout, probeer het later opnieuw");
                         }
                     });
 
-                } else {
-                    this.selectedHeaderImageName = false;
+                } else if (this.editMode()) {
+                    this.selectedHeader.image_name = "";
                 }
 
-                if (val) {
+                if (this.editMode()) {
                     if (!this.selectedHeader.image_id && this.selectedHeader.slider_id === 0) {
                         $('#headerTabs a[href="#videoTab"]').tab('show');
                     }
@@ -231,6 +238,10 @@
         },
 
         methods: {
+            editMode() {
+                return !_.isEmpty(this.selectedHeader);
+            },
+
             submitForm: function () {
                 let request = new Request('/cms/headers');
                 request.setForm('#headerForm');
@@ -244,10 +255,10 @@
                     request.addToUrl(this.selectedHeader.id);
                 }
 
-                let _this = this;
+                let self = this;
                 request.send(function(data) {
-                    _this.selectedHeader = false;
-                    _this.loadHeaders();
+                    self.selectedHeader = {};
+                    self.loadHeaders();
                     if (request.getType() == 'POST') {
                         swal({
                             title: "Header opgeslagen!",
@@ -296,6 +307,7 @@
                     'name': '',
                     'position': 0,
                     'image_id': false,
+                    'image_name': "",
                     'slider_id': false,
                     'video': '',
                     'content': '',
@@ -303,11 +315,17 @@
                     'link_to_url': '',
                     'open_in_new_tab': false,
                 };
+
+                this.content = '';
+            },
+
+            onTextChange: function() {
+                this.selectedHeader.content = this.content;
             },
 
             removeMedia: function() {
                 this.selectedHeader.image_id = 0;
-                this.selectedHeaderImageName = false;
+                this.selectedHeader.image_name = '';
             },
 
             editHeader: function (header) {
@@ -315,31 +333,20 @@
                 header.slider_id = header.slider_id ? header.slider_id : 0;
                 header.link_to_page = header.link_to_page ? header.link_to_page : 0;
                 header.open_in_new_tab = header.open_in_new_tab ? header.open_in_new_tab : 0;
-                this.selectedHeader = header;
+                this.content = header.content;
+
+                this.$nextTick(() => {
+                    this.selectedHeader = header;
+                });
             },
 
             cancelEdit: function(event) {
                 if (event) event.preventDefault();
-                this.selectedHeader = false;
-            },
-
-            addMedia: function(inputId) {
-                $('.input-image').each(function() {
-                    $(this).find('.selected_media_id').removeClass('selected_media_id');
-                    $(this).find('.selected_media_name').removeClass('selected_media_name');
-                });
-
-                let nameEl = $('#image_name_' + inputId);
-                let imageEl = $('#image_' + inputId);
-
-                imageEl.addClass('selected_media_id');
-                nameEl.addClass('selected_media_name');
-
-                selectMedia();
+                this.selectedHeader = {};
             },
 
             removeHeader: function (headerId) {
-                let _this = this;
+                let self = this;
                 swal({
                     title: "Header verwijderen?",
                     type: "warning",
@@ -347,12 +354,12 @@
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "Ja, verwijder deze header",
                 }).then(function(){
-                    _this.doRemoveHeader(headerId);
+                    self.doRemoveHeader(headerId);
                 }).done();
             },
 
             doRemoveHeader: function (headerId) {
-                let _this = this;
+                let self = this;
                 $.ajax({
                     url: '/cms/headers/'+headerId,
                     type: 'POST',
@@ -360,7 +367,8 @@
                         _method: 'DELETE'
                     },
                     success: function(result) {
-                        _this.headers.$remove(_.find(_this.headers, ['id', headerId]));
+                        let index = _.findIndex(self.headers, o => o.id === headerId);
+                        self.headers.splice(index, 1);
                     }
                 });
             },
@@ -372,23 +380,23 @@
             },
 
             loadHeaders: function() {
-                let _this = this;
+                let self = this;
                 $.get('/cms/headers', function (data) {
-                    _this.headers = data;
+                    self.headers = data;
                 });
             },
 
             loadSliders: function() {
-                let _this = this;
+                let self = this;
                 $.get('/cms/sliders', function (data) {
-                    _this.sliders = data;
+                    self.sliders = data;
                 });
             },
 
             loadPages: function() {
-                let _this = this;
+                let self = this;
                 $.get('/cms/pages', function (data) {
-                    _this.pages = data;
+                    self.pages = data;
                 });
             },
 
@@ -399,6 +407,7 @@
 
             resetImageVideo: function() {
                 this.selectedHeader.image_id = 0;
+                this.selectedHeader.image_name = '';
                 this.selectedHeader.position = 0;
                 this.selectedHeader.content = '';
                 this.selectedHeader.link_to_page = 0;
@@ -409,6 +418,7 @@
 
             resetImageSlider: function() {
                 this.selectedHeader.image_id = 0;
+                this.selectedHeader.image_name = '';
                 this.selectedHeader.position = 0;
                 this.selectedHeader.content = '';
                 this.selectedHeader.link_to_page = 0;

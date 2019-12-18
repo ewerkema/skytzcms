@@ -31,6 +31,7 @@
         window.headerWidth = "{{ config('skytz.header_width') }}";
         window.headerHeight = "{{ config('skytz.header_height') }}";
         window.baseUrl = "{{ url("") }}";
+        window.currentPage = "{{ isset($currentPage) ? $currentPage->id : 0 }}"
     </script>
 @stop
 

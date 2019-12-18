@@ -29,7 +29,7 @@
                 </ul>
             </div>
             <div class="col-md-8" v-if="selectedSlider">
-                <div class="bootstrap-row slider-row" v-for="row in selectedSlider.media | chunk 4">
+                <div class="bootstrap-row slider-row" v-for="row in chunkedMedia">
                     <div class="col-md-3 slider-image"
                          v-for="image in row"
                          v-on:click="removeImage(selectedSlider, image)"
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <p v-if="!hasImages(selectedSlider)">Er zijn geen afbeeldingen gevonden.</p>
-                <button class="btn btn-success right" v-on:click="addImages = true">Afbeeldingen toevoegen</button>
+                <button class="btn btn-success right" @click="enableAddImages">Afbeeldingen toevoegen</button>
                 <button class="btn btn-danger right" v-on:click="removeSlider(selectedSlider)">Verwijder deze slider</button>
             </div>
             <div class="col-md-8" v-else>
@@ -47,7 +47,7 @@
             </div>
         </div>
         <div class="editForm" v-if="addImages">
-            <select-media :multiple="true" :omit-images="selectedSlider.media" @send-images="storeImages" @cancel="addImages = false"></select-media>
+            <select-media :multiple="true" :omit-images="selectedSlider.media" @send-images="storeImages" @cancel="addImages = false" ref="selectMedia"></select-media>
         </div>
     </div>
 </template>
@@ -91,9 +91,26 @@
             SelectMedia
         },
 
+        computed: {
+            chunkedMedia() {
+                return _.chunk(this.selectedSlider.media, 4);
+            }
+        },
+
         methods: {
             hasImages: function (slider) {
                 return slider.media.length;
+            },
+
+            enableAddImages: function() {
+                this.addImages = true;
+                this.$nextTick(() => {
+                    this.loadImages();
+                });
+            },
+
+            loadImages: function() {
+                this.$refs.selectMedia.loadFromDatabase();
             },
 
             storeImages: function (images) {
@@ -175,7 +192,8 @@
                         _method: 'DELETE'
                     },
                     success: function (result) {
-                        self.selectedSlider.media.$remove(image);
+                        let index = self.selectedSlider.media.indexOf(image);
+                        self.selectedSlider.media.splice(index, 1);
                     }
                 });
             },
@@ -189,7 +207,8 @@
                         _method: 'DELETE'
                     },
                     success: function(result) {
-                        self.sliders.$remove(slider);
+                        let index = self.sliders.indexOf(slider);
+                        self.sliders.splice(index, 1);
                         self.selectedSlider = _.head(self.sliders);
                     }
                 });

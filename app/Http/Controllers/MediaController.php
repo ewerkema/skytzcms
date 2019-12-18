@@ -69,7 +69,7 @@ class MediaController extends Controller
 
         $media = new Media;
         $media->name = $filename;
-        if ($folderId != false)
+        if ((int)$folderId != false)
             $media->folder_id = $folderId;
 
         $media->description = '';

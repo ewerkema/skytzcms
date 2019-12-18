@@ -19,10 +19,10 @@
                     <th>Aanmaak datum</th>
                     <th></th>
                 </tr>
-                <tr v-for="(i, module) in selectedModules">
+                <tr v-for="(module, i) in selectedModules">
                     <td>{{ i+1 }}</td>
                     <td>{{ isset(module.name) ? module.name : module.title }}</td>
-                    <td>{{ module.created_at | moment "dddd, D MMMM YYYY" | capitalize }}</td>
+                    <td>{{ module.created_at | moment("dddd, D MMMM YYYY") | capitalize }}</td>
                     <td>
                         <a href="#" v-on:click="selectModule(module)">
                             <span class="glyphicon glyphicon-plus"></span>
