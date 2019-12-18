@@ -137,8 +137,16 @@
                     @if (Auth::guest())
                         <li><a href="{{ cms_url('/login') }}">Inloggen</a></li>
                     @else
-                        <li class="publish"><a href="#" onclick="publishPage()"><span class="glyphicon glyphicon-cloud"></span> Publiceer pagina</a></li>
-                        <li class="publish"><a href="#" onclick="publishWebsite()"><span class="glyphicon glyphicon-globe"></span> Publiceer website</a></li>
+                        <li class="dropdown publish">
+                            <a href="#" class="dropdown-toggle highlight" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <span class="glyphicon glyphicon-globe"></span> Publiceren <span class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#" data-toggle="modal" onclick="publishPage()">Huidge pagina</a></li>
+                                <li><a href="#" data-toggle="modal" onclick="publishWebsite()">Volledige website</a></li>
+                            </ul>
+                        </li>
                         <li class="visible-xs">
                             <a href="{{ cms_url('/logout') }}"
                                onclick="event.preventDefault();
