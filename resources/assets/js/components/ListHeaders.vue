@@ -304,16 +304,16 @@
 
             createHeader: function () {
                 this.selectedHeader = {
-                    'name': '',
-                    'position': 0,
-                    'image_id': false,
-                    'image_name': "",
-                    'slider_id': false,
-                    'video': '',
-                    'content': '',
-                    'link_to_page': false,
-                    'link_to_url': '',
-                    'open_in_new_tab': false,
+                    name: '',
+                    position: 0,
+                    image_id: 0,
+                    image_name: '',
+                    slider_id: 0,
+                    video: '',
+                    content: '',
+                    link_to_page: 0,
+                    link_to_url: '',
+                    open_in_new_tab: false,
                 };
 
                 this.content = '';
