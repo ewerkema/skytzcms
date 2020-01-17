@@ -225,12 +225,14 @@
                 let img = event.target;
                 this.zoomFactor = img.naturalWidth / img.width;
 
+                let aspectRatio = window.headerWidth / window.headerHeight;
+
                 $(event.target).Jcrop({
                     onChange: this.updateCoordinates,
-                    aspectRatio: window.headerWidth / window.headerHeight,
+                    aspectRatio: aspectRatio,
                     minSize: [
-                        Math.min(window.headerWidth / this.zoomFactor, img.naturalWidth),
-                        Math.min(window.headerWidth / this.zoomFactor, img.naturalHeight),
+                        Math.min(window.headerWidth / this.zoomFactor, img.naturalWidth / this.zoomFactor, img.naturalHeight / this.zoomFactor * aspectRatio),
+                        Math.min(window.headerHeight / this.zoomFactor, img.naturalHeight / this.zoomFactor, img.naturalWidth / this.zoomFactor / aspectRatio),
                     ],
                 });
             },
