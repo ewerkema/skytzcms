@@ -8,7 +8,7 @@
     <div class="page-content" data-page="{{ $currentPage->id }}">
 
         @foreach ($currentPage->getPublishedContent() as $row)
-            <div class="row">
+            <div class="grid-x row">
                 @foreach ($row as $block)
                     @if ($block['module'])
                         <div class="block columns medium-{{ $block['width'] }} medium-offset-{{ $block['offset'] }}">

@@ -11,7 +11,7 @@
         @endif
 
         @foreach ($currentPage->getContent() as $row)
-            <div class="row">
+            <div class="grid-x row">
                 @foreach ($row as $block)
                     @if ($block['module'])
                         <div class="block columns medium-{{ $block['width'] }} medium-offset-{{ $block['offset'] }}" data-name="{{ $block['name'] }}" data-gs-x="{{ $block['x'] }}" data-gs-y="{{ $block['y'] }}" data-gs-width="{{ $block['width'] }}" data-gs-height="{{ $block['height'] }}" data-module="{{ $block['module'] }}" data-module-id="{{ $block['module_id'] }}" data-noneditable>
