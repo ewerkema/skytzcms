@@ -70,7 +70,7 @@
                     <option value="" selected>Geen submenu</option>
                     @foreach (Menu::getMenuWithoutSubpages() as $menuItem)
                         <option value="{{ $menuItem->id }}">
-                            {{ $menuItem->page->title }}
+                            {{ ($menuItem->page_id != null && $menuItem->page->exists()) ? $menuItem->page->title : "Pagina is verwijderd" }}
                         </option>
                     @endforeach
                 </select>
