@@ -13,6 +13,7 @@
                 @yield('modal-footer')
             </div>
         </div>
+        <div class="spinner modal-overlay" style="display:none;"></div>
     </div>
 </div>
 

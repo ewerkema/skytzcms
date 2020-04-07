@@ -72,13 +72,13 @@
         },
 
         methods: {
-            loadFromDatabase: function() {
+            loadFromDatabase: function(callback) {
                 let self = this;
+                this.showSpinner();
                 $.get('/cms/media', function (data) {
                     self.selectedImages = [];
                     self.images = data;
-                    $('#spinner').hide();
-                });
+                }).always(callback);
             },
 
             changePage: function (page) {

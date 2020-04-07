@@ -13,6 +13,6 @@
                 <button type="submit" data-toggle="modal" data-target="#uploadMediaModal" form="mediaForm" class="btn btn-success"><span class="glyphicon glyphicon-upload"></span> Nieuwe media uploaden</button>
             </div>
         </div>
-        <div id='spinner' class="modal-overlay"></div>
+        <div class="spinner modal-overlay"></div>
     </div>
 </div>

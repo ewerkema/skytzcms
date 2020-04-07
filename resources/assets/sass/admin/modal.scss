@@ -39,6 +39,32 @@
     .flex {
         display: flex;
     }
+
+    .flex-row {
+        @include display-flex();
+        @include justify-content(flex-start);
+        @include flex-wrap(wrap);
+    }
+
+    .justify-flex-end {
+        @include justify-content(flex-start);
+    }
+
+    .justify-space-between {
+        @include justify-content(space-between);
+    }
+
+    .justify-space-around {
+        @include justify-content(space-around);
+    }
+
+    .justify-flex-end {
+        @include justify-content(flex-end);
+    }
+
+    .align-items-center {
+        @include align-items(center);
+    }
 }
 
 #medialist {

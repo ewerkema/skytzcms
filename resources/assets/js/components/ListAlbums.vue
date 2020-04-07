@@ -215,7 +215,7 @@
             },
 
             loadImages: function() {
-                this.$refs.selectMedia.loadFromDatabase();
+                this.$refs.selectMedia.load();
             },
 
             storeImages: function (images) {
@@ -349,12 +349,12 @@
             },
 
             loadFromDatabase: function() {
-                this.loadAlbums(0);
+                return this.loadAlbums(0);
             },
 
             loadAlbums: function(selectedAlbumId) {
                 let self = this;
-                $.get('/cms/albums', function (data) {
+                return $.get('/cms/albums', function (data) {
                     if (data.length != 0) {
                         self.albums = data;
                         self.selectedAlbum = selectedAlbumId ? _.find(data, ['id', selectedAlbumId]) : _.head(data);

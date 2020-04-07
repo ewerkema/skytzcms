@@ -110,7 +110,7 @@
             },
 
             loadImages: function() {
-                this.$refs.selectMedia.loadFromDatabase();
+                this.$refs.selectMedia.load();
             },
 
             storeImages: function (images) {
@@ -215,12 +215,12 @@
             },
 
             loadFromDatabase: function() {
-                this.loadSliders(0);
+                return this.loadSliders(0);
             },
 
             loadSliders: function(selectedSliderId) {
                 let self = this;
-                $.get('/cms/sliders', function (data) {
+                return $.get('/cms/sliders', function (data) {
                     if (data.length != 0) {
                         self.sliders = data;
                         self.selectedSlider = (selectedSliderId) ? _.find(data, ['id', selectedSliderId]) : _.head(data);

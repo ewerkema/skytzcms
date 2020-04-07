@@ -190,12 +190,12 @@
             },
 
             loadFromDatabase: function() {
-                this.loadSocials();
+                return this.loadSocials();
             },
 
             loadSocials: function() {
                 let self = this;
-                $.get('/cms/socials', function (data) {
+                return $.get('/cms/socials', function (data) {
                     if (data.length != 0) {
                         self.socials = data;
                         self.selectedSocial = _.head(data);

@@ -86,6 +86,7 @@
                             </ul>
 
                         </li>
+                        <li class="hidden-xs"><a href="#" data-toggle="modal" data-target="#pageManagerModal"><span class="glyphicon glyphicon-list-alt"></span> Pagina beheer</a></li>
                         <li class="hidden-xs"><a href="#" data-toggle="modal" data-target="#newPageModal"><span class="glyphicon glyphicon-plus"></span></a></li>
                         <li class="hidden-xs"><a href="#" data-toggle="modal" data-target="#uploadMediaModal"><span class="glyphicon glyphicon-upload"></span></a></li>
                     @endif

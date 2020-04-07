@@ -85,17 +85,17 @@
 </template>
 
 <script>
+    import AutoloadModal from "./AutoloadModal";
+
     export default {
+        extends: AutoloadModal,
+
         data() {
             return {
                 menu: {},
                 pages: [],
                 selectedMenuItem: false,
             }
-        },
-
-        created() {
-            this.loadFromDatabase();
         },
 
         computed: {
@@ -111,12 +111,12 @@
         methods: {
             loadFromDatabase: function() {
                 this.loadMenu();
-                this.loadPages();
+                return this.loadPages();
             },
 
             loadMenu: function() {
                 let _this = this;
-                $.get('/cms/menu', function (data) {
+                return $.get('/cms/menu', function (data) {
                     _this.menu = data.menu;
                     _this.initDragging();
                 });
@@ -124,7 +124,7 @@
 
             loadPages: function() {
                 let _this = this;
-                $.get('/cms/pages', function (data) {
+                return $.get('/cms/pages', function (data) {
                     _this.pages = data;
                 });
             },

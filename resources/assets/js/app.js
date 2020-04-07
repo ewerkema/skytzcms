@@ -3,6 +3,7 @@
  * the body of the page. From here, you may begin adding components to
  * the application, or feel free to tweak this setup for your needs.
  */
+import PageManager from "./components/PageManager";
 
 window.Vue = require('vue');
 require('vue-events');
@@ -48,6 +49,7 @@ Vue.component('list-users', ListUsers);
 Vue.component('list-social', ListSocial);
 Vue.component('insert-image', InsertImage);
 Vue.component('select-module', SelectModule);
+Vue.component('page-manager', PageManager);
 
 $.ajaxSetup({
     headers: {
@@ -103,6 +105,6 @@ const app = new Vue({
 
         selectMediaWithEdit: function() {
             $('#selectMediaWithEditModal').modal('toggle');
-        }
+        },
     }
 });

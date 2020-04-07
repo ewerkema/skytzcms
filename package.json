@@ -50,6 +50,7 @@
     "vue-moment": "^2.0.2",
     "vue-style-loader": "^1.0.0",
     "vue2-editor": "^2.10.2",
+    "vuejs-tree": "^2.0.0-5",
     "windows-build-tools": "^5.2.2"
   }
 }

@@ -175,12 +175,12 @@
             },
 
             loadFromDatabase: function() {
-                this.loadHtmlBlocks();
+                return this.loadHtmlBlocks();
             },
 
             loadHtmlBlocks: function() {
                 let self = this;
-                $.get('/cms/htmlBlocks', function (data) {
+                return $.get('/cms/htmlBlocks', function (data) {
                     if (data.length != 0) {
                         self.htmlBlocks = data;
                         self.selectedHtmlBlock = _.head(data).id;

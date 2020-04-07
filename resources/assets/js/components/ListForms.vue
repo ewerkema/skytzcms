@@ -490,19 +490,19 @@
 
             loadFromDatabase: function() {
                 this.loadFormsFields();
-                this.loadForms();
+                return this.loadForms();
             },
 
             loadFormsFields: function() {
                 let self = this;
-                $.get('/cms/formFields', function (data) {
+                return $.get('/cms/formFields', function (data) {
                     self.formFields = data;
                 });
             },
 
             loadForms: function() {
                 let self = this;
-                $.get('/cms/forms', function (data) {
+                return $.get('/cms/forms', function (data) {
                     if (data.length != 0) {
                         self.forms = data;
                         self.selectedForm = _.head(data);

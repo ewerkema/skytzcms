@@ -118,6 +118,37 @@ if (document.getElementById('pageForm')) {
     });
 }
 
+function enableAutomaticSlug() {
+    let slugActive = true;
+    $('.page-title-listener').on('input', function() {
+        if (slugActive) {
+            $(this).closest('form').find('.page-slug-listener').val(toSlug($(this).val()));
+        }
+    });
+
+    $('.page-slug-listener').keypress(function() {
+        slugActive = false;
+    });
+}
+
+function toSlug(str) {
+    str = str.replace(/^\s+|\s+$/g, ''); // trim
+    str = str.toLowerCase();
+
+    // remove accents, swap ñ for n, etc
+    let from = "ãàáäâẽèéëêìíïîõòóöôùúüûñç·/_,:;";
+    let to   = "aaaaaeeeeeiiiiooooouuuunc------";
+    for (let i=0, l=from.length ; i<l ; i++) {
+        str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+    }
+
+    str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+        .replace(/\s+/g, '-') // collapse whitespace and replace by -
+        .replace(/-+/g, '-'); // collapse dashes
+
+    return str;
+}
+
 if (document.getElementById('newPageForm')) {
     let request = new Request('/cms/pages');
     request.setType('POST');
@@ -125,6 +156,19 @@ if (document.getElementById('newPageForm')) {
 
     request.addFields(['title', 'meta_title', 'meta_desc', 'header_id']);
     request.addField('slug', 'text', 'index');
+    request.addField('menu', 'checkbox');
+
+    let subpageSelect = $('[name=parent_id]');
+    let visibleInMenu = $('[name=menu]');
+    subpageSelect.change(function() {
+        if ($(this).val())
+            visibleInMenu.prop('checked', true);
+    });
+
+    visibleInMenu.change(function() {
+        if (!$(this).is(":checked"))
+            subpageSelect.val(subpageSelect.find('option:first').val());
+    });
 
     request.onSubmit(function(data) {
         if (data['redirectTo'] === undefined) {
@@ -135,33 +179,5 @@ if (document.getElementById('newPageForm')) {
         window.location.href = '/cms/' + data['redirectTo'];
     });
 
-
-    let slugActive = true;
-    $('#newPageForm #newPageTitle').on('input', function() {
-        if (slugActive) {
-            $('#newPageForm #newPageSlug').val(toSlug($(this).val()));
-        }
-    });
-
-    $('#newPageForm #newPageSlug').keypress(function() {
-        slugActive = false;
-    });
-
-    function toSlug(str) {
-        str = str.replace(/^\s+|\s+$/g, ''); // trim
-        str = str.toLowerCase();
-
-        // remove accents, swap ñ for n, etc
-        let from = "ãàáäâẽèéëêìíïîõòóöôùúüûñç·/_,:;";
-        let to   = "aaaaaeeeeeiiiiooooouuuunc------";
-        for (let i=0, l=from.length ; i<l ; i++) {
-            str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
-        }
-
-        str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
-            .replace(/\s+/g, '-') // collapse whitespace and replace by -
-            .replace(/-+/g, '-'); // collapse dashes
-
-        return str;
-    }
+    enableAutomaticSlug();
 }

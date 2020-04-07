@@ -5,7 +5,7 @@
 @overwrite
 
 @section('modal-body')
-    <menu-manager></menu-manager>
+    <menu-manager target="#menuModal"></menu-manager>
 @overwrite
 
 @section('modal-footer')

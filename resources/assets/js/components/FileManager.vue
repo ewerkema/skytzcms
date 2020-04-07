@@ -82,8 +82,8 @@
         },
 
         created() {
-            $('#file-manager').focusin(() => this.loadFromDatabase());
-            $('#uploadMediaModal').on('hidden.bs.modal', () => this.loadFromDatabase());
+            $('#file-manager').focusin(() => this.load());
+            $('#uploadMediaModal').on('hidden.bs.modal', () => this.load());
 
             $('#mediaModal').on('shown.bs.modal', function() {
                 $(document).off('focusin.modal');
@@ -119,15 +119,12 @@
         methods: {
             loadFromDatabase: function() {
                 let self = this;
-                $('#spinner').show();
                 $.get(this.mediaUrl + '?filterFolder=true', function (data) {
                     self.selectedImages = [];
                     self.images = data;
-                    $('#spinner').hide();
-                    self.initDragAndDrop();
-                });
+                }).always(this.initDragAndDrop);
 
-                $.get(this.folderUrl, function (data) {
+                return $.get(self.folderUrl, function (data) {
                     self.folders = data;
                 });
             },
@@ -136,14 +133,16 @@
                 let self = this;
                 setTimeout(() => {
                     $('#medialist .item').draggable({cursor: 'move', revert: "invalid" });
+                    self.initializedDragging = true;
                     $('#folderlist .item').droppable({
                         accept: '#medialist .item',
                         activeClass: "ui-state-highlight",
                         drop: function(e, ui) {
-                            $('#spinner').show();
+                            self.showSpinner();
                             let imageId = ui.draggable.data('id');
                             let folderId = $(this).data('id');
                             self.dragging = false;
+                            ui.draggable.removeAttr('style');
                             self.moveImage(imageId, folderId);
                         }
                     });
@@ -154,6 +153,7 @@
                         drop: function (e, ui) {
                             let imageId = ui.draggable.data('id');
                             self.dragging = false;
+                            ui.draggable.removeAttr('style');
                             self.removeImageFromFolder(imageId);
                         }
                     })
@@ -288,7 +288,7 @@
                         success: function( data ) {
                             if(data.status === 'success') {
                                 $('#spinner').hide();
-                                self.loadFromDatabase();
+                                self.load();
                             }
                         },
                         error: self.handleError,
@@ -310,7 +310,7 @@
                         media_id: imageId,
                     },
                     success: function() {
-                        self.loadFromDatabase();
+                        self.load();
                     },
                     error: this.handleError
                 });
@@ -325,7 +325,7 @@
                         _method: 'DELETE',
                     },
                     success: function() {
-                        self.loadFromDatabase();
+                        self.load();
                     },
                     error: this.handleError
                 });
@@ -381,7 +381,7 @@
                         success: function( data ) {
                             if(data.status === 'success') {
                                 $('#spinner').hide();
-                                self.loadFromDatabase();
+                                self.load();
                             }
                         },
                         error: self.handleError,
@@ -415,7 +415,7 @@
                         success: function( data ) {
                             if(data.status === 'success') {
                                 $('#spinner').hide();
-                                self.loadFromDatabase();
+                                self.load();
                             }
                         },
                         error: self.handleError,

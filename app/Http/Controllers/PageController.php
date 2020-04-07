@@ -181,6 +181,9 @@ class PageController extends Controller
         if (!$page->update($input))
             return response()->json(['message' => 'Updaten van de pagina is niet gelukt.'], 500);
 
+        if (request()->input('disableRedirect') !== null)
+            return response()->json(['page' => $page]);
+
         Cache::flush();
 
         session()->flash('flash_message', 'De pagina is succesvol aangepast');

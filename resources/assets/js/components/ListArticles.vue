@@ -377,20 +377,20 @@
             },
 
             loadFromDatabase: function() {
-                this.loadArticles();
                 this.loadArticleGroups();
+                return this.loadArticles();
             },
 
             loadArticles: function() {
                 let self = this;
-                $.get('/cms/articles', function (data) {
+                return $.get('/cms/articles', function (data) {
                     self.articles = data;
                 });
             },
 
             loadArticleGroups: function() {
                 let self = this;
-                $.get('/cms/articleGroups', function (data) {
+                return $.get('/cms/articleGroups', function (data) {
                     if (data.length != 0) {
                         self.articleGroups = data;
                         self.selectedArticleGroup = _.head(data);

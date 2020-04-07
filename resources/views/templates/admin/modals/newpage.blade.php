@@ -1,4 +1,4 @@
-@extends('templates.admin.modals.modal', ['target'=>'newPageModal'])
+@extends('templates.admin.modals.modal', ['target' => 'newPageModal'])
 
 @section('modal-header')
     <h4 class="modal-title"><strong>Nieuwe pagina aanmaken</strong></h4>
@@ -11,7 +11,7 @@
             <label for="newPageTitle" class="col-md-3 control-label">Pagina naam</label>
 
             <div class="col-md-8">
-                <input type="text" name="title" class="form-control" placeholder="Pagina naam" id="newPageTitle" required autofocus />
+                <input type="text" name="title" class="form-control page-title-listener" placeholder="Pagina naam" id="newPageTitle" required autofocus />
             </div>
         </div>
         <div class="form-group">
@@ -34,7 +34,7 @@
             <div class="col-md-8">
                 <div class="input-group">
                     <span class="input-group-addon" id="page-url">{{ url("/ ") }}</span>
-                    <input type="text" name="slug" class="form-control" id="newPageSlug" aria-describedby="page-url" autofocus />
+                    <input type="text" name="slug" class="form-control page-slug-listener" id="newPageSlug" aria-describedby="page-url" autofocus />
                 </div>
             </div>
         </div>
@@ -50,6 +50,30 @@
 
             <div class="col-md-8">
                 <textarea name="meta_desc" class="form-control" placeholder="Pagina beschrijving" autofocus></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="menu" class="col-md-3 control-label">Weergeven in menu</label>
+
+            <div class="col-md-8">
+                <label class="Switch">
+                    <input type="checkbox" name="menu">
+                    <div class="Switch__slider"></div>
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="parent_id" class="col-md-3 control-label">Weergeven in submenu van</label>
+
+            <div class="col-md-8">
+                <select class="form-control" id="parent_id" name="parent_id">
+                    <option value="" selected>Geen submenu</option>
+                    @foreach (Menu::getMenuWithoutSubpages() as $menuItem)
+                        <option value="{{ $menuItem->id }}">
+                            {{ $menuItem->page->title }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
         </div>
     </form>

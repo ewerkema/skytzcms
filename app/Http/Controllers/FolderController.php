@@ -94,9 +94,11 @@ class FolderController extends Controller
      */
     public function destroy(Folder $folder)
     {
-        $folder->media()->delete();
+        $folder->media->each(function($media) {
+            $media->folder()->dissociate()->save();
+        });
         $folder->delete();
 
-        return Response::json(['status' => 'success', 'message' => 'Succesfully deleted the folder and the media contained in the folder.']);
+        return Response::json(['status' => 'success', 'message' => 'Successfully deleted the folder and the media contained in the folder.']);
     }
 }

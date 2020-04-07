@@ -376,26 +376,26 @@
             loadFromDatabase: function() {
                 this.loadHeaders();
                 this.loadSliders();
-                this.loadPages();
+                return this.loadPages();
             },
 
             loadHeaders: function() {
                 let self = this;
-                $.get('/cms/headers', function (data) {
+                return $.get('/cms/headers', function (data) {
                     self.headers = data;
                 });
             },
 
             loadSliders: function() {
                 let self = this;
-                $.get('/cms/sliders', function (data) {
+                return $.get('/cms/sliders', function (data) {
                     self.sliders = data;
                 });
             },
 
             loadPages: function() {
                 let self = this;
-                $.get('/cms/pages', function (data) {
+                return $.get('/cms/pages', function (data) {
                     self.pages = data;
                 });
             },

@@ -101,7 +101,7 @@
                     <label for="image_1" class="col-md-3 control-label">Project afbeeldingen</label>
 
                     <div class="col-md-8">
-                        <div class="input-group input-pointer input-image" v-for="(projectImage, i) in selectedProject.images">
+                        <div class="input-group input-pointer input-image" v-for="(projectImage, i) in selectedProject.images" v-if="projectImage.image !== null">
                             <input type="hidden" name="image_ids[]" :id="'image_'+i" v-model="projectImage.image.id" class="form-control" />
                             <span class="input-group-addon" :id="'media-picture-'+i" @click="addMedia(i)"><span class="glyphicon glyphicon-picture"></span></span>
                             <input type="text" name="image_names[]" :id="'image_name_'+i" @click="addMedia(i)" v-model="projectImage.image.name" class="form-control no-border-radius" placeholder="Project afbeelding" />
@@ -388,20 +388,20 @@
             },
 
             loadFromDatabase: function() {
-                this.loadProjects();
                 this.loadProjectGroups();
+                return this.loadProjects();
             },
 
             loadProjects: function() {
                 let self = this;
-                $.get('/cms/projects', function (data) {
+                return $.get('/cms/projects', function (data) {
                     self.projects = data;
                 });
             },
 
             loadProjectGroups: function() {
                 let self = this;
-                $.get('/cms/projectGroups', function (data) {
+                return $.get('/cms/projectGroups', function (data) {
                     if (data.length != 0) {
                         self.projectGroups = data;
                         self.selectedProjectGroup = _.head(data).id;

@@ -117,7 +117,6 @@ class MenuController extends Controller
         $menuItem = MenuItem::findOrFail($id);
         $input = $request->all();
         $input = $this->processMenuItem($input);
-        \Log::info(print_r($input, true));
 
         $this->validator($input)->validate();
 

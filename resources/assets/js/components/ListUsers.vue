@@ -215,12 +215,12 @@
             },
 
             loadFromDatabase: function() {
-                this.loadUsers();
+                return this.loadUsers();
             },
 
             loadUsers: function() {
                 let self = this;
-                $.get('/cms/users', function (data) {
+                return $.get('/cms/users', function (data) {
                     self.users = data;
                 });
             },

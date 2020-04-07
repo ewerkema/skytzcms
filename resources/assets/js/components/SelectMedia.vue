@@ -139,7 +139,7 @@
         methods: {
             loadFromDatabase: function() {
                 this.loadImages();
-                this.loadFolders();
+                return this.loadFolders();
             },
 
             loadImages: function() {
@@ -148,14 +148,14 @@
                     self.images = self.filterImages(data);
                 });
 
-                $.get('/cms/media', function (data) {
+                return $.get('/cms/media', function (data) {
                     self.allImages = self.filterImages(data);
                 })
             },
 
             loadFolders: function() {
                 let self = this;
-                $.get(this.folderUrl, function (data) {
+                return $.get(this.folderUrl, function (data) {
                     self.folders = data;
                 });
             },

@@ -6,4 +6,4 @@
  * Time: 10:38
  */
 
-    phpinfo();
+phpinfo();
