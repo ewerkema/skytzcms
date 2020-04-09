@@ -197,6 +197,7 @@
                     },
                     success: function(result) {
                         _this.loadFromDatabase();
+                        _this.notifyMenuUpdate();
                     }
                 });
             },
