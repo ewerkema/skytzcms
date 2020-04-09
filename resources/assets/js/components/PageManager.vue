@@ -165,12 +165,12 @@
 
         computed: {
             filterPagesSearch() {
-                return _.filter(this.pages, (page) => {
-                    let searchTerm = this.search.toLowerCase();
-                    return page.title.toLowerCase().includes(searchTerm)
-                        || page.meta_title.toLowerCase().includes(searchTerm)
-                        || page.meta_desc.toLowerCase().includes(searchTerm);
-                });
+                return _.filter(this.pages, (page) => this.pageFilter(page));
+            },
+
+            filteredMenu() {
+                return _.filter(this.menu, (menuItem) => this.menuItemFilter(menuItem));
+
             },
 
             menuPages() {
@@ -191,7 +191,7 @@
                             expanded: true,
                             editable: true,
                         },
-                        nodes: _.sortBy(_.map(this.menu, this.menuToList), (menuItem) => menuItem.order),
+                        nodes: _.sortBy(_.map(this.filteredMenu, this.menuToList), (menuItem) => menuItem.order),
                     },
                     {
                         text: 'Losse pagina\'s',
@@ -247,6 +247,22 @@
             getMenuId(page) {
                 let menuItem = this.pageInMenu(page);
                 return menuItem !== undefined ? menuItem.id : 0;
+            },
+
+            pageFilter(page) {
+                let searchTerm = this.search.toLowerCase();
+                return page.title.toLowerCase().includes(searchTerm)
+                    || page.meta_title.toLowerCase().includes(searchTerm)
+                    || page.meta_desc.toLowerCase().includes(searchTerm);
+            },
+
+            menuItemFilter(menuItem) {
+                if (menuItem.page != null) {
+                    return this.pageFilter(menuItem.page) || _.find(menuItem.sub_items, (menuItem) => this.menuItemFilter(menuItem));
+                }
+
+                let searchTerm = this.search.toLowerCase();
+                return menuItem.linkName.toLowerCase().includes(searchTerm) || _.find(menuItem.sub_items, (menuItem) => this.menuItemFilter(menuItem));
             },
 
             findPage(pageId) {
