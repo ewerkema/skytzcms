@@ -14,19 +14,17 @@
                         </div>
                     </div>
 
-                    <div>
-                        <ul v-if="menuItem.sub_items.length > 0">
-                            <li v-for="subMenuItem in menuItem.sub_items" class="menu-item" :id="'page_' + subMenuItem.id" :data-id="subMenuItem.id">
-                                <div class="flex flex-between">
-                                    <div><span class="glyphicon glyphicon-move"></span> <span v-html="displayMenuItem(subMenuItem)"></span></div>
-                                    <div>
-                                        <button class="btn btn-sm btn-success" @click="editMenuItem(subMenuItem)"><span class="glyphicon glyphicon-pencil"></span></button>
-                                        <button class="btn btn-sm btn-danger" @click="removeMenuItem(subMenuItem)"><span class="glyphicon glyphicon-remove"></span></button>
-                                    </div>
+                    <ul v-if="menuItem.sub_items.length > 0">
+                        <li v-for="subMenuItem in menuItem.sub_items" class="menu-item" :id="'page_' + subMenuItem.id" :data-id="subMenuItem.id">
+                            <div class="flex flex-between">
+                                <div><span class="glyphicon glyphicon-move"></span> <span v-html="displayMenuItem(subMenuItem)"></span></div>
+                                <div>
+                                    <button class="btn btn-sm btn-success" @click="editMenuItem(subMenuItem)"><span class="glyphicon glyphicon-pencil"></span></button>
+                                    <button class="btn btn-sm btn-danger" @click="removeMenuItem(subMenuItem)"><span class="glyphicon glyphicon-remove"></span></button>
                                 </div>
-                            </li>
-                        </ul>
-                    </div>
+                            </div>
+                        </li>
+                    </ul>
                 </li>
             </ul>
             <p v-else>Er staan geen pagina's in het menu.</p>
