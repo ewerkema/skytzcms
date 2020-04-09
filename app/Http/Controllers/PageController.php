@@ -54,6 +54,14 @@ class PageController extends Controller
         $input['published_content'] = array();
         $page = Page::create($input);
 
+        if ($input['menu']) {
+            MenuItem::create([
+                'page_id' => $page->id,
+                'parent_id' => array_key_exists('parent_id', $input) ? $input['parent_id'] : null,
+                'order' => MenuItem::all()->max('order')+1,
+            ]);
+        }
+
         Cache::flush();
 
         session()->flash('flash_message', 'De pagina is succesvol aangemaakt');
