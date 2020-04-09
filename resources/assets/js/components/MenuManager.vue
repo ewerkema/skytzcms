@@ -1,5 +1,5 @@
 <template>
-    <div class="menu-manager">
+    <div class="menu-manager" :key="componentKey">
         <div v-if="!selectedMenuItem">
             <div class="row">
                 <button class="btn btn-success pull-right" @click="newMenuItem()">Menu item toevoegen</button>
@@ -14,17 +14,19 @@
                         </div>
                     </div>
 
-                    <ul v-if="menuItem.sub_items.length > 0">
-                        <li v-for="subMenuItem in menuItem.sub_items" class="menu-item" :id="'page_' + subMenuItem.id" :data-id="subMenuItem.id">
-                            <div class="flex flex-between">
-                                <div><span class="glyphicon glyphicon-move"></span> <span v-html="displayMenuItem(subMenuItem)"></span></div>
-                                <div>
-                                    <button class="btn btn-sm btn-success" @click="editMenuItem(subMenuItem)"><span class="glyphicon glyphicon-pencil"></span></button>
-                                    <button class="btn btn-sm btn-danger" @click="removeMenuItem(subMenuItem)"><span class="glyphicon glyphicon-remove"></span></button>
+                    <div>
+                        <ul v-if="menuItem.sub_items.length > 0">
+                            <li v-for="subMenuItem in menuItem.sub_items" class="menu-item" :id="'page_' + subMenuItem.id" :data-id="subMenuItem.id">
+                                <div class="flex flex-between">
+                                    <div><span class="glyphicon glyphicon-move"></span> <span v-html="displayMenuItem(subMenuItem)"></span></div>
+                                    <div>
+                                        <button class="btn btn-sm btn-success" @click="editMenuItem(subMenuItem)"><span class="glyphicon glyphicon-pencil"></span></button>
+                                        <button class="btn btn-sm btn-danger" @click="removeMenuItem(subMenuItem)"><span class="glyphicon glyphicon-remove"></span></button>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                    </ul>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
             <p v-else>Er staan geen pagina's in het menu.</p>
@@ -95,6 +97,7 @@
                 menu: {},
                 pages: [],
                 selectedMenuItem: false,
+                componentKey: 0,
             }
         },
 
@@ -131,7 +134,8 @@
 
             initDragging: function() {
                 let _this = this;
-                setTimeout(() => {
+                this.forceUpdate();
+                this.$nextTick(() => {
                     $('.sortable-menu').nestedSortable({
                         listType: 'ul',
                         handle: 'div',
@@ -144,7 +148,7 @@
                             _this.saveOrder();
                         }
                     });
-                }, 500);
+                });
             },
 
             newMenuItem: function() {
@@ -220,6 +224,7 @@
                 request.send(function(data) {
                     _this.selectedMenuItem = false;
                     _this.loadMenu();
+                    _this.notifyMenuUpdate();
                     if (request.getType() === 'POST') {
                         swal({
                             title: "Menu item toegevoegd!",
@@ -247,7 +252,15 @@
                         _method: 'PATCH',
                         pages: array
                     },
-                });
+                }).done(() => this.notifyMenuUpdate());
+            },
+
+            notifyMenuUpdate: function() {
+                this.$root.$emit('menu-update');
+            },
+
+            forceUpdate: function() {
+                this.componentKey += 1;
             }
         }
     }

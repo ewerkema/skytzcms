@@ -1,5 +1,5 @@
 <template>
-    <div class="row">
+    <div>
         <div class="col-md-4">
             <div class="panel panel-default">
                 <div class="panel-heading flex-row justify-space-between align-items-center">
@@ -77,7 +77,6 @@
                 </div>
 
                 <button class="btn btn-success right" @click.prevent="savePage">Pagina opslaan</button>
-                <button class="btn btn-info right" @click.prevent="">Toevoegen aan menu</button>
             </form>
         </div>
     </div>
@@ -123,12 +122,15 @@
             } else {
                 this.baseUrl = this.url;
             }
+
+            this.$root.$on('menu-update', this.load);
         },
 
         data() {
             return {
                 pages: [],
                 menu: [],
+                menuItems: [],
                 selectedPage: false,
                 search: "",
                 baseUrl: "",
@@ -182,14 +184,14 @@
             data() {
                 return [
                     {
-                        text: 'In navigatie menu',
+                        text: 'Menu',
                         selectable: false,
                         disabled: true,
                         state: {
                             expanded: true,
                             editable: true,
                         },
-                        nodes: _.sortBy(_.map(this.menuPages, this.toList), (page) => page.order),
+                        nodes: _.sortBy(_.map(this.menu, this.menuToList), (menuItem) => menuItem.order),
                     },
                     {
                         text: 'Losse pagina\'s',
@@ -199,7 +201,7 @@
                             expanded: true,
                             editable: false,
                         },
-                        nodes: _.map(this.nonMenuPages, this.toList)
+                        nodes: _.map(this.nonMenuPages, this.pageToList)
                     }
                 ];
             }
@@ -208,11 +210,25 @@
         methods: {
             loadFromDatabase() {
                 $.get('/cms/menu', (data) => this.menu = data.menu);
+                $.get('/cms/menu?list=true', (data) => this.menuItems = data.menu);
 
                 return $.get('/cms/pages', (data) => this.pages = data);
             },
 
-            toList(page) {
+            menuToList(menu_item) {
+                return {
+                    id: menu_item.page_id,
+                    text: menu_item.linkName,
+                    slug: menu_item.page != null ? menu_item.page.slug : null,
+                    state: {
+                        expanded: menu_item.page != null,
+                        editable: menu_item.page != null,
+                    },
+                    nodes: _.map(menu_item.sub_items, this.menuToList)
+                }
+            },
+
+            pageToList(page) {
                 return {
                     id: page.id,
                     text: page.title,
@@ -221,7 +237,7 @@
             },
 
             pageInMenu(page) {
-                return _.find(this.menu, ['page_id', page.id]);
+                return _.find(this.menuItems, ['page_id', page.id]);
             },
 
             editMenu() {
@@ -239,7 +255,7 @@
 
             addPage(state = false) {
                 let visibleInMenu = $('[name=menu]');
-                if (this.pageInMenu(state) || state.text === 'In navigatie menu') {
+                if (this.pageInMenu(state) || state.text === 'Menu') {
                     visibleInMenu.prop('checked', true);
                 } else {
                     visibleInMenu.prop('checked', false);
@@ -260,6 +276,13 @@
 
                 if (page !== undefined) {
                     this.selectedPage = page;
+                } else {
+                    swal({
+                        title: "Kan dit item niet bewerken!",
+                        text: "Het geselecteerde item is geen pagina. Wil je de losse links beheren? Klik dan hieronder op \"Menu indelen\".",
+                        type: "warning",
+                        timer: 2000
+                    }).done();
                 }
             },
 

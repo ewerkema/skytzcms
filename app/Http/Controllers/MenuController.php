@@ -6,13 +6,14 @@ use App\Facades\Menu;
 use App\Models\MenuItem;
 use Cache;
 use Illuminate\Http\Request;
+use Input;
 use Validator;
 
 class MenuController extends Controller
 {
     public function index()
     {
-        $menu = Menu::getMenuWithSubpages();
+        $menu = Input::get('list') == null ? Menu::getMenuWithSubpages() : Menu::menuPages();
 
         return response()->json(['menu' => $menu]);
     }
