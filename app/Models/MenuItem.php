@@ -62,7 +62,11 @@ class MenuItem extends Model
      */
     public function getLinkNameAttribute()
     {
-        if (!is_null($this->attributes['page_id']) && (is_null($this->attributes['title']) || strlen($this->attributes['title']) == 0)) {
+        if (array_key_exists('title', $this->attributes) && !is_null($this->attributes['title']) && strlen($this->attributes['title']) > 0) {
+            return $this->attributes['title'];
+        }
+
+        if (!is_null($this->attributes['page_id'])) {
             return $this->page->title;
         }
 

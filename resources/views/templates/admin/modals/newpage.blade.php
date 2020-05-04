@@ -76,6 +76,16 @@
                 </select>
             </div>
         </div>
+        <div class="form-group">
+            <label for="redirect" class="col-md-3 control-label">Doorsturen na aanmaken</label>
+
+            <div class="col-md-8">
+                <label class="Switch">
+                    <input type="checkbox" name="redirect" checked="checked">
+                    <div class="Switch__slider"></div>
+                </label>
+            </div>
+        </div>
     </form>
 @overwrite
 

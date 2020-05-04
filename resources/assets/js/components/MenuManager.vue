@@ -197,7 +197,6 @@
                     },
                     success: function(result) {
                         _this.loadFromDatabase();
-                        _this.notifyMenuUpdate();
                     }
                 });
             },
@@ -223,7 +222,6 @@
                 request.send(function(data) {
                     _this.selectedMenuItem = false;
                     _this.loadMenu();
-                    _this.notifyMenuUpdate();
                     if (request.getType() === 'POST') {
                         swal({
                             title: "Menu item toegevoegd!",
@@ -251,7 +249,11 @@
                         _method: 'PATCH',
                         pages: array
                     },
-                }).done(() => this.notifyMenuUpdate());
+                }).done();
+            },
+
+            onClose: function (e) {
+                this.notifyMenuUpdate();
             },
 
             notifyMenuUpdate: function() {

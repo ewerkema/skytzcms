@@ -1,36 +1,38 @@
 <template>
     <div>
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading flex-row justify-space-between align-items-center">
-                    <h4>Selecteer pagina</h4>
-                    <button class="btn btn-default btn-sm" @click.prevent="load">
-                        <span class="glyphicon glyphicon-refresh"></span>
+        <div class="col-md-12" v-if="selectedPage === false">
+            <div class="flex-row justify-space-between align-items-center">
+                <h4>Selecteer pagina</h4>
+                <button class="btn btn-default btn-sm" @click.prevent="load">
+                    <span class="glyphicon glyphicon-refresh"></span>
+                </button>
+            </div>
+            <div class="input-group" style="margin-bottom: 15px;">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">
+                        <span class="glyphicon glyphicon-search"></span>
                     </button>
+                </span>
+                <input type="text" class="form-control" placeholder="Pagina zoeken..." v-model="search">
+            </div>
 
+            <div class="flex-row justify-space-between">
+                <button class="btn btn-info" @click.prevent="editMenu"><span class="glyphicon glyphicon-sort"></span> Menu indelen</button>
+                <button class="btn btn-success" @click.prevent="addPage(0)"><span class="glyphicon glyphicon-plus"></span> Pagina</button>
+            </div>
+
+            <div class="flex-row justify-space-between">
+                <div>
+                    <h4>Pagina's in menu ({{ menuPages.length }})</h4>
+                    <Tree id="pageTree" ref="my-tree-ref" :custom-styles="treeStyles" :custom-options="treeOptions" :nodes="menuPagesList"></Tree>
                 </div>
-                <div class="panel-body">
-                    <div class="input-group" style="margin-bottom: 15px;">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </button>
-                        </span>
-                        <input type="text" class="form-control" placeholder="Pagina zoeken..." v-model="search">
-                    </div>
-                    <Tree id="pageTree" ref="my-tree-ref" :custom-styles="treeStyles" :custom-options="treeOptions" :nodes="data"></Tree>
-
-                    <div class="flex-row justify-space-between">
-                        <button class="btn btn-info" @click.prevent="editMenu"><span class="glyphicon glyphicon-sort"></span> Menu indelen</button>
-                        <button class="btn btn-success" @click.prevent="addPage"><span class="glyphicon glyphicon-plus"></span> Pagina</button>
-                    </div>
+                <div>
+                    <h4>Losse pagina's ({{ nonMenuPages.length }})</h4>
+                    <Tree id="pageTree2" ref="my-tree-ref2" :custom-styles="treeStyles" :custom-options="treeOptions" :nodes="nonMenuPagesList"></Tree>
                 </div>
             </div>
         </div>
-        <div v-if="selectedPage === false">
-            <p><em>Selecteer een pagina in het menu links om een pagina te bewerken.</em></p>
-        </div>
-        <div class="col-md-8" v-else>
+        <div class="col-md-12" v-else>
             <h3>Pagina bewerken: {{ selectedPage.title }}</h3>
 
             <form action="#" class="form-horizontal" id="editPageForm">
@@ -46,8 +48,9 @@
                     <label for="selectedPageHeader" class="col-md-3 control-label">Pagina header</label>
 
                     <div class="col-md-8">
-                        <select class="form-control" id="selectedPageHeader" name="header_id">
+                        <select class="form-control" id="selectedPageHeader" name="header_id" v-model="selectedPage.header_id">
                             <option value="0">Geen header</option>
+                            <option :value="header.id" v-for="header in headers">{{ header.name }}</option>
                         </select>
                     </div>
                 </div>
@@ -77,6 +80,7 @@
                 </div>
 
                 <button class="btn btn-success right" @click.prevent="savePage">Pagina opslaan</button>
+                <button class="btn btn-default right" @click.prevent="cancelPage">Annuleren</button>
             </form>
         </div>
     </div>
@@ -104,6 +108,11 @@
     import Tree from 'vuejs-tree';
     import AutoloadModal from './AutoloadModal.vue';
 
+    const NO_MENU = 0;
+    const MENU_PAGE = 1;
+    const MENU_LINK = 2;
+    const MENU_GENERAL_TEXT = 3;
+
     export default {
         extends: AutoloadModal,
 
@@ -124,6 +133,7 @@
             }
 
             this.$root.$on('menu-update', this.load);
+            $('#newPageModal').on('hidden.bs.modal', () => this.load());
         },
 
         data() {
@@ -131,6 +141,7 @@
                 pages: [],
                 menu: [],
                 menuItems: [],
+                headers: [],
                 selectedPage: false,
                 search: "",
                 baseUrl: "",
@@ -144,7 +155,7 @@
                         width: '100%',
                         cursor: 'pointer',
                         child: {
-                            height: '35px'
+                            height: '35px',
                         }
                     },
                 },
@@ -156,9 +167,10 @@
                             calledEvent: null,
                         }
                     },
-                    addNode: { state: true, fn: this.addPage, appearOnHover: true },
+                    addNode: { state: true, fn: this.addNode, appearOnHover: true },
                     editNode: { state: true, fn: this.editPage, appearOnHover: true },
-                    deleteNode: { state: true, fn: this.deletePage, appearOnHover: true },
+                    deleteNode: { state: true, fn: this.deleteNode, appearOnHover: true },
+                    showTags: true,
                 }
             }
         },
@@ -181,36 +193,29 @@
                 return _.filter(this.filterPagesSearch, (page) => !this.pageInMenu(page))
             },
 
-            data() {
+            menuPagesList() {
                 return [
                     {
-                        text: 'Menu',
-                        selectable: false,
-                        disabled: true,
+                        text: '[Menu]',
+                        definition: MENU_GENERAL_TEXT,
                         state: {
                             expanded: true,
-                            editable: true,
                         },
                         nodes: _.sortBy(_.map(this.filteredMenu, this.menuToList), (menuItem) => menuItem.order),
                     },
-                    {
-                        text: 'Losse pagina\'s',
-                        selectable: false,
-                        disabled: true,
-                        state: {
-                            expanded: true,
-                            editable: false,
-                        },
-                        nodes: _.map(this.nonMenuPages, this.pageToList)
-                    }
                 ];
-            }
+            },
+
+            nonMenuPagesList() {
+                return _.map(this.nonMenuPages, this.pageToList);
+            },
         },
 
         methods: {
             loadFromDatabase() {
                 $.get('/cms/menu', (data) => this.menu = data.menu);
                 $.get('/cms/menu?list=true', (data) => this.menuItems = data.menu);
+                $.get('/cms/headers', (data) => this.headers = data);
 
                 return $.get('/cms/pages', (data) => this.pages = data);
             },
@@ -218,13 +223,18 @@
             menuToList(menu_item) {
                 return {
                     id: menu_item.page_id,
-                    text: menu_item.linkName,
+                    menu_item_id: menu_item.id,
+                    text: (menu_item.sub_items === undefined ? "- " : "") + menu_item.linkName,
                     slug: menu_item.page != null ? menu_item.page.slug : null,
+                    definition: menu_item.page != null ? MENU_PAGE : MENU_LINK,
                     state: {
                         expanded: menu_item.page != null,
                         editable: menu_item.page != null,
                     },
-                    nodes: _.map(menu_item.sub_items, this.menuToList)
+                    nodes: _.map(menu_item.sub_items, this.menuToList),
+                    tags: menu_item.page == null ? ["Losse link"] : [],
+                    selectable: true,
+                    checkable: true,
                 }
             },
 
@@ -233,6 +243,7 @@
                     id: page.id,
                     text: page.title,
                     slug: page.slug,
+                    definition: NO_MENU,
                 }
             },
 
@@ -246,7 +257,9 @@
 
             getMenuId(page) {
                 let menuItem = this.pageInMenu(page);
-                return menuItem !== undefined ? menuItem.id : 0;
+                if (menuItem === undefined) return 0;
+
+                return menuItem.parent_id !== null ? menuItem.parent_id : menuItem.id;
             },
 
             pageFilter(page) {
@@ -269,22 +282,167 @@
                 return _.find(this.pages, ['id', pageId]);
             },
 
-            addPage(state = false) {
-                let visibleInMenu = $('[name=menu]');
-                if (this.pageInMenu(state) || state.text === 'Menu') {
-                    visibleInMenu.prop('checked', true);
-                } else {
-                    visibleInMenu.prop('checked', false);
+            addNode(state = false) {
+                if (!this.stateIsMenuItem(state)) {
+                    this.addPage(state);
+                    return;
                 }
 
+                swal({
+                    title: 'Toevoegen aan menu',
+                    input: 'radio',
+                    inputOptions: {
+                        newPage: 'Nieuwe pagina',
+                        addPageToMenu: 'Bestaande pagina toevoegen',
+                        link: 'Losse link toevoegen',
+                    },
+                    inputPlaceholder: 'Selecteer een optie',
+                    showCancelButton: true,
+                    inputValidator: (value) => {
+                        return new Promise((resolve, reject) => {
+                            if (!value) {
+                                reject('Je hebt nog geen optie geselecteerd!');
+                            } else {
+                                resolve();
+                            }
+                        });
+                    }
+                }).then((value) => {
+                    switch (value) {
+                        case 'newPage': this.addPage(state); break;
+                        case 'addPageToMenu': this.addPageToMenu(state); break;
+                        case 'link': this.addLinkToMenu(state); break;
+                    }
+                }).done();
+            },
+
+            addPage(state = false) {
+                let newPageModal = $('#newPageModal');
+                document.getElementById('newPageForm').reset();
+
+                let visibleInMenu = $('[name=menu]');
+                visibleInMenu.prop('checked', this.stateIsMenuItem(state));
+
                 let subpageSelect = $('[name=parent_id]');
-                if (this.pageInMenu(state)) {
+                if (state !== false && this.pageInMenu(state)) {
                     subpageSelect.val(this.getMenuId(state));
                 } else {
                     subpageSelect.val(subpageSelect.find('option:first').val());
                 }
 
-                $('#newPageModal').modal('show');
+                let redirectToNewPage = $('[name=redirect]');
+                redirectToNewPage.prop('checked', false);
+
+                newPageModal.modal('show');
+            },
+
+            addMenuItem(state, menuPage, data) {
+                if (menuPage !== null) {
+                    data.order = state.nodes.length > 0 ? null : menuPage.order;
+                    data.parent_id = state.nodes.length > 0 ? menuPage.id : menuPage.parent_id;
+                }
+
+                $.post('/cms/menu', data)
+                    .then(() => {
+                        this.load();
+                        swal({
+                            title: "Pagina toegevoegd!",
+                            text: 'Pagina is succesvol toegevoegd.',
+                            type: "success",
+                            timer: 2000
+                        }).done();
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
+            },
+
+            addPageToMenu(state) {
+                if (!this.stateIsMenuItem(state)) {
+                    swal('Kan hier geen pagina toevoegen aan het menu!').done();
+                    return;
+                }
+
+                let page = this.findPage(state.id);
+                let menuPage = page !== undefined ? this.pageInMenu(page) : null;
+                let nonMenuPages = _.filter(this.pages, (page) => !this.pageInMenu(page));
+
+                swal({
+                    title: 'Selecteer pagina',
+                    input: 'select',
+                    inputOptions: _.mapValues(_.keyBy(nonMenuPages, 'id'), 'title'),
+                    inputPlaceholder: 'Selecteer een optie',
+                    showCancelButton: true,
+                    inputValidator: (value) => {
+                        return new Promise((resolve, reject) => {
+                            if (!value) {
+                                reject('Je hebt nog geen optie geselecteerd!');
+                            } else {
+                                resolve();
+                            }
+                        });
+                    }
+                }).then((value) => {
+                    this.doAddPageToMenu(value, state, menuPage);
+                });
+            },
+
+            doAddPageToMenu(pageId, state, menuPage) {
+                let data = {
+                    page_id: pageId,
+                    open_in_new_tab: 0
+                };
+
+                this.addMenuItem(state, menuPage, data);
+            },
+
+            addLinkToMenu(state) {
+                if (!this.stateIsMenuItem(state)) {
+                    swal('Kan hier geen link toevoegen aan het menu!').done();
+                    return;
+                }
+
+                let page = this.findPage(state.id);
+                let menuPage = page !== undefined ? this.pageInMenu(page) : null;
+
+                swal({
+                    title: 'Losse link toevoegen',
+                    html:
+                        '<input id="swal2-link" class="swal2-input" placeholder="Link URL">' +
+                        '<input id="swal2-name" class="swal2-input" placeholder="Link naam">' +
+                        '<label style="display: flex;">' +
+                            '<input type="checkbox" id="swal2-opennewtab">' +
+                            '<span class="swal2-label"> Openen in nieuw tabblad</span>' +
+                        '</label>',
+                    showCancelButton: true,
+                    preConfirm: () => {
+                        return new Promise((resolve, reject) => {
+                            let link = document.getElementById('swal2-link').value;
+                            let title = document.getElementById('swal2-name').value;
+                            let openInNewTab = document.getElementById('swal2-opennewtab').checked;
+
+                            if (!link || !title) {
+                                reject('Voer link en naam in!');
+                            }
+
+                            resolve({
+                                link, title, openInNewTab,
+                            });
+                        });
+                    },
+                }).then((data) => {
+                    this.doAddLinkToPage(state, data, menuPage);
+                }).done();
+            },
+
+            doAddLinkToPage(state, data, menuPage) {
+                data = {
+                    link: data.link,
+                    title: data.title,
+                    open_in_new_tab: data.openInNewTab ? 1 : 0,
+                };
+
+                this.addMenuItem(state, menuPage, data);
             },
 
             editPage(state) {
@@ -317,6 +475,28 @@
                         type: 'success',
                     })
                 });
+
+                this.selectedPage = false;
+            },
+
+            cancelPage() {
+                this.selectedPage = false;
+            },
+
+            deleteNode(state) {
+                switch (state.definition) {
+                    case NO_MENU:
+                        this.deletePage(state);
+                        break;
+                    case MENU_PAGE:
+                        this.deletePageFromMenu(state);
+                        break;
+                    case MENU_LINK:
+                        this.deleteLinkFromMenu(state);
+                        break;
+                    default:
+                        this.unableToDelete();
+                }
             },
 
             deletePage(state) {
@@ -334,11 +514,7 @@
                         this.doDeletePage(page);
                     }).done();
                 } else {
-                    swal({
-                        title: "Kan dit item niet verwijderen!",
-                        type: "warning",
-                        timer: 2000
-                    }).done();
+
                 }
             },
 
@@ -360,6 +536,56 @@
                         timer: 2000,
                     }).done();
                 });
+            },
+
+            deletePageFromMenu(state) {
+                let page = this.findPage(state.id);
+
+                swal({
+                    title: "Pagina uit menu verwijderen?",
+                    text: `Weet je zeker dat je de pagina "${page.title}" uit het menu wil verwijderen?` + (state.nodes.length > 0 ? " Let op: Daarbij worden ook alle subpagina's uit het menu verwijderd!" : ""),
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Ja, verwijder uit menu",
+                }).then(() => {
+                    this.doDeleteMenuItem(state.menu_item_id);
+                }).done();
+            },
+
+            deleteLinkFromMenu(state) {
+                swal({
+                    title: "Link uit menu verwijderen?",
+                    text: `Weet je zeker dat je de link "${state.text}" uit het menu wil verwijderen?` + (state.nodes.length > 0 ? " Let op: Daarbij worden ook alle subpagina's uit het menu verwijderd!" : ""),
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Ja, verwijder uit menu",
+                }).then(() => {
+                    this.doDeleteMenuItem(state.menu_item_id);
+                }).done();
+            },
+
+            doDeleteMenuItem(menuItemId) {
+                $.ajax({
+                    url: '/cms/menu/' + menuItemId,
+                    type: 'POST',
+                    data: {
+                        _method: 'DELETE'
+                    },
+                }).done(() => this.load());
+            },
+
+            unableToDelete() {
+                swal({
+                    title: "Kan dit item niet verwijderen!",
+                    type: "warning",
+                    timer: 2000
+                }).done();
+            },
+
+            stateIsMenuItem(state) {
+                return state.definition !== NO_MENU;
             },
 
             getBaseUrl() {

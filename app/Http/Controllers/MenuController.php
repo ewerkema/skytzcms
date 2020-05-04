@@ -77,6 +77,8 @@ class MenuController extends Controller
             'link' => 'required_without:page_id|max:255',
             'page_id' => 'required_without:link|nullable|sometimes|exists:pages,id',
             'open_in_new_tab' => 'required|boolean',
+            'parent_id' => 'nullable|sometimes|exists:menu_items,id',
+            'order' => 'nullable|sometimes'
         ], [], [
             'title' => 'Link naam',
             'link' => 'Losse link',
@@ -98,7 +100,8 @@ class MenuController extends Controller
 
         $this->validator($input)->validate();
 
-        $input['order'] = MenuItem::all()->max('order')+1;
+        $defaultOrder = MenuItem::all()->max('order')+1;
+        $input['order'] = ($request->has('order') && $input['order'] != null) ? $input['order'] : $defaultOrder;
         $menuItem = MenuItem::create($input);
 
         Cache::flush();
@@ -158,7 +161,7 @@ class MenuController extends Controller
      */
     private function processMenuItem(array $input)
     {
-        if (isset($input['page_id']) && $input['page_id'] == 0) {
+        if (!isset($input['page_id']) || $input['page_id'] == 0) {
             $input['page_id'] = null;
         }
 

@@ -1,4 +1,4 @@
-@extends('templates.admin.modals.modal', ['target' => 'pageManagerModal', 'fullscreen' => true])
+@extends('templates.admin.modals.modal', ['target' => 'pageManagerModal'])
 
 @section('modal-header')
     <h4 class="modal-title"><strong>Pagina beheer</strong></h4>

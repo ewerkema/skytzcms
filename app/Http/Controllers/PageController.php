@@ -64,8 +64,10 @@ class PageController extends Controller
 
         Cache::flush();
 
-        session()->flash('flash_message', 'De pagina is succesvol aangemaakt');
-        session()->flash('flash_title', 'Pagina aangemaakt');
+        if (array_key_exists('redirect', $input) && $input['redirect']) {
+            session()->flash('flash_message', 'De pagina is succesvol aangemaakt');
+            session()->flash('flash_title', 'Pagina aangemaakt');
+        }
 
         return response()->json(['page' => $page, 'redirectTo' => $page->getSlug()], 200);
     }

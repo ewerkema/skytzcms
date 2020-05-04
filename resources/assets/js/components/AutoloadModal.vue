@@ -7,10 +7,12 @@
         props: ['target'],
 
         mounted() {
-            let self = this;
-            $(this.target).on('shown.bs.modal', function (e) {
-                self.load();
+            $(this.target).on('shown.bs.modal', (e) => {
+                $(document).off('focusin.modal');
+                this.onOpen(e);
+                this.load();
             });
+            $(this.target).on('hidden.bs.modal', (e) => this.onClose(e))
         },
 
         methods: {
@@ -28,6 +30,14 @@
 
             hideSpinner: function() {
                 $(this.target + ' .spinner').hide();
+            },
+
+            onOpen: function (e) {
+
+            },
+
+            onClose: function (e) {
+
             }
         }
     }
