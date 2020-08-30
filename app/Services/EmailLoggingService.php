@@ -12,6 +12,7 @@ class EmailLoggingService
     {
         EmailLog::create([
             'swift_identifier' => $message->getId(),
+            'to' => $message->getTo(),
             'body' => $message->getBody(),
             'bcc' => $message->getBcc(),
             'cc' => $message->getCc(),

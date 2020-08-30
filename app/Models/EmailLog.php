@@ -20,6 +20,7 @@ class EmailLog extends Model
      * @var array
      */
     protected $casts = [
+        'to' => 'array',
         'bcc' => 'array',
         'cc' => 'array',
         'from' => 'array',
