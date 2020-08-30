@@ -94,7 +94,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="#" data-toggle="modal" data-target="#newPageModal">Nieuwe pagina</a></li>
                                 <li><a href="#" data-toggle="modal" data-target="#addPageToMenuModal">Bestaande pagina toevoegen aan menu</a></li>
-                                <li><a href="#" data-toggle="modal">Losse link toevoegen aan menu</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#addLinkToMenuModal">Losse link toevoegen aan menu</a></li>
                             </ul>
 
                         </li>

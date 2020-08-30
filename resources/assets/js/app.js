@@ -35,9 +35,11 @@ import ListSocial from './components/ListSocial';
 import InsertImage from './components/InsertImage';
 import SelectModule from './components/SelectModule';
 import AddPageToMenu from "./components/AddPageToMenu";
+import AddLinkToMenu from "./components/AddLinkToMenu";
 
 Vue.component('file-manager', FileManager);
 Vue.component('add-page-to-menu', AddPageToMenu);
+Vue.component('add-link-to-menu', AddLinkToMenu);
 Vue.component('menu-manager', MenuManager);
 Vue.component('list-articles', ListArticles);
 Vue.component('list-albums', ListAlbums);
