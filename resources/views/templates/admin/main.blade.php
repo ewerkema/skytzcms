@@ -67,7 +67,7 @@
         @include('templates.admin.modals.website', ['settings' => Setting::all()->keyBy('name')])
 
         <div id="vue-app">
-            @include('templates.admin.modals.pages')
+            @include('templates.admin.modals.add_page_to_menu')
             @include('templates.admin.modals.menu')
             @include('templates.admin.modals.media')
             @include('templates.admin.modals.module_forms', ['settings' => Setting::all()->keyBy('name')])

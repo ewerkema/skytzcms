@@ -86,8 +86,18 @@
                             </ul>
 
                         </li>
-                        <li class="hidden-xs"><a href="#" data-toggle="modal" data-target="#pageManagerModal"><span class="glyphicon glyphicon-list-alt"></span> Pagina beheer</a></li>
-                        <li class="hidden-xs"><a href="#" data-toggle="modal" data-target="#newPageModal"><span class="glyphicon glyphicon-plus"></span></a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <span class="glyphicon glyphicon-plus"></span> <span class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#" data-toggle="modal" data-target="#newPageModal">Nieuwe pagina</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#addPageToMenuModal">Bestaande pagina toevoegen aan menu</a></li>
+                                <li><a href="#" data-toggle="modal">Losse link toevoegen aan menu</a></li>
+                            </ul>
+
+                        </li>
                         <li class="hidden-xs"><a href="#" data-toggle="modal" data-target="#uploadMediaModal"><span class="glyphicon glyphicon-upload"></span></a></li>
                     @endif
                 </ul>

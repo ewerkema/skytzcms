@@ -154,7 +154,7 @@ if (document.getElementById('newPageForm')) {
     request.setType('POST');
     request.setForm('#newPageForm');
 
-    request.addFields(['title', 'meta_title', 'meta_desc', 'header_id', 'parent_id', 'redirect']);
+    request.addFields(['title', 'meta_title', 'meta_desc', 'header_id', 'parent_id']);
     request.addField('slug', 'text', 'index');
     request.addField('menu', 'checkbox');
 
@@ -176,12 +176,7 @@ if (document.getElementById('newPageForm')) {
             return;
         }
 
-        if (request.getForm().find('[name=redirect]').prop("checked") === true) {
-            window.location.href = '/cms/' + data['redirectTo'];
-        } else {
-            $('#newPageModal').modal('hide');
-
-        }
+        window.location.href = '/cms/' + data['redirectTo'];
     });
 
     enableAutomaticSlug();
