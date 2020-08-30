@@ -16,14 +16,14 @@ class CreateEmailLogsTable extends Migration
         Schema::create('email_logs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('swift_identifier')->nullable();
-            $table->json('to')->nullable();
+            $table->text('to')->nullable();
             $table->timestamp('date')->nullable();
             $table->string('sender')->nullable();
             $table->string('subject')->nullable();
             $table->longText('body')->nullable();
-            $table->json('from')->nullable();
-            $table->json('cc')->nullable();
-            $table->json('bcc')->nullable();
+            $table->text('from')->nullable();
+            $table->text('cc')->nullable();
+            $table->text('bcc')->nullable();
             $table->string('charset')->nullable();
             $table->string('content_type')->nullable();
             $table->text('description')->nullable();
