@@ -139,7 +139,7 @@ function enableAutomaticTitle() {
         }
     });
 
-    $('.page-slug-listener').keypress(function() {
+    $('.page-title-listener').keypress(function() {
         titleActive = false;
     });
 }
