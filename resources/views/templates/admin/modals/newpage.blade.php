@@ -11,7 +11,7 @@
             <label for="newPageTitle" class="col-md-3 control-label">Pagina naam</label>
 
             <div class="col-md-8">
-                <input type="text" name="title" class="form-control page-title-listener" placeholder="Pagina naam" id="newPageTitle" required autofocus />
+                <input type="text" name="title" class="form-control page-name-listener" placeholder="Pagina naam" id="newPageTitle" required autofocus />
             </div>
         </div>
         <div class="form-group">
@@ -42,7 +42,7 @@
             <label for="meta_title" class="col-md-3 control-label">Pagina titel</label>
 
             <div class="col-md-8">
-                <input type="text" name="meta_title" class="form-control" placeholder="Pagina titel" required autofocus />
+                <input type="text" name="meta_title" class="form-control page-title-listener" id="newPageTitle" placeholder="Pagina titel" required autofocus />
             </div>
         </div>
         <div class="form-group">

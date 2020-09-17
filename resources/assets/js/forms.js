@@ -120,7 +120,7 @@ if (document.getElementById('pageForm')) {
 
 function enableAutomaticSlug() {
     let slugActive = true;
-    $('.page-title-listener').on('input', function() {
+    $('.page-name-listener').on('input', function() {
         if (slugActive) {
             $(this).closest('form').find('.page-slug-listener').val(toSlug($(this).val()));
         }
@@ -128,6 +128,19 @@ function enableAutomaticSlug() {
 
     $('.page-slug-listener').keypress(function() {
         slugActive = false;
+    });
+}
+
+function enableAutomaticTitle() {
+    let titleActive = true;
+    $('.page-name-listener').on('input', function() {
+        if (titleActive) {
+            $(this).closest('form').find('.page-title-listener').val($(this).val());
+        }
+    });
+
+    $('.page-slug-listener').keypress(function() {
+        titleActive = false;
     });
 }
 
@@ -180,4 +193,5 @@ if (document.getElementById('newPageForm')) {
     });
 
     enableAutomaticSlug();
+    enableAutomaticTitle();
 }
