@@ -4,10 +4,14 @@
       <p><i>Alle links in het menu kunnen beheren? Klik dan rechtsboven op je profiel en vervolgens op "Menu Instellingen".</i></p>
       <div class="form-horizontal">
         <div class="form-group">
-          <label for="link" class="col-md-3 control-label">Losse link</label>
+          <label for="link" class="col-md-3 control-label">{{ empty ? 'Lege' : 'Losse'}} link</label>
 
           <div class="col-md-8">
-            <input type="text" id="link" name="link" v-model="link" class="form-control" placeholder="URL" />
+            <div class="input-group" v-if="empty">
+              <span class="input-group-addon" id="basic-addon1">#</span>
+              <input type="text" id="link" name="link" v-model="link" class="form-control" placeholder="Link attribuut (optioneel)">
+            </div>
+            <input type="text" id="link" name="link" v-model="link" class="form-control" placeholder="URL" v-else />
           </div>
         </div>
 
@@ -63,6 +67,10 @@
       url: {
         type: String,
         default: "",
+      },
+      empty: {
+        type: Boolean,
+        default: false,
       }
     },
 
@@ -120,7 +128,7 @@
 
       addMenuItem() {
         let data = {
-          link: this.link,
+          link: (this.empty ? '#' : '') + this.link,
           title: this.title,
           open_in_new_tab: this.openInNewTab ? 1 : 0,
           parent_id: this.selectedParentMenuItem,
