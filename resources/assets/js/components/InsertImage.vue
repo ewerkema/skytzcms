@@ -26,8 +26,8 @@
         },
 
         methods: {
-            sendImage: function(image, openInPopup, coordinates) {
-                if (this.enableEdit) {
+            sendImage: function(image, openInPopup, coordinates, edit = true) {
+                if (this.enableEdit && edit) {
                     let self = this;
                     $.post('/cms/media/' + image.id + '/header', coordinates)
                         .done(function (image) {

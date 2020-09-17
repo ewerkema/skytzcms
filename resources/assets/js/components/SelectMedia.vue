@@ -46,8 +46,8 @@
         <div class="clear"></div>
         <div class="form-group">
             <div class="col-md-12">
-                <button class="btn btn-success right" v-on:click="sendImages()" :disabled="selectedImages.length === 0 || (coordinates.length === 0 && enableEdit)">{{ this.multiple ? `${selectedImages.length} Afbeeldingen toevoegen` : 'Geselecteerde afbeelding gebruiken' }}</button>
-                <button class="btn btn-danger right" style="margin-right:5px;"  v-on:click="selectedImages = []" v-if="this.enableEdit && selectedImages.length > 0">Bijsnijden annuleren</button>
+                <button class="btn btn-success right" v-on:click="sendImages()" :disabled="!imageIsEdited">{{ this.multiple ? `${selectedImages.length} Afbeeldingen toevoegen` : 'Geselecteerde afbeelding gebruiken' }}</button>
+                <button class="btn right" :class="{'btn-warning': imageIsEdited, 'btn-success': !imageIsEdited}" style="margin-right:5px;" v-on:click="sendImages(false)" v-if="this.enableEdit && selectedImages.length > 0">Toevoegen zonder bijsnijden</button>
                 <button class="btn btn-default right" style="margin-right:5px;" v-on:click="cancelSelectImages()">Annuleren</button>
             </div>
         </div>
@@ -127,6 +127,10 @@
             selectedImage: function () {
                 return this.findImage(this.selectedImages[0]);
             },
+
+            imageIsEdited: function() {
+                return this.selectedImages.length && (this.coordinates.length || !this.enableEdit);
+            }
         },
 
         created() {
@@ -164,11 +168,11 @@
                 return '/'+path;
             },
 
-            sendImages: function() {
+            sendImages: function(edit = true) {
                 if (this.multiple) {
                     this.$emit('send-images', this.selectedImages);
                 } else {
-                    this.$emit('send-image', this.selectedImage, this.openInPopup, this.coordinates);
+                    this.$emit('send-image', this.selectedImage, this.openInPopup, this.coordinates, edit);
                 }
 
                 this.selectedImages = [];
