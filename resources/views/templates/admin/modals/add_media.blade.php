@@ -48,7 +48,7 @@
             multi_selection: true,
             url: "/plupload/upload.php",
             filters: {
-                max_file_size: '25mb',
+                max_file_size: '3mb',
                 mime_types: [
                     {title: "Image file", extensions: "jpg,jpeg,gif,png"},
                     {title: "Document file", extensions: "PDF,docx,doc"}
@@ -148,11 +148,11 @@
                 },
                 Error: function (up, err) {
                     if (err.code === -601)
-                        document.getElementById('console').innerHTML += "Alleen bestanden met de extensie: jpg, png of pdf zijn toegestaan.";
+                        document.getElementById('console').innerHTML += "Alleen bestanden met de extensie: jpg, png, gif, doc, docx of pdf zijn toegestaan.";
                     else if (err.code === -600)
-                        document.getElementById('console').innerHTML += "Bestandsgrootte is niet meer dan 4MB";
+                        document.getElementById('console').innerHTML += "Bestandsgrootte is meer dan 3MB";
                     else
-                        document.getElementById('console').innerHTML += err.message;
+                        document.getElementById('console').innerHTML = err.message;
 
                     $("#spinner").hide();
                 }

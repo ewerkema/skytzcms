@@ -66,10 +66,11 @@ class Media extends Model
      * @param $origin
      * @param $destination
      * @return void
+     *
+     * @deprecated
      */
     public static function createFromFile($origin, $destination)
     {
-        return;
         $originPath = base_path(Media::fixForwardSlash($origin));
         $destinationPath = public_path($destination);
         $fileName = File::name($origin).'.'.File::extension($origin);
@@ -123,6 +124,8 @@ class Media extends Model
 
     /**
      * Create all media types from input.
+     *
+     * @deprecated
      */
     public function createMedia($file)
     {
@@ -204,17 +207,23 @@ class Media extends Model
         }
 
         if ($file && file_exists($source_path)) {
-            $image_resolution = list($width, $height) = getimagesize($source_path);
+            list($width, $height) = getimagesize($source_path);
             if (File::extension($file)!='docx' && File::extension($file)!='pdf' && File::extension($file)!='doc') {
 
-                upload_move($file,'',$target_file);
+                if($width > 2500 || $height > 2500) {
+                    Image::make($source_path)->resize(2500, 2500, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save($source_path);
+                }
 
-                if($image_resolution[0] > 1024) {
+                upload_move($file,'', $target_file);
+
+                if($width > 1024) {
                     Image::make($source_path)->resize(1024, 576)->save($source_path);
                 }
-                upload_move($file,'',$target_file,'large');
+                upload_move($file,'', $target_file,'large');
 
-                if($image_resolution[0] > 150) {
+                if($width > 150) {
                     Image::make($source_path)->fit(150, 150)->save($source_path);
                 }
                 upload_move($file,'',$target_file,'thumbnail');
@@ -232,6 +241,7 @@ class Media extends Model
             $this->path = 'docs/'.$target_file;
         }
 
+        @unlink(@$source_path);
 
         if ($file == '') {
             $this->deleteFile();
