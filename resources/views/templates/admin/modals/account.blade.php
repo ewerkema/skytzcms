@@ -1,4 +1,4 @@
-@extends('templates.admin.modals.modal', ['target'=>'accountModal'])
+@extends('templates.admin.modals.modal', ['target' => 'accountModal'])
 
 @section('modal-header')
     <h4 class="modal-title"><strong>Account instellingen</strong></h4>
@@ -51,26 +51,4 @@
 
 @section('modal-footer')
     <button type="submit" form="accountForm" class="btn btn-primary">Opslaan</button>
-@overwrite
-
-@section('javascript')
-    <script type="text/javascript">
-        var request = new Request('{{ cms_url('users/'.Auth::id()) }}');
-        request.setType('PATCH');
-        request.setForm('#accountForm');
-
-        request.addFields(['firstname', 'lastname', 'username', 'email']);
-        request.addOptionalFields(['password', 'password_confirmation']);
-
-        request.onSubmit(function(data) {
-            $('#accountModal').modal('toggle');
-            swal({
-                title: 'Success!',
-                text: 'Account is succesvol aangepast.',
-                type: "success",
-                timer: 2000
-            });
-            $('#userName').html(data.firstname + " " + data.lastname);
-        });
-    </script>
 @overwrite

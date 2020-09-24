@@ -33,34 +33,5 @@
 @overwrite
 
 @section('modal-footer')
-    <button type="submit" onclick="saveLayoutMenu()" class="btn btn-primary">Opslaan</button>
-@overwrite
-
-@section('javascript')
-    <script type="text/javascript">
-        $('.sortable').nestedSortable({
-            listType: 'ul',
-            handle: 'div',
-            items: 'li',
-            toleranceElement: '> div',
-            maxLevels: 2,
-            placeholder: 'placeholder',
-            forcePlaceholderSize: true
-        });
-
-        function saveLayoutMenu() {
-            var array = $('.sortable').nestedSortable('toArray');
-            $.ajax({
-                url: '/cms/pages/order',
-                type: 'POST',
-                data: {
-                    _method: 'PATCH',
-                    pages: array
-                },
-                success: function() {
-                    location.reload();
-                }
-            });
-        }
-    </script>
+    <button type="submit" @click="saveLayoutMenu" class="btn btn-primary">Opslaan</button>
 @overwrite

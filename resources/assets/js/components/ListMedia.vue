@@ -27,13 +27,10 @@
 
 <script>
     import Pagination from "./Pagination.vue";
-    import VueEvents from 'vue-events';
-    import ListBase from './ListBase.vue';
-    Vue.use(VueEvents);
-
+    import AutoloadModal from './AutoloadModal.vue';
 
     export default {
-        extends: ListBase,
+        extends: AutoloadModal,
 
         data() {
             return {
@@ -75,13 +72,13 @@
         },
 
         methods: {
-            loadFromDatabase: function() {
+            loadFromDatabase: function(callback) {
                 let self = this;
+                this.showSpinner();
                 $.get('/cms/media', function (data) {
                     self.selectedImages = [];
                     self.images = data;
-                    $('#spinner').hide();
-                });
+                }).always(callback);
             },
 
             changePage: function (page) {
@@ -92,7 +89,8 @@
                 if (!this.isSelected(id)) {
                     this.selectedImages.push(id);
                 } else {
-                    this.selectedImages.$remove(id);
+                    let index = this.selectedImages.indexOf(id);
+                    this.selectedImages.splice(index, 1);
                 }
             },
 

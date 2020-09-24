@@ -6,7 +6,7 @@
                 <image-filters></image-filters>
             </div>
             <div v-if="!selectedFolder">
-                <div class="bootstrap-row media-row" v-for="row in sortedFolders | chunk 6">
+                <div class="bootstrap-row media-row" v-for="row in chunkedSortedFolders">
                     <div class="col-md-2" v-for="folder in row" :data-id="folder.id">
                         <div class="thumbnail">
                             <a v-on:click="selectedFolder = folder.id">
@@ -17,7 +17,7 @@
                     </div>
                 </div>
             </div>
-            <div class="bootstrap-row media-row" v-for="row in sortedImages | chunk 6">
+            <div class="bootstrap-row media-row" v-for="row in chunkedSortedImages">
                 <div class="col-md-2 slider-image"
                      v-for="image in row"
                      v-on:click="selectImage(image)"
@@ -46,8 +46,8 @@
         <div class="clear"></div>
         <div class="form-group">
             <div class="col-md-12">
-                <button class="btn btn-success right" v-on:click="sendImages()" :disabled="selectedImages.length === 0 || (coordinates.length === 0 && enableEdit)">{{ this.multiple ? `${selectedImages.length} Afbeeldingen toevoegen` : 'Geselecteerde afbeelding gebruiken' }}</button>
-                <button class="btn btn-danger right" style="margin-right:5px;"  v-on:click="selectedImages = []" v-if="this.enableEdit && selectedImages.length > 0">Bijsnijden annuleren</button>
+                <button class="btn btn-success right" v-on:click="sendImages()" :disabled="!imageIsEdited">{{ this.multiple ? `${selectedImages.length} Afbeeldingen toevoegen` : 'Geselecteerde afbeelding gebruiken' }}</button>
+                <button class="btn right" :class="{'btn-warning': imageIsEdited, 'btn-success': !imageIsEdited}" style="margin-right:5px;" v-on:click="sendImages(false)" v-if="this.enableEdit && selectedImages.length > 0">Toevoegen zonder bijsnijden</button>
                 <button class="btn btn-default right" style="margin-right:5px;" v-on:click="cancelSelectImages()">Annuleren</button>
             </div>
         </div>
@@ -63,9 +63,12 @@
 </style>
 
 <script>
+    import AutoloadModal from './AutoloadModal';
     import ImageFilters from './ImageFilters.vue';
 
     export default {
+        extends: AutoloadModal,
+
         props: {
             omitImages: {
                 type: Array,
@@ -109,19 +112,28 @@
                 return _.orderBy(this.selectedFolder ? this.getFolderMedia(this.selectedFolder) : this.images, [image => image[this.sortBy].toLowerCase()], [this.order]);
             },
 
+            chunkedSortedImages: function() {
+                return _.chunk(this.sortedImages, 6);
+            },
+
             sortedFolders: function() {
                 return _.orderBy(this.folders, [folder => folder.name.toLowerCase()]);
+            },
+
+            chunkedSortedFolders: function() {
+                return _.chunk(this.sortedFolders, 6);
             },
 
             selectedImage: function () {
                 return this.findImage(this.selectedImages[0]);
             },
+
+            imageIsEdited: function() {
+                return this.selectedImages.length && (this.coordinates.length || !this.enableEdit);
+            }
         },
 
         created() {
-            this.loadImages();
-            this.loadFolders();
-
             this.$events.$on('setSort', (sortBy, order)  => {
                 this.sortBy = sortBy;
                 this.order = order;
@@ -129,20 +141,25 @@
         },
 
         methods: {
+            loadFromDatabase: function() {
+                this.loadImages();
+                return this.loadFolders();
+            },
+
             loadImages: function() {
                 let self = this;
                 $.get('/cms/media?filterFolder=true', function (data) {
                     self.images = self.filterImages(data);
                 });
 
-                $.get('/cms/media', function (data) {
+                return $.get('/cms/media', function (data) {
                     self.allImages = self.filterImages(data);
                 })
             },
 
             loadFolders: function() {
                 let self = this;
-                $.get(this.folderUrl, function (data) {
+                return $.get(this.folderUrl, function (data) {
                     self.folders = data;
                 });
             },
@@ -151,11 +168,11 @@
                 return '/'+path;
             },
 
-            sendImages: function() {
+            sendImages: function(edit = true) {
                 if (this.multiple) {
                     this.$emit('send-images', this.selectedImages);
                 } else {
-                    this.$emit('send-image', this.selectedImage, this.openInPopup, this.coordinates);
+                    this.$emit('send-image', this.selectedImage, this.openInPopup, this.coordinates, edit);
                 }
 
                 this.selectedImages = [];
@@ -171,7 +188,8 @@
                 }
 
                 if (this.isSelected(image)) {
-                    this.selectedImages.$remove(image.id);
+                    let index = this.selectedImages.indexOf(image.id);
+                    this.selectedImages.splice(index, 1);
                 } else {
                     this.selectedImages.push(image.id);
                 }
@@ -211,12 +229,14 @@
                 let img = event.target;
                 this.zoomFactor = img.naturalWidth / img.width;
 
+                let aspectRatio = window.headerWidth / window.headerHeight;
+
                 $(event.target).Jcrop({
                     onChange: this.updateCoordinates,
-                    aspectRatio: window.headerWidth / window.headerHeight,
+                    aspectRatio: aspectRatio,
                     minSize: [
-                        Math.min(window.headerWidth / this.zoomFactor, img.naturalWidth),
-                        Math.min(window.headerWidth / this.zoomFactor, img.naturalHeight),
+                        Math.min(window.headerWidth / this.zoomFactor, img.naturalWidth / this.zoomFactor, img.naturalHeight / this.zoomFactor * aspectRatio),
+                        Math.min(window.headerHeight / this.zoomFactor, img.naturalHeight / this.zoomFactor, img.naturalWidth / this.zoomFactor / aspectRatio),
                     ],
                 });
             },

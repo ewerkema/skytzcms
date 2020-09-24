@@ -4,12 +4,14 @@
             <p>Klik op de afbeelding om meerdere media te selecteren om te verwijderen.</p>
             <button v-on:click="deleteMedia()" class="btn btn-danger" v-show="selectedImages.length > 0">Alle {{ selectedImages.length }} media verwijderen</button>
             <button v-on:click="selectedImages = []" class="btn btn-default" v-show="selectedImages.length > 0">Selectie annuleren</button>
-            <button v-on:click="addFolder()" class="btn btn-primary" v-show="!selectedFolder"><span class="glyphicon glyphicon-folder-open"></span>&nbsp; Nieuwe folder</button>
+            <button v-on:click="addFolder()" class="btn btn-primary" v-show="!selectedFolder"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;<span class="hidden-xs">Nieuwe folder</span></button>
 
-            <button v-on:click="selectedFolder = false" class="btn btn-primary" v-show="selectedFolder"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp; Ga terug</button>
-            <button class="btn btn-success" v-show="selectedFolder" :disabled="!isDragging" id="removeFromFolder"><span class="glyphicon glyphicon-folder-close"></span>&nbsp; Verwijder uit folder (sleep hierover)</button>
+            <button v-on:click="selectedFolder = false" class="btn btn-primary" v-show="selectedFolder"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span class="hidden-xs">Ga terug</span></button>
+            <button class="btn btn-success" v-show="selectedFolder" :disabled="!isDragging" id="removeFromFolder"><span class="glyphicon glyphicon-folder-close"></span>&nbsp; <span class="hidden-xs">Verwijder uit folder (sleep hierover)</span></button>
 
             <image-filters></image-filters>
+
+            <button href="#" data-toggle="modal" data-target="#uploadMediaModal" class="btn btn-success pull-right"><span class="glyphicon glyphicon-upload"></span> <span class="hidden-xs">Media uploaden</span></button>
 
             <div class="flex-row" id="folderlist" v-if="!selectedFolder">
                 <div class="item" v-for="folder in sortedFolders" :data-id="folder.id">
@@ -50,14 +52,11 @@
 
 <script>
     import Pagination from "./Pagination.vue";
-    import VueEvents from 'vue-events';
-    import ListBase from './ListBase.vue';
+    import AutoloadModal from './AutoloadModal.vue';
     import ImageFilters from './ImageFilters.vue';
-    Vue.use(VueEvents);
-
 
     export default {
-        extends: ListBase,
+        extends: AutoloadModal,
 
         data() {
             return {
@@ -83,8 +82,8 @@
         },
 
         created() {
-            $('#file-manager').focusin(() => this.loadFromDatabase());
-            $('#uploadMediaModal').on('hidden.bs.modal', () => this.loadFromDatabase());
+            $('#file-manager').focusin(() => this.load());
+            $('#uploadMediaModal').on('hidden.bs.modal', () => this.load());
 
             $('#mediaModal').on('shown.bs.modal', function() {
                 $(document).off('focusin.modal');
@@ -120,15 +119,12 @@
         methods: {
             loadFromDatabase: function() {
                 let self = this;
-                $('#spinner').show();
                 $.get(this.mediaUrl + '?filterFolder=true', function (data) {
                     self.selectedImages = [];
                     self.images = data;
-                    $('#spinner').hide();
-                    self.initDragAndDrop();
-                });
+                }).always(this.initDragAndDrop);
 
-                $.get(this.folderUrl, function (data) {
+                return $.get(self.folderUrl, function (data) {
                     self.folders = data;
                 });
             },
@@ -137,14 +133,16 @@
                 let self = this;
                 setTimeout(() => {
                     $('#medialist .item').draggable({cursor: 'move', revert: "invalid" });
+                    self.initializedDragging = true;
                     $('#folderlist .item').droppable({
                         accept: '#medialist .item',
                         activeClass: "ui-state-highlight",
                         drop: function(e, ui) {
-                            $('#spinner').show();
+                            self.showSpinner();
                             let imageId = ui.draggable.data('id');
                             let folderId = $(this).data('id');
                             self.dragging = false;
+                            ui.draggable.removeAttr('style');
                             self.moveImage(imageId, folderId);
                         }
                     });
@@ -155,6 +153,7 @@
                         drop: function (e, ui) {
                             let imageId = ui.draggable.data('id');
                             self.dragging = false;
+                            ui.draggable.removeAttr('style');
                             self.removeImageFromFolder(imageId);
                         }
                     })
@@ -289,7 +288,7 @@
                         success: function( data ) {
                             if(data.status === 'success') {
                                 $('#spinner').hide();
-                                self.loadFromDatabase();
+                                self.load();
                             }
                         },
                         error: self.handleError,
@@ -311,7 +310,7 @@
                         media_id: imageId,
                     },
                     success: function() {
-                        self.loadFromDatabase();
+                        self.load();
                     },
                     error: this.handleError
                 });
@@ -326,7 +325,7 @@
                         _method: 'DELETE',
                     },
                     success: function() {
-                        self.loadFromDatabase();
+                        self.load();
                     },
                     error: this.handleError
                 });
@@ -345,7 +344,8 @@
                 if (!this.isSelected(id)) {
                     this.selectedImages.push(id);
                 } else {
-                    this.selectedImages.$remove(id);
+                    let index = this.selectedImages.indexOf(id);
+                    this.selectedImages.splice(index, 1);
                 }
             },
 
@@ -381,7 +381,7 @@
                         success: function( data ) {
                             if(data.status === 'success') {
                                 $('#spinner').hide();
-                                self.loadFromDatabase();
+                                self.load();
                             }
                         },
                         error: self.handleError,
@@ -415,7 +415,7 @@
                         success: function( data ) {
                             if(data.status === 'success') {
                                 $('#spinner').hide();
-                                self.loadFromDatabase();
+                                self.load();
                             }
                         },
                         error: self.handleError,

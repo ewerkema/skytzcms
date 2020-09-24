@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Header;
+use App\Models\Menu;
 use App\Models\Project;
 use App\Models\ProjectGroup;
 use App\Models\HtmlBlock;
@@ -40,6 +41,7 @@ class AppServiceProvider extends ServiceProvider
         'CustomForm' => Form::class,
         'HtmlBlock' => HtmlBlock::class,
         'Social' => Social::class,
+        'Menu' => Menu::class,
     );
 
     /**

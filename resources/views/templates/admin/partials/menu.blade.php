@@ -1,15 +1,15 @@
 <nav class="small-12 medium-12 large-12 columns menu">
     <ul>
-        @foreach (Page::getMenuWithSubpages() as $page)
-            <li class="{{ (isset($currentPage) && $page->id == $currentPage->id) ? "active" : "" }}{{ ($page->subpages->count()) ? " has-dropdown" : "" }}">
+        @foreach (Menu::getMenuWithSubpages() as $menuItem)
+            <li class="{{ (isset($currentPage) && $menuItem->page_id != null && $menuItem->page->id == $currentPage->id) ? "active" : "" }}{{ ($menuItem->subItems->count()) ? " has-dropdown" : "" }}">
 
-                <a href="{{ page_url($page->getSlug()) }}">{{ $page->title }}</a>
+                <a href="{{ $menuItem->getUrl() }}" target="{{ $menuItem->open_in_new_tab ? '_BLANK' : '_SELF' }}">{{ $menuItem->linkName }}</a>
 
-                @if ($page->subpages->count())
+                @if ($menuItem->subItems->count())
                     <ul class="dropdown">
-                        @foreach ($page->subpages as $subpage)
-                            <li class="{{ (isset($currentPage) && $subpage->id == $currentPage->id) ? "active" : "" }}">
-                                <a href="{{ page_url($subpage->getSlug()) }}">{{ $subpage->title }}</a>
+                        @foreach ($menuItem->subItems as $subMenuItem)
+                            <li class="{{ (isset($currentPage) && $subMenuItem->page_id != null && $subMenuItem->page->id == $currentPage->id) ? "active" : "" }}">
+                                <a href="{{ $subMenuItem->getUrl() }}" target="{{ $subMenuItem->open_in_new_tab ? '_BLANK' : '_SELF' }}">{{ $subMenuItem->linkName }}</a>
                             </li>
                         @endforeach
                     </ul>

@@ -28,7 +28,7 @@
                         @endif
 
                         <div class="small-{{ $field->hidden_name ? 12 : 9 }} columns">
-                            @if ($field->type == "text" || $field->type == "email" || $field->type == "number")
+                            @if ($field->type == "text" || $field->type == "email" || $field->type == "number" || $field->type == "date" || $field->type == "datetime-local" || $field->type == "time" || $field->type == "week")
                                 <input id="{{ $field->formName() }}" type="{{ $field->type }}" name="{{ $field->formName() }}" placeholder="{{ $field->placeholder }}{{ $field->required ? "*" : "" }}" value="{{ old($field->formName()) }}">
                             @elseif ($field->type == "textarea")
                                 <textarea id="{{ $field->formName() }}" name="{{ $field->formName() }}" placeholder="{{ $field->placeholder }}{{ $field->required ? "*" : "" }}">{{ old($field->formName()) }}</textarea>

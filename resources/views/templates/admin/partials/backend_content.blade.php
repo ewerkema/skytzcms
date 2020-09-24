@@ -11,7 +11,7 @@
         @endif
 
         @foreach ($currentPage->getContent() as $row)
-            <div class="row">
+            <div class="grid-x row">
                 @foreach ($row as $block)
                     @if ($block['module'])
                         <div class="block columns medium-{{ $block['width'] }} medium-offset-{{ $block['offset'] }}" data-name="{{ $block['name'] }}" data-gs-x="{{ $block['x'] }}" data-gs-y="{{ $block['y'] }}" data-gs-width="{{ $block['width'] }}" data-gs-height="{{ $block['height'] }}" data-module="{{ $block['module'] }}" data-module-id="{{ $block['module_id'] }}" data-noneditable>
@@ -38,45 +38,71 @@
     <script type="text/javascript">
 
         function publishWebsite() {
-            if ($('#saveChanges').is(":visible")) {
-                swal({
-                    title: "Publiceren niet mogelijk",
-                    text: "Er zijn nog niet opgeslagen wijzigingen op deze pagina. Druk eerst op \"Pagina opslaan\" om verder te gaan.",
-                    type: "error",
-                    timer: 5000,
-                });
-            } else if ($('#saveLayout').is(":visible")){
-                swal({
-                    title: "Publiceren niet mogelijk",
-                    text: "Er zijn nog niet opgeslagen wijzigingen op deze pagina. Druk eerst op \"Blokken opslaan\" om verder te gaan.",
-                    type: "error",
-                    timer: 5000,
-                });
-            } else {
-                swal({
-                    title: "Website publiceren?",
-                    text: "Alle gemaakte wijzigingen zullen zichtbaar worden op de website.",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#2ab27b",
-                    confirmButtonText: "Ja, website publiceren",
-                }).then(function(){
-                    var request = new Request('{{ cms_url('pages/publish') }}');
-                    request.setType('POST');
-                    request.send(function() {
-                        swal({
-                            title: 'Website gepubliceerd!',
-                            text: 'Alle wijzigingen zijn succesvol online gezet.',
-                            type: 'success',
-                            timer: 2000
-                        });
+            if (checkEditMode()) return;
+
+            swal({
+                title: "Website publiceren?",
+                text: "Alle gemaakte wijzigingen zullen zichtbaar worden op de website.",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#2ab27b",
+                confirmButtonText: "Ja, website publiceren",
+            }).then(function(){
+                let request = new Request('{{ cms_url('pages/publish') }}');
+                request.setType('POST');
+                request.send(function() {
+                    swal({
+                        title: 'Website gepubliceerd!',
+                        text: 'Alle wijzigingen zijn succesvol online gezet.',
+                        type: 'success',
+                        timer: 2000
                     });
                 });
+            });
+        }
+
+        function publishPage() {
+            if (checkEditMode()) return;
+
+            swal({
+                title: "Pagina publiceren?",
+                text: "Alle gemaakte wijzigingen zullen zichtbaar worden op de website.",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#2ab27b",
+                confirmButtonText: "Ja, pagina publiceren",
+            }).then(function(){
+                let request = new Request('{{ cms_url("pages/{$currentPage->id}/publish") }}');
+                request.setType('POST');
+                request.send(function() {
+                    swal({
+                        title: 'Pagina gepubliceerd!',
+                        text: 'Alle wijzigingen zijn succesvol online gezet.',
+                        type: 'success',
+                        timer: 2000
+                    });
+                });
+            });
+        }
+
+        function checkEditMode() {
+            if ($('#saveChanges').is(":visible") || $('#saveLayout').is(":visible")) {
+                let buttonText = $('#saveChanges').is(":visible") ? "Pagina opslaan" : "Blokken opslaan";
+                swal({
+                    title: "Publiceren niet mogelijk",
+                    text: `Er zijn nog niet opgeslagen wijzigingen op deze pagina. Druk eerst op "${buttonText}" om verder te gaan.`,
+                    type: "error",
+                    timer: 5000,
+                });
+
+                return true;
             }
+
+            return false;
         }
 
         function reloadPageContent() {
-            var blockContent = $('.page-content');
+            let blockContent = $('.page-content');
             blockContent.html("");
 
             $.get('/cms/pages/{{ $currentPage->id }}/content', function(content) {
@@ -85,13 +111,13 @@
                 }
 
                 _.each(content, function(row) {
-                    var elements = $('<div class="row"></div>');
+                    let elements = $('<div class="row"></div>');
                     _.each(row, function (item) {
-                        var newRow = (item['first']) ? "clear" : "";
-                        var module = (item['module'] === undefined) ? 0 : item['module'];
-                        var module_id = (item['module_id'] === undefined) ? 0 : item['module_id'];
-                        var editable = (module) ? "data-editable" : "data-noneditable";
-                        var element = '<div class="block columns medium-'+item['width']+' medium-offset-'+item['offset']+' '+newRow+'" data-name="'+item['name']+'" data-gs-x="'+item['x']+'" data-gs-y="'+item['y']+'" data-gs-width="'+item['width']+'" data-gs-height="'+item['height']+'" data-module="'+module+'" data-module-id="'+module_id+'" '+editable+'>'+item['content']+'</div>';
+                        let newRow = (item['first']) ? "clear" : "";
+                        let module = (item['module'] === undefined) ? 0 : item['module'];
+                        let module_id = (item['module_id'] === undefined) ? 0 : item['module_id'];
+                        let editable = (module) ? "data-editable" : "data-noneditable";
+                        let element = '<div class="block columns medium-'+item['width']+' medium-offset-'+item['offset']+' '+newRow+'" data-name="'+item['name']+'" data-gs-x="'+item['x']+'" data-gs-y="'+item['y']+'" data-gs-width="'+item['width']+'" data-gs-height="'+item['height']+'" data-module="'+module+'" data-module-id="'+module_id+'" '+editable+'>'+item['content']+'</div>';
 
                         elements.append(element);
                     });
@@ -101,7 +127,7 @@
         }
 
         function addPagesToEditor (ContentTools)  {
-            var _linkDialogMount = ContentTools.LinkDialog.prototype.mount;
+            let _linkDialogMount = ContentTools.LinkDialog.prototype.mount;
             ContentTools.LinkDialog.prototype.mount = function() {
                 // Call original behaviour
                 _linkDialogMount.apply(this);

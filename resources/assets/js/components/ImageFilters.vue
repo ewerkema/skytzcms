@@ -13,9 +13,6 @@
 </template>
 
 <script>
-    import VueEvents from 'vue-events';
-    Vue.use(VueEvents);
-
     export default {
         created() {
             this.setSort('created_at', 'desc')

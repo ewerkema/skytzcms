@@ -7,13 +7,12 @@
             </div>
             <div class="modal-body">
                 <file-manager target="#mediaModal"></file-manager>
-                {{--<list-media target="#mediaModal"></list-media>--}}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
-                <button type="submit" data-toggle="modal" data-target="#uploadMediaModal" form="mediaForm" class="btn btn-success">Nieuwe media uploaden</button>
+                <button type="submit" data-toggle="modal" data-target="#uploadMediaModal" form="mediaForm" class="btn btn-success"><span class="glyphicon glyphicon-upload"></span> Nieuwe media uploaden</button>
             </div>
         </div>
-        <div id='spinner' class="modal-overlay"></div>
+        <div class="spinner modal-overlay"></div>
     </div>
 </div>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="!changeSelectedForm && !selectedFormField" class='list-forms'>
+        <div v-if="!changeSelectedForm && !editMode()" class='list-forms'>
             <div class="sidebar col-md-4">
                 <ul class="list-group">
                     <a href="#" class="list-group-item"
@@ -37,7 +37,7 @@
                         <th>Verplicht</th>
                         <th></th>
                     </tr>
-                    <tr v-for="(i, formField) in selectedFormFields">
+                    <tr v-for="(formField, i) in selectedFormFields">
                         <td>{{ i+1 }}</td>
                         <td>{{ formField.type | capitalize }}</td>
                         <td>{{ formField.name | capitalize }}</td>
@@ -107,7 +107,7 @@
                 </div>
             </form>
         </div>
-        <div class="editForm" v-if="selectedFormField">
+        <div class="editForm" v-if="editMode()">
             <form action="#" class="form-horizontal" id="formFieldForm" @submit.prevent>
                 <div class="alert form-message" role="alert" style="display: none;"></div>
                 <input type="hidden" name="form_id" :value="selectedFormField.form_id" />
@@ -115,9 +115,9 @@
                     <label for="type" class="col-md-3 control-label">Type</label>
 
                     <div class="col-md-8">
-                        <select class="form-control" id="type" name="type" v-model="selectedType">
-                            <option value="" :selected="!selectedFormField.type" disabled>Selecteer een type</option>
-                            <option v-for="(type,name) in types" :value="type" :selected="selectedFormField.type == type">
+                        <select class="form-control" id="type" name="type" v-model="selectedFormField.type" @change="updateFormFieldType">
+                            <option value="" disabled>Selecteer een type</option>
+                            <option v-for="(name, type) in types" :value="type">
                                 {{ name }}
                             </option>
                         </select>
@@ -127,14 +127,14 @@
                     <label for="name" class="col-md-3 control-label">Naam</label>
 
                     <div class="col-md-8">
-                        <input type="text" name="name" :value="selectedFormField.name" class="form-control" placeholder="Naam" required autofocus />
+                        <input type="text" name="name" v-model="selectedFormField.name" class="form-control" placeholder="Naam" required autofocus />
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="placeholder" class="col-md-3 control-label">Tijdelijke aanduiding</label>
 
                     <div class="col-md-8">
-                        <input type="text" id="placeholder" name="placeholder" :value="selectedFormField.placeholder" class="form-control" placeholder="Tijdelijke aanduiding" />
+                        <input type="text" id="placeholder" name="placeholder" v-model="selectedFormField.placeholder" class="form-control" placeholder="Tijdelijke aanduiding" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -142,7 +142,7 @@
 
                     <div class="col-md-8">
                         <label class="Switch">
-                            <input type="checkbox" name="required" id="required" :checked="selectedFormField.required">
+                            <input type="checkbox" name="required" id="required" v-model="selectedFormField.required">
                             <div class="Switch__slider"></div>
                         </label>
                     </div>
@@ -152,7 +152,7 @@
 
                     <div class="col-md-8">
                         <label class="Switch">
-                            <input type="checkbox" name="hidden_name" id="hidden_name" :checked="selectedFormField.hidden_name">
+                            <input type="checkbox" name="hidden_name" id="hidden_name" v-model="selectedFormField.hidden_name">
                             <div class="Switch__slider"></div>
                         </label>
                     </div>
@@ -167,13 +167,13 @@
                                 <th>Naam</th>
                                 <th>Acties</th>
                             </tr>
-                            <tr v-for="option in selectedFormField.options"
+                            <tr v-for="(option, index) in selectedFormField.options"
                                 class="option"
                                 :key="option.id"
                             >
-                                <td>{{ $index+1 }}</td>
+                                <td>{{ index+1 }}</td>
                                 <td>
-                                    <input type="text" :name="'option_'+i" v-model="option.name" class="option-name form-control" placeholder="Naam" />
+                                    <input type="text" :name="'option_'+index" v-model="option.name" class="option-name form-control" placeholder="Naam" />
                                 </td>
                                 <td>
                                     <a href="#" @click="removeOption(option)" class="center" title="Verwijderen">
@@ -222,17 +222,17 @@
     }
 </style>
 <script>
-    import ListBase from './ListBase.vue';
+    import AutoloadModal from './AutoloadModal.vue';
 
     export default {
-        extends: ListBase,
+        extends: AutoloadModal,
 
         data(){
             return {
                 forms: [],
                 formFields: [],
                 selectedForm: false,
-                selectedFormField: false,
+                selectedFormField: {},
                 selectedFormFields: [],
                 changeSelectedForm: false,
                 newForm: false,
@@ -245,6 +245,10 @@
                     'checkbox' : 'Checkbox veld',
                     'radio' : 'Keuzerondje (radio button)',
                     'select' : 'Dropdown veld',
+                    'date' : 'Datum veld',
+                    'datetime-local' : 'Datum & tijd veld',
+                    'time' : 'Tijd veld',
+                    'week' : 'Week veld',
                 },
                 selectedType: false,
                 activateOptions: false,
@@ -253,17 +257,6 @@
         },
 
         watch: {
-            selectedType: function (type) {
-                if (this.isOptionType(type)) {
-                    if (this.selectedFormField.options.length == 0)
-                        this.addOption();
-                    this.activateOptions = true;
-                } else {
-                    this.activateOptions = false;
-                    this.resetFormFieldOptions();
-                }
-            },
-
             formFields: function (val) {
                 if (this.selectedForm === undefined) return false;
                 this.selectedFormFields = this.getSelectedFormFields(this.selectedForm.id);
@@ -286,11 +279,34 @@
             },
 
             isOptionType: function (type) {
-                return (type == 'radio' || type == 'select');
+                return type === 'radio' || type === 'select';
+            },
+
+            editMode: function() {
+                return !_.isEmpty(this.selectedFormField);
+            },
+
+            updateFormFieldType: function() {
+                let type = this.selectedFormField.type;
+                if (this.isOptionType(type)) {
+                    if (this.selectedFormField.options === undefined) {
+                        this.selectedFormField.options = [];
+                    }
+
+                    if (this.selectedFormField.options.length === 0)
+                        this.addOption();
+
+                    this.activateOptions = true;
+                } else {
+                    this.activateOptions = false;
+                    this.resetFormFieldOptions();
+                }
             },
 
             resetFormFieldOptions: function() {
-                this.$set('selectedFormField.options', []);
+                if (this.selectedFormField.options !== undefined) {
+                    this.selectedFormField.options = [];
+                }
             },
 
             submitForm: function () {
@@ -300,10 +316,10 @@
                 request.addFields(['name', 'message', 'email']);
                 request.addCheckboxes(['recaptcha']);
 
-                let _this = this;
+                let self = this;
                 request.send(function(data) {
-                    _this.changeSelectedForm = false;
-                    _this.loadForms();
+                    self.changeSelectedForm = false;
+                    self.loadForms();
                     swal({
                         title: "Formulier aangepast!",
                         text: 'Formulier is succesvol aangepast.',
@@ -325,17 +341,17 @@
 
                 request.addValue("options", this.selectedFormField.options);
 
-                if (this.selectedFormField.id != undefined) {
+                if (this.selectedFormField.id !== undefined) {
                     request.setType('PATCH');
                     request.addToUrl(this.selectedFormField.id);
                 }
 
-                let _this = this;
+                let self = this;
                 request.send(function(data) {
-                    _this.selectedFormField = false;
-                    _this.loadFormsFields();
+                    self.selectedFormField = {};
+                    self.loadFormsFields();
 
-                    if (request.getType() == 'POST') {
+                    if (request.getType() === 'POST') {
                         swal({
                             title: "Veld opgeslagen!",
                             text: 'Veld is succesvol aangemaakt.',
@@ -365,14 +381,14 @@
                 this.newFormError = false;
                 this.newForm = false;
 
-                let _this = this;
+                let self = this;
                 $.ajax({
                     url: '/cms/forms',
                     type: 'POST',
                     data: { name: value },
                     success: function(data) {
-                        _this.forms.push(data);
-                        _this.selectedForm = data;
+                        self.forms.push(data);
+                        self.selectedForm = data;
                     },
                     error: function() {
                         alert("Er ging iets fout, probeer het later opnieuw");
@@ -401,11 +417,11 @@
                     name: "",
                     value: ""
                 });
-                this.$set('selectedFormField.options', this.selectedFormField.options);
             },
 
             removeOption: function (option) {
-                this.selectedFormField.options.$remove(option);
+                let index = this.selectedFormField.options.indexOf(option);
+                this.selectedFormField.options.splice(index, 1);
             },
 
             editFormField: function (formField) {
@@ -413,13 +429,13 @@
             },
 
             cancelEdit: function(event) {
-                if (event) event.preventDefault()
+                if (event) event.preventDefault();
                 this.changeSelectedForm = false;
-                this.selectedFormField = false;
+                this.selectedFormField = {};
             },
 
             removeFormField: function (formFieldId) {
-                let _this = this;
+                let self = this;
                 swal({
                     title: "Veld verwijderen?",
                     type: "warning",
@@ -427,12 +443,12 @@
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "Ja, verwijder dit veld",
                 }).then(function(){
-                    _this.doRemoveFormField(formFieldId);
+                    self.doRemoveFormField(formFieldId);
                 }).done();
             },
 
             removeForm: function (formId) {
-                let _this = this;
+                let self = this;
                 swal({
                     title: "Formulier verwijderen?",
                     text: "Alle bijbehorende velden zullen ook verwijderd worden. Deze wijzigingen kunnen niet meer ongedaan worden.",
@@ -441,12 +457,12 @@
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "Ja, verwijder dit formulier",
                 }).then(function(){
-                    _this.doRemoveForm(formId);
+                    self.doRemoveForm(formId);
                 }).done();
             },
 
             doRemoveFormField: function (formFieldId) {
-                let _this = this;
+                let self = this;
                 $.ajax({
                     url: '/cms/formFields/'+formFieldId,
                     type: 'POST',
@@ -454,13 +470,14 @@
                         _method: 'DELETE'
                     },
                     success: function(result) {
-                        _this.formFields.$remove(_.find(_this.formFields, ['id', formFieldId]));
+                        let index = _.findIndex(self.formFields, o => o.id === formFieldId);
+                        self.formFields.splice(index, 1);
                     }
                 });
             },
 
             doRemoveForm: function (formId) {
-                let _this = this;
+                let self = this;
                 $.ajax({
                     url: '/cms/forms/'+formId,
                     type: 'POST',
@@ -468,37 +485,34 @@
                         _method: 'DELETE'
                     },
                     success: function(result) {
-                        _this.forms.$remove(_.find(_this.forms, ['id', formId]));
-                        _this.selectedForm = _.head(_this.forms);
+                        let index = _.findIndex(self.forms, o => o.id === formId);
+                        self.forms.splice(index, 1);
+                        self.selectedForm = _.head(self.forms);
                     }
                 });
             },
 
             loadFromDatabase: function() {
                 this.loadFormsFields();
-                this.loadForms();
+                return this.loadForms();
             },
 
             loadFormsFields: function() {
-                let _this = this;
-                $.get('/cms/formFields', function (data) {
-                    _this.formFields = data;
+                let self = this;
+                return $.get('/cms/formFields', function (data) {
+                    self.formFields = data;
                 });
             },
 
             loadForms: function() {
-                let _this = this;
-                $.get('/cms/forms', function (data) {
+                let self = this;
+                return $.get('/cms/forms', function (data) {
                     if (data.length != 0) {
-                        _this.forms = data;
-                        _this.selectedForm = _.head(data);
+                        self.forms = data;
+                        self.selectedForm = _.head(data);
                     }
                 });
             }
-
-        },
-
-        computed: {
 
         }
     }

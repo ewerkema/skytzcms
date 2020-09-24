@@ -23,7 +23,7 @@ class UsersTableSeeder extends Seeder
         $martin = [
             'firstname' => 'Martin',
             'lastname' => 'Kok',
-            'email' => 'info@skytz.nl',
+            'email' => 'info@onlinebouwers.nl',
             'password' => 'skytz9672',
         ];
         $this->generateAdmin($martin);

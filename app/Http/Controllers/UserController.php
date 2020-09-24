@@ -105,6 +105,16 @@ class UserController extends Controller
     }
 
     /**
+     * Update the current loggedin user.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    function updateCurrentUser(Request $request) {
+        return $this->update($request, auth()->user());
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param User $user

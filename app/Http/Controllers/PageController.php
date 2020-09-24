@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MenuItem;
 use App\Models\Page;
 use Cache;
 use Illuminate\Http\Request;
 use Validator;
-use Response;
-use Input;
 
 class PageController extends Controller
 {
     public function index()
     {
-        $pages = Page::all();
+        $pages = Page::withCount('menuItems')->get();
 
         return response()->json($pages);
     }
@@ -32,33 +31,11 @@ class PageController extends Controller
             'title' => 'required|max:255',
             'meta_title' => 'required|max:255',
             'meta_desc' => 'max:255',
-            'menu' => 'required|boolean',
-            'parent_id' => 'exists:pages,id',
         ], [], [
             'slug' => 'Pagina link (URL)',
             'title' => 'Pagina naam',
             'meta_title' => 'Pagina titel',
             'meta_desc' => 'Pagina beschrijving',
-            'menu' => 'Weergeven in menu',
-            'parent_id' => 'Pagina voor het submenu',
-        ]);
-    }
-
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array $data
-     * @param int $id
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validatorOrder(array $data, $id = 0)
-    {
-        return Validator::make($data, [
-            'order' => 'integer',
-            'parent_id' => 'exists:pages,id',
-        ], [], [
-            'order' => 'Volgorde voor de pagina',
-            'parent_id' => 'Pagina voor het submenu',
         ]);
     }
 
@@ -73,16 +50,24 @@ class PageController extends Controller
         $input = $request->all();
         $this->validator($input)->validate();
 
-        $input['order'] = Page::all()->max('order')+1;
-
         $input['content'] = array();
         $input['published_content'] = array();
         $page = Page::create($input);
 
+        if ($input['menu']) {
+            MenuItem::create([
+                'page_id' => $page->id,
+                'parent_id' => array_key_exists('parent_id', $input) ? $input['parent_id'] : null,
+                'order' => MenuItem::all()->max('order')+1,
+            ]);
+        }
+
         Cache::flush();
 
-        session()->flash('flash_message', 'De pagina is succesvol aangemaakt');
-        session()->flash('flash_title', 'Pagina aangemaakt');
+        if (array_key_exists('redirect', $input) && $input['redirect']) {
+            session()->flash('flash_message', 'De pagina is succesvol aangemaakt');
+            session()->flash('flash_title', 'Pagina aangemaakt');
+        }
 
         return response()->json(['page' => $page, 'redirectTo' => $page->getSlug()], 200);
     }
@@ -192,38 +177,6 @@ class PageController extends Controller
     }
 
     /**
-     * Update the the order and parent id in storage.
-     *
-     * @param  Request $request
-     * @param  Page $page
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function updateOrder(Request $request)
-    {
-        $input = $request->all();
-
-        foreach ($input['pages'] as $order => $data) {
-            if (isset($data['id'])) {
-                $page = Page::find($data['id']);
-
-                $page->order = $order;
-                $page->parent_id = $data['parent_id'];
-
-                if (!$page->save())
-                    return response()->json(['message' => 'Updaten van de pagina volgorde is niet gelukt.'], 500);
-            }
-        }
-
-        Cache::flush();
-
-        session()->flash('flash_message', 'De volgorde van de pagina\'s is succesvol aangepast');
-        session()->flash('flash_title', 'Volgorde aangepast');
-
-        return response()->json(['success' => 'Updaten van de volgorde is gelukt.']);
-
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  Request $request
@@ -237,6 +190,9 @@ class PageController extends Controller
 
         if (!$page->update($input))
             return response()->json(['message' => 'Updaten van de pagina is niet gelukt.'], 500);
+
+        if (request()->input('disableRedirect') !== null)
+            return response()->json(['page' => $page]);
 
         Cache::flush();
 
@@ -256,8 +212,7 @@ class PageController extends Controller
     {
         $pages = Page::all();
         foreach ($pages as $page) {
-            $page->published_content = $page->content;
-            $page->save();
+            $page->publish();
         }
 
         return response()->json(['message' => 'Alle pagina\'s zijn gepubliceerd.']);
@@ -265,17 +220,35 @@ class PageController extends Controller
     }
 
     /**
+     * Publish the selected page.
+     *
+     * @param Page $page
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function publishPage(Page $page)
+    {
+        $page->publish();
+
+        return response()->json(['message' => 'Pagina is succesvol gepubliceerd.']);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy($id)
     {
         $page = Page::find($id);
-        $page->subpages()->getResults()->each(function ($page) {
-            $page->parent_id = NULL;
-            $page->save();
+        $menuItems = MenuItem::where('page_id', $id)->get();
+        $menuItems->each(function ($menuItem) {
+            $menuItem->subItems()->getResults()->each(function ($menuItem) {
+                $menuItem->update(['parent_id' => null]);
+            });
+
+            $menuItem->delete();
         });
         $page->delete();
 

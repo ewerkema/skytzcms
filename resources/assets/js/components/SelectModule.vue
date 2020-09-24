@@ -19,10 +19,10 @@
                     <th>Aanmaak datum</th>
                     <th></th>
                 </tr>
-                <tr v-for="(i, module) in selectedModules">
+                <tr v-for="(module, i) in selectedModules">
                     <td>{{ i+1 }}</td>
                     <td>{{ isset(module.name) ? module.name : module.title }}</td>
-                    <td>{{ module.created_at | moment "dddd, D MMMM YYYY" | capitalize }}</td>
+                    <td>{{ module.created_at | moment("dddd, D MMMM YYYY") | capitalize }}</td>
                     <td>
                         <a href="#" v-on:click="selectModule(module)">
                             <span class="glyphicon glyphicon-plus"></span>
@@ -43,10 +43,10 @@
 
 </style>
 <script>
-    import ListBase from './ListBase.vue';
+    import AutoloadModal from './AutoloadModal.vue';
 
     export default {
-        extends: ListBase,
+        extends: AutoloadModal,
 
         data(){
             return {
@@ -63,20 +63,19 @@
         },
 
         methods: {
-
             loadFromDatabase: function() {
-                this.loadModules();
+                return this.loadModules();
             },
 
             selectModule: function(module) {
-                var name = this.isset(module.name) ? module.name : module.title;
+                let name = this.isset(module.name) ? module.name : module.title;
                 addModule(this.selectedModule.id, this.selectedModule.name, module.id, name);
                 $('#selectModuleModal').modal('toggle');
             },
 
             loadModules: function() {
-                var _this = this;
-                $.get('/cms/modules', function (data) {
+                let _this = this;
+                return $.get('/cms/modules', function (data) {
                      _this.modules = data;
                      _this.selectedModule = _.head(data);
                 });
@@ -84,7 +83,7 @@
 
             loadModuleOptions: function (module) {
                 if (module.table !== '') {
-                    var _this = this;
+                    let _this = this;
                     $.get('/cms/'+_.camelCase(module.table), function (data) {
                         _this.selectedModules = data;
                     });
@@ -99,10 +98,9 @@
             },
 
             isset: function () {
-                var a = arguments,
+                let a = arguments,
                     l = a.length,
-                    i = 0,
-                    undef;
+                    i = 0;
 
                 if (l === 0) {
                     throw new Error('Empty isset');

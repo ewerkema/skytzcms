@@ -126,6 +126,10 @@ Request.prototype.showError = function(data) {
     this.form.find('.form-message').addClass("alert-danger").html(errorMessage).show();
 };
 
+Request.prototype.clearError = function() {
+    this.form.find('.form-message').removeClass("alert-danger").html("").hide();
+};
+
 Request.prototype.onSubmit = function (callback) {
     let _this = this;
     this.form.submit(function(e){
@@ -138,6 +142,7 @@ Request.prototype.onSubmit = function (callback) {
             data: data,
             success: function (successData) {
                 callback(successData);
+                _this.clearError();
             },
             error: function (errorData) {
                 _this.showError(errorData)
@@ -156,6 +161,7 @@ Request.prototype.send = function (callback) {
         data: data,
         success: function (successData) {
             callback(successData);
+            _this.clearError();
         },
         error: function (errorData) {
             _this.showError(errorData)

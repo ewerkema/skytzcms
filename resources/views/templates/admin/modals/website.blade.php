@@ -1,4 +1,4 @@
-@extends('templates.admin.modals.modal', ['target'=>'websiteModal'])
+@extends('templates.admin.modals.modal', ['target' => 'websiteModal'])
 
 @section('modal-header')
     <h4 class="modal-title"><strong>Website instellingen</strong></h4>
@@ -138,68 +138,4 @@
 
 @section('modal-footer')
     <button type="submit" form="websiteForm" class="btn btn-primary">Opslaan</button>
-@overwrite
-
-@section('javascript')
-    <script type="text/javascript">
-        function selectMedia() {
-            $('#selectMediaModal').modal('toggle');
-        }
-
-        $('#websiteTabs a').click(function (e) {
-            e.preventDefault();
-            $(this).tab('show');
-        });
-
-        var request = new Request('{{ cms_url('settings') }}');
-        request.setType('PATCH');
-        request.setForm('#websiteForm');
-
-        request.addFields([
-            'footerblock',
-            'googleanalytics',
-            'facebook_page',
-            'twitter_page',
-            'youtube_page',
-            'googleplus_page',
-            'header_id',
-            'whatsapp_number',
-            'whatsapp_display_number',
-            'whatsapp_text',
-            'whatsapp_timer'
-        ]);
-
-        request.addField('recordgoogle', 'checkbox', false);
-        request.addField('display_whatsapp', 'checkbox', false);
-
-        request.onSubmit(function(data) {
-            $('#websiteModal').modal('toggle');
-            swal({
-                title: 'Success!',
-                text: 'Website instellingen zijn succesvol aangepast.',
-                type: "success",
-                timer: 2000
-            });
-        });
-
-        var sliderSelect = $('[name=header_slider]');
-        var imageInput = $('[name=header_image]');
-        var imageInputName = $('[name=header_image_name]');
-
-        sliderSelect.change(function() {
-            var value = $(this).val();
-
-            if (value) {
-                imageInput.val(0);
-                imageInputName.val("");
-            }
-        });
-
-        imageInput.change(function() {
-            var value = $(this).val();
-
-            if (value)
-                sliderSelect.val(sliderSelect.find('option:first').val());
-        })
-    </script>
 @overwrite

@@ -1,15 +1,14 @@
-const elixir = require('laravel-elixir');
-
-require('laravel-elixir-vue');
+const mix = require('laravel-mix');
+const WebpackMildCompile = require('webpack-mild-compile').Plugin;
 
 /*
  |--------------------------------------------------------------------------
- | Elixir Asset Management
+ | Mix Asset Management
  |--------------------------------------------------------------------------
  |
- | Elixir provides a clean, fluent API for defining some basic Gulp tasks
+ | Mix provides a clean, fluent API for defining some Webpack build steps
  | for your Laravel application. By default, we are compiling the Sass
- | file for our application, as well as publishing vendor resources.
+ | file for the application as well as bundling up all the JS files.
  |
  */
 
@@ -22,11 +21,8 @@ var paths = {
     'awesomplete' : ['node_modules/awesomplete/awesomplete.js','node_modules/awesomplete/awesomplete.css']
 };
 
-elixir(function(mix) {
 
-    mix.sass([
-        'app.scss'
-    ]).webpack('app.js')
-    .webpack('libraries.js');
-
-});
+mix.js('resources/assets/js/app.js', 'public/js')
+    .js('resources/assets/js/libraries.js', 'public/js')
+    .sass('resources/assets/sass/app.scss', 'public/css')
+    .webpackConfig({plugins: [new WebpackMildCompile()]});

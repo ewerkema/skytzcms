@@ -38,9 +38,6 @@
 </template>
 
 <script>
-    import VueEvents from 'vue-events';
-    Vue.use(VueEvents);
-
     export default {
         props: [ 'per_page', 'total', 'current_page'],
 
