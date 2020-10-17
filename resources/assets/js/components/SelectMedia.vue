@@ -102,7 +102,7 @@
                 images: [],
                 sortBy: 'created_at',
                 order: 'desc',
-                coordinates: [],
+                coordinates: {},
                 zoomFactor: 1,
             }
         },
@@ -129,8 +129,15 @@
             },
 
             imageIsEdited: function() {
-                return this.selectedImages.length && (this.coordinates.length || !this.enableEdit);
-            }
+                return this.selectedImages.length && this.isCropped && this.enableEdit;
+            },
+
+            isCropped: function() {
+                return this.coordinates.hasOwnProperty('w')
+                    && this.coordinates.hasOwnProperty('h')
+                    && this.coordinates.w !== 0
+                    && this.coordinates.h !== 0;
+            },
         },
 
         created() {
@@ -186,6 +193,8 @@
                 if (!this.multiple) {
                     this.selectedImages = [];
                 }
+
+                this.coordinates = {};
 
                 if (this.isSelected(image)) {
                     let index = this.selectedImages.indexOf(image.id);
