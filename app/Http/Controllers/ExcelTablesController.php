@@ -115,8 +115,8 @@ class ExcelTablesController extends Controller
     {
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            unset($input['file']);
             $input['table'] = $generatorService->generateTable($file);
+            unset($input['file']);
         }
 
         return $input;

@@ -24,7 +24,7 @@ class CreateExcelTablesModule extends Migration
             Module::create([
                 'name' => 'Excel tabellen',
                 'template' => 'excel_tables',
-                'table' => ''
+                'table' => 'excel_tables'
             ]);
         }
     }

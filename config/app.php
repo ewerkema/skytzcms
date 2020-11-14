@@ -195,7 +195,8 @@ return [
         Former\FormerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Silber\Bouncer\BouncerServiceProvider::class,
-        Laravel\Tinker\TinkerServiceProvider::class
+        Laravel\Tinker\TinkerServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 //        Barryvdh\Debugbar\ServiceProvider::class,
 
     ],
@@ -229,6 +230,7 @@ return [
         'DB' => Illuminate\Support\Facades\DB::class,
         'Eloquent' => Illuminate\Database\Eloquent\Model::class,
         'Event' => Illuminate\Support\Facades\Event::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'File' => Illuminate\Support\Facades\File::class,
         'Form' => Collective\Html\FormFacade::class,
         'Gate' => Illuminate\Support\Facades\Gate::class,
