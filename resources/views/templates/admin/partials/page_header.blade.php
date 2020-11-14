@@ -1,4 +1,6 @@
-@php($header_id = Setting::get('header_id'))
+@php
+    $header_id = Setting::get('header_id')
+@endphp
 
 @if ($currentPage->header != NULL)
     @include('templates.admin.modules.headers', ['id' => $currentPage->header_id])
