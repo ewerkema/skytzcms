@@ -18,6 +18,7 @@ use App\Models\Page;
 use App\Models\Slider;
 use App\Models\Form;
 use App\Models\Social;
+use App\Services\TableGeneratorService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
@@ -68,5 +69,9 @@ class AppServiceProvider extends ServiceProvider
                 return new $class();
             });
         }
+
+        App::singleton(TableGeneratorService::class, function() {
+            return new TableGeneratorService();
+        });
     }
 }
