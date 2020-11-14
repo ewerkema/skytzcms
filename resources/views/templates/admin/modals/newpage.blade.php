@@ -21,7 +21,7 @@
                 <select class="form-control" id="header_id3" name="header_id">
                     <option value="0">Geen header</option>
                     @foreach (Header::all() as $header)
-                        <option value="{{ $header->id }}" {{ ($header->id == $currentPage->header_id) ? "selected" : "" }}>
+                        <option value="{{ $header->id }}" {{ (isset($currentpage) && $header->id == $currentPage->header_id) ? "selected" : "" }}>
                             {{ $header->name }}
                         </option>
                     @endforeach
