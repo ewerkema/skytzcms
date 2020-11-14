@@ -195,6 +195,7 @@ return [
         Former\FormerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Silber\Bouncer\BouncerServiceProvider::class,
+        Laravel\Tinker\TinkerServiceProvider::class
 //        Barryvdh\Debugbar\ServiceProvider::class,
 
     ],
