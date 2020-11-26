@@ -36,6 +36,10 @@ class CreateExcelTablesModule extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('excel_tables');
+        $module = Module::where('template', 'excel_tables')->first();
+        if ($module) {
+            $module->delete();
+        }
     }
 }
