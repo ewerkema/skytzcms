@@ -46,7 +46,7 @@
         <div class="clear"></div>
         <div class="form-group">
             <div class="col-md-12">
-                <button class="btn btn-success right" v-on:click="sendImages()" :disabled="!imageIsEdited">{{ this.multiple ? `${selectedImages.length} Afbeeldingen toevoegen` : 'Geselecteerde afbeelding gebruiken' }}</button>
+                <button class="btn btn-success right" v-on:click="sendImages()" :disabled="this.enableEdit && !imageIsEdited">{{ this.multiple ? `${selectedImages.length} Afbeeldingen toevoegen` : 'Geselecteerde afbeelding gebruiken' }}</button>
                 <button class="btn right" :class="{'btn-warning': imageIsEdited, 'btn-success': !imageIsEdited}" style="margin-right:5px;" v-on:click="sendImages(false)" v-if="this.enableEdit && selectedImages.length > 0">Toevoegen zonder bijsnijden</button>
                 <button class="btn btn-default right" style="margin-right:5px;" v-on:click="cancelSelectImages()">Annuleren</button>
             </div>
@@ -102,7 +102,7 @@
                 images: [],
                 sortBy: 'created_at',
                 order: 'desc',
-                coordinates: [],
+                coordinates: {},
                 zoomFactor: 1,
             }
         },
@@ -129,8 +129,15 @@
             },
 
             imageIsEdited: function() {
-                return this.selectedImages.length && (this.coordinates.length || !this.enableEdit);
-            }
+                return this.selectedImages.length && this.isCropped && this.enableEdit;
+            },
+
+            isCropped: function() {
+                return this.coordinates.hasOwnProperty('w')
+                    && this.coordinates.hasOwnProperty('h')
+                    && this.coordinates.w !== 0
+                    && this.coordinates.h !== 0;
+            },
         },
 
         created() {
@@ -186,6 +193,8 @@
                 if (!this.multiple) {
                     this.selectedImages = [];
                 }
+
+                this.coordinates = {};
 
                 if (this.isSelected(image)) {
                     let index = this.selectedImages.indexOf(image.id);

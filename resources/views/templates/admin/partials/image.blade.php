@@ -1,5 +1,7 @@
 @if (isset($image_id))
-    @php($media = Media::find($image_id))
+    @php
+        $media = Media::find($image_id)
+    @endphp
     @if ($media != null && file_exists($media->path))
         <img src="/{{ $media->path }}" alt="{{ $media->description }}">
     @else

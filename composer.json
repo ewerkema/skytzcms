@@ -5,8 +5,8 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=5.6.4",
-        "laravel/framework": "5.3.*",
+        "php": ">=7.0.0",
+        "laravel/framework": "5.5.*",
         "paragonie/random_compat": "~1.4",
         "codeception/codeception": "*",
         "laravelcollective/html": "5.*",
@@ -15,17 +15,19 @@
         "intervention/image": "^2.3",
         "barryvdh/laravel-debugbar": "~2.4",
         "silber/bouncer": "v1.0.0-rc.1",
-        "spatie/laravel-cookie-consent": "v1"
+        "spatie/laravel-cookie-consent": "v1",
+        "laravel/tinker": "^1.0",
+        "maatwebsite/excel": "^3.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "^0.9.5",
-        "phpunit/phpunit": "~5.0",
+        "phpunit/phpunit": "~6.0",
         "symfony/css-selector": "3.1.*",
         "symfony/dom-crawler": "3.1.*",
         "doctrine/dbal": "^2.5",
-        "intervention/image": "^2.3",
-        "caouecs/laravel-lang": "~3.0"
+        "caouecs/laravel-lang": "~3.0",
+        "filp/whoops": "~2.0"
     },
     "autoload": {
         "classmap": [
@@ -44,6 +46,9 @@
         "classmap": [
             "tests/TestCase.php"
         ],
+        "psr-4": {
+            "Tests\\": "tests/"
+        },
         "files": ["tests/functions.php"]
     },
     "scripts": {
@@ -60,6 +65,10 @@
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan optimize"
+        ],
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover"
         ]
     },
     "config": {

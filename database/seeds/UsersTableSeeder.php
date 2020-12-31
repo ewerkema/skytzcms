@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
             'firstname' => 'Enrico',
             'lastname' => 'Werkema',
             'email' => 'info@codecentral.nl',
-            'password' => 'codecentral',
+            'password' => 'reex5BRAN6vust@dral',
         ];
         $this->generateAdmin($admin);
 
@@ -24,7 +24,7 @@ class UsersTableSeeder extends Seeder
             'firstname' => 'Martin',
             'lastname' => 'Kok',
             'email' => 'info@onlinebouwers.nl',
-            'password' => 'skytz9672',
+            'password' => '9671CA@!',
         ];
         $this->generateAdmin($martin);
     }

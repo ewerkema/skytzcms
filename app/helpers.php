@@ -39,7 +39,7 @@ use Illuminate\Support\Facades\Route;
         if (!($route = Route::getCurrentRoute()))
             return false;
 
-        return strpos($route->getPath(), "cms") !== false;
+        return strpos($route->uri(), "cms") !== false;
     }
 
     function upload_tmp_path($file) {

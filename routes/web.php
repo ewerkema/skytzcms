@@ -43,6 +43,7 @@ Route::group(['prefix' => 'cms'], function() {
     Route::resource('formFields', 'FormFieldController');
     Route::resource('modules', 'ModuleController');
     Route::resource('htmlBlocks', 'HtmlBlockController');
+    Route::resource('excelTables', 'ExcelTablesController');
     Route::resource('projects', 'ProjectController');
     Route::resource('projectGroups', 'ProjectGroupController');
     Route::resource('socials', 'SocialController');

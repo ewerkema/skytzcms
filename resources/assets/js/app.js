@@ -36,6 +36,7 @@ import InsertImage from './components/InsertImage';
 import SelectModule from './components/SelectModule';
 import AddPageToMenu from "./components/AddPageToMenu";
 import AddLinkToMenu from "./components/AddLinkToMenu";
+import ListExcelTables from "./components/ListExcelTables";
 
 Vue.component('file-manager', FileManager);
 Vue.component('add-page-to-menu', AddPageToMenu);
@@ -51,6 +52,7 @@ Vue.component('list-html-blocks', ListHtmlBlocks);
 Vue.component('list-projects', ListProjects);
 Vue.component('list-users', ListUsers);
 Vue.component('list-social', ListSocial);
+Vue.component('list-excel-tables', ListExcelTables);
 Vue.component('insert-image', InsertImage);
 Vue.component('select-module', SelectModule);
 Vue.component('page-manager', PageManager);
